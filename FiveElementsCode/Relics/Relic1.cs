@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace FiveElements.FiveElementsCode.Relics;
 
@@ -37,12 +38,12 @@ public class Relic1() : FiveElementsRelic
         // On vérifie si la carte possède un composant d'élément
         if (cardPlay.Card is FiveElementsCard elementCard) {
             if (Echo != elementCard.ElementTags.Single()) {
-                RefreshDeck(Owner.Deck.Cards);
+                //RefreshDeck(Owner.Deck.Cards);
                 Echo = elementCard.ElementTags.Single();
             }
         } else {
             Echo = CardElementTag.Neutral;
-            RefreshDeck(Owner.Deck.Cards);
+            //RefreshDeck(Owner.Deck.Cards);
         }
 
         GD.Print("Echooooo: " + Echo);
@@ -55,7 +56,7 @@ public class Relic1() : FiveElementsRelic
     public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         Echo = CardElementTag.Neutral;
-        RefreshDeck(Owner.Deck.Cards);
+        //RefreshDeck(Owner.Deck.Cards);
         base.BeforeTurnEnd(choiceContext, side);
         return Task.CompletedTask;
     }
@@ -116,5 +117,17 @@ public class Relic1() : FiveElementsRelic
             }
             
         }
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        //not really sur it's needed
+        FiveElementsCard.WaterEnergy = 0;
+        FiveElementsCard.WoodEnergy = 0;
+        FiveElementsCard.FireEnergy = 0;
+        FiveElementsCard.EarthEnergy = 0;
+        FiveElementsCard.MetalEnergy = 0;
+        base.AfterCombatEnd(room);
+        return Task.CompletedTask;
     }
 }

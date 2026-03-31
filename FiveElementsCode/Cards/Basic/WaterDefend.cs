@@ -7,12 +7,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Basic;
 
-public class WaterDefend() : FiveElementsCard(1,
+public class WaterDefend() : WaterCard(1,
     CardType.Skill, CardRarity.Basic,
     TargetType.Self)
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
-    protected override HashSet<CardElementTag> CanonicalElementTags => [CardElementTag.Water];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
@@ -22,6 +21,6 @@ public class WaterDefend() : FiveElementsCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Block"].UpgradeValueBy(3m);
+        DynamicVars["Block"].UpgradeValueBy(3);
     }
 }

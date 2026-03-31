@@ -9,6 +9,8 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
@@ -18,27 +20,20 @@ namespace FiveElements.FiveElementsCode.Cards;
 public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target)
     : CustomCardModel(cost, type, rarity, target)
 {
-    protected static int WaterEnergy = 0;
-    protected static int WoodEnergy = 0;
-    protected static int FireEnergy = 0;
-    protected static int EarthEnergy = 0;
-    protected static int MetalEnergy = 0;
+    public static int WaterEnergy = 0;
+    public static int WoodEnergy = 0;
+    public static int FireEnergy = 0;
+    public static int EarthEnergy = 0;
+    public static int MetalEnergy = 0;
 
-//todo declare 5 color here and use them in cards
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        // todo changer les couleur pour les mettres devant et derriere Water,Wood etc
-        new StringVar("water_s",IsElementActive(CardElementTag.Water) ? "" : "[color=#1E90FF]"),
-        new StringVar("water_e",IsElementActive(CardElementTag.Water) ? "" : "[/color]"),
-        new StringVar("wood_s",IsElementActive(CardElementTag.Wood) ? "" : "[color=#228B22]"),
-        new StringVar("wood_e",IsElementActive(CardElementTag.Wood) ? "" : "[/color]"),
-        new StringVar("fire_s",IsElementActive(CardElementTag.Fire) ? "" : "[color=#FF4500]"),
-        new StringVar("fire_e",IsElementActive(CardElementTag.Fire) ? "" : "[/color]"),
-        new StringVar("earth_s",IsElementActive(CardElementTag.Earth) ? "" : "[color=#8B4513]"),
-        new StringVar("earth_e",IsElementActive(CardElementTag.Earth) ? "" : "[/color]"),
-        new StringVar("metal_s",IsElementActive(CardElementTag.Metal) ? "" : "[color=#C0C0C0]"),
-        new StringVar("metal_e",IsElementActive(CardElementTag.Metal) ? "" : "[/color]"),
-    ];
+    //color for element in cards description
+    protected const string WaterColor = "[color=#1E90FF]";
+    protected const string WoodColor = "[color=#228B22]";
+    protected const string FireColor = "[color=#FF4500]";
+    protected const string EarthColor = "[color=#8B4513]";
+    protected const string MetalColor = "[color=#C0C0C0]";
+
+    
     /*
     protected FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target, CardElementTag elem):
         base(cost, type, rarity, target)
@@ -113,7 +108,8 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
             default: return false;
         }
     }
-    public bool IsAnyElementActive()
+
+    protected bool IsAnyElementActive()
     {
         return IsElementActive(CardElementTag.Water) ||
                IsElementActive(CardElementTag.Wood) ||
@@ -158,13 +154,25 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
                 (elementOfLastCardPlayed == CardElementTag.Earth) ||
                 MetalEnergy > 0);
     } 
-    
-/*
-    public bool WasLastCardPlayedThisElement(CardElementTag element)
+    //nothing to do here, need to put it somewhere logical
+    protected static HoverTip StaticHoverTip(string str, IEnumerable<DynamicVar> vars)
     {
-        return ElementOfLastCardPlayed == element;
+        var title = new LocString("static_hover_tips", str + ".title");
+        var description = new LocString("static_hover_tips", str + ".description");
+        foreach (DynamicVar var in vars)
+        {
+            title.Add(var);
+            description.Add(var);
+        }
+
+        if (str == "FIVEELEMENTS-ECHO")
+        {
+            var elemEcho = new IntVar("ElemEcho", (decimal)ElementOfEcho);
+            title.Add(elemEcho);
+            description.Add(elemEcho);
+        }
+        return new HoverTip(title, description);
     }
-*/
 }
    
 public enum CardElementTag

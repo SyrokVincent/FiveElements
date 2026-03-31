@@ -1,6 +1,7 @@
 ﻿using BaseLib.Abstracts;
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards.Basic;
+using FiveElements.FiveElementsCode.Cards.Common;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;
 using Godot;
@@ -29,18 +30,23 @@ public class FiveElements : PlaceholderCharacterModel
 
     public override IEnumerable<FiveElementsCard> StartingDeck =>
     [
-        ModelDb.Card<WaterStrike>(),
-        ModelDb.Card<WoodStrike>(),
-        ModelDb.Card<FireStrike>(),
-        ModelDb.Card<EarthStrike>(),
-        ModelDb.Card<MetalStrike>(),
+        //ModelDb.Card<WaterStrike>(),
+        //ModelDb.Card<WoodStrike>(),
+        //ModelDb.Card<FireStrike>(),
+        //ModelDb.Card<EarthStrike>(),
+        //ModelDb.Card<MetalStrike>(),
         ModelDb.Card<WaterDefend>(),
         ModelDb.Card<WoodDefend>(),
         ModelDb.Card<FireDefend>(),
         ModelDb.Card<EarthDefend>(),
         ModelDb.Card<MetalDefend>(),
         ModelDb.Card<Creation>(),
-        ModelDb.Card<Activation>()
+        ModelDb.Card<Activation>(),
+        ModelDb.Card<WaterCreation>(),
+        ModelDb.Card<WoodCreation>(),
+        ModelDb.Card<FireCreation>(),
+        ModelDb.Card<EarthCreation>(),
+        ModelDb.Card<MetalCreation>(),
     ];
 
     

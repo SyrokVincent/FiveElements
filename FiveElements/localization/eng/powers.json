@@ -1,3 +1,9 @@
 {
-  
+
+  "FIVEELEMENTS-BURN_POWER.description": "Burned creatures lose HP at the start of their turn. When it happen, all [gold]Burn[/gold] is removed.",
+  "FIVEELEMENTS-BURN_POWER.smartDescription": "At the start of its turn, loses [blue]{Amount}[/blue] HP, then remove [gold]Burn[/gold]",
+  "FIVEELEMENTS-BURN_POWER.title": "Burn",
+  "FIVEELEMENTS-WAVE_POWER.description": "At the start of the turn, [gold]Wave[/gold] deal damage to the enemy in front.",
+  "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the start of the turn, deal [blue]{Amount}[/blue] damage to the enemy in front.",
+  "FIVEELEMENTS-WAVE_POWER.title": "Wave"
 }

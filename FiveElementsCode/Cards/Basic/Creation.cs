@@ -12,14 +12,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Basic;
 
-public class Creation() : FiveElementsCard(0,
+public class Creation() : NeutralCard(0,
     CardType.Skill, CardRarity.Basic,
     TargetType.Self)
 {
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Innate, CardKeyword.Ethereal];
-   
-    protected override HashSet<CardElementTag> CanonicalElementTags => [CardElementTag.Neutral];  
     //protected override IEnumerable<IHoverTip> ExtraHoverTips => [ HoverTipFactory. ];
 
   
@@ -110,6 +108,7 @@ public class Creation() : FiveElementsCard(0,
 
     protected override void OnUpgrade()
     {
-
+        RemoveKeyword(CardKeyword.Ethereal);
+        AddKeyword(CardKeyword.Retain);
     }
 }

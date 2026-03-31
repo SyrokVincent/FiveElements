@@ -23,6 +23,16 @@
   "FIVEELEMENTS-CREATION.title": "Creation",
   "FIVEELEMENTS-CREATION.selectionScreenPrompt": "Select a card to gain it's element",
   "saveFIVEELEMENTS-ACTIVATION.description": "{water_on:cond:>0?[gold]|[color=#666666]}Water{water_on:cond:>0?[/gold]|} : stuff.{water_on:cond:>0?|[/color]}\n{wood_on:cond:>0?[gold]|[color=#666666]}Wood{wood_on:cond:>0?[/gold]|} : stuff.{wood_on:cond:>0?|[/color]}\n{fire_on:cond:>0?[gold]|[color=#666666]}Fire{fire_on:cond:>0?[/gold]|} : stuff.{fire_on:cond:>0?|[/color]}\n{earth_on:cond:>0?[gold]|[color=#666666]}Earth{earth_on:cond:>0?[/gold]|} : Gain {Block:diff()} [gold]Block[/gold].{earth_on:cond:>0?|[/color]}\n{metal_on:cond:>0?[gold]|[color=#666666]}Metal{metal_on:cond:>0?[/gold]|} : stuff.{metal_on:cond:>0?|[/color]}",
-  "FIVEELEMENTS-ACTIVATION.description": "{water_s}[gold]Water[/gold] : stuff.{water_e}\n{wood_s}[gold]Wood[/gold] : stuff.{wood_e}\n{fire_s}[gold]Fire[/gold] : stuff.{fire_e}\n{earth_s}[gold]Earth[/gold] : Gain {Block:diff()} [gold]Block[/gold].{earth_e}\n{metal_s}[gold]Metal[/gold] : stuff.{metal_e}",
-  "FIVEELEMENTS-ACTIVATION.title": "Activation"
+  "FIVEELEMENTS-ACTIVATION.description": "{water_s}Water{water_e} : Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.\n{wood_s}Wood{wood_e} : Draw {Cards:diff()} {Cards:plural:card|cards}.\n{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.\n{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].\n{metal_s}Metal{metal_e} : Gain {VigorPower:diff()} [gold]Vigor[/gold].",
+  "FIVEELEMENTS-ACTIVATION.title": "Activation",
+  "FIVEELEMENTS-WATER_CREATION.description": "{water_s}Water{water_e} : Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.\nGain 1 Water element",
+  "FIVEELEMENTS-WATER_CREATION.title": "Water Creation",
+  "FIVEELEMENTS-WOOD_CREATION.description": "{wood_s}Wood{wood_e} : Draw {Cards:diff()} {Cards:plural:card|cards}.\nGain 1 Wood element",
+  "FIVEELEMENTS-WOOD_CREATION.title": "Wood Creation",
+  "FIVEELEMENTS-FIRE_CREATION.description": "{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.\nGain 1 Fire element.",
+  "FIVEELEMENTS-FIRE_CREATION.title": "Fire Creation",
+  "FIVEELEMENTS-EARTH_CREATION.description": "{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].\nGain 1 Earth element.",
+  "FIVEELEMENTS-EARTH_CREATION.title": "Earth Creation",
+  "FIVEELEMENTS-METAL_CREATION.description": "{metal_s}Metal{metal_e} : Gain {VigorPower:diff()} [gold]Vigor[/gold].\nGain 1 Metal element.",
+  "FIVEELEMENTS-METAL_CREATION.title": "Metal Creation"
 }

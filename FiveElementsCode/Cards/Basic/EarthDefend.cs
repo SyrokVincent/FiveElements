@@ -10,14 +10,13 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Basic;
 
-public class EarthDefend : FiveElementsCard
+public class EarthDefend : EarthCard
 {
     public EarthDefend() : base (1,CardType.Skill, CardRarity.Basic,TargetType.Self)
     {
     }
     //ElementField.ElementType.Set(this, CardElementTag.Earth);
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
-    protected override HashSet<CardElementTag> CanonicalElementTags => [CardElementTag.Earth];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
 
@@ -29,6 +28,6 @@ public class EarthDefend : FiveElementsCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Block"].UpgradeValueBy(3m);
+        DynamicVars["Block"].UpgradeValueBy(3);
     }
 }

@@ -100,7 +100,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="FiveElementsCode\Cards\Common\" />
         <Folder Include="FiveElementsCode\Cards\Uncommon\" />
         <Folder Include="FiveElementsCode\Cards\Rare\" />
         <Folder Include="FiveElements\images\card_portraits\big\"/>

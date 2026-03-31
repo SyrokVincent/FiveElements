@@ -8,12 +8,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Cards.Basic;
 
 
-public class WoodStrike() : FiveElementsCard(1,
+public class WoodStrike() : WoodCard(1,
     CardType.Attack, CardRarity.Basic,
     TargetType.AnyEnemy)
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-    protected override HashSet<CardElementTag> CanonicalElementTags => [CardElementTag.Wood];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6,ValueProp.Move)];
 
     protected override async Task OnPlay(
@@ -25,6 +24,6 @@ public class WoodStrike() : FiveElementsCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(3);
     }
 }
