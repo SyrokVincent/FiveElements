@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Powers;
 using FiveElements.FiveElementsCode.Relics;
 using MegaCrit.Sts2.Core.Combat;
@@ -15,36 +16,25 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using static FiveElements.FiveElementsCode.Extensions.FiveElementsCardExtensions;
 
 namespace FiveElements.FiveElementsCode.Cards.Basic;
 
-public class Activation() : NeutralCard(1,
+public sealed class Activation() : NeutralCard(1,
     CardType.Skill, CardRarity.Basic,
     TargetType.AllEnemies)
 {
-    //Water:(1 energy, 2 wave), Wood:(Draw 1), Fire:(Burn 4 to all enemies), Earth:(6 block), Metal:(3 vigor) 
     
     protected override bool ShouldGlowGoldInternal => IsAnyElementActive();
     
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
+    //Water:(1 energy, 2 wave), Wood:(Draw 1), Fire:(Burn 4 to all enemies), Earth:(6 block), Metal:(3 vigor) 
+    protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
         new PowerVar<WavePower>(2),
         new CardsVar(1), 
         new PowerVar<BurnPower>(4),
         new BlockVar(6, ValueProp.Move), 
         new PowerVar<VigorPower>(3),
-        
-        new StringVar("water_s",IsElementActive(CardElementTag.Water) ? WaterColor : "" ),
-        new StringVar("water_e",IsElementActive(CardElementTag.Water) ? "[/color]" : ""),
-        new StringVar("wood_s",IsElementActive(CardElementTag.Wood) ? WoodColor : ""),
-        new StringVar("wood_e",IsElementActive(CardElementTag.Wood) ? "[/color]" : ""),
-        new StringVar("fire_s",IsElementActive(CardElementTag.Fire) ? FireColor : ""),
-        new StringVar("fire_e",IsElementActive(CardElementTag.Fire) ? "[/color]" : ""),
-        new StringVar("earth_s",IsElementActive(CardElementTag.Earth) ? EarthColor : ""),
-        new StringVar("earth_e",IsElementActive(CardElementTag.Earth) ? "[/color]" : ""),
-        new StringVar("metal_s",IsElementActive(CardElementTag.Metal) ? MetalColor : ""),
-        new StringVar("metal_e",IsElementActive(CardElementTag.Metal) ? "[/color]" : ""),
         /*  new BoolVar("water_on",IsElementActive(CardElementTag.Water)),
        new BoolVar("wood_on",IsElementActive(CardElementTag.Wood)),
        new BoolVar("fire_on",IsElementActive(CardElementTag.Fire)),
@@ -63,37 +53,37 @@ public class Activation() : NeutralCard(1,
         // new StringVar("metal_s",IsElementActive(CardElementTag.Metal) ? "" : "[color=#666666]"),
         // new StringVar("metal_e",IsElementActive(CardElementTag.Metal) ? "" : "[/color]"),
 
+    ]);
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [
     ];
     
-    //todo find a way to add echo, water:, wood:, etc, to the hovertips
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        StaticHoverTip("FIVEELEMENTS-ECHO",CanonicalVars),
-        StaticHoverTip("FIVEELEMENTS-WATER",CanonicalVars),
-        StaticHoverTip("FIVEELEMENTS-WOOD",CanonicalVars),
-        StaticHoverTip("FIVEELEMENTS-FIRE",CanonicalVars),
-        StaticHoverTip("FIVEELEMENTS-EARTH",CanonicalVars),
-        StaticHoverTip("FIVEELEMENTS-METAL",CanonicalVars),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
         HoverTipFactory.FromPower<WavePower>(),
         HoverTipFactory.FromPower<BurnPower>(),
         HoverTipFactory.FromPower<VigorPower>(),
     ];
-
-    
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (IsElementActive(CardElementTag.Water))
+        if (CardElementTag.Water.IsActive())
         {
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
             await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
         }
-        if (IsElementActive(CardElementTag.Wood))
+        if (CardElementTag.Wood.IsActive())
         {
             await CommonActions.Draw(this, choiceContext);
         }   
-        if (IsElementActive(CardElementTag.Fire))
+        if (CardElementTag.Fire.IsActive())
         {
             if (CombatState != null)
                 foreach (var hittableEnemy in CombatState.HittableEnemies)
@@ -101,11 +91,11 @@ public class Activation() : NeutralCard(1,
                     await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
                 }
         }
-        if (IsElementActive(CardElementTag.Earth))
+        if (CardElementTag.Earth.IsActive())
         {
             await CommonActions.CardBlock(this, play);
         }
-        if (IsElementActive(CardElementTag.Metal))
+        if (CardElementTag.Metal.IsActive())
         {
             await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
         }

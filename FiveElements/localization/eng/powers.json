@@ -5,5 +5,8 @@
   "FIVEELEMENTS-BURN_POWER.title": "Burn",
   "FIVEELEMENTS-WAVE_POWER.description": "At the start of the turn, [gold]Wave[/gold] deal damage to the enemy in front.",
   "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the start of the turn, deal [blue]{Amount}[/blue] damage to the enemy in front.",
-  "FIVEELEMENTS-WAVE_POWER.title": "Wave"
+  "FIVEELEMENTS-WAVE_POWER.title": "Wave",
+  "FIVEELEMENTS-INCANTATION_POWER.description": "At the start of the turn, add an [gold]Elemental Fulu[/gold] into your [gold]Hand[/gold]",
+  "FIVEELEMENTS-INCANTATION_POWER.smartDescription": "At the start of your turn, add {Amount:plural:an [gold]Elemental Fulu[/gold]|[blue]{}[/blue] [gold]Elemental Fulus[/gold]} into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-INCANTATION_POWER.title": "Incantation"
 }

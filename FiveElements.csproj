@@ -76,8 +76,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="*" PrivateAssets="All"/>
-        <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="*"/>
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="0.2.3" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.7" />
         <AdditionalFiles Include="FiveElements/localization/**/*.json"/>
     </ItemGroup>
 
@@ -100,7 +100,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="FiveElementsCode\Cards\Uncommon\" />
         <Folder Include="FiveElementsCode\Cards\Rare\" />
         <Folder Include="FiveElements\images\card_portraits\big\"/>
         <Folder Include="FiveElements\images\powers\big\"/>

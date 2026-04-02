@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,25 +12,23 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace FiveElements.FiveElementsCode.Cards.Common;
 
   
-public class WoodCreation() : WoodCard(1,
+public sealed class WoodCreation() : WoodCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Wood.IsActive();
+    
+    //Wood:(draw 1), Gain 1 "Wood element"
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1), 
     ]);
-//Wood:(draw 1), Gain 1 "Wood element"
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        StaticHoverTip("FIVEELEMENTS-ECHO",CanonicalVars),
-        StaticHoverTip("FIVEELEMENTS-WOOD",CanonicalVars),
-    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (IsElementActive(CardElementTag.Wood))
+        if (CardElementTag.Wood.IsActive())
         {
             await CommonActions.Draw(this, choiceContext);
         }

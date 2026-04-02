@@ -12,22 +12,22 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Basic;
 
-public class Creation() : NeutralCard(0,
+public sealed class Creation() : NeutralCard(0,
     CardType.Skill, CardRarity.Basic,
     TargetType.Self)
 {
     
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Innate, CardKeyword.Ethereal];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        CardKeyword.Innate, 
+        CardKeyword.Ethereal, 
+        CardKeyword.Exhaust, 
+    ];
     //protected override IEnumerable<IHoverTip> ExtraHoverTips => [ HoverTipFactory. ];
 
   
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        GD.Print($"PortraitPaaaaaaaaaath: {PortraitPath}");
-        
-        
-        
         // 1. Préparer les préférences
         CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
 

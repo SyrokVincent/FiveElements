@@ -1,28 +1,34 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Cards.Token;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards.Basic;
+namespace FiveElements.FiveElementsCode.Cards.Common;
 
-public sealed class FireStrike() : FireCard(1,
-    CardType.Attack, CardRarity.Basic,
+public class Distortion() : NeutralCard(1,
+    CardType.Skill, CardRarity.Common,
     TargetType.AnyEnemy)
 {
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6,ValueProp.Move)];
+    //Deal 7, Add 1 Elemental Fulu in hand
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DamageVar(7,ValueProp.Move),
+        new CardsVar("Fulus", 1)
+    ];
     
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [];
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [];
-
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromCard<ElementalFulu>(IsUpgraded),
+    ];
+    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
+        await ElementalFulu.CreateInHand(Owner,1,IsUpgraded, CombatState);
     }
 
     protected override void OnUpgrade()

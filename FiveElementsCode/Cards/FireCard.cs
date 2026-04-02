@@ -1,16 +1,21 @@
 ﻿using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class FireCard(int cost, CardType type, CardRarity rarity, TargetType target)
-    : FiveElementsCard(cost, type, rarity, target)
+public abstract class FireCard(int cost, CardType type, CardRarity rarity, TargetType target,
+    bool showInCardLibrary = true,
+    bool autoAdd = true)
+    : FiveElementsCard(cost, type, rarity, target, showInCardLibrary, autoAdd)
 {
-    protected override HashSet<CardElementTag> CanonicalElementTags => [CardElementTag.Fire];
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new StringVar("wood_s",IsElementActive(CardElementTag.Wood) ? WoodColor : ""),
-        new StringVar("wood_e",IsElementActive(CardElementTag.Wood) ? "[/color]" : ""),
-        new StringVar("fire_s",IsElementActive(CardElementTag.Fire) ? FireColor : ""),
-        new StringVar("fire_e",IsElementActive(CardElementTag.Fire) ? "[/color]" : ""),
-    ];
+    public override HashSet<CardElementTag> CanonicalElementTags { get; set; } = [CardElementTag.Fire];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+    ]);
+    
+    //need to overide for card that don't have Element:
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
+    ]);
 }

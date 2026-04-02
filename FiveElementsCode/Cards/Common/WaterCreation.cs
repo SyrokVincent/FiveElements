@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,26 +12,28 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace FiveElements.FiveElementsCode.Cards.Common;
 
   
-public class WaterCreation() : WaterCard(1,
+public sealed class WaterCreation() : WaterCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
+    
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Water.IsActive();
+    
+    //Water: (1 energy 2 wave), Gain 1 "water element"
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
         new PowerVar<WavePower>(2),
     ]);
-//Water: (1 energy 2 wave), Gain 1 "water element"
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        StaticHoverTip("FIVEELEMENTS-ECHO",CanonicalVars),
-        StaticHoverTip("FIVEELEMENTS-WATER",CanonicalVars),
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromPower<WavePower>()
-    ];
+    ]);
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (IsElementActive(CardElementTag.Water))
+        if (CardElementTag.Water.IsActive())
         {
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
             await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);

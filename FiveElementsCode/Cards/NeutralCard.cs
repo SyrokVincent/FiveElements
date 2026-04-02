@@ -1,9 +1,10 @@
 ﻿using MegaCrit.Sts2.Core.Entities.Cards;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class NeutralCard(int cost, CardType type, CardRarity rarity, TargetType target)
-    : FiveElementsCard(cost, type, rarity, target)
+public abstract class NeutralCard(int cost, CardType type, CardRarity rarity, TargetType target,
+    bool showInCardLibrary = true,
+    bool autoAdd = true)
+    : FiveElementsCard(cost, type, rarity, target, showInCardLibrary, autoAdd)
 {
-    protected override HashSet<CardElementTag> CanonicalElementTags => [CardElementTag.Neutral];
-
+   public override HashSet<CardElementTag> CanonicalElementTags { get; set; } = [CardElementTag.Neutral];
 }

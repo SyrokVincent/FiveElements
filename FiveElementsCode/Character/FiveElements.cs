@@ -2,6 +2,8 @@
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards.Basic;
 using FiveElements.FiveElementsCode.Cards.Common;
+using FiveElements.FiveElementsCode.Cards.Token;
+using FiveElements.FiveElementsCode.Cards.Uncommon;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;
 using Godot;
@@ -47,6 +49,9 @@ public class FiveElements : PlaceholderCharacterModel
         ModelDb.Card<FireCreation>(),
         ModelDb.Card<EarthCreation>(),
         ModelDb.Card<MetalCreation>(),
+        ModelDb.Card<Distortion>(),
+        ModelDb.Card<Isolation>(),
+        ModelDb.Card<Incantation>(),
     ];
 
     

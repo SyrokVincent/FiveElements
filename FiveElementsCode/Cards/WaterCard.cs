@@ -1,16 +1,21 @@
 ﻿using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class WaterCard(int cost, CardType type, CardRarity rarity, TargetType target)
-    : FiveElementsCard(cost, type, rarity, target)
+public abstract class WaterCard(int cost, CardType type, CardRarity rarity, TargetType target,
+    bool showInCardLibrary = true,
+    bool autoAdd = true)
+    : FiveElementsCard(cost, type, rarity, target, showInCardLibrary, autoAdd)
 {
-    protected override HashSet<CardElementTag> CanonicalElementTags => [CardElementTag.Water];
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new StringVar("metal_s",IsElementActive(CardElementTag.Metal) ? MetalColor : ""),
-        new StringVar("metal_e",IsElementActive(CardElementTag.Metal) ? "[/color]" : ""),
-        new StringVar("water_s",IsElementActive(CardElementTag.Water) ? WaterColor : "" ),
-        new StringVar("water_e",IsElementActive(CardElementTag.Water) ? "[/color]" : ""),
-    ];
+    public override HashSet<CardElementTag> CanonicalElementTags { get; set; } = [CardElementTag.Water];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+    ]);
+    
+    //need to overide for card that don't have Element:
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
+    ]);
 }

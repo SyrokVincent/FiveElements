@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -12,25 +13,24 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Cards.Common;
 
   
-public class EarthCreation() : EarthCard(1,
+public sealed class EarthCreation() : EarthCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
+    
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Earth.IsActive();
+
+    //Earth: (gain 6 Block), Gain 1 "earth element"
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BlockVar(6, ValueProp.Move), 
     ]);
-//Earth: (gain 6 Block), Gain 1 "earth element"
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        StaticHoverTip("FIVEELEMENTS-ECHO",CanonicalVars),
-        StaticHoverTip("FIVEELEMENTS-EARTH",CanonicalVars),
-    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (IsElementActive(CardElementTag.Earth))
+        if (CardElementTag.Earth.IsActive())
         {
             await CommonActions.CardBlock(this, play);
         }

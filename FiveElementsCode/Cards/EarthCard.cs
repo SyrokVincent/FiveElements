@@ -1,16 +1,25 @@
-﻿using MegaCrit.Sts2.Core.Entities.Cards;
+﻿using FiveElements.FiveElementsCode.Powers;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class EarthCard(int cost, CardType type, CardRarity rarity, TargetType target)
-    : FiveElementsCard(cost, type, rarity, target)
+public abstract class EarthCard(int cost, CardType type, CardRarity rarity, TargetType target,
+    bool showInCardLibrary = true,
+    bool autoAdd = true)
+    : FiveElementsCard(cost, type, rarity, target, showInCardLibrary, autoAdd)
 {
-    protected override HashSet<CardElementTag> CanonicalElementTags => [CardElementTag.Earth];
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new StringVar("fire_s",IsElementActive(CardElementTag.Fire) ? FireColor : ""),
-        new StringVar("fire_e",IsElementActive(CardElementTag.Fire) ? "[/color]" : ""),
-        new StringVar("earth_s",IsElementActive(CardElementTag.Earth) ? EarthColor : ""),
-        new StringVar("earth_e",IsElementActive(CardElementTag.Earth) ? "[/color]" : ""),
-    ];
+    public override HashSet<CardElementTag> CanonicalElementTags { get; set; } = [CardElementTag.Earth];
+    
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+    ]);
+    
+    //need to overide for card that don't have Element:
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
+    ]);
+
 }

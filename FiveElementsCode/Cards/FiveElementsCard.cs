@@ -1,5 +1,6 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Extensions;
+using BaseLib.Patches.Localization;
 using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Extensions;
@@ -17,8 +18,10 @@ using MegaCrit.Sts2.Core.Models;
 namespace FiveElements.FiveElementsCode.Cards;
 
 [Pool(typeof(FiveElementsCardPool))]
-public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target)
-    : CustomCardModel(cost, type, rarity, target)
+public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target,
+    bool showInCardLibrary = true,
+    bool autoAdd = true)
+    : CustomCardModel(cost, type, rarity, target, showInCardLibrary, autoAdd)
 {
     public static int WaterEnergy = 0;
     public static int WoodEnergy = 0;
@@ -33,7 +36,18 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     protected const string EarthColor = "[color=#8B4513]";
     protected const string MetalColor = "[color=#C0C0C0]";
 
-    
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new StringVar("water_s",CardElementTag.Water.IsActive() ? WaterColor : "" ),
+        new StringVar("water_e",CardElementTag.Water.IsActive() ? "[/color]" : ""),
+        new StringVar("wood_s",CardElementTag.Wood.IsActive() ? WoodColor : ""),
+        new StringVar("wood_e",CardElementTag.Wood.IsActive() ? "[/color]" : ""),
+        new StringVar("fire_s",CardElementTag.Fire.IsActive() ? FireColor : ""),
+        new StringVar("fire_e",CardElementTag.Fire.IsActive() ? "[/color]" : ""),
+        new StringVar("earth_s",CardElementTag.Earth.IsActive() ? EarthColor : ""),
+        new StringVar("earth_e",CardElementTag.Earth.IsActive() ? "[/color]" : ""),
+        new StringVar("metal_s",CardElementTag.Metal.IsActive() ? MetalColor : ""),
+        new StringVar("metal_e",CardElementTag.Metal.IsActive() ? "[/color]" : ""),
+    ];
     /*
     protected FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target, CardElementTag elem):
         base(cost, type, rarity, target)
@@ -50,8 +64,8 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
     //Full art: 606x852
-    //public override string CustomPortraitPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigCardImagePath();
-    public override string CustomPortraitPath => "card.png".BigCardImagePath();
+    public override string CustomPortraitPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigCardImagePath();
+    //public override string CustomPortraitPath => "card.png".BigCardImagePath();
 
     //Smaller variants of card images for efficiency:
     //Smaller variant of fullart: 250x350
@@ -70,7 +84,12 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     
     public virtual IEnumerable<CardElementTag> ElementTags =>  _elementTags ?? (IEnumerable<CardElementTag>) (_elementTags = CanonicalElementTags);
 
-    protected virtual HashSet<CardElementTag> CanonicalElementTags => new HashSet<CardElementTag>();
+    public virtual HashSet<CardElementTag> CanonicalElementTags
+    {
+        get => _elementTags;
+        set => _elementTags = value;
+    }
+
     
     /*
     public CardElementTag ElementOfLastCardPlayed
@@ -93,68 +112,12 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     }
     
     */
-
+    
+    
     public static CardElementTag ElementOfEcho => Relic1.Echo;
 
-    public bool IsElementActive(CardElementTag elem)
-    {
-        switch (elem)
-        {
-            case CardElementTag.Water: return IsWaterActive();
-            case CardElementTag.Wood: return IsWoodActive();
-            case CardElementTag.Fire: return IsFireActive();
-            case CardElementTag.Earth: return IsEarthActive();
-            case CardElementTag.Metal: return IsMetalActive();
-            default: return false;
-        }
-    }
-
-    protected bool IsAnyElementActive()
-    {
-        return IsElementActive(CardElementTag.Water) ||
-               IsElementActive(CardElementTag.Wood) ||
-               IsElementActive(CardElementTag.Fire) ||
-               IsElementActive(CardElementTag.Earth) ||
-               IsElementActive(CardElementTag.Metal);
-    }
-
-    private static bool IsWaterActive()
-    {
-        CardElementTag elementOfLastCardPlayed = ElementOfEcho;
-        return ((elementOfLastCardPlayed == CardElementTag.Water) ||
-                (elementOfLastCardPlayed == CardElementTag.Metal) ||
-                WaterEnergy > 0);
-    }
-
-    private static bool IsWoodActive()
-    {
-        CardElementTag elementOfLastCardPlayed = ElementOfEcho;
-        return ((elementOfLastCardPlayed == CardElementTag.Wood) ||
-                (elementOfLastCardPlayed == CardElementTag.Water) ||
-                WoodEnergy > 0);
-    }
-    private static bool IsFireActive()
-    {
-        CardElementTag elementOfLastCardPlayed = ElementOfEcho;
-        return ((elementOfLastCardPlayed == CardElementTag.Fire) ||
-                (elementOfLastCardPlayed == CardElementTag.Wood) ||
-                FireEnergy > 0);
-    }
-    private static bool IsEarthActive()
-    {
-        CardElementTag elementOfLastCardPlayed = ElementOfEcho;
-        return ((elementOfLastCardPlayed == CardElementTag.Earth) ||
-                (elementOfLastCardPlayed == CardElementTag.Fire) ||
-                EarthEnergy > 0);
-    }
-    private static bool IsMetalActive()
-    {
-        CardElementTag elementOfLastCardPlayed = ElementOfEcho;
-        return ((elementOfLastCardPlayed == CardElementTag.Metal) ||
-                (elementOfLastCardPlayed == CardElementTag.Earth) ||
-                MetalEnergy > 0);
-    } 
-    //nothing to do here, need to put it somewhere logical
+    //todo nothing to do here, need to put it somewhere logical
+    //useless for now might be usefull later ?
     protected static HoverTip StaticHoverTip(string str, IEnumerable<DynamicVar> vars)
     {
         var title = new LocString("static_hover_tips", str + ".title");
