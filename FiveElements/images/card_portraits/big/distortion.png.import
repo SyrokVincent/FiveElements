@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyhgjtsot05fp"
-path="res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"
+uid="uid://v1020us661un"
+path="res://.godot/imported/distortion.png-f17019c0a18b12fed9e8969efaff70e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/fulu.png"
-dest_files=["res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/distortion.png"
+dest_files=["res://.godot/imported/distortion.png-f17019c0a18b12fed9e8969efaff70e6.ctex"]
 
 [params]
 

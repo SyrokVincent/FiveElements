@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -16,7 +17,7 @@ public sealed class FireCreation() : FireCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.AllEnemies)
 {
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Fire.IsActive();
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Fire.IsActive(CombatState);
     
     //Fire: (Apply 4 Burn to all enemies), Gain 1 "fire element"
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -31,7 +32,7 @@ public sealed class FireCreation() : FireCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (CardElementTag.Fire.IsActive())
+        if (CardElementTag.Fire.IsActive(CombatState))
         {
             if (CombatState != null)
                 foreach (var hittableEnemy in CombatState.HittableEnemies)
@@ -39,7 +40,7 @@ public sealed class FireCreation() : FireCard(1,
                     await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
                 }
         }
-        FireEnergy += 1;
+        CombatState.GetElement().AddEssence(CardElementTag.Wood,1);
     }
 
     protected override void OnUpgrade()

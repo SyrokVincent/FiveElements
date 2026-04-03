@@ -1,7 +1,9 @@
 ﻿using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -23,16 +25,16 @@ public class FromKeywordPatch
     public static CardElementTag ElementOfEcho => Relic1.Echo;
     
     protected static IEnumerable<DynamicVar> CanonicalVars => [
-        new StringVar("water_s",CardElementTag.Water.IsActive() ? WaterColor : "" ),
-        new StringVar("water_e",CardElementTag.Water.IsActive() ? "[/color]" : ""),
-        new StringVar("wood_s",CardElementTag.Wood.IsActive() ? WoodColor : ""),
-        new StringVar("wood_e",CardElementTag.Wood.IsActive() ? "[/color]" : ""),
-        new StringVar("fire_s",CardElementTag.Fire.IsActive() ? FireColor : ""),
-        new StringVar("fire_e",CardElementTag.Fire.IsActive() ? "[/color]" : ""),
-        new StringVar("earth_s",CardElementTag.Earth.IsActive() ? EarthColor : ""),
-        new StringVar("earth_e",CardElementTag.Earth.IsActive() ? "[/color]" : ""),
-        new StringVar("metal_s",CardElementTag.Metal.IsActive() ? MetalColor : ""),
-        new StringVar("metal_e",CardElementTag.Metal.IsActive() ? "[/color]" : ""),
+        new StringVar("water_s",WaterColor),
+        new StringVar("water_e","[/color]"),
+        new StringVar("wood_s",WoodColor),
+        new StringVar("wood_e","[/color]"),
+        new StringVar("fire_s",FireColor),
+        new StringVar("fire_e", "[/color]"),
+        new StringVar("earth_s", EarthColor),
+        new StringVar("earth_e", "[/color]"),
+        new StringVar("metal_s", MetalColor ),
+        new StringVar("metal_e", "[/color]" ),
     ];
     
     [HarmonyPrefix] // Optionnel si tu respectes le nom "Prefix", mais plus explicite
@@ -56,7 +58,7 @@ public class FromKeywordPatch
                 title.Add(var);
                 description.Add(var);
             }
-
+            
             if (keyword == FiveElementsKeywords.Echo)
             {
                 var elemEcho = new IntVar("ElemEcho", (decimal)ElementOfEcho);
@@ -71,6 +73,12 @@ public class FromKeywordPatch
         
         return true; // For other keyword we let the original method do it's things
     }
+    
+    
+    
+    
+    
+    
 }
 /*
  if (!HoverTipFactory._keywordHoverTips.ContainsKey(keyword))

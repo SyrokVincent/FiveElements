@@ -37,5 +37,6 @@ public class Incantation() : NeutralCard(1,
     protected override void OnUpgrade()
     {
         //set cost to 0
+        EnergyCost.UpgradeBy(-1);
     }
 }

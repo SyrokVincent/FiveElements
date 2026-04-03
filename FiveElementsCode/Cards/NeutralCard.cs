@@ -1,4 +1,5 @@
-﻿using MegaCrit.Sts2.Core.Entities.Cards;
+﻿using FiveElements.FiveElementsCode.Enums;
+using MegaCrit.Sts2.Core.Entities.Cards;
 
 namespace FiveElements.FiveElementsCode.Cards;
 public abstract class NeutralCard(int cost, CardType type, CardRarity rarity, TargetType target,

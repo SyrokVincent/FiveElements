@@ -1,5 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Enums;
+using FiveElements.FiveElementsCode.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -32,7 +34,6 @@ public sealed class Creation() : NeutralCard(0,
         CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
 
         // 2. Lancer la commande de sélection
-        // Note : on enlève le cast direct au début pour éviter les erreurs
         var selection = await CardSelectCmd.FromHand(
             choiceContext, 
             Owner, 
@@ -46,33 +47,16 @@ public sealed class Creation() : NeutralCard(0,
     
         if (selectedModel is FiveElementsCard card)
         {
-            // 4. Appliquer la logique
-            if (card.ElementTags.Contains(CardElementTag.Water))
+            // On boucle sur tous les tags de la carte choisie
+            foreach (var tag in card.ElementTags)
             {
-                WaterEnergy += 1;
+                // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
+                if (tag != CardElementTag.Neutral)
+                {
+                    CombatState.GetElement().AddEssence(tag, 1);
+                    GD.Print($"Essence ajoutée ! Élément : {tag}");
+                }
             }
-            else if (card.ElementTags.Contains(CardElementTag.Wood))
-            {
-                WoodEnergy += 1;
-            }   
-            else if (card.ElementTags.Contains(CardElementTag.Fire))
-            {
-                FireEnergy += 1;
-            }
-            else if (card.ElementTags.Contains(CardElementTag.Earth))
-            {
-                EarthEnergy += 1;
-            }
-            else if (card.ElementTags.Contains(CardElementTag.Metal))
-            {
-                MetalEnergy += 1;
-            }
-        
-            GD.Print($"Énergie ajoutée ! Élément : {card.ElementTags.Single()}");
-        }
-        else 
-        {
-            GD.Print("Aucune carte valide sélectionnée ou sélection annulée.");
         }
         
         /*
@@ -84,23 +68,23 @@ public sealed class Creation() : NeutralCard(0,
             return;
         if (card.ElementTags.Contains(CardElementTag.Water))
         {
-            WaterEnergy += 1;
+            WaterEssence += 1;
         }
         else if (card.ElementTags.Contains(CardElementTag.Wood))
         {
-            WoodEnergy += 1;
+            WoodEssence += 1;
         }   
         else if (card.ElementTags.Contains(CardElementTag.Fire))
         {
-            FireEnergy += 1;
+            FireEssence += 1;
         }
         else if (card.ElementTags.Contains(CardElementTag.Earth))
         {
-            EarthEnergy += 1;
+            EarthEssence += 1;
         }
         else if (card.ElementTags.Contains(CardElementTag.Metal))
         {
-            MetalEnergy += 1;
+            MetalEssence += 1;
         }
         */
     }//var cardModel = (FiveElementsCard) await CommonActions.SelectSingleCard(this, SelectionScreenPrompt, choiceContext, PileType.Hand);

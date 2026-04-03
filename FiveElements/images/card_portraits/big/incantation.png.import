@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyhgjtsot05fp"
-path="res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"
+uid="uid://dd75we5ksbih7"
+path="res://.godot/imported/incantation.png-fc26a7fb66873c8a70e99d4c20e2eae3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/fulu.png"
-dest_files=["res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/incantation.png"
+dest_files=["res://.godot/imported/incantation.png-fc26a7fb66873c8a70e99d4c20e2eae3.ctex"]
 
 [params]
 

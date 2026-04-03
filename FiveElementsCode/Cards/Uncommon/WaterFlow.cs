@@ -8,43 +8,44 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards.Common;
+namespace FiveElements.FiveElementsCode.Cards.Uncommon;
 
-  
-public sealed class WaterCreation() : WaterCard(1,
-    CardType.Skill, CardRarity.Common,
+public sealed class WaterFlow() : WaterCard(3,
+    CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
     
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Water.IsActive(CombatState);
+
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
     
-    //Water: (1 energy 2 wave), Gain 1 "water element"
+    //Gain 2 energy, draw 1, Water:(gain 1 energy)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new EnergyVar(1), 
-        new PowerVar<WavePower>(2),
+        new EnergyVar(2),
+        new CardsVar(1),
+        new EnergyVar("EnergyBonus",1),
     ]);
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromPower<WavePower>()
     ]);
+
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        if (CombatState == null) return;
+        await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
+        await CommonActions.Draw(this, choiceContext);
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
-            await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+            await PlayerCmd.GainEnergy( DynamicVars["EnergyBonus"].BaseValue, Owner);
         }
-        CombatState.GetElement().AddEssence(CardElementTag.Water,1);
     }
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
-        DynamicVars["WavePower"].UpgradeValueBy(2);
+        DynamicVars.Energy.UpgradeValueBy(1);
     }
 }

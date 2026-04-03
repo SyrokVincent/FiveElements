@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyhgjtsot05fp"
-path="res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"
+uid="uid://c8wgfth73n183"
+path="res://.godot/imported/water_bubble.png-304890033f324de910316a79715a1d12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/fulu.png"
-dest_files=["res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/water_bubble.png"
+dest_files=["res://.godot/imported/water_bubble.png-304890033f324de910316a79715a1d12.ctex"]
 
 [params]
 

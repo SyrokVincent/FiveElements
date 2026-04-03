@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -18,7 +19,7 @@ public sealed class EarthCreation() : EarthCard(1,
     TargetType.Self)
 {
     
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Earth.IsActive();
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Earth.IsActive(CombatState);
 
     //Earth: (gain 6 Block), Gain 1 "earth element"
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -30,11 +31,11 @@ public sealed class EarthCreation() : EarthCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (CardElementTag.Earth.IsActive())
+        if (CardElementTag.Earth.IsActive(CombatState))
         {
             await CommonActions.CardBlock(this, play);
         }
-        EarthEnergy += 1;
+        CombatState.GetElement().AddEssence(CardElementTag.Wood,1);
     }
 
     protected override void OnUpgrade()

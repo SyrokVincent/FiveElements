@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -16,7 +17,7 @@ public sealed class WoodCreation() : WoodCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Wood.IsActive();
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Wood.IsActive(CombatState);
     
     //Wood:(draw 1), Gain 1 "Wood element"
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -28,11 +29,11 @@ public sealed class WoodCreation() : WoodCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (CardElementTag.Wood.IsActive())
+        if (CardElementTag.Wood.IsActive(this.CombatState))
         {
             await CommonActions.Draw(this, choiceContext);
         }
-        WoodEnergy += 1;
+        CombatState.GetElement().AddEssence(CardElementTag.Wood,1);
     }
 
     protected override void OnUpgrade()

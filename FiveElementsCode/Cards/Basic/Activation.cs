@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Character;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Powers;
 using FiveElements.FiveElementsCode.Relics;
 using MegaCrit.Sts2.Core.Combat;
@@ -25,16 +26,16 @@ public sealed class Activation() : NeutralCard(1,
     TargetType.AllEnemies)
 {
     
-    protected override bool ShouldGlowGoldInternal => IsAnyElementActive();
+    protected override bool ShouldGlowGoldInternal => CombatState != null && IsAnyElementActive(CombatState );
     
     //Water:(1 energy, 2 wave), Wood:(Draw 1), Fire:(Burn 4 to all enemies), Earth:(6 block), Metal:(3 vigor) 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
         new PowerVar<WavePower>(2),
         new CardsVar(1), 
-        new PowerVar<BurnPower>(4),
-        new BlockVar(6, ValueProp.Move), 
-        new PowerVar<VigorPower>(3),
+        new PowerVar<BurnPower>(3),
+        new BlockVar(4, ValueProp.Move), 
+        new PowerVar<VigorPower>(2),
         /*  new BoolVar("water_on",IsElementActive(CardElementTag.Water)),
        new BoolVar("wood_on",IsElementActive(CardElementTag.Wood)),
        new BoolVar("fire_on",IsElementActive(CardElementTag.Fire)),
@@ -74,28 +75,28 @@ public sealed class Activation() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (CardElementTag.Water.IsActive())
+        if (CombatState == null) return;
+        if (CardElementTag.Water.IsActive(CombatState))
         {
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
             await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
         }
-        if (CardElementTag.Wood.IsActive())
+        if (CardElementTag.Wood.IsActive(CombatState))
         {
             await CommonActions.Draw(this, choiceContext);
         }   
-        if (CardElementTag.Fire.IsActive())
+        if (CardElementTag.Fire.IsActive(CombatState))
         {
-            if (CombatState != null)
-                foreach (var hittableEnemy in CombatState.HittableEnemies)
-                {
-                    await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
-                }
+            foreach (var hittableEnemy in CombatState.HittableEnemies)
+            {
+                await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
+            }
         }
-        if (CardElementTag.Earth.IsActive())
+        if (CardElementTag.Earth.IsActive(CombatState))
         {
             await CommonActions.CardBlock(this, play);
         }
-        if (CardElementTag.Metal.IsActive())
+        if (CardElementTag.Metal.IsActive(CombatState))
         {
             await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
         }
@@ -103,11 +104,11 @@ public sealed class Activation() : NeutralCard(1,
     protected override void OnUpgrade()
     {
         //DynamicVars.Energy.UpgradeValueBy(1);
-        DynamicVars["WavePower"].UpgradeValueBy(2);
-        DynamicVars.Cards.UpgradeValueBy(1);
-        DynamicVars["BurnPower"].UpgradeValueBy(2);
-        DynamicVars.Block.UpgradeValueBy(3);
-        DynamicVars["VigorPower"].UpgradeValueBy(2);
+        DynamicVars["WavePower"].UpgradeValueBy(1);
+        //DynamicVars.Cards.UpgradeValueBy(1);
+        DynamicVars["BurnPower"].UpgradeValueBy(1);
+        DynamicVars.Block.UpgradeValueBy(1);
+        DynamicVars["VigorPower"].UpgradeValueBy(1);
     }
     
 }

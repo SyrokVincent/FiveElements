@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyhgjtsot05fp"
-path="res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"
+uid="uid://b1lagb05s87hf"
+path="res://.godot/imported/water_mark.png-09575debb8462a197a00a0a9f290f3ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/fulu.png"
-dest_files=["res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/water_mark.png"
+dest_files=["res://.godot/imported/water_mark.png-09575debb8462a197a00a0a9f290f3ea.ctex"]
 
 [params]
 

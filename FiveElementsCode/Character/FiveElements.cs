@@ -14,6 +14,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
+using MegaCrit.Sts2.Core.Random;
 
 namespace FiveElements.FiveElementsCode.Character;
 
@@ -29,14 +30,14 @@ public class FiveElements : PlaceholderCharacterModel
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Neutral;
     public override int StartingHp => 70;
-
+/*
     public override IEnumerable<FiveElementsCard> StartingDeck =>
     [
-        //ModelDb.Card<WaterStrike>(),
-        //ModelDb.Card<WoodStrike>(),
-        //ModelDb.Card<FireStrike>(),
-        //ModelDb.Card<EarthStrike>(),
-        //ModelDb.Card<MetalStrike>(),
+        ModelDb.Card<WaterStrike>(),
+        ModelDb.Card<WoodStrike>(),
+        ModelDb.Card<FireStrike>(),
+        ModelDb.Card<EarthStrike>(),
+        ModelDb.Card<MetalStrike>(),
         ModelDb.Card<WaterDefend>(),
         ModelDb.Card<WoodDefend>(),
         ModelDb.Card<FireDefend>(),
@@ -53,7 +54,53 @@ public class FiveElements : PlaceholderCharacterModel
         ModelDb.Card<Isolation>(),
         ModelDb.Card<Incantation>(),
     ];
+    */
+    
+    //deck with random starting point in the strike n defend, so the upgrading event won't always upgrade the same element
+    // it will still upgrade both card of a same element thought
+    public override IEnumerable<FiveElementsCard> StartingDeck
+    {
+        get
+        {
+            var strikeGroup = new List<FiveElementsCard>
+            {
+                ModelDb.Card<WaterStrike>(),
+                ModelDb.Card<WoodStrike>(),
+                ModelDb.Card<FireStrike>(),
+                ModelDb.Card<EarthStrike>(),
+                ModelDb.Card<MetalStrike>(),
+            };
+            var defendGroup = new List<FiveElementsCard>
+            {
+                ModelDb.Card<WaterDefend>(),
+                ModelDb.Card<WoodDefend>(),
+                ModelDb.Card<FireDefend>(),
+                ModelDb.Card<EarthDefend>(),
+                ModelDb.Card<MetalDefend>(),
+            };
+                
 
+            // todo? find better rng here
+            // Si tu ne l'as pas sous la main, Rng.Chaotic est l'alternative
+            int offset = Rng.Chaotic.NextInt(0, 5);
+            
+            // 3. Faire tourner les groupes (Rotation circulaire)
+            // On prend à partir de l'offset, puis on ajoute ce qu'on a sauté
+            var rotatedStrike = strikeGroup.Skip(offset).Concat(strikeGroup.Take(offset));
+            var rotatedDefend = defendGroup.Skip(offset).Concat(defendGroup.Take(offset));
+
+            // 4. Construire le deck final
+            var finalDeck = new List<FiveElementsCard>();
+            finalDeck.AddRange(rotatedStrike);
+            finalDeck.AddRange(rotatedDefend);
+            finalDeck.Add(ModelDb.Card<Creation>());
+            finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<WaterFlow>());
+            finalDeck.Add(ModelDb.Card<WaterBubble>());
+
+            return finalDeck;
+        }
+    }
     
 
     public override IReadOnlyList<RelicModel> StartingRelics =>

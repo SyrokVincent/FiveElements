@@ -1,19 +1,11 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Extensions;
-using BaseLib.Patches.Localization;
 using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Character;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
-using FiveElements.FiveElementsCode.Relics;
-using Godot;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Cards;
 
@@ -23,12 +15,7 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     bool autoAdd = true)
     : CustomCardModel(cost, type, rarity, target, showInCardLibrary, autoAdd)
 {
-    public static int WaterEnergy = 0;
-    public static int WoodEnergy = 0;
-    public static int FireEnergy = 0;
-    public static int EarthEnergy = 0;
-    public static int MetalEnergy = 0;
-
+    
     //color for element in cards description
     protected const string WaterColor = "[color=#1E90FF]";
     protected const string WoodColor = "[color=#228B22]";
@@ -37,16 +24,16 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     protected const string MetalColor = "[color=#C0C0C0]";
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new StringVar("water_s",CardElementTag.Water.IsActive() ? WaterColor : "" ),
-        new StringVar("water_e",CardElementTag.Water.IsActive() ? "[/color]" : ""),
-        new StringVar("wood_s",CardElementTag.Wood.IsActive() ? WoodColor : ""),
-        new StringVar("wood_e",CardElementTag.Wood.IsActive() ? "[/color]" : ""),
-        new StringVar("fire_s",CardElementTag.Fire.IsActive() ? FireColor : ""),
-        new StringVar("fire_e",CardElementTag.Fire.IsActive() ? "[/color]" : ""),
-        new StringVar("earth_s",CardElementTag.Earth.IsActive() ? EarthColor : ""),
-        new StringVar("earth_e",CardElementTag.Earth.IsActive() ? "[/color]" : ""),
-        new StringVar("metal_s",CardElementTag.Metal.IsActive() ? MetalColor : ""),
-        new StringVar("metal_e",CardElementTag.Metal.IsActive() ? "[/color]" : ""),
+        new StringVar("water_s",CardElementTag.Water.IsActive(this.CombatState) ? WaterColor : "" ),
+        new StringVar("water_e",CardElementTag.Water.IsActive(this.CombatState) ? "[/color]" : ""),
+        new StringVar("wood_s",CardElementTag.Wood.IsActive(this.CombatState) ? WoodColor : ""),
+        new StringVar("wood_e",CardElementTag.Wood.IsActive(this.CombatState) ? "[/color]" : ""),
+        new StringVar("fire_s",CardElementTag.Fire.IsActive(this.CombatState) ? FireColor : ""),
+        new StringVar("fire_e",CardElementTag.Fire.IsActive(this.CombatState) ? "[/color]" : ""),
+        new StringVar("earth_s",CardElementTag.Earth.IsActive(this.CombatState) ? EarthColor : ""),
+        new StringVar("earth_e",CardElementTag.Earth.IsActive(this.CombatState) ? "[/color]" : ""),
+        new StringVar("metal_s",CardElementTag.Metal.IsActive(this.CombatState) ? MetalColor : ""),
+        new StringVar("metal_e",CardElementTag.Metal.IsActive(this.CombatState) ? "[/color]" : ""),
     ];
     /*
     protected FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target, CardElementTag elem):
@@ -77,7 +64,6 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     public override string BetaPortraitPath => $"beta/{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
     
     
-    
     // stuff I added
     
     private HashSet<CardElementTag>? _elementTags;
@@ -89,7 +75,8 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         get => _elementTags;
         set => _elementTags = value;
     }
-
+    
+}  
     
     /*
     public CardElementTag ElementOfLastCardPlayed
@@ -111,14 +98,21 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         }
     }
     
-    */
     
     
-    public static CardElementTag ElementOfEcho => Relic1.Echo;
+    public CardElementTag ElementOfEcho
+    {
+        get
+        {
+            var combatState = this.CombatState;
+            if (combatState != null) return combatState.GetElement().ElementOfEcho;
+            return CardElementTag.Neutral;
+        }
+    }
 
     //todo nothing to do here, need to put it somewhere logical
     //useless for now might be usefull later ?
-    protected static HoverTip StaticHoverTip(string str, IEnumerable<DynamicVar> vars)
+    protected HoverTip StaticHoverTip(string str, IEnumerable<DynamicVar> vars)
     {
         var title = new LocString("static_hover_tips", str + ".title");
         var description = new LocString("static_hover_tips", str + ".description");
@@ -136,17 +130,12 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         }
         return new HoverTip(title, description);
     }
-}
-   
-public enum CardElementTag
-{
-    Neutral,
-    Water,
-    Wood,
-    Fire,
-    Earth,
-    Metal
-}
+
+   */
+
+
+
+
 /*
 public class ElementField
 {

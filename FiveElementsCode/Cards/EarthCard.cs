@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Powers;
+﻿using FiveElements.FiveElementsCode.Enums;
+using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;

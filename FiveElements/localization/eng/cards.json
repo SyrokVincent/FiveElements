@@ -47,10 +47,16 @@
   "FIVEELEMENTS-EARTH_FULU.title": "Earth Fulu",
   "FIVEELEMENTS-METAL_FULU.description": "Transform itself on [gold]Shift[/gold].",
   "FIVEELEMENTS-METAL_FULU.title": "Metal Fulu",
-  "FIVEELEMENTS-DISTORTION.description": "Deal {Damage:diff()} damage.\nAdd {Fulus:diff()} [gold]{IfUpgraded:show:Elemental Fulu+|Elemental Fulu}[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-DISTORTION.description": "Deal {Damage:diff()} damage.\nAdd {Fulus:diff()} [gold]{IfUpgraded:show:Fulu+|Fulu}[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-DISTORTION.title": "Distortion",
-  "FIVEELEMENTS-ISOLATION.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd {Fulus:diff()} [gold]{IfUpgraded:show:Elemental Fulu+|Elemental Fulu}[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-ISOLATION.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd {Fulus:diff()} [gold]{IfUpgraded:show:Fulu+|Fulu}[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-ISOLATION.title": "Isolation",
-  "FIVEELEMENTS-INCANTATION.description": "At the start of your turn, add 1 [gold]Elemental Fulu[/gold] into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-INCANTATION.title": "Incantation"
+  "FIVEELEMENTS-INCANTATION.description": "At the start of your turn, add 1 [gold]Fulu[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-INCANTATION.title": "Incantation",
+  "FIVEELEMENTS-WATER_BUBBLE.description": "Gain {Block:diff()} [gold]Block[/gold] and {WavePower:diff()} [gold]Wave[/gold].\n{water_s}Water{water_e} : Cost is 0.",
+  "FIVEELEMENTS-WATER_BUBBLE.title": "Water Bubble",
+  "FIVEELEMENTS-WATER_MARK.description": "Apply {WeakPower:diff()} [gold]Weak[/gold] to ALL enemies.\n{water_s}Water{water_e} : Next turn, gain {Energy:energyIcons()}.",
+  "FIVEELEMENTS-WATER_MARK.title": "Water Mark",
+  "FIVEELEMENTS-WATER_FLOW.description": " Gain {Energy:energyIcons()}.\nDraw {Cards:diff()} {Cards:plural:card|cards}.\n{water_s}Water{water_e} : Gain {EnergyBonus:energyIcons()}.",
+  "FIVEELEMENTS-WATER_FLOW.title": "Water Flow"
 }

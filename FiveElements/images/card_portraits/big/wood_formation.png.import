@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyhgjtsot05fp"
-path="res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"
+uid="uid://cfh7kudhjus4"
+path="res://.godot/imported/wood_formation.png-19ec5edc9185d084d9a791ecde474e0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/fulu.png"
-dest_files=["res://.godot/imported/fulu.png-9f5eb2880dda32952eac17521fb35a92.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/wood_formation.png"
+dest_files=["res://.godot/imported/wood_formation.png-19ec5edc9185d084d9a791ecde474e0f.ctex"]
 
 [params]
 
