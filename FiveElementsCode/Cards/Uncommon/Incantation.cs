@@ -22,7 +22,7 @@ public class Incantation() : NeutralCard(1,
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromCard<ElementalFulu>(IsUpgraded),
+        HoverTipFactory.FromCard<Fulu>(IsUpgraded),
     ];
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

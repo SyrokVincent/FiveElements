@@ -28,13 +28,13 @@ public static class FiveElementsCardExtensions
                     CardElementTag.Fire    => combatState.CreateCard<EarthFulu>(owner),
                     CardElementTag.Earth   => combatState.CreateCard<MetalFulu>(owner),
                     CardElementTag.Metal   => combatState.CreateCard<WaterFulu>(owner),
-                    CardElementTag.Neutral => combatState.CreateCard<ElementalFulu>(owner),
+                    CardElementTag.Neutral => combatState.CreateCard<Fulu>(owner),
                     _                      => throw new ArgumentOutOfRangeException()
                 };
             }
             else 
             {
-                replacement = combatState.CreateCard<ElementalFulu>(owner);
+                replacement = combatState.CreateCard<Fulu>(owner);
             }
             // remove useless transform if card is already of the good element
             if (replacement is FiveElementsCard replacementElementCard)

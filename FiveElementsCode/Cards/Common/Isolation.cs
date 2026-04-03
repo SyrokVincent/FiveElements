@@ -20,7 +20,7 @@ public class Isolation() : NeutralCard(1,
     ];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromCard<ElementalFulu>(IsUpgraded),
+        HoverTipFactory.FromCard<Fulu>(IsUpgraded),
     ];
     
     protected override async Task OnPlay(
@@ -28,7 +28,7 @@ public class Isolation() : NeutralCard(1,
         CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        await ElementalFulu.CreateInHand(Owner,1,IsUpgraded, CombatState);
+        await Fulu.CreateInHand(Owner,1,IsUpgraded, CombatState);
     }
 
     protected override void OnUpgrade()

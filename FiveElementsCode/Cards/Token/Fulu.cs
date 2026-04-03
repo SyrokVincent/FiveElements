@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 namespace FiveElements.FiveElementsCode.Cards.Token;
 
 [Pool(typeof(TokenCardPool))]
-public sealed class ElementalFulu() : NeutralCard(0,
+public sealed class Fulu() : NeutralCard(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self, true, true)
 {
@@ -57,7 +57,7 @@ public sealed class ElementalFulu() : NeutralCard(0,
     
         for (var i = 0; i < count; i++) 
         {
-            var fulu = combatState.CreateCard<ElementalFulu>(owner);
+            var fulu = combatState.CreateCard<Fulu>(owner);
             
             if (isUpgraded)
             {

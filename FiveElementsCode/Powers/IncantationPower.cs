@@ -19,7 +19,7 @@ public class IncantationPower : FiveElementsPower
     public override PowerStackType StackType => PowerStackType.Counter;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromCard<ElementalFulu>(),
+        HoverTipFactory.FromCard<Fulu>(),
     ];
     // public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     // {
@@ -32,7 +32,7 @@ public class IncantationPower : FiveElementsPower
     {
         if (player != Owner.Player) return;
         Flash();
-        await ElementalFulu.CreateInHand(Owner.Player, Amount,false, combatState);
+        await Fulu.CreateInHand(Owner.Player, Amount,false, combatState);
     }
     
 }
