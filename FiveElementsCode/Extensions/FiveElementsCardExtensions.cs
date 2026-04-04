@@ -3,6 +3,7 @@ using FiveElements.FiveElementsCode.Cards.Token;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Hooks;
 using FiveElements.FiveElementsCode.Relics;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -70,7 +71,7 @@ public static class FiveElementsCardExtensions
     public static bool IsActive(this CardElementTag elem, CombatState combatState)
     {
         // On récupère ton objet Element via l'extension qu'on a créée plus tôt
-        var status = combatState.GetElement();
+        var status = combatState.GetElementalStatus();
     
         // On récupère l'Echo (qui est peut-être resté statique ou qui est dans status)
         CardElementTag echo = FiveElementsCard.ElementOfEcho;
@@ -90,7 +91,7 @@ public static class FiveElementsCardExtensions
     {
         if (combatState == null) return false;
 
-        var status = combatState.GetElement();
+        var status = combatState.GetElementalStatus();
         // ON LIT L'ECHO ICI MAINTENANT :
         CardElementTag currentEcho = Relic1.Echo; //status.ElementOfEcho;
         return elem switch
@@ -121,6 +122,7 @@ public static class FiveElementsCardExtensions
 
     public static async Task CheckAndNotify(CombatState combatState, CardElementTag elem)
     {
+        GD.Print("CheckAndNotify TRIGGERED");
         // 1. On calcule l'état actuel (Essence + Echo) pour cet élément précis
         bool currentState = elem.IsActive(combatState); 
 

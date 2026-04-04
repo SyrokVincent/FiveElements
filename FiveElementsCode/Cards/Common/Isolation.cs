@@ -28,7 +28,7 @@ public class Isolation() : NeutralCard(1,
         CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        await Fulu.CreateInHand(Owner,1,IsUpgraded, CombatState);
+        if (CombatState != null) await Fulu.CreateInHand(Owner, 1, IsUpgraded, CombatState);
     }
 
     protected override void OnUpgrade()

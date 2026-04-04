@@ -8,4 +8,9 @@ public abstract class NeutralCard(int cost, CardType type, CardRarity rarity, Ta
     : FiveElementsCard(cost, type, rarity, target, showInCardLibrary, autoAdd)
 {
    public override HashSet<CardElementTag> CanonicalElementTags { get; set; } = [CardElementTag.Neutral];
+   
+   public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
+   {
+       await Task.CompletedTask;
+   }
 }

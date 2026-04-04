@@ -46,6 +46,19 @@ public class Relic1() : FiveElementsRelic
             if (cardPlay.Card is FiveElementsCard elementCard) {
                 if (Echo != elementCard.ElementTags.Single()) {
                     Echo = elementCard.ElementTags.Single();
+                    
+                    //debug
+                    // Affiche l'état global avant de notifier les cartes
+                    var status = cardPlay.Card.CombatState.GetElementalStatus();
+                    GD.Print($"DEBUG: after FEcard Echo={Relic1.Echo}, WaterEssence={status.GetEssence(CardElementTag.Water)}, " +
+                             $"wood={status.GetEssence(CardElementTag.Wood)}, " +
+                             $"fire={status.GetEssence(CardElementTag.Fire)}, " +
+                             $"earth={status.GetEssence(CardElementTag.Earth)}, " +
+                             $"metal={status.GetEssence(CardElementTag.Metal)}, " +
+                             $"neutral={status.GetEssence(CardElementTag.Neutral)}");
+                    
+                    
+                    
                     foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
                     {
                         _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
@@ -68,6 +81,17 @@ public class Relic1() : FiveElementsRelic
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         Echo = CardElementTag.Neutral;
+        //debug
+        // Affiche l'état global avant de notifier les cartes
+        var status = Owner.Creature.CombatState.GetElementalStatus();
+        GD.Print($"DEBUG: turnend Echo={Relic1.Echo}, WaterEssence={status.GetEssence(CardElementTag.Water)}, " +
+                 $"wood={status.GetEssence(CardElementTag.Wood)}, " +
+                 $"fire={status.GetEssence(CardElementTag.Fire)}, " +
+                 $"earth={status.GetEssence(CardElementTag.Earth)}, " +
+                 $"metal={status.GetEssence(CardElementTag.Metal)}, " +
+                 $"neutral={status.GetEssence(CardElementTag.Neutral)}");
+        
+        
         foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
         {
             _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
@@ -81,11 +105,11 @@ public class Relic1() : FiveElementsRelic
     public override async Task AfterCombatEnd(CombatRoom room)
     {
         Echo = CardElementTag.Neutral;
+        room.CombatState.GetElementalStatus().ResetAllEssences();
         foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
         {
             _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
         }
-        room.CombatState.GetElement().ResetAllEssences();
         await Task.CompletedTask;
         // async or that idk what I need to do
         //base.AfterCombatEnd(room);

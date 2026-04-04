@@ -1,103 +1,80 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
-using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
-using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
-using FiveElements.FiveElementsCode.Relics;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Combat.History.Entries;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards.Basic;
+namespace FiveElements.FiveElementsCode.Cards.Rare;
 
-public sealed class Activation() : NeutralCard(1,
-    CardType.Skill, CardRarity.Basic,
-    TargetType.AllEnemies)
+public class Annihilation() : NeutralCard(3,
+    CardType.Attack, CardRarity.Rare,
+    TargetType.AnyEnemy)
 {
-    
+
+
     protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
-    
-    //Water:(1 energy, 2 wave), Wood:(Draw 1), Fire:(Burn 4 to all enemies), Earth:(6 block), Metal:(3 vigor) 
+
+    // Wood:(Deal 12), Fire:(Deal 12), Earth:(Deal 12), Metal:(Deal 12), Water:(Deal 12)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new EnergyVar(1), 
-        new PowerVar<WavePower>(2),
-        new CardsVar(1), 
-        new PowerVar<BurnPower>(3),
-        new BlockVar(4, ValueProp.Move), 
-        new PowerVar<VigorPower>(2),
+        new DamageVar(12,ValueProp.Move),
         new BoolVar("isWaterOn"),
         new BoolVar("isWoodOn"),
         new BoolVar("isFireOn"),
         new BoolVar("isEarthOn"),
         new BoolVar("isMetalOn"),
-
     ]);
-    
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-    ];
-    
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
-        HoverTipFactory.FromPower<WavePower>(),
-        HoverTipFactory.FromPower<BurnPower>(),
-        HoverTipFactory.FromPower<VigorPower>(),
-    ];
-    
+    ]);
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         if (CombatState == null) return;
+        int count = 0;
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
-            await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+            count++;
         }
         if (CardElementTag.Wood.IsActive(CombatState))
         {
-            await CommonActions.Draw(this, choiceContext);
+            count++;
         }   
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            foreach (var hittableEnemy in CombatState.HittableEnemies)
-            {
-                await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
-            }
+            count++;
         }
         if (CardElementTag.Earth.IsActive(CombatState))
         {
-            await CommonActions.CardBlock(this, play);
+            count++;
         }
         if (CardElementTag.Metal.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
+            count++;
         }
+        if (count!=0)
+        {
+            await CommonActions.CardAttack(this, play.Target,count).Execute(choiceContext);
+        }
+        
     }
+
     protected override void OnUpgrade()
     {
-        //DynamicVars.Energy.UpgradeValueBy(1);
-        DynamicVars["WavePower"].UpgradeValueBy(1);
-        //DynamicVars.Cards.UpgradeValueBy(1);
-        DynamicVars["BurnPower"].UpgradeValueBy(1);
-        DynamicVars.Block.UpgradeValueBy(1);
-        DynamicVars["VigorPower"].UpgradeValueBy(1);
+        DynamicVars.Damage.UpgradeValueBy(3);
     }
     
     public override async Task OnElementStateChanged(CardElementTag element, bool isActive)

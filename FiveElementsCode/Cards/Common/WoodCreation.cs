@@ -33,7 +33,8 @@ public sealed class WoodCreation() : WoodCard(1,
         {
             await CommonActions.Draw(this, choiceContext);
         }
-        CombatState.GetElement().AddEssence(CardElementTag.Wood,1);
+
+        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1);
     }
 
     protected override void OnUpgrade()

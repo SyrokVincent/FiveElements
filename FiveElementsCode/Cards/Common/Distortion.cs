@@ -28,7 +28,7 @@ public class Distortion() : NeutralCard(1,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
-        await Fulu.CreateInHand(Owner,1,IsUpgraded, CombatState);
+        if (CombatState != null) await Fulu.CreateInHand(Owner, 1, IsUpgraded, CombatState);
     }
 
     protected override void OnUpgrade()

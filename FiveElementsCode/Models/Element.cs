@@ -58,7 +58,6 @@ public class Element
         _essences[elem] = 0;
 
         // TRES IMPORTANT : On notifie les cartes que l'élément a disparu
-        // Sinon tes WaterBubble resteront à 0 de coût !
         _ = FiveElementsCardExtensions.CheckAndNotify(CombatState, elem);
     }
 

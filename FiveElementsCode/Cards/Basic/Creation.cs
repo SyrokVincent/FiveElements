@@ -53,42 +53,12 @@ public sealed class Creation() : NeutralCard(0,
                 // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
                 if (tag != CardElementTag.Neutral)
                 {
-                    CombatState.GetElement().AddEssence(tag, 1);
+                    if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1);
                     GD.Print($"Essence ajoutée ! Élément : {tag}");
                 }
             }
         }
-        
-        /*
-        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
-        FiveElementsCard card = (FiveElementsCard)(await CardSelectCmd.FromHand(choiceContext, Owner, prefs, 
-            (Func<CardModel, bool>) (c => c is FiveElementsCard fCard && !fCard.ElementTags.Contains(CardElementTag.Neutral)),this)).FirstOrDefault<CardModel>();
-       
-        if (card == null)
-            return;
-        if (card.ElementTags.Contains(CardElementTag.Water))
-        {
-            WaterEssence += 1;
-        }
-        else if (card.ElementTags.Contains(CardElementTag.Wood))
-        {
-            WoodEssence += 1;
-        }   
-        else if (card.ElementTags.Contains(CardElementTag.Fire))
-        {
-            FireEssence += 1;
-        }
-        else if (card.ElementTags.Contains(CardElementTag.Earth))
-        {
-            EarthEssence += 1;
-        }
-        else if (card.ElementTags.Contains(CardElementTag.Metal))
-        {
-            MetalEssence += 1;
-        }
-        */
-    }//var cardModel = (FiveElementsCard) await CommonActions.SelectSingleCard(this, SelectionScreenPrompt, choiceContext, PileType.Hand);
-
+    }
 
     protected override void OnUpgrade()
     {

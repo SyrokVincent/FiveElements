@@ -40,7 +40,8 @@ public sealed class FireCreation() : FireCard(1,
                     await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
                 }
         }
-        CombatState.GetElement().AddEssence(CardElementTag.Wood,1);
+
+        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Fire, 1);
     }
 
     protected override void OnUpgrade()

@@ -1,6 +1,8 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Interfaces;
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -18,7 +20,6 @@ public sealed class MetalCreation() : MetalCard(1,
     //Metal: (gain 3 vigor), Gain 1 "metal element"
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<VigorPower>(3),
-        new BoolVar("testelem",CardElementTag.Metal.IsActive(CombatState))
     ]);
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
@@ -33,7 +34,8 @@ public sealed class MetalCreation() : MetalCard(1,
         {
             await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
         }
-        CombatState.GetElement().AddEssence(CardElementTag.Wood,1);
+
+        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Metal, 1);
     }
 
     protected override void OnUpgrade()
@@ -41,4 +43,26 @@ public sealed class MetalCreation() : MetalCard(1,
         AddKeyword(CardKeyword.Innate);
         DynamicVars["VigorPower"].UpgradeValueBy(2);
     }
+    /*
+    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    {
+        GD.Print($"{this} :","on passsssssssssebienla,was",DynamicVars["testelem"].BaseValue);
+        // On ne réagit que si c'est l'élément Metal qui change d'état
+        if (element == CardElementTag.Metal)
+        {
+            if (isActive)
+            {
+                //todo why the fuck is it print 2 times (there is 2 instance of the card maybe it's normal ???
+                GD.Print($"{this} :","eleeeeeementchangeToTrue,was",DynamicVars["testelem"].BaseValue);
+                DynamicVars["isMetalOn"].BaseValue = 1;
+            }
+            else
+            {
+                GD.Print($"{this} :","eleeeeeementchangeTofalse,was",DynamicVars["testelem"].BaseValue);
+                DynamicVars["isMetalOn"].BaseValue = 0;
+            }
+        }
+
+        await Task.CompletedTask;
+    }*/
 }

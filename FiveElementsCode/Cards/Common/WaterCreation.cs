@@ -39,7 +39,8 @@ public sealed class WaterCreation() : WaterCard(1,
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
             await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
         }
-        CombatState.GetElement().AddEssence(CardElementTag.Water,1);
+
+        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1);
     }
 
     protected override void OnUpgrade()

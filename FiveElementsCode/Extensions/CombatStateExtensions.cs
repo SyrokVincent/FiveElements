@@ -10,7 +10,7 @@ public static class CombatStateExtensions
     // Cela permet de ne pas mélanger les données si plusieurs combats existent
     private static readonly ConditionalWeakTable<CombatState, Element> StatusMap = new();
 
-    public static Element GetElement(this CombatState combatState)
+    public static Element GetElementalStatus(this CombatState combatState)
     {
         // Si le statut n'existe pas encore pour ce combat, on le crée
         return StatusMap.GetValue(combatState, c => new Element(c));

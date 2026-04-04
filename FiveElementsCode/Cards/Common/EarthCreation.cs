@@ -35,7 +35,8 @@ public sealed class EarthCreation() : EarthCard(1,
         {
             await CommonActions.CardBlock(this, play);
         }
-        CombatState.GetElement().AddEssence(CardElementTag.Wood,1);
+
+        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Earth, 1);
     }
 
     protected override void OnUpgrade()

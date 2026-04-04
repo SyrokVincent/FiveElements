@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards.Basic;
 using FiveElements.FiveElementsCode.Cards.Common;
+using FiveElements.FiveElementsCode.Cards.Rare;
 using FiveElements.FiveElementsCode.Cards.Token;
 using FiveElements.FiveElementsCode.Cards.Uncommon;
 using FiveElements.FiveElementsCode.Extensions;
@@ -97,6 +98,8 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<WaterFlow>());
             finalDeck.Add(ModelDb.Card<WaterBubble>());
+            finalDeck.Add(ModelDb.Card<MetalCreation>());
+            finalDeck.Add(ModelDb.Card<Annihilation>());
 
             return finalDeck;
         }

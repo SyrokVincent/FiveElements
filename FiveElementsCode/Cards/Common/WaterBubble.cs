@@ -1,7 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
-using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Cards.Common;
 
   
-public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Common, TargetType.Self), IOnElementStateChanged
+public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     
     
@@ -45,8 +44,9 @@ public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Comm
     }
     
 
-    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
     {
+        await base.OnElementStateChanged(element, isActive);
         // On ne réagit que si c'est l'élément Eau qui change d'état
         if (element == CardElementTag.Water)
         {

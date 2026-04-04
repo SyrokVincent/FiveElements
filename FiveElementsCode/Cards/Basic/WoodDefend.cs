@@ -14,7 +14,9 @@ public sealed class WoodDefend() : WoodCard(1,
     TargetType.Self)
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        new BlockVar(5, ValueProp.Move)
+    ]);
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [];

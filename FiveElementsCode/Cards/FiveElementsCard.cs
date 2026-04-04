@@ -4,6 +4,8 @@ using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Interfaces;
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
@@ -13,7 +15,7 @@ namespace FiveElements.FiveElementsCode.Cards;
 public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target,
     bool showInCardLibrary = true,
     bool autoAdd = true)
-    : CustomCardModel(cost, type, rarity, target, showInCardLibrary, autoAdd)
+    : CustomCardModel(cost, type, rarity, target, showInCardLibrary, autoAdd), IOnElementStateChanged
 {
     
     //color for element in cards description
@@ -22,19 +24,25 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     protected const string FireColor = "[color=#FF4500]";
     protected const string EarthColor = "[color=#8B4513]";
     protected const string MetalColor = "[color=#C0C0C0]";
+    protected const string OffColor = "[color=#888888]"; //todo ces balises garde les [gold] et variable en vert a l'interieur, better if [grey] was working
+    
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new StringVar("water_s",CardElementTag.Water.IsActive(this.CombatState) ? WaterColor : "" ),
-        new StringVar("water_e",CardElementTag.Water.IsActive(this.CombatState) ? "[/color]" : ""),
-        new StringVar("wood_s",CardElementTag.Wood.IsActive(this.CombatState) ? WoodColor : ""),
-        new StringVar("wood_e",CardElementTag.Wood.IsActive(this.CombatState) ? "[/color]" : ""),
-        new StringVar("fire_s",CardElementTag.Fire.IsActive(this.CombatState) ? FireColor : ""),
-        new StringVar("fire_e",CardElementTag.Fire.IsActive(this.CombatState) ? "[/color]" : ""),
-        new StringVar("earth_s",CardElementTag.Earth.IsActive(this.CombatState) ? EarthColor : ""),
-        new StringVar("earth_e",CardElementTag.Earth.IsActive(this.CombatState) ? "[/color]" : ""),
-        new StringVar("metal_s",CardElementTag.Metal.IsActive(this.CombatState) ? MetalColor : ""),
-        new StringVar("metal_e",CardElementTag.Metal.IsActive(this.CombatState) ? "[/color]" : ""),
+        new StringVar("water_s",WaterColor),
+        new StringVar("water_e","[/color]"),
+        new StringVar("wood_s",WoodColor),
+        new StringVar("wood_e","[/color]"),
+        new StringVar("fire_s",FireColor),
+        new StringVar("fire_e", "[/color]"),
+        new StringVar("earth_s", EarthColor),
+        new StringVar("earth_e", "[/color]"),
+        new StringVar("metal_s", MetalColor),
+        new StringVar("metal_e", "[/color]"),
+        new StringVar("off_s", OffColor ),
+        new StringVar("off_e", "[/color]" ),
     ];
+    
+    
     /*
     protected FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target, CardElementTag elem):
         base(cost, type, rarity, target)
@@ -67,7 +75,7 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     // stuff I added
     
     private HashSet<CardElementTag>? _elementTags;
-    
+
     public virtual IEnumerable<CardElementTag> ElementTags =>  _elementTags ?? (IEnumerable<CardElementTag>) (_elementTags = CanonicalElementTags);
 
     public virtual HashSet<CardElementTag> CanonicalElementTags
@@ -75,7 +83,9 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         get => _elementTags;
         set => _elementTags = value;
     }
-    
+
+
+    public abstract Task OnElementStateChanged(CardElementTag element, bool isActive);
 }  
     
     /*
@@ -105,7 +115,7 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         get
         {
             var combatState = this.CombatState;
-            if (combatState != null) return combatState.GetElement().ElementOfEcho;
+            if (combatState != null) return combatState.GetElementalStatus().ElementOfEcho;
             return CardElementTag.Neutral;
         }
     }
