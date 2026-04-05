@@ -51,21 +51,5 @@ public sealed class Fulu() : NeutralCard(0,
         this.RemoveKeyword(CardKeyword.Ethereal);
         this.AddKeyword(CardKeyword.Retain);
     }
-
-    public static async Task CreateInHand(Player owner, int count, bool isUpgraded, CombatState combatState)
-    {var fulus = new List<CardModel>();
     
-        for (var i = 0; i < count; i++) 
-        {
-            var fulu = combatState.CreateCard<Fulu>(owner);
-            
-            if (isUpgraded)
-            {
-                CardCmd.Upgrade(fulu);
-            }
-            fulus.Add(fulu);
-        }
-
-        await CardPileCmd.AddGeneratedCardsToCombat(fulus, PileType.Hand, true);
-    }
 }

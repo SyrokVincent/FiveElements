@@ -30,4 +30,6 @@ public class WavePower : FiveElementsPower
         await CreatureCmd.Damage( choiceContext,target, Amount,ValueProp.Move | ValueProp.Unpowered,null,null);
     }
     
+    
+    
 }

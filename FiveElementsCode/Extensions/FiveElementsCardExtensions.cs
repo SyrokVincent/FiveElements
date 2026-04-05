@@ -93,7 +93,7 @@ public static class FiveElementsCardExtensions
 
         var status = combatState.GetElementalStatus();
         // ON LIT L'ECHO ICI MAINTENANT :
-        CardElementTag currentEcho = Relic1.Echo; //status.ElementOfEcho;
+        CardElementTag currentEcho = Character.FiveElements.Echo; //status.ElementOfEcho;
         return elem switch
         {
             CardElementTag.Water => currentEcho == CardElementTag.Water || currentEcho == CardElementTag.Metal || status.GetEssence(CardElementTag.Water) > 0,
@@ -122,7 +122,7 @@ public static class FiveElementsCardExtensions
 
     public static async Task CheckAndNotify(CombatState combatState, CardElementTag elem)
     {
-        GD.Print("CheckAndNotify TRIGGERED");
+        //GD.Print("CheckAndNotify TRIGGERED");
         // 1. On calcule l'état actuel (Essence + Echo) pour cet élément précis
         bool currentState = elem.IsActive(combatState); 
 

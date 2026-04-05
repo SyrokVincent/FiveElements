@@ -1,13 +1,18 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards.Token;
 using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Interfaces;
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Cards;
 
@@ -83,7 +88,34 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         get => _elementTags;
         set => _elementTags = value;
     }
+    public static async Task CreateInHand<T>(Player owner, int count, bool isUpgraded, CombatState combatState) 
+        where T : CardModel // On précise que T doit être un modèle de carte
+    {
+        var cards = new List<CardModel>();
 
+        for (var i = 0; i < count; i++) 
+        {
+            var card = combatState.CreateCard<T>(owner);
+        
+            // --- FORCER LA MISE À JOUR INITIALE ---
+            // On vérifie manuellement chaque élément pour la nouvelle carte
+            foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
+            {
+                bool isActive = elem.IsActive(combatState);
+                // On appelle la fonction de mise à jour visuelle/logique de la carte
+                // Assure-toi que ta carte a une méthode publique pour ça
+                if (card is FiveElementsCard elementalCard) 
+                {
+                    await elementalCard.OnElementStateChanged(elem, isActive);
+                }
+            }
+
+            if (isUpgraded) CardCmd.Upgrade(card);
+            cards.Add(card);
+        }
+
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, true);
+    }
 
     public abstract Task OnElementStateChanged(CardElementTag element, bool isActive);
 }  

@@ -5,6 +5,7 @@ using FiveElements.FiveElementsCode.Cards.Common;
 using FiveElements.FiveElementsCode.Cards.Rare;
 using FiveElements.FiveElementsCode.Cards.Token;
 using FiveElements.FiveElementsCode.Cards.Uncommon;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;
 using Godot;
@@ -24,6 +25,11 @@ namespace FiveElements.FiveElementsCode.Character;
 public class FiveElements : PlaceholderCharacterModel
 {
     
+    public static CardElementTag Echo = CardElementTag.Neutral;
+    
+    // this change the placeholder stuff
+    public override string PlaceholderID => "silent";
+    
     public const string CharacterId = "FiveElements";
 
     public static readonly Color Color = new("ffffff");
@@ -31,34 +37,10 @@ public class FiveElements : PlaceholderCharacterModel
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Neutral;
     public override int StartingHp => 70;
-/*
-    public override IEnumerable<FiveElementsCard> StartingDeck =>
-    [
-        ModelDb.Card<WaterStrike>(),
-        ModelDb.Card<WoodStrike>(),
-        ModelDb.Card<FireStrike>(),
-        ModelDb.Card<EarthStrike>(),
-        ModelDb.Card<MetalStrike>(),
-        ModelDb.Card<WaterDefend>(),
-        ModelDb.Card<WoodDefend>(),
-        ModelDb.Card<FireDefend>(),
-        ModelDb.Card<EarthDefend>(),
-        ModelDb.Card<MetalDefend>(),
-        ModelDb.Card<Creation>(),
-        ModelDb.Card<Activation>(),
-        ModelDb.Card<WaterCreation>(),
-        ModelDb.Card<WoodCreation>(),
-        ModelDb.Card<FireCreation>(),
-        ModelDb.Card<EarthCreation>(),
-        ModelDb.Card<MetalCreation>(),
-        ModelDb.Card<Distortion>(),
-        ModelDb.Card<Isolation>(),
-        ModelDb.Card<Incantation>(),
-    ];
-    */
     
     //deck with random starting point in the strike n defend, so the upgrading event won't always upgrade the same element
     // it will still upgrade both card of a same element thought
+    //todo when strike are added by event their are always the same elem..
     public override IEnumerable<FiveElementsCard> StartingDeck
     {
         get
@@ -97,9 +79,9 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<WaterFlow>());
+            finalDeck.Add(ModelDb.Card<WaterMark>());
             finalDeck.Add(ModelDb.Card<WaterBubble>());
-            finalDeck.Add(ModelDb.Card<MetalCreation>());
-            finalDeck.Add(ModelDb.Card<Annihilation>());
+            finalDeck.Add(ModelDb.Card<WaterTide>());
 
             return finalDeck;
         }

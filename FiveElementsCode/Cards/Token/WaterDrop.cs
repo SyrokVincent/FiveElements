@@ -3,36 +3,38 @@ using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Events;
-using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
+using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Cards;
 
-namespace FiveElements.FiveElementsCode.Cards.Common;
+namespace FiveElements.FiveElementsCode.Cards.Token;
 
-  
-public sealed class WaterMark() : WaterCard(1, CardType.Skill, CardRarity.Common, TargetType.AllEnemies)
+[Pool(typeof(TokenCardPool))]
+public sealed class WaterDrop() : WaterCard(0,
+    CardType.Skill, CardRarity.Token,
+    TargetType.Self, true, true)
 {
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
-    
-    //Apply 1 weak to all enemies, Water:(next turn add water drop in hand)
+
+    // Exhaust, Gain 1 wave? Water: (Gain 1 energy)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WeakPower>(1),
-        new PowerVar<WaterDropNextTurnPower>(1),
+        new EnergyVar(1),
+        //new PowerVar<WavePower>(0),
+        
+    ]);
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+       // HoverTipFactory.FromPower<WavePower>()
     ]);
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromPower<WeakPower>(),
-        HoverTipFactory.FromPower<WaterDropNextTurnPower>(),
-    ]);
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        CardKeyword.Exhaust, 
+    ];
     
 
     protected override async Task OnPlay(
@@ -40,19 +42,15 @@ public sealed class WaterMark() : WaterCard(1, CardType.Skill, CardRarity.Common
         CardPlay play)
     {
         if (CombatState == null) return;
-        foreach (var target in CombatState.HittableEnemies)
-        {
-            await CommonActions.Apply<WeakPower>(target, this, DynamicVars["WeakPower"].BaseValue);
-        }
+        //await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<WaterDropNextTurnPower>(this, DynamicVars["WaterDropNextTurnPower"].BaseValue);
+            await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
         }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WeakPower"].UpgradeValueBy(1);
+        //DynamicVars["WavePower"].UpgradeValueBy(2);
     }
-    
 }

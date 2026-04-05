@@ -22,7 +22,7 @@ public class FromKeywordPatch
     private const string EarthColor = "[color=#8B4513]";
     private const string MetalColor = "[color=#C0C0C0]";
     
-    public static CardElementTag ElementOfEcho => Relic1.Echo;
+    public static CardElementTag ElementOfEcho => Character.FiveElements.Echo;
     
     protected static IEnumerable<DynamicVar> CanonicalVars => [
         new StringVar("water_s",WaterColor),

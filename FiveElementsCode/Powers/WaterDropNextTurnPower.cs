@@ -14,13 +14,13 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class IncantationPower : FiveElementsPower
+public class WaterDropNextTurnPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromCard<Fulu>(),
+        HoverTipFactory.FromCard<WaterDrop>(),
     ];
     // public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     // {
@@ -33,7 +33,8 @@ public class IncantationPower : FiveElementsPower
     {
         if (player != Owner.Player) return;
         Flash();
-        await FiveElementsCard.CreateInHand<Fulu>(Owner.Player, Amount,false, combatState);
+        await FiveElementsCard.CreateInHand<WaterDrop>(Owner.Player, Amount,false, combatState);
+        await PowerCmd.Remove(this);
     }
     
 }

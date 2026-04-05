@@ -6,7 +6,19 @@
   "FIVEELEMENTS-WAVE_POWER.description": "At the start of the turn, [gold]Wave[/gold] deal damage to the enemy in front.",
   "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the start of the turn, deal [blue]{Amount}[/blue] damage to the enemy in front.",
   "FIVEELEMENTS-WAVE_POWER.title": "Wave",
-  "FIVEELEMENTS-INCANTATION_POWER.description": "At the start of the turn, add an [gold]Elemental Fulu[/gold] into your [gold]Hand[/gold]",
-  "FIVEELEMENTS-INCANTATION_POWER.smartDescription": "At the start of your turn, add {Amount:plural:an [gold]Elemental Fulu[/gold]|[blue]{}[/blue] [gold]Elemental Fulus[/gold]} into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-INCANTATION_POWER.title": "Incantation"
+
+  
+  
+  "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.description": "At the start of the next turn, add a [gold]Water Drop[/gold] into your [gold]Hand[/gold]",
+  "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.smartDescription": "At the start of your next turn, add {Amount:plural:a [gold]Water Drop[/gold]|[blue]{}[/blue] [gold]Water Drops[/gold]} into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.title": "Water Drop Next Turn",
+  
+  
+  
+  "FIVEELEMENTS-INCANTATION_POWER.description": "At the start of the turn, add a [gold]Fulu[/gold] into your [gold]Hand[/gold]",
+  "FIVEELEMENTS-INCANTATION_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a [gold]Fulu[/gold]|[blue]{}[/blue] [gold]Fulus[/gold]} into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-INCANTATION_POWER.title": "Incantation",
+  "FIVEELEMENTS-WATER_TIDE_POWER.description": "At the end of the turn, gain [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_TIDE_POWER.smartDescription": "At the end of the turn, gain [blue]{Amount}[/blue] {Amount:plural:[gold]Wave[/gold]|[gold]Waves[/gold]}.",
+  "FIVEELEMENTS-WATER_TIDE_POWER.title": "Water Tide"
 }

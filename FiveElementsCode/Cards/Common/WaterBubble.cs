@@ -43,25 +43,29 @@ public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Comm
         DynamicVars["WavePower"].UpgradeValueBy(1);
     }
     
+    
+    private bool _isWaterDiscountActive = false;
 
     public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
     {
         await base.OnElementStateChanged(element, isActive);
-        // On ne réagit que si c'est l'élément Eau qui change d'état
+
         if (element == CardElementTag.Water)
         {
-            if (isActive)
+            // Si l'eau s'active ET que la réduction n'est pas encore appliquée
+            if (isActive && !_isWaterDiscountActive)
             {
-                // L'eau vient de s'activer : on force le coût à 0
-                this.EnergyCost.AddThisCombat(-EnergyCost.Canonical);
+                this.EnergyCost.AddThisCombat(-this.EnergyCost.Canonical);
+                _isWaterDiscountActive = true;
             }
-            else
+            // Si l'eau se désactive ET que la réduction était appliquée
+            else if (!isActive && _isWaterDiscountActive)
             {
-                // L'eau vient de disparaître : on remet le coût d'origine de la carte
-                this.EnergyCost.AddThisCombat(EnergyCost.Canonical);
+                this.EnergyCost.AddThisCombat(this.EnergyCost.Canonical);
+                _isWaterDiscountActive = false;
             }
         }
-
         await Task.CompletedTask;
     }
+    
 }
