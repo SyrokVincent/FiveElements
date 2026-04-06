@@ -2,11 +2,28 @@
 using BaseLib.Extensions;
 using FiveElements.FiveElementsCode.Extensions;
 using Godot;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
 public abstract class FiveElementsPower : CustomPowerModel
 {
+    
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new StringVar("water_s",FiveElementsColor.WaterColor),
+        new StringVar("water_e","[/color]"),
+        new StringVar("wood_s",FiveElementsColor.WoodColor),
+        new StringVar("wood_e","[/color]"),
+        new StringVar("fire_s",FiveElementsColor.FireColor),
+        new StringVar("fire_e", "[/color]"),
+        new StringVar("earth_s", FiveElementsColor.EarthColor),
+        new StringVar("earth_e", "[/color]"),
+        new StringVar("metal_s", FiveElementsColor.MetalColor),
+        new StringVar("metal_e", "[/color]"),
+        new StringVar("off_s", FiveElementsColor.OffColor ),
+        new StringVar("off_e", "[/color]" ),
+    ];
+    
     //Loads from FiveElements/images/powers/your_power.png
     public override string CustomPackedIconPath
     {

@@ -1,4 +1,5 @@
 ﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards.Rare;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -26,10 +27,30 @@ public class WavePower : FiveElementsPower
         PlayerChoiceContext choiceContext,
         CombatState combatState)
     {
-        Creature target = combatState.HittableEnemies.First();
-        await CreatureCmd.Damage( choiceContext,target, Amount,ValueProp.Move | ValueProp.Unpowered,null,null);
+            Creature target = combatState.HittableEnemies.First();
+            await TriggerWave(combatState, target, choiceContext);
+    }
+
+    public async Task TriggerWave(CombatState combatState, Creature target, PlayerChoiceContext choiceContext)
+    {
+        Flash();
+        if (HasWaterTsunami)
+        {
+            IReadOnlyList<Creature> targets = combatState.HittableEnemies;
+            foreach (Creature t in targets)
+            {
+                await CreatureCmd.Damage( choiceContext,t, Amount,ValueProp.Move | ValueProp.Unpowered,null,null);
+            }
+        }
+        else
+        {
+            await CreatureCmd.Damage( choiceContext,target, Amount,ValueProp.Move | ValueProp.Unpowered,null,null);
+        }
+        
     }
     
-    
-    
+    private bool HasWaterTsunami
+    {
+        get => this.IsMutable && this.Owner.HasPower<WaterTsunamiPower>();
+    }
 }

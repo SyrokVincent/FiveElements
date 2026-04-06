@@ -22,6 +22,10 @@ public sealed class MetalCreation() : MetalCard(1,
         new PowerVar<VigorPower>(3),
     ]);
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        FiveElementsKeywords.Essence,
+    ]);
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromPower<VigorPower>()
     ]);

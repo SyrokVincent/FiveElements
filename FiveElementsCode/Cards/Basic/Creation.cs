@@ -20,6 +20,7 @@ public sealed class Creation() : NeutralCard(0,
 {
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
+        FiveElementsKeywords.Essence,
         CardKeyword.Innate, 
         CardKeyword.Ethereal, 
         CardKeyword.Exhaust, 
@@ -38,7 +39,7 @@ public sealed class Creation() : NeutralCard(0,
             choiceContext, 
             Owner, 
             prefs, 
-            c => c is FiveElementsCard f && !f.ElementTags.Contains(CardElementTag.Neutral), 
+            c => c is FiveElementsCard f && !f.IsNeutral(), 
             this
         );
 

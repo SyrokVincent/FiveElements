@@ -24,6 +24,10 @@ public sealed class FireCreation() : FireCard(1,
         new PowerVar<BurnPower>(4),
     ]);
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        FiveElementsKeywords.Essence,
+    ]);
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromPower<BurnPower>()
     ]);

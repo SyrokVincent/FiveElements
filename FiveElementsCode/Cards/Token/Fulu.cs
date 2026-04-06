@@ -17,7 +17,7 @@ namespace FiveElements.FiveElementsCode.Cards.Token;
 [Pool(typeof(TokenCardPool))]
 public sealed class Fulu() : NeutralCard(0,
     CardType.Skill, CardRarity.Token,
-    TargetType.Self, true, true)
+    TargetType.Self)
 {
     //Exhaust, Shift (Ethereal?)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([

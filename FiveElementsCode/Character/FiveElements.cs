@@ -25,6 +25,7 @@ namespace FiveElements.FiveElementsCode.Character;
 public class FiveElements : PlaceholderCharacterModel
 {
     
+    //todo make echo an array for if one day some card have multi element
     public static CardElementTag Echo = CardElementTag.Neutral;
     
     // this change the placeholder stuff
@@ -82,6 +83,12 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<WaterMark>());
             finalDeck.Add(ModelDb.Card<WaterBubble>());
             finalDeck.Add(ModelDb.Card<WaterTide>());
+            finalDeck.Add(ModelDb.Card<WaterTyphoon>());
+            finalDeck.Add(ModelDb.Card<WaterSpirit>());
+            finalDeck.Add(ModelDb.Card<WaterLord>());
+            finalDeck.Add(ModelDb.Card<WaterCall>());
+            finalDeck.Add(ModelDb.Card<WaterCall>());
+            finalDeck.Add(ModelDb.Card<WaterTsunami>());
 
             return finalDeck;
         }

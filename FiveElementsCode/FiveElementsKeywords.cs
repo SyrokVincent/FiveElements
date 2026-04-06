@@ -10,6 +10,8 @@ namespace FiveElements.FiveElementsCode;
 public static class FiveElementsKeywords
 {
     
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
+    public static CardKeyword Essence;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.Before)]
     public static CardKeyword Shift;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
@@ -37,6 +39,7 @@ public static class FiveElementsKeywords
 
     public static string GetLocKeyPrefix(this CardKeyword keyword)
     {
+        if (keyword == Essence)  return "FIVEELEMENTS-ESSENCE";
         if (keyword == Shift)  return "FIVEELEMENTS-SHIFT";
         if (keyword == Echo)   return "FIVEELEMENTS-ECHO";
         if (keyword == Water)  return "FIVEELEMENTS-WATER";

@@ -5,12 +5,13 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class WoodCard(int cost, CardType type, CardRarity rarity, TargetType target,
-    bool showInCardLibrary = true,
-    bool autoAdd = true)
-    : FiveElementsCard(cost, type, rarity, target, showInCardLibrary, autoAdd), IOnElementStateChanged
+public abstract class WoodCard : FiveElementsCard
 {
-    public override HashSet<CardElementTag> CanonicalElementTags { get; set; } = [CardElementTag.Wood];
+    protected WoodCard(int cost, CardType type, CardRarity rarity, TargetType target) 
+        : base(cost, type, rarity, target)
+    {
+        CanonicalElementTags = [CardElementTag.Wood];
+    }
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isWoodOn"),

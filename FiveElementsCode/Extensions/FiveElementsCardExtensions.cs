@@ -49,44 +49,33 @@ public static class FiveElementsCardExtensions
             await CardCmd.Transform(cardToTransform, replacement);
         }
     }
-    
-    /* todo delete if everything work lol
-    public static bool IsActive(this CardElementTag elem)
-    {
-        // On accède aux variables via le nom de ta classe de base (ex: MyBaseCard)
-        // Remplace "BaseCard" par le vrai nom de ta classe où se trouvent ces variables
-        CardElementTag echo = FiveElementsCard.ElementOfEcho;
 
-        return elem switch
-        {
-            CardElementTag.Water => (echo == CardElementTag.Water || echo == CardElementTag.Metal || FiveElementsCard.WaterEssence > 0),
-            CardElementTag.Wood  => (echo == CardElementTag.Wood  || echo == CardElementTag.Water || FiveElementsCard.WoodEssence > 0),
-            CardElementTag.Fire  => (echo == CardElementTag.Fire  || echo == CardElementTag.Wood  || FiveElementsCard.FireEssence > 0),
-            CardElementTag.Earth => (echo == CardElementTag.Earth || echo == CardElementTag.Fire  || FiveElementsCard.EarthEssence > 0),
-            CardElementTag.Metal => (echo == CardElementTag.Metal || echo == CardElementTag.Earth || FiveElementsCard.MetalEssence > 0),
-            _ => false
-        };
+    public static bool IsNeutral(this FiveElementsCard card)
+    {
+        return card.ElementTags.Contains(CardElementTag.Neutral);
+    }
+    public static bool IsWater(this FiveElementsCard card)
+    {
+        return card.ElementTags.Contains(CardElementTag.Water);
+    }
+    public static bool IsWood(this FiveElementsCard card)
+    {
+        return card.ElementTags.Contains(CardElementTag.Wood);
+    }
+    public static bool IsFire(this FiveElementsCard card)
+    {
+        return card.ElementTags.Contains(CardElementTag.Fire);
+    }
+    public static bool IsEarth(this FiveElementsCard card)
+    {
+        return card.ElementTags.Contains(CardElementTag.Earth);
+    }
+    public static bool IsMetal(this FiveElementsCard card)
+    {
+        return card.ElementTags.Contains(CardElementTag.Metal);
     }
     
-    public static bool IsActive(this CardElementTag elem, CombatState combatState)
-    {
-        // On récupère ton objet Element via l'extension qu'on a créée plus tôt
-        var status = combatState.GetElementalStatus();
     
-        // On récupère l'Echo (qui est peut-être resté statique ou qui est dans status)
-        CardElementTag echo = FiveElementsCard.ElementOfEcho;
-
-        return elem switch
-        {
-            CardElementTag.Water => echo == CardElementTag.Water || echo == CardElementTag.Metal || status.GetEssence(CardElementTag.Water) > 0,
-            CardElementTag.Wood  => echo == CardElementTag.Wood  || echo == CardElementTag.Water || status.GetEssence(CardElementTag.Wood) > 0,
-            CardElementTag.Fire  => echo == CardElementTag.Fire  || echo == CardElementTag.Wood  || status.GetEssence(CardElementTag.Fire) > 0,
-            CardElementTag.Earth => echo == CardElementTag.Earth || echo == CardElementTag.Fire  || status.GetEssence(CardElementTag.Earth) > 0,
-            CardElementTag.Metal => echo == CardElementTag.Metal || echo == CardElementTag.Earth || status.GetEssence(CardElementTag.Metal) > 0,
-            _ => false
-        };
-    }
-    */
     public static bool IsActive(this CardElementTag elem, CombatState? combatState)
     {
         if (combatState == null) return false;

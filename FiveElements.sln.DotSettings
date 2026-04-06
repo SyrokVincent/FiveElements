@@ -102,7 +102,7 @@ public class $CLASS$() : FiveElements.FiveElementsCode.Cards.FiveElementsCard($C
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5C62CAF1A56003489EEAF34ECA124C26/Description/@EntryValue">MyCustom Card</s:String>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5C62CAF1A56003489EEAF34ECA124C26/Field/=COST/Order/@EntryValue">3</s:Int64>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5C62CAF1A56003489EEAF34ECA124C26/Field/=ELEMENTCARD/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5C62CAF1A56003489EEAF34ECA124C26/Field/=ELEMENTCARD/Expression/@EntryValue">list("NeutralCard,WaterCard,WoodCard,FireCard,EarthCard,MetalCard")</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5C62CAF1A56003489EEAF34ECA124C26/Field/=ELEMENTCARD/Expression/@EntryValue">list("Neutral,Water,Wood,Fire,Earth,Metal")</s:String>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5C62CAF1A56003489EEAF34ECA124C26/Field/=ELEMENTCARD/Order/@EntryValue">2</s:Int64>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5C62CAF1A56003489EEAF34ECA124C26/Field/=RARITY/Order/@EntryValue">5</s:Int64>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5C62CAF1A56003489EEAF34ECA124C26/Field/=TARGET/Order/@EntryValue">6</s:Int64>
@@ -117,7 +117,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace $NAMESPACE$;
 
-public class $CLASS$() : FiveElements.FiveElementsCode.Cards.$ELEMENTCARD$($COST$, MegaCrit.Sts2.Core.Entities.Cards.CardType.$TYPE$, MegaCrit.Sts2.Core.Entities.Cards.CardRarity.$RARITY$, MegaCrit.Sts2.Core.Entities.Cards.TargetType.$TARGET$) {
+public class $CLASS$() : FiveElements.FiveElementsCode.Cards.$ELEMENTCARD$Card($COST$, MegaCrit.Sts2.Core.Entities.Cards.CardType.$TYPE$, MegaCrit.Sts2.Core.Entities.Cards.CardRarity.$RARITY$, MegaCrit.Sts2.Core.Entities.Cards.TargetType.$TARGET$) {
     
     //delete if shouldn't glow
     protected override bool ShouldGlowGoldInternal =&gt; CombatState != null &amp;&amp; CardElementTag.Water.IsActive(CombatState);
@@ -125,8 +125,18 @@ public class $CLASS$() : FiveElements.FiveElementsCode.Cards.$ELEMENTCARD$($COST
     //COPYCARDTEXTHERE
     protected override IEnumerable&lt;DynamicVar&gt; CanonicalVars =&gt; base.CanonicalVars.Concat([
     ]);
-
+    
+    public override IEnumerable&lt;CardKeyword&gt; CanonicalKeywords =&gt; base.CanonicalKeywords.Concat([
+        //CardKeyword.Ethereal,
+        //FiveElementsKeywords.Shift,
+        //FiveElementsKeywords.Echo,
+        //FiveElementsKeywords.Generate,
+        //CardKeyword.Exhaust, 
+    ]);
+    
+    //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable&lt;IHoverTip&gt; ExtraHoverTips =&gt; base.ExtraHoverTips.Concat([
+        //HoverTipFactory.FromPower&lt;WavePower&gt;(),
     ]);
 
     protected override async System.Threading.Tasks.Task OnPlay(MegaCrit.Sts2.Core.GameActions.Multiplayer.PlayerChoiceContext choiceContext, MegaCrit.Sts2.Core.Entities.Cards.CardPlay play)

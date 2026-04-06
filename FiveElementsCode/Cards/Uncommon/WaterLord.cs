@@ -8,49 +8,46 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
-using MegaCrit.Sts2.Core.Models.Cards;
 
-namespace FiveElements.FiveElementsCode.Cards.Token;
+namespace FiveElements.FiveElementsCode.Cards.Uncommon;
 
-[Pool(typeof(TokenCardPool))]
-public sealed class WaterDrop() : WaterCard(0,
-    CardType.Skill, CardRarity.Token,
+public class WaterLord() : WaterCard(1,
+    CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
+
+    //delete if shouldn't glow
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
 
-    // Exhaust, Gain 1 wave? Water: (Gain 1 energy)
+    //Gain 5 wave, Water:(This turn for each water card played gain 1 Wave)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new EnergyVar(1),
-        //new PowerVar<WavePower>(0),
-        
+        new PowerVar<WavePower>(5),
+        new PowerVar<WaterLordPower>(1),
     ]);
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-       // HoverTipFactory.FromPower<WavePower>()
-    ]);
-
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        CardKeyword.Exhaust, 
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    [
     ];
-    
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromPower<WavePower>(),
+    ]);
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         if (CombatState == null) return;
-        //await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+        
+        await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
+            await CommonActions.ApplySelf<WaterLordPower>(this, DynamicVars["WaterLordPower"].BaseValue);
         }
     }
 
     protected override void OnUpgrade()
     {
-        //DynamicVars["WavePower"].UpgradeValueBy(2);
+        DynamicVars["WavePower"].UpgradeValueBy(2);
     }
 }

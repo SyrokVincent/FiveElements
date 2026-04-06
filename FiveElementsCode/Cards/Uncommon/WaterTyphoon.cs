@@ -8,49 +8,47 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
-using MegaCrit.Sts2.Core.Models.Cards;
 
-namespace FiveElements.FiveElementsCode.Cards.Token;
+namespace FiveElements.FiveElementsCode.Cards.Uncommon;
 
-[Pool(typeof(TokenCardPool))]
-public sealed class WaterDrop() : WaterCard(0,
-    CardType.Skill, CardRarity.Token,
+public class WaterTyphoon() : WaterCard(0,
+    CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
+    protected override bool HasEnergyCostX => true;
+    
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
 
-    // Exhaust, Gain 1 wave? Water: (Gain 1 energy)
+    //Gain 3*X wave, Water: (draw X)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new EnergyVar(1),
-        //new PowerVar<WavePower>(0),
-        
-    ]);
-    
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-       // HoverTipFactory.FromPower<WavePower>()
+        new PowerVar<WavePower>(3),
+        new CardsVar(1),
     ]);
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-        CardKeyword.Exhaust, 
-    ];
-    
+   
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromPower<WavePower>()
+    ]);
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (CombatState == null) return;
-        //await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
-        if (CardElementTag.Water.IsActive(CombatState))
+        
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        int xValue = ResolveEnergyXValue();
+        for (int i = 0; i < xValue; ++i)
         {
-            await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
+            
+            await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+            await CommonActions.Draw(this, choiceContext);
         }
+        
     }
 
     protected override void OnUpgrade()
     {
-        //DynamicVars["WavePower"].UpgradeValueBy(2);
+        DynamicVars["WavePower"].UpgradeValueBy(1);
     }
 }

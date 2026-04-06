@@ -26,6 +26,10 @@ public sealed class WaterCreation() : WaterCard(1,
         new PowerVar<WavePower>(2),
     ]);
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        FiveElementsKeywords.Essence,
+    ]);
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromPower<WavePower>()
     ]);

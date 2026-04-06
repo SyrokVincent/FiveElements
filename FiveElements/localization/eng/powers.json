@@ -1,24 +1,34 @@
 {
 
-  "FIVEELEMENTS-BURN_POWER.description": "Burned creatures lose HP at the start of their turn. When it happen, all [gold]Burn[/gold] is removed.",
-  "FIVEELEMENTS-BURN_POWER.smartDescription": "At the start of its turn, loses [blue]{Amount}[/blue] HP, then remove [gold]Burn[/gold]",
+  "FIVEELEMENTS-BURN_POWER.description": "Burned creatures lose HP at the start of their turn. When it happens, all [gold]Burn[/gold] is removed.",
+  "FIVEELEMENTS-BURN_POWER.smartDescription": "At the start of its turn, loses [blue]{Amount}[/blue] HP, then removes all [gold]Burn[/gold].",
   "FIVEELEMENTS-BURN_POWER.title": "Burn",
-  "FIVEELEMENTS-WAVE_POWER.description": "At the start of the turn, [gold]Wave[/gold] deal damage to the enemy in front.",
-  "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the start of the turn, deal [blue]{Amount}[/blue] damage to the enemy in front.",
+  "FIVEELEMENTS-WAVE_POWER.description": "At the start of your turn, [gold]Wave[/gold] deals damage to the front enemy.",
+  "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the start of your turn, deals [blue]{Amount}[/blue] damage to the front enemy.",
   "FIVEELEMENTS-WAVE_POWER.title": "Wave",
 
   
   
-  "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.description": "At the start of the next turn, add a [gold]Water Drop[/gold] into your [gold]Hand[/gold]",
+  "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.description": "At the start of your next turn, add a [gold]Water Drop[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.smartDescription": "At the start of your next turn, add {Amount:plural:a [gold]Water Drop[/gold]|[blue]{}[/blue] [gold]Water Drops[/gold]} into your [gold]Hand[/gold].",
   "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.title": "Water Drop Next Turn",
   
   
   
-  "FIVEELEMENTS-INCANTATION_POWER.description": "At the start of the turn, add a [gold]Fulu[/gold] into your [gold]Hand[/gold]",
+  "FIVEELEMENTS-INCANTATION_POWER.description": "At the start of your turn, add a [gold]Fulu[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-INCANTATION_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a [gold]Fulu[/gold]|[blue]{}[/blue] [gold]Fulus[/gold]} into your [gold]Hand[/gold].",
   "FIVEELEMENTS-INCANTATION_POWER.title": "Incantation",
-  "FIVEELEMENTS-WATER_TIDE_POWER.description": "At the end of the turn, gain [gold]Wave[/gold].",
-  "FIVEELEMENTS-WATER_TIDE_POWER.smartDescription": "At the end of the turn, gain [blue]{Amount}[/blue] {Amount:plural:[gold]Wave[/gold]|[gold]Waves[/gold]}.",
-  "FIVEELEMENTS-WATER_TIDE_POWER.title": "Water Tide"
+  "FIVEELEMENTS-WATER_TIDE_POWER.description": "At the end of your turn, gain [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_TIDE_POWER.smartDescription": "At the end of your turn, gain [blue]{Amount}[/blue] [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_TIDE_POWER.title": "Water Tide",
+  "FIVEELEMENTS-WATER_SPIRIT_POWER.description": "Each turn, gain {Energy:energyIcons()} when you play a {water_s}Water{water_e} card.",
+  "FIVEELEMENTS-WATER_SPIRIT_POWER.smartDescription": "Gain {Energy:energyIcons()} when you play a {water_s}Water{water_e} card.\n{DisplayAmount:cond:=0?No longer triggers this turn.|=1?Can trigger [blue]{}[/blue] more time this turn.|Can trigger [blue]{}[/blue] more times this turn.}",
+  "FIVEELEMENTS-WATER_SPIRIT_POWER.title": "Water Spirit",
+  "FIVEELEMENTS-WATER_LORD_POWER.description": "Whenever you play a {water_s}Water{water_e} card this turn, gain [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_LORD_POWER.smartDescription": "Whenever you play a {water_s}Water{water_e} card this turn, gain [blue]{Amount}[/blue] [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_LORD_POWER.title": "Water Lord",
+  "FIVEELEMENTS-WATER_TSUNAMI_POWER.description": "[gold]Wave[/gold] hit ALL enemies.",
+  "FIVEELEMENTS-WATER_TSUNAMI_POWER.smartDescription": "[gold]Wave[/gold] hit ALL enemies.",
+  "FIVEELEMENTS-WATER_TSUNAMI_POWER.title": "Water Tsunami Power"
+
 }

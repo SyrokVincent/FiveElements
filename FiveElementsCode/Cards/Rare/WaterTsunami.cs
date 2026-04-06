@@ -8,41 +8,37 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace FiveElements.FiveElementsCode.Cards.Common;
+namespace FiveElements.FiveElementsCode.Cards.Rare;
 
-  
-public sealed class WoodCreation() : WoodCard(1,
-    CardType.Skill, CardRarity.Common,
+public class WaterTsunami() : WaterCard(3,
+    CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Wood.IsActive(CombatState);
-    
-    //Wood:(draw 1), Gain 1 "Wood element"
-    protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new CardsVar(1), 
-    ]);
 
+
+    //Wave now hit all enemies.
+    protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+    ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
-        FiveElementsKeywords.Essence,
     ]);
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromPower<WavePower>(),
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (CardElementTag.Wood.IsActive(this.CombatState))
-        {
-            await CommonActions.Draw(this, choiceContext);
-        }
-
-        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1);
+        
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await CommonActions.ApplySelf<WaterTsunamiPower>(this, 1);
     }
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        this.EnergyCost.UpgradeBy(-1);
     }
 }

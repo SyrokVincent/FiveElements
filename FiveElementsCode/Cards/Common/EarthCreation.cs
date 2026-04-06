@@ -27,6 +27,10 @@ public sealed class EarthCreation() : EarthCard(1,
     ]);
 
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        FiveElementsKeywords.Essence,
+    ]);
+    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)

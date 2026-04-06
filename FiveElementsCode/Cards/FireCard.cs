@@ -5,13 +5,13 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class FireCard(int cost, CardType type, CardRarity rarity, TargetType target,
-    bool showInCardLibrary = true,
-    bool autoAdd = true)
-    : FiveElementsCard(cost, type, rarity, target, showInCardLibrary, autoAdd), IOnElementStateChanged
+public abstract class FireCard : FiveElementsCard
 {
-    public override HashSet<CardElementTag> CanonicalElementTags { get; set; } = [CardElementTag.Fire];
-     
+    protected FireCard(int cost, CardType type, CardRarity rarity, TargetType target) 
+        : base(cost, type, rarity, target)
+    {
+        CanonicalElementTags = [CardElementTag.Fire];
+    }   
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isFireOn"),
     ]);

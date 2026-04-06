@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1ctpwxvocu1q"
-path="res://.godot/imported/water_drop.png-2dc8cd99e1a900b0e89c91aa9796ca44.ctex"
+uid="uid://bou0jm2c2nhdg"
+path="res://.godot/imported/water_tsunami.png-5f6fb16d018d64d603335ba03bd6421c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/big/water_drop.png"
-dest_files=["res://.godot/imported/water_drop.png-2dc8cd99e1a900b0e89c91aa9796ca44.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/water_tsunami.png"
+dest_files=["res://.godot/imported/water_tsunami.png-5f6fb16d018d64d603335ba03bd6421c.ctex"]
 
 [params]
 

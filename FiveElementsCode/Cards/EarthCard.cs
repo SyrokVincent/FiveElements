@@ -7,13 +7,13 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class EarthCard(int cost, CardType type, CardRarity rarity, TargetType target,
-    bool showInCardLibrary = true,
-    bool autoAdd = true)
-    : FiveElementsCard(cost, type, rarity, target, showInCardLibrary, autoAdd), IOnElementStateChanged
+public abstract class EarthCard : FiveElementsCard
 {
-    public override HashSet<CardElementTag> CanonicalElementTags { get; set; } = [CardElementTag.Earth];
-    
+    protected EarthCard(int cost, CardType type, CardRarity rarity, TargetType target) 
+        : base(cost, type, rarity, target)
+    {
+        CanonicalElementTags = [CardElementTag.Earth];
+    }  
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isEarthOn"),
     ]);

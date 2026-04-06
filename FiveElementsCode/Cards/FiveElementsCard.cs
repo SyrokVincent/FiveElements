@@ -17,33 +17,24 @@ using MegaCrit.Sts2.Core.Models;
 namespace FiveElements.FiveElementsCode.Cards;
 
 [Pool(typeof(FiveElementsCardPool))]
-public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target,
-    bool showInCardLibrary = true,
-    bool autoAdd = true)
-    : CustomCardModel(cost, type, rarity, target, showInCardLibrary, autoAdd), IOnElementStateChanged
+public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target)
+    : CustomCardModel(cost, type, rarity, target), IOnElementStateChanged
 {
-    
-    //color for element in cards description
-    protected const string WaterColor = "[color=#1E90FF]";
-    protected const string WoodColor = "[color=#228B22]";
-    protected const string FireColor = "[color=#FF4500]";
-    protected const string EarthColor = "[color=#8B4513]";
-    protected const string MetalColor = "[color=#C0C0C0]";
-    protected const string OffColor = "[color=#888888]"; //todo ces balises garde les [gold] et variable en vert a l'interieur, better if [grey] was working
+  
     
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new StringVar("water_s",WaterColor),
+        new StringVar("water_s",FiveElementsColor.WaterColor),
         new StringVar("water_e","[/color]"),
-        new StringVar("wood_s",WoodColor),
+        new StringVar("wood_s",FiveElementsColor.WoodColor),
         new StringVar("wood_e","[/color]"),
-        new StringVar("fire_s",FireColor),
+        new StringVar("fire_s",FiveElementsColor.FireColor),
         new StringVar("fire_e", "[/color]"),
-        new StringVar("earth_s", EarthColor),
+        new StringVar("earth_s", FiveElementsColor.EarthColor),
         new StringVar("earth_e", "[/color]"),
-        new StringVar("metal_s", MetalColor),
+        new StringVar("metal_s", FiveElementsColor.MetalColor),
         new StringVar("metal_e", "[/color]"),
-        new StringVar("off_s", OffColor ),
+        new StringVar("off_s", FiveElementsColor.OffColor ),
         new StringVar("off_e", "[/color]" ),
     ];
     
@@ -78,16 +69,27 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     
     
     // stuff I added
-    
-    private HashSet<CardElementTag>? _elementTags;
+    private HashSet<CardElementTag> _canonicalElementTags = [CardElementTag.Neutral];
 
-    public virtual IEnumerable<CardElementTag> ElementTags =>  _elementTags ?? (IEnumerable<CardElementTag>) (_elementTags = CanonicalElementTags);
+    private HashSet<CardElementTag>? _liveElementTags;
+
+    public virtual IEnumerable<CardElementTag> ElementTags => 
+        _liveElementTags ??= new HashSet<CardElementTag>(_canonicalElementTags);
 
     public virtual HashSet<CardElementTag> CanonicalElementTags
     {
-        get => _elementTags;
-        set => _elementTags = value;
+        get => _canonicalElementTags;
+        set 
+        {
+            _canonicalElementTags = value;
+            // IMPORTANT : Si on change le canonique, on force la régénération du live
+            _liveElementTags = null; 
+        }
     }
+    
+    
+    
+    
     public static async Task CreateInHand<T>(Player owner, int count, bool isUpgraded, CombatState combatState) 
         where T : CardModel // On précise que T doit être un modèle de carte
     {
