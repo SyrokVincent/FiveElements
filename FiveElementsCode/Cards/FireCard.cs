@@ -1,6 +1,10 @@
-﻿using FiveElements.FiveElementsCode.Enums;
+﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Interfaces;
+using FiveElements.FiveElementsCode.Powers;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
@@ -34,5 +38,27 @@ public abstract class FireCard : FiveElementsCard
         }
 
         await Task.CompletedTask;
+    }
+    
+    protected async Task<int> DealHeatDamage(PlayerChoiceContext choiceContext, CardPlay play, CalculatedDamageVar damage)
+    {
+        ArgumentNullException.ThrowIfNull(play.Target, nameof(play.Target));
+
+        // Exécution de l'attaque
+        var attackResult = await DamageCmd.Attack(damage)
+            .FromCard(this)
+            .Targeting(play.Target)
+            .Execute(choiceContext);
+
+        // Calcul des dégâts non bloqués
+        int unblockedDamage = attackResult.Results.Sum(r => r.UnblockedDamage);
+
+        // Application du Burn si dégâts > 0
+        if (unblockedDamage > 0)
+        {
+            await CommonActions.Apply<BurnPower>(play.Target, this, unblockedDamage);
+        }
+
+        return unblockedDamage; // On retourne la valeur au cas où la carte en ait besoin pour autre chose
     }
 }

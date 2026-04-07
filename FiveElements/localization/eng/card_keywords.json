@@ -10,7 +10,6 @@
   "FIVEELEMENTS-ESSENCE.description": "While you have an element's [gold]Essence[/gold], cards of that element always [gold]trigger[/gold] their additional effects.",
   "FIVEELEMENTS-ESSENCE.title":"Essence",
   
-
   
   "FIVEELEMENTS-WATER.description": "{water_s}Water{water_e} : [gold]Trigger[/gold] additional effects if [gold]Echo[/gold] is {metal_s}Metal{metal_e} or {water_s}Water{water_e}, or if you have {water_s}Water{water_e} [gold]Essence[/gold].",
   "FIVEELEMENTS-WATER.title": "Water",
@@ -21,5 +20,11 @@
   "FIVEELEMENTS-EARTH.description": "{earth_s}Earth{earth_e} : [gold]Trigger[/gold] additional effects if [gold]Echo[/gold] is {fire_s}Fire{fire_e} or {earth_s}Earth{earth_e}, or if you have {earth_s}Earth{earth_e} [gold]Essence[/gold].",
   "FIVEELEMENTS-EARTH.title": "Earth",
   "FIVEELEMENTS-METAL.description": "{metal_s}Metal{metal_e} : [gold]Trigger[/gold] additional effects if [gold]Echo[/gold] is {earth_s}Earth{earth_e} or {metal_s}Metal{metal_e}, or if you have {metal_s}Metal{metal_e} [gold]Essence[/gold].",
-  "FIVEELEMENTS-METAL.title": "Metal"
+  "FIVEELEMENTS-METAL.title": "Metal",
+
+
+  "FIVEELEMENTS-HEAT.description": "Damage dealt to HP applies an equal amount of [gold]Burn[/gold].",
+  "FIVEELEMENTS-HEAT.title": "Heat",
+  "FIVEELEMENTS-INCANDESCENCE.description": "While in hand, apply [gold]Burn[/gold] to all enemies at turn start.",
+  "FIVEELEMENTS-INCANDESCENCE.title": "Incandescence"
 }

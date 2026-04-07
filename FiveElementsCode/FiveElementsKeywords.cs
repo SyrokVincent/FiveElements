@@ -28,6 +28,10 @@ public static class FiveElementsKeywords
     public static CardKeyword Earth;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Metal;
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
+    public static CardKeyword Incandescence;
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
+    public static CardKeyword Heat;
 
     
     public static bool IsShift(this CardModel card)
@@ -39,21 +43,24 @@ public static class FiveElementsKeywords
 
     public static string GetLocKeyPrefix(this CardKeyword keyword)
     {
-        if (keyword == Essence)  return "FIVEELEMENTS-ESSENCE";
-        if (keyword == Shift)  return "FIVEELEMENTS-SHIFT";
         if (keyword == Echo)   return "FIVEELEMENTS-ECHO";
         if (keyword == Water)  return "FIVEELEMENTS-WATER";
         if (keyword == Wood)   return "FIVEELEMENTS-WOOD";
         if (keyword == Fire)   return "FIVEELEMENTS-FIRE";
         if (keyword == Earth)  return "FIVEELEMENTS-EARTH";
         if (keyword == Metal)  return "FIVEELEMENTS-METAL";
+        if (keyword == Heat)   return "FIVEELEMENTS-HEAT";
+        if (keyword == Essence)  return "FIVEELEMENTS-ESSENCE";
+        if (keyword == Shift)  return "FIVEELEMENTS-SHIFT";
         if (keyword == Generate) return "FIVEELEMENTS-GENERATE";
+        if (keyword == Incandescence) return "FIVEELEMENTS-INCANDESCENCE";
     
         // Si le nom est nul (ça arrive si c'est un keyword dynamique), on met une sécurité
         string name = Enum.GetName(typeof(CardKeyword), keyword);
         if (string.IsNullOrEmpty(name)) return keyword.ToString();
         return StringHelper.Slugify(name);
     }
+   
 
     public static LocString GetTitle(this CardKeyword keyword)
     {

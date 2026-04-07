@@ -108,9 +108,7 @@
   "FIVEELEMENTS-METAL_FULU.description": "Transform itself on [gold]Shift[/gold].",
   "FIVEELEMENTS-METAL_FULU.title": "Metal Fulu",
   "FIVEELEMENTS-WATER_DROP.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain {Energy:energyIcons()}.|{off_s}Water : Gain {Energy:energyIcons()}.{off_e}}",
-  "FIVEELEMENTS-WATER_DROP.title": "Water Drop"
-  
-  
-  
-  
+  "FIVEELEMENTS-WATER_DROP.title": "Water Drop",
+  "FIVEELEMENTS-FIRE_PLUME.description": "[gold]Incandescence[/gold] {BurnPower:diff()}.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deal {CalculatedDamage:diff()} [gold]Heat[/gold] damage. Deals {ExtraDamage:diff()} additional damage for each {fire_s}Fire{fire_e} card played this turn.|{off_s}Fire : Deal {CalculatedDamage:diff()} Heat damage. Deals {ExtraDamage:diff()} additional damage for each Fire card played this turn.{off_e}}",
+  "FIVEELEMENTS-FIRE_PLUME.title": "Fire Plume"
 }
