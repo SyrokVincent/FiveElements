@@ -13,6 +13,8 @@ public class Isolation() : NeutralCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
+    //I think it's needed for enchantment?
+    public override bool GainsBlock => true;
     //Gain 6 block, Add 1 Elemental Fulu in hand
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(6,ValueProp.Move),

@@ -11,12 +11,13 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Basic;
 
-public sealed class EarthDefend : EarthCard
+public sealed class EarthDefend() : EarthCard(1,
+    CardType.Skill, CardRarity.Basic, 
+    TargetType.Self)
 {
-    public EarthDefend() : base (1,CardType.Skill, CardRarity.Basic,TargetType.Self)
-    {
-    }
-    //ElementField.ElementType.Set(this, CardElementTag.Earth);
+    //I think it's needed for enchantment?
+    public override bool GainsBlock => true;
+
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([

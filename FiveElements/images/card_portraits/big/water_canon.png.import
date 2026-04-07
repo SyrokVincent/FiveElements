@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba7ygukxpibli"
-path="res://.godot/imported/big_energy_five_elements.png-fdb4d69ba1676e0d8ca4ba00189cb810.ctex"
+uid="uid://bg7nknbsq0out"
+path="res://.godot/imported/water_canon.png-ef88d0534b3028be289844fe3c5212b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/charui/big_energy_five_elements.png"
-dest_files=["res://.godot/imported/big_energy_five_elements.png-fdb4d69ba1676e0d8ca4ba00189cb810.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/water_canon.png"
+dest_files=["res://.godot/imported/water_canon.png-ef88d0534b3028be289844fe3c5212b8.ctex"]
 
 [params]
 

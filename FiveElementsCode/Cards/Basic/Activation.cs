@@ -26,7 +26,8 @@ public sealed class Activation() : NeutralCard(1,
     CardType.Skill, CardRarity.Basic,
     TargetType.AllEnemies)
 {
-    
+    //I think it's needed for enchantment?
+    public override bool GainsBlock => true;
     protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
     
     //Water:(1 energy, 2 wave), Wood:(Draw 1), Fire:(Burn 4 to all enemies), Earth:(6 block), Metal:(3 vigor) 

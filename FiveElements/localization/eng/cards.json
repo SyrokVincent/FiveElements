@@ -58,9 +58,12 @@
   "FIVEELEMENTS-WATER_CALL.title": "Water Call",
   "FIVEELEMENTS-WATER_TSUNAMI.description": "[gold]Wave[/gold] now hit ALL enemies.",
   "FIVEELEMENTS-WATER_TSUNAMI.title": "Water Tsunami",
-
-  
-  
+  "FIVEELEMENTS-WATER_CANON.description": "{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Deal {Damage:diff()} damage. Gain [gold]Wave[/gold] equal to damage dealt.|{off_s}Metal : Deal {Damage:diff()} damage. Gain Wave equal to damage dealt.{off_e}}\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Double your [gold]Wave[/gold] until next turn.|{off_s}Water : Double your Wave until next turn.{off_e}}",
+  "FIVEELEMENTS-WATER_CANON.title": "Water Canon",
+  "FIVEELEMENTS-WATER_VEIL.description": "Reduces damage taken from Attacks by [blue]25%[/blue] for {WaterVeilPower:diff()} {WaterVeilPower:plural:turn|turns}.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : [gold]Transform[/gold] all Status cards in your [gold]Hand[/gold] into [gold]Water Drops[/gold].|{off_s}Water : Transform all Status cards in your Hand into Water Drops.{off_e}}",
+  "FIVEELEMENTS-WATER_VEIL.title": "Water Veil",
+  "FIVEELEMENTS-WATER_SHELL.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isWaterOn:cond:>0?{water_s}Water{water_e} : [gold]Exhaust[/gold] 1 random Status card from your [gold]Draw Pile[/gold] and 1 from your [gold]Discard Pile[/gold].|{off_s}Water : Exhaust 1 random Status card from your Draw Pile and 1 from your Discard Pile.{off_e}}",
+  "FIVEELEMENTS-WATER_SHELL.title": "Water Shell",
   
   
   

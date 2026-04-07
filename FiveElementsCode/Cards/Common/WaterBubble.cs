@@ -14,6 +14,8 @@ namespace FiveElements.FiveElementsCode.Cards.Common;
 public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     
+    //I think it's needed for enchantment?
+    public override bool GainsBlock => true;
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
     

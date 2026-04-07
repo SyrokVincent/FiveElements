@@ -29,6 +29,11 @@
   "FIVEELEMENTS-WATER_LORD_POWER.title": "Water Lord",
   "FIVEELEMENTS-WATER_TSUNAMI_POWER.description": "[gold]Wave[/gold] hit ALL enemies.",
   "FIVEELEMENTS-WATER_TSUNAMI_POWER.smartDescription": "[gold]Wave[/gold] hit ALL enemies.",
-  "FIVEELEMENTS-WATER_TSUNAMI_POWER.title": "Water Tsunami Power"
-
+  "FIVEELEMENTS-WATER_TSUNAMI_POWER.title": "Water Tsunami",
+  "FIVEELEMENTS-WATER_CANON_POWER.description": "Remove the gained [gold]Wave[/gold] after it triggers on next turn start.",
+  "FIVEELEMENTS-WATER_CANON_POWER.smartDescription": "After [gold]Wave[/gold] trigger on turn start, lose {Amount} [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_CANON_POWER.title": "Wave Canon",
+  "FIVEELEMENTS-WATER_VEIL_POWER.description": "Water Veil reduces damage taken from Attacks by [blue]25%[/blue].",
+  "FIVEELEMENTS-WATER_VEIL_POWER.smartDescription": "Receive [blue]{DamageReduction:percentLess()}%[/blue] less damage from Attacks for [blue]{Amount}[/blue] {Amount:plural:turn|turns}.",
+  "FIVEELEMENTS-WATER_VEIL_POWER.title": "Water Veil"
 }

@@ -51,6 +51,7 @@ public sealed class WaterDrop() : WaterCard(0,
 
     protected override void OnUpgrade()
     {
+        //todo an upgrade either draw or few wave
         //DynamicVars["WavePower"].UpgradeValueBy(2);
     }
 }

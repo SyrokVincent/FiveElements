@@ -19,6 +19,8 @@ public sealed class EarthCreation() : EarthCard(1,
     TargetType.Self)
 {
     
+    //I think it's needed for enchantment?
+    public override bool GainsBlock => true;
     protected override bool ShouldGlowGoldInternal => CardElementTag.Earth.IsActive(CombatState);
 
     //Earth: (gain 6 Block), Gain 1 "earth element"
