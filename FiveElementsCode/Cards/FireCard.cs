@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -40,14 +41,14 @@ public abstract class FireCard : FiveElementsCard
         await Task.CompletedTask;
     }
     
-    protected async Task<int> DealHeatDamage(PlayerChoiceContext choiceContext, CardPlay play, CalculatedDamageVar damage)
+    protected async Task<int> DealHeatDamage(PlayerChoiceContext choiceContext, Creature? target, CalculatedDamageVar damage)
     {
-        ArgumentNullException.ThrowIfNull(play.Target, nameof(play.Target));
+        ArgumentNullException.ThrowIfNull(target);
 
         // Exécution de l'attaque
         var attackResult = await DamageCmd.Attack(damage)
             .FromCard(this)
-            .Targeting(play.Target)
+            .Targeting(target)
             .Execute(choiceContext);
 
         // Calcul des dégâts non bloqués
@@ -56,7 +57,30 @@ public abstract class FireCard : FiveElementsCard
         // Application du Burn si dégâts > 0
         if (unblockedDamage > 0)
         {
-            await CommonActions.Apply<BurnPower>(play.Target, this, unblockedDamage);
+            await CommonActions.Apply<BurnPower>(target, this, unblockedDamage);
+        }
+
+        return unblockedDamage; // On retourne la valeur au cas où la carte en ait besoin pour autre chose
+    }
+    
+    protected async Task<int> DealHeatDamage(PlayerChoiceContext choiceContext, Creature? target, DamageVar damageVar)
+    {
+        // Sécurité : Vérifie que la cible existe
+        ArgumentNullException.ThrowIfNull(target);
+
+        // Exécution de l'attaque via le DamageCmd
+        var attackResult = await DamageCmd.Attack(damageVar.BaseValue)
+            .FromCard(this)
+            .Targeting(target)
+            .Execute(choiceContext);
+
+        // Calcul des dégâts non bloqués
+        int unblockedDamage = attackResult.Results.Sum(r => r.UnblockedDamage);
+
+        // Application du Burn si dégâts > 0
+        if (unblockedDamage > 0)
+        {
+            await CommonActions.Apply<BurnPower>(target, this, unblockedDamage);
         }
 
         return unblockedDamage; // On retourne la valeur au cas où la carte en ait besoin pour autre chose

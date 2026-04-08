@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards.Uncommon;
 
-public class WaterTyphoon() : WaterCard(0,
+public sealed class WaterTyphoon() : WaterCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

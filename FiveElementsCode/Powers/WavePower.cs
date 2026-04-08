@@ -18,35 +18,44 @@ public class WavePower : FiveElementsPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    // public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
-    // {
-    // }
+     public override async Task AfterPlayerTurnStart(
+         PlayerChoiceContext choiceContext, 
+         Player player)
+     {
+         Creature? target = CombatState.HittableEnemies.FirstOrDefault();
+         await TriggerWave(CombatState, target, choiceContext);
+     }
 
+     /*
     public override async Task BeforeHandDraw(
         Player player,
         PlayerChoiceContext choiceContext,
         CombatState combatState)
     {
-            Creature target = combatState.HittableEnemies.First();
-            await TriggerWave(combatState, target, choiceContext);
+        Creature target = CombatState.HittableEnemies.First();
+        await TriggerWave(CombatState, target, choiceContext);
     }
+    */
 
-    public async Task TriggerWave(CombatState combatState, Creature target, PlayerChoiceContext choiceContext)
-    {
-        Flash();
-        if (HasWaterTsunami)
-        {
-            IReadOnlyList<Creature> targets = combatState.HittableEnemies;
-            foreach (Creature t in targets)
-            {
-                await CreatureCmd.Damage( choiceContext,t, Amount,ValueProp.Move | ValueProp.Unpowered,null,null);
-            }
+     public async Task TriggerWave(CombatState combatState, Creature? target, PlayerChoiceContext choiceContext)
+     {
+         if (target != null)
+         {
+             Flash();
+             if (HasWaterTsunami)
+             {
+                 IReadOnlyList<Creature> targets = combatState.HittableEnemies;
+                 foreach (Creature t in targets)
+                 {
+                     await CreatureCmd.Damage(choiceContext, t, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
+                 }
+             }
+             else
+             {
+                 await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Move | ValueProp.Unpowered, null,
+                     null);
+             }
         }
-        else
-        {
-            await CreatureCmd.Damage( choiceContext,target, Amount,ValueProp.Move | ValueProp.Unpowered,null,null);
-        }
-        
     }
     
     private bool HasWaterTsunami

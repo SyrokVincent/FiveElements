@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Cards.Rare;
 
-public class WaterVeil() : WaterCard(1,
+public sealed class WaterVeil() : WaterCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {

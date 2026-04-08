@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Rare;
 
-public class WaterCanon() : WaterCard(2,
+public sealed class WaterCanon() : WaterCard(2,
     CardType.Attack, CardRarity.Rare,
     TargetType.Self)
 {

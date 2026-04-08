@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards.Rare;
 
-public class WaterTsunami() : WaterCard(3,
+public sealed class WaterTsunami() : WaterCard(3,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {

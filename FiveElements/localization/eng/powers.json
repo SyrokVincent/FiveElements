@@ -35,5 +35,23 @@
   "FIVEELEMENTS-WATER_CANON_POWER.title": "Wave Canon",
   "FIVEELEMENTS-WATER_VEIL_POWER.description": "Water Veil reduces damage taken from Attacks by [blue]25%[/blue].",
   "FIVEELEMENTS-WATER_VEIL_POWER.smartDescription": "Receive [blue]{DamageReduction:percentLess()}%[/blue] less damage from Attacks for [blue]{Amount}[/blue] {Amount:plural:turn|turns}.",
-  "FIVEELEMENTS-WATER_VEIL_POWER.title": "Water Veil"
+  "FIVEELEMENTS-WATER_VEIL_POWER.title": "Water Veil",
+
+
+
+
+
+  "FIVEELEMENTS-FIRE_WINGS_POWER.description": "At the start of your turn, add a [gold]Fire Plume[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-FIRE_WINGS_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-FIRE_WINGS_POWER.title": "Fire Wings",
+  "FIVEELEMENTS-FIRE_SPIRIT_POWER.description": "Apply [gold]Burn[/gold] to all enemies when you play a {fire_s}Fire{fire_e} card.",
+  "FIVEELEMENTS-FIRE_SPIRIT_POWER.smartDescription": "Apply [blue]{Amount}[/blue] [gold]Burn[/gold] to all enemies when you play a {fire_s}Fire{fire_e} card.",
+  "FIVEELEMENTS-FIRE_SPIRIT_POWER.title": "Fire Spirit",
+  "FIVEELEMENTS-FIRE_RISE_POWER.description": "Every [blue]{Threshold:diff()}[/blue] times you apply [gold]Burn[/gold], add a [gold]Fire Plume[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-FIRE_RISE_POWER.smartDescription": "Every [blue]{Threshold:diff()}[/blue] times you apply [gold]Burn[/gold], add {Amount:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-FIRE_RISE_POWER.title": "Fire Rise"
+  
+  
+  
+  
 }

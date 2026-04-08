@@ -18,7 +18,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class WaterSpiritPower : FiveElementsPower
+public class FireSpiritPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -28,16 +28,10 @@ public class WaterSpiritPower : FiveElementsPower
     ];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new EnergyVar(1),
-        new IntVar("DisplayAmount",0), //could not find how to acces DisplayAmount in localization otherwise
     ]);
     
-    public override int DisplayAmount => Amount - this.GetInternalData<Data>().TriggerCount;
     
     protected override object InitInternalData() => new Data();
-    
-    //faut mettre ça a true pour que les power ne stack pas ????
-    //public override bool IsInstanced => true;
     
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
@@ -48,43 +42,26 @@ public class WaterSpiritPower : FiveElementsPower
         if (data.JustAdded)
         {
             data.JustAdded = false;
-            DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-            InvokeDisplayAmountChanged();
             return;
         }
         //Only trigger if the owner of this power play a card
         if (Owner != cardPlay.Card.Owner.Creature) 
             return;
-
-        //Check if we have remaining triggers
-        if (data.TriggerCount >= Amount) 
-            return;
-
-        // Check if the played card is a Water element card
-        if (cardPlay.Card is FiveElementsCard elementCard && elementCard.IsWater())
+        
+        // Check if the played card is a fire element card
+        if (cardPlay.Card is FiveElementsCard elementCard && elementCard.IsFire())
         {
-            this.
             Flash();
-            data.TriggerCount++;
-            DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-            InvokeDisplayAmountChanged();
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner.Player);
+            foreach (var hittableEnemy in CombatState.HittableEnemies)
+            {
+                await PowerCmd.Apply<BurnPower>(hittableEnemy, Amount, Owner,null);
+            }
+            
         }
-    }
-    
-    public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
-    {
-        if (side != Owner.Side)return;
-        //Flash();
-        GetInternalData<Data>().TriggerCount = 0;
-        DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-        InvokeDisplayAmountChanged();
-        //Amount = AmountOnTurnStart;
     }
 
     private class Data
     {
-        public int TriggerCount;
         public bool JustAdded = true; // to not trigger the first time you play the card giving the power
     }
 }

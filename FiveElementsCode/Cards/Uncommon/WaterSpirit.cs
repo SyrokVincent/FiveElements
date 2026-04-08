@@ -11,18 +11,18 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards.Uncommon;
 
-public class WaterSpirit() : WaterCard(2,
+public sealed class WaterSpirit() : WaterCard(2,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
 
-    //Gain 1 energy the first 2 time you play a water card each turn (or change to 1 energy every 3 water card played?)
+    //Gain 1 energy the first 1 time you play a water card each turn (maybe upgrade to 2 and cost 3 ?)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), //just for description
-        new PowerVar<WaterSpiritPower>(2),
+        new PowerVar<WaterSpiritPower>(1),
     ]);
 
-    // overide to remove echo and water:
+    // overided to remove echo and water:
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         this.EnergyHoverTip,
     ];

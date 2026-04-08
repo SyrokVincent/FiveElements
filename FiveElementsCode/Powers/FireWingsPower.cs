@@ -14,21 +14,26 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class WaterCanonPower : FiveElementsPower
+public class FireWingsPower : FiveElementsPower
 {
-    public override PowerType Type => PowerType.Debuff;
+    public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<WavePower>(),
+        HoverTipFactory.FromCard<FirePlume>(),
     ];
-    
-    //late to trigger after wave trigger
-    public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)
+    // public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    // {
+    // }
+
+    public override async Task BeforeHandDraw(
+        Player player,
+        PlayerChoiceContext choiceContext,
+        CombatState combatState)
     {
+        if (player != Owner.Player) return;
         Flash();
-        await PowerCmd.Apply<WavePower>(Owner, -Amount, Owner, null);
-        await PowerCmd.Remove(this);
+        await FiveElementsCard.CreateInHand<FirePlume>(Owner.Player, Amount,false, combatState);
     }
     
 }

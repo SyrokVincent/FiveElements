@@ -117,9 +117,9 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace $NAMESPACE$;
 
-public class $CLASS$() : FiveElements.FiveElementsCode.Cards.$ELEMENTCARD$Card($COST$, MegaCrit.Sts2.Core.Entities.Cards.CardType.$TYPE$, MegaCrit.Sts2.Core.Entities.Cards.CardRarity.$RARITY$, MegaCrit.Sts2.Core.Entities.Cards.TargetType.$TARGET$) {
+public sealed class $CLASS$() : FiveElements.FiveElementsCode.Cards.$ELEMENTCARD$Card($COST$, MegaCrit.Sts2.Core.Entities.Cards.CardType.$TYPE$, MegaCrit.Sts2.Core.Entities.Cards.CardRarity.$RARITY$, MegaCrit.Sts2.Core.Entities.Cards.TargetType.$TARGET$) {
     
-    //delete if shouldn't glow
+    //delete if shouldn't glow or replace water
     protected override bool ShouldGlowGoldInternal =&gt; CombatState != null &amp;&amp; CardElementTag.Water.IsActive(CombatState);
     
     //COPYCARDTEXTHERE

@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Common;
 
-public class Distortion() : NeutralCard(1,
+public sealed class Distortion() : NeutralCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.AnyEnemy)
 {

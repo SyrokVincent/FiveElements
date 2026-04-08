@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Rare;
 
-public class Annihilation() : NeutralCard(3,
+public sealed class Annihilation() : NeutralCard(3,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy)
 {

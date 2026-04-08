@@ -18,7 +18,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Cards.Token;
 
 [Pool(typeof(TokenCardPool))]
-public class FirePlume() : FireCard(0,
+public sealed class FirePlume() : FireCard(0,
     CardType.Attack, CardRarity.Token,
     TargetType.AnyEnemy)
 {
@@ -58,7 +58,7 @@ public class FirePlume() : FireCard(0,
         
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            await DealHeatDamage(choiceContext, play, DynamicVars.CalculatedDamage);
+            await DealHeatDamage(choiceContext, play.Target, DynamicVars.CalculatedDamage);
         }
     }
 
@@ -67,12 +67,28 @@ public class FirePlume() : FireCard(0,
         DynamicVars.CalculationBase.UpgradeValueBy(1);
     }
     
+    
+    // when fire rise tirgger with that it go to the right of card draw and don't trigger incandescence
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        //it's Incandescence triggering
         if (CombatState != null && PileType.Hand.GetPile(Owner).Cards.Contains(this))
             foreach (var hittableEnemy in CombatState.HittableEnemies)
             {
                 await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
             }
     }
+    
+    //test of when is the best trigger
+    /*
+     // when fire rise tirgger with that it go to the left of card draw and don't trigger incandescence
+    public override async Task BeforeHandDrawLate(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    {
+        //it's Incandescence triggering
+        if (CombatState != null && PileType.Hand.GetPile(Owner).Cards.Contains(this))
+            foreach (var hittableEnemy in CombatState.HittableEnemies)
+            {
+                await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
+            }
+    }*/
 }

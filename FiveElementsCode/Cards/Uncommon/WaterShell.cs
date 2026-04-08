@@ -16,7 +16,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards.Uncommon;
 
-public class WaterShell() : WaterCard(2,
+public sealed class WaterShell() : WaterCard(2,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

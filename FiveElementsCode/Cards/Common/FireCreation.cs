@@ -19,9 +19,9 @@ public sealed class FireCreation() : FireCard(1,
 {
     protected override bool ShouldGlowGoldInternal => CardElementTag.Fire.IsActive(CombatState);
     
-    //Fire: (Apply 4 Burn to all enemies), Gain 1 "fire element"
+    //Fire: (Apply 3 Burn to all enemies), Gain 1 "fire element"
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<BurnPower>(4),
+        new PowerVar<BurnPower>(3),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
