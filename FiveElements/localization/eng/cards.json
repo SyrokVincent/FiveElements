@@ -35,7 +35,13 @@
   "FIVEELEMENTS-INCANTATION.title": "Incantation",
   "FIVEELEMENTS-ANNIHILATION.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Deal {Damage:diff()} damage.|{off_s}Water : Deal {Damage:diff()} damage.{off_e}}\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Deal {Damage:diff()} damage.|{off_s}Wood : Deal {Damage:diff()} damage.{off_e}}\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deal {Damage:diff()} damage.|{off_s}Fire : Deal {Damage:diff()} damage.{off_e}}\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Deal {Damage:diff()} damage.|{off_s}Earth : Deal {Damage:diff()} damage.{off_e}}\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Deal {Damage:diff()} damage.|{off_s}Metal : Deal {Damage:diff()} damage.{off_e}}",
   "FIVEELEMENTS-ANNIHILATION.title": "Annihilation",
-  
+  "FIVEELEMENTS-DECIMATION.description": "Costs 1 less for each different [gold]Element[/gold] played this turn.\nDeal {Damage:diff()} damage.",
+  "FIVEELEMENTS-DECIMATION.title": "Decimation",
+  "FIVEELEMENTS-CIRCULATION.selectionScreenPrompt": "Choose a card to Circulate.",
+  "FIVEELEMENTS-CIRCULATION.description": "Choose a card in [gold]Hand[/gold] that [gold]Echo[/gold] [gold]Generate[/gold].\nGain its [gold]Essence[/gold] and play it for free.\n(todo change this)",
+  "FIVEELEMENTS-CIRCULATION.title": "Circulation",
+  "FIVEELEMENTS-ALL_OR_ONE.description": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {energyPrefix:energyIcons(1)} and draw 1 card.",
+  "FIVEELEMENTS-ALL_OR_ONE.title": "All or One",
   
   
   "FIVEELEMENTS-WATER_CREATION.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.|{off_s}Water : Gain {WavePower:diff()} Wave and {Energy:energyIcons()}.{off_e}}\nGain 1 [gold]Water Essence[/gold].",
@@ -84,13 +90,20 @@
   "FIVEELEMENTS-FIRE_RISE.title": "Fire Rise",
   "FIVEELEMENTS-FIRE_BALL.description": "Deal {CalculatedDamage:diff()} [gold]Heat[/gold] damage.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deals {ExtraDamage:diff()} additional damage for every {BurnDivider:diff()} [gold]Burn[/gold] on the enemy.|{off_s}Fire : Deals {ExtraDamage:diff()} additional damage for every {BurnDivider:diff()} Burn on the enemy.{off_e}}",
   "FIVEELEMENTS-FIRE_BALL.title": "Fire Ball",
-  "FIVEELEMENTS-FIRE_NOVA.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]Fire Plume[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} Fire Plume into your Hand.{off_e}}",
+  "FIVEELEMENTS-FIRE_NOVA.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|{off_s}Fire : Apply {BurnPower:diff()} Burn to all enemies.{off_e}}",
   "FIVEELEMENTS-FIRE_NOVA.title": "Fire Nova",
   "FIVEELEMENTS-FIRE_DANCE.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add a copy of this card on top of your [gold]Draw Pile[/gold].|{off_s}Fire : Add a copy of this card on top of your Draw Pile.{off_e}}",
   "FIVEELEMENTS-FIRE_DANCE.title": "Fire Dance",
   "FIVEELEMENTS-FIRE_WEAVING.description": "[gold]Exhaust[/gold] 1 non-{fire_s}Fire{fire_e} card or itself if you can't.\nDeal {Damage:diff()} [gold]Heat[/gold] damage.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : If another card was [gold]Exhausted[/gold], return this to your [gold]Hand[/gold].|{off_s}Fire : If another card was Exhausted, return this to your Hand.{off_e}}",
   "FIVEELEMENTS-FIRE_WEAVING.title": "Fire Weaving",
-  
+  "FIVEELEMENTS-FIRE_TOUCH.description": "[gold]Exhaust[/gold] 1 non-{fire_s}Fire{fire_e} card.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]{IfUpgraded:show:Fire Plume+|Fire Plume}[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} {IfUpgraded:show:Fire Plume+|Fire Plume} into your Hand.{off_e}}",
+  "FIVEELEMENTS-FIRE_TOUCH.title": "Fire Touch",
+  "FIVEELEMENTS-FIRE_STORM.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : [gold]Exhaust[/gold] this card.|{off_s}Fire : Exhaust this card.{off_e}}\nWhen you end a turn with {fire_s}Fire{fire_e} [gold]Echo[/gold], plays from the [gold]Exhaust Pile[/gold] at turn start.",
+  "FIVEELEMENTS-FIRE_STORM.title": "Fire Storm",
+  "FIVEELEMENTS-FIRE_BLOSSOM.description": "{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : For every [gold]Strength[/gold], apply {BurnPower:diff()} [gold]Burn[/gold] to a random enemy.|{off_s}Wood : For every Strength, apply {BurnPower:diff()} Burn to a random enemy.{off_e}}\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : [gold]Burn[/gold] on ALL enemies will not be removed {FireBlossomPower:diff()} {FireBlossomPower:plural:time|times} when it trigger.|{off_s}Fire : Burn on ALL enemies will not be removed {FireBlossomPower:diff()} {FireBlossomPower:plural:time|times} when it trigger.{off_e}}",
+  "FIVEELEMENTS-FIRE_BLOSSOM.title": "Fire Blossom",
+  "FIVEELEMENTS-FIRE_FALL.description": "[gold]Fireboost[/gold].\nDeal {CalculatedDamage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deals {ExtraDamage:diff()} additional damage for each other {fire_s}Fire{fire_e} card in your [gold]Hand[/gold].|{off_s}Fire : Deals {ExtraDamage:diff()} additional damage for each other Fire card in Hand.{off_e}}",
+  "FIVEELEMENTS-FIRE_FALL.title": "Fire Fall",
   
   
   

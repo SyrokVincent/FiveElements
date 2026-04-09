@@ -26,5 +26,7 @@
   "FIVEELEMENTS-HEAT.description": "Damage dealt to HP applies an equal amount of [gold]Burn[/gold].",
   "FIVEELEMENTS-HEAT.title": "Heat",
   "FIVEELEMENTS-INCANDESCENCE.description": "While in hand, apply [gold]Burn[/gold] to all enemies at turn start.",
-  "FIVEELEMENTS-INCANDESCENCE.title": "Incandescence"
+  "FIVEELEMENTS-INCANDESCENCE.title": "Incandescence",
+  "FIVEELEMENTS-FIREBOOST.description": "Reduce cost by 1 for each {fire_s}Fire{fire_e} card played and for each card [gold]Exhausted[/gold] this combat, reset cost on use.",
+  "FIVEELEMENTS-FIREBOOST.title": "Fireboost"
 }

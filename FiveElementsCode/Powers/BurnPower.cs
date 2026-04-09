@@ -28,8 +28,22 @@ public class BurnPower : FiveElementsPower
         if (side != Owner.Side) return;
         await CreatureCmd.Damage( new ThrowingPlayerChoiceContext(),Owner, Amount,ValueProp.Unblockable | ValueProp.Unpowered,null,null);
         if (Owner.IsAlive)
-            await PowerCmd.Remove(this);
+            
+            if (HasFireBlossomPower)
+            {
+                var blossomPower = Owner.GetPower<FireBlossomPower>();
+                if (blossomPower != null)
+                {
+                    // On passe l'instance trouvée à Decrement
+                    await PowerCmd.Decrement(blossomPower);
+                }
+            }else await PowerCmd.Remove(this);
         else
             await Cmd.CustomScaledWait(0.1f, 0.25f);
+    }
+    
+    private bool HasFireBlossomPower
+    {
+        get => this.IsMutable && this.Owner.HasPower<FireBlossomPower>();
     }
 }

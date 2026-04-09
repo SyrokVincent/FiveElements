@@ -1,23 +1,20 @@
 {
+  "FIVEELEMENTS-INCANTATION_POWER.description": "At the start of your turn, add a [gold]Fulu[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-INCANTATION_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a [gold]Fulu[/gold]|[blue]{}[/blue] [gold]Fulus[/gold]} into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-INCANTATION_POWER.title": "Incantation", 
+  "FIVEELEMENTS-ALL_OR_ONE_POWER.description": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {energyPrefix:energyIcons(1)} and draw [blue]1[/blue] card.",
+  "FIVEELEMENTS-ALL_OR_ONE_POWER.smartDescription": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {Amount:energyIcons()} and draw {Amount} {Amount:plural:card|cards}.",
+  "FIVEELEMENTS-ALL_OR_ONE_POWER.title": "All or One",
 
-  "FIVEELEMENTS-BURN_POWER.description": "Burned creatures lose HP at the start of their turn. When it happens, all [gold]Burn[/gold] is removed.",
-  "FIVEELEMENTS-BURN_POWER.smartDescription": "At the start of its turn, loses [blue]{Amount}[/blue] HP, then removes all [gold]Burn[/gold].",
-  "FIVEELEMENTS-BURN_POWER.title": "Burn",
+  
   "FIVEELEMENTS-WAVE_POWER.description": "At the start of your turn, [gold]Wave[/gold] deals damage to the front enemy.",
   "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the start of your turn, deals [blue]{Amount}[/blue] damage to the front enemy.",
   "FIVEELEMENTS-WAVE_POWER.title": "Wave",
-
-  
   
   "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.description": "At the start of your next turn, add a [gold]Water Drop[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.smartDescription": "At the start of your next turn, add {Amount:plural:a [gold]Water Drop[/gold]|[blue]{}[/blue] [gold]Water Drops[/gold]} into your [gold]Hand[/gold].",
   "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.title": "Water Drop Next Turn",
-  
-  
-  
-  "FIVEELEMENTS-INCANTATION_POWER.description": "At the start of your turn, add a [gold]Fulu[/gold] into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-INCANTATION_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a [gold]Fulu[/gold]|[blue]{}[/blue] [gold]Fulus[/gold]} into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-INCANTATION_POWER.title": "Incantation",
+
   "FIVEELEMENTS-WATER_TIDE_POWER.description": "At the end of your turn, gain [gold]Wave[/gold].",
   "FIVEELEMENTS-WATER_TIDE_POWER.smartDescription": "At the end of your turn, gain [blue]{Amount}[/blue] [gold]Wave[/gold].",
   "FIVEELEMENTS-WATER_TIDE_POWER.title": "Water Tide",
@@ -39,7 +36,9 @@
 
 
 
-
+  "FIVEELEMENTS-BURN_POWER.description": "Burned creatures lose HP at the start of their turn. When it happens, all [gold]Burn[/gold] is removed.",
+  "FIVEELEMENTS-BURN_POWER.smartDescription": "At the start of {OnPlayer:your turn, lose|its turn, loses} [blue]{Amount}[/blue] HP, then removes all [gold]Burn[/gold].",
+  "FIVEELEMENTS-BURN_POWER.title": "Burn",
 
   "FIVEELEMENTS-FIRE_WINGS_POWER.description": "At the start of your turn, add a [gold]Fire Plume[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-FIRE_WINGS_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold].",
@@ -49,7 +48,10 @@
   "FIVEELEMENTS-FIRE_SPIRIT_POWER.title": "Fire Spirit",
   "FIVEELEMENTS-FIRE_RISE_POWER.description": "Every [blue]{Threshold:diff()}[/blue] times you apply [gold]Burn[/gold], add a [gold]Fire Plume[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-FIRE_RISE_POWER.smartDescription": "Every [blue]{Threshold:diff()}[/blue] times you apply [gold]Burn[/gold], add {Amount:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-FIRE_RISE_POWER.title": "Fire Rise"
+  "FIVEELEMENTS-FIRE_RISE_POWER.title": "Fire Rise",
+  "FIVEELEMENTS-FIRE_BLOSSOM_POWER.description": "[gold]Burn[/gold] will not be removed when it triggers.",
+  "FIVEELEMENTS-FIRE_BLOSSOM_POWER.smartDescription": "[gold]Burn[/gold] will not be removed the next {Amount:plural:time|[blue]{}[/blue] times} it triggers.",
+  "FIVEELEMENTS-FIRE_BLOSSOM_POWER.title": "Fire Blossom"
   
   
   

@@ -29,9 +29,11 @@ public static class FiveElementsKeywords
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Metal;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
+    public static CardKeyword Heat;
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Incandescence;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
-    public static CardKeyword Heat;
+    public static CardKeyword Fireboost;
 
     
     public static bool IsShift(this CardModel card)
@@ -54,6 +56,7 @@ public static class FiveElementsKeywords
         if (keyword == Shift)  return "FIVEELEMENTS-SHIFT";
         if (keyword == Generate) return "FIVEELEMENTS-GENERATE";
         if (keyword == Incandescence) return "FIVEELEMENTS-INCANDESCENCE";
+        if (keyword == Fireboost) return "FIVEELEMENTS-FIREBOOST";
     
         // Si le nom est nul (ça arrive si c'est un keyword dynamique), on met une sécurité
         string name = Enum.GetName(typeof(CardKeyword), keyword);

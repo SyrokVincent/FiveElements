@@ -1,6 +1,5 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
-using FiveElements.FiveElementsCode.Cards.Token;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;

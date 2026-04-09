@@ -1,0 +1,60 @@
+﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards._5_Token;
+using FiveElements.FiveElementsCode.Powers;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+
+namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
+
+public sealed class FireRise() : FireCard(2,
+    CardType.Power, CardRarity.Uncommon,
+    TargetType.Self)
+{
+    
+    //Every 3 time you apply burn add a Fire plume in hand. Increased by 1 every time it create one.
+    //(if upgraded also create one on play) or just cost reduction ?
+     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        new PowerVar<FireRisePower>(1), // nb of plume created
+        new CalculationBaseVar(3), //when changing base value here need to also change value in the power
+        new CalculationExtraVar(1),
+        new CalculatedVar("Threshold").WithMultiplier((card, target) =>
+        {
+            var power = card.Owner.Creature.GetPower<FireRisePower>();
+            if (power != null) {
+                return power.CurrentThreshold - card.DynamicVars.CalculationBase.BaseValue;
+            }
+            return 0;  
+           
+        }),
+    ]);
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+    ]);
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromPower<BurnPower>(),
+        HoverTipFactory.FromCard<FirePlume>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Incandescence),
+    ];
+
+    protected override async Task OnPlay(
+        PlayerChoiceContext choiceContext,
+        CardPlay play)
+    {
+        //add power to self
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await CommonActions.ApplySelf<FireRisePower>(this, DynamicVars["FireRisePower"].BaseValue);
+        if (IsUpgraded)
+        {
+            if (CombatState != null) await FiveElementsCard.CreateInHand<FirePlume>(Owner, 1, false, CombatState);
+        }
+    }
+
+    protected override void OnUpgrade()
+    {
+        this.EnergyCost.UpgradeBy(-1);
+    }
+}

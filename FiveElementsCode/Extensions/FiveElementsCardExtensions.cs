@@ -1,5 +1,5 @@
 ﻿using FiveElements.FiveElementsCode.Cards;
-using FiveElements.FiveElementsCode.Cards.Token;
+using FiveElements.FiveElementsCode.Cards._5_Token;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Hooks;
 using FiveElements.FiveElementsCode.Relics;
