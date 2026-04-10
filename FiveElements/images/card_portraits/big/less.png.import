@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj05j7stys5x5"
-path="res://.godot/imported/fire_ball.png-ec2292c63ce6c0caaa48fdb0c39396a0.ctex"
+uid="uid://befjocxedcc"
+path="res://.godot/imported/less.png-492ac83f20ffce70ba3292ab56c6b8c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/big/fire_ball.png"
-dest_files=["res://.godot/imported/fire_ball.png-ec2292c63ce6c0caaa48fdb0c39396a0.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/less.png"
+dest_files=["res://.godot/imported/less.png-492ac83f20ffce70ba3292ab56c6b8c5.ctex"]
 
 [params]
 

@@ -45,6 +45,10 @@
   "FIVEELEMENTS-DOMINATION.selectionScreenPrompt": "Choose a card to Dominate.",
   "FIVEELEMENTS-DOMINATION.description": "Choose a card in [gold]Hand[/gold] that [gold]Echo[/gold] [gold]Dominate[/gold].\n[gold]Transform[/gold] it into the last card played and play it for free.",
   "FIVEELEMENTS-DOMINATION.title": "Domination",
+  "FIVEELEMENTS-MORE_OR_LESS.description": "Choose between {IfUpgraded:show:\n[gold]More+[/gold] and [gold]Less+[/gold]|[gold]More[/gold] or [gold]Less[/gold]} to add into your [gold]Hand[/gold]",
+  "FIVEELEMENTS-MORE_OR_LESS.title": "More or Less",
+  "FIVEELEMENTS-RECYCLE.description": "Choose a card in your [gold]hand[/gold] to [gold]Transform[/gold] into a card of the [gold]Element[/gold] it [gold]Generate[/gold].",
+  "FIVEELEMENTS-RECYCLE.title": "Recycle",
   
   
   
@@ -92,8 +96,8 @@
   "FIVEELEMENTS-FIRE_SPIRIT.title": "Fire Spirit",
   "FIVEELEMENTS-FIRE_RISE.description": "Add {FireRisePower:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold] every {Threshold:diff()} times you apply [gold]Burn[/gold], increased by 1 each time it create one.",
   "FIVEELEMENTS-FIRE_RISE.title": "Fire Rise",
-  "FIVEELEMENTS-FIRE_BALL.description": "Deal {CalculatedDamage:diff()} [gold]Heat[/gold] damage.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deals {ExtraDamage:diff()} additional damage for every {BurnDivider:diff()} [gold]Burn[/gold] on the enemy.|{off_s}Fire : Deals {ExtraDamage:diff()} additional damage for every {BurnDivider:diff()} Burn on the enemy.{off_e}}",
-  "FIVEELEMENTS-FIRE_BALL.title": "Fire Ball",
+  "FIVEELEMENTS-FIRE_FORCE.description": "Deal {CalculatedDamage:diff()} [gold]Heat[/gold] damage.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deals {ExtraDamage:diff()} additional damage for every {BurnDivider:diff()} [gold]Burn[/gold] on the enemy.|{off_s}Fire : Deals {ExtraDamage:diff()} additional damage for every {BurnDivider:diff()} Burn on the enemy.{off_e}}",
+  "FIVEELEMENTS-FIRE_FORCE.title": "Fire Force",
   "FIVEELEMENTS-FIRE_NOVA.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|{off_s}Fire : Apply {BurnPower:diff()} Burn to all enemies.{off_e}}",
   "FIVEELEMENTS-FIRE_NOVA.title": "Fire Nova",
   "FIVEELEMENTS-FIRE_DANCE.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add a copy of this card on top of your [gold]Draw Pile[/gold].|{off_s}Fire : Add a copy of this card on top of your Draw Pile.{off_e}}",
@@ -141,5 +145,10 @@
   "FIVEELEMENTS-WATER_DROP.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain {Energy:energyIcons()}.|{off_s}Water : Gain {Energy:energyIcons()}.{off_e}}",
   "FIVEELEMENTS-WATER_DROP.title": "Water Drop",
   "FIVEELEMENTS-FIRE_PLUME.description": "[gold]Incandescence[/gold] {BurnPower:diff()}.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deal {CalculatedDamage:diff()} [gold]Heat[/gold] damage. Deals {ExtraDamage:diff()} additional damage for each {fire_s}Fire{fire_e} card played this turn.|{off_s}Fire : Deal {CalculatedDamage:diff()} Heat damage. Deals {ExtraDamage:diff()} additional damage for each Fire card played this turn.{off_e}}",
-  "FIVEELEMENTS-FIRE_PLUME.title": "Fire Plume"
+  "FIVEELEMENTS-FIRE_PLUME.title": "Fire Plume",
+  "FIVEELEMENTS-LESS.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each card in your deck of the element you have the least of.",
+  "FIVEELEMENTS-LESS.title": "Less",
+  "FIVEELEMENTS-MORE.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each card in your deck of the element you have the more of.",
+  "FIVEELEMENTS-MORE.title": "More"
+  
 }
