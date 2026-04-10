@@ -18,11 +18,11 @@
   "FIVEELEMENTS-WATER_TIDE_POWER.description": "At the end of your turn, gain [gold]Wave[/gold].",
   "FIVEELEMENTS-WATER_TIDE_POWER.smartDescription": "At the end of your turn, gain [blue]{Amount}[/blue] [gold]Wave[/gold].",
   "FIVEELEMENTS-WATER_TIDE_POWER.title": "Water Tide",
-  "FIVEELEMENTS-WATER_SPIRIT_POWER.description": "Each turn, gain {Energy:energyIcons()} when you play a {water_s}Water{water_e} card.",
-  "FIVEELEMENTS-WATER_SPIRIT_POWER.smartDescription": "Gain {Energy:energyIcons()} when you play a {water_s}Water{water_e} card.\n{DisplayAmount:cond:=0?No longer triggers this turn.|=1?Can trigger [blue]{}[/blue] more time this turn.|Can trigger [blue]{}[/blue] more times this turn.}",
+  "FIVEELEMENTS-WATER_SPIRIT_POWER.description": "Each turn, gain {Energy:energyIcons()} whenever  you play a {water_s}Water{water_e} card.",
+  "FIVEELEMENTS-WATER_SPIRIT_POWER.smartDescription": "Gain {Energy:energyIcons()} whenever  you play a {water_s}Water{water_e} card.\n{DisplayAmount:cond:=0?No longer triggers this turn.|=1?Can trigger [blue]{}[/blue] more time this turn.|Can trigger [blue]{}[/blue] more times this turn.}",
   "FIVEELEMENTS-WATER_SPIRIT_POWER.title": "Water Spirit",
-  "FIVEELEMENTS-WATER_LORD_POWER.description": "Whenever you play a {water_s}Water{water_e} card this turn, gain [gold]Wave[/gold].",
-  "FIVEELEMENTS-WATER_LORD_POWER.smartDescription": "Whenever you play a {water_s}Water{water_e} card this turn, gain [blue]{Amount}[/blue] [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_LORD_POWER.description": "Whenever  you play a {water_s}Water{water_e} card this turn, gain [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_LORD_POWER.smartDescription": "Whenever  you play a {water_s}Water{water_e} card this turn, gain [blue]{Amount}[/blue] [gold]Wave[/gold].",
   "FIVEELEMENTS-WATER_LORD_POWER.title": "Water Lord",
   "FIVEELEMENTS-WATER_TSUNAMI_POWER.description": "[gold]Wave[/gold] hit ALL enemies.",
   "FIVEELEMENTS-WATER_TSUNAMI_POWER.smartDescription": "[gold]Wave[/gold] hit ALL enemies.",
@@ -35,6 +35,12 @@
   "FIVEELEMENTS-WATER_VEIL_POWER.title": "Water Veil",
 
 
+  
+  "FIVEELEMENTS-WOOD_SPIRIT_POWER.description": "Whenever  you play a {wood_s}Wood{wood_e} card, gain [gold]Strength[/gold] this turn.",
+  "FIVEELEMENTS-WOOD_SPIRIT_POWER.smartDescription": "Whenever  you play a {wood_s}Wood{wood_e} card, gain [blue]{Amount}[/blue] [gold]Strength[/gold] this turn.",
+  "FIVEELEMENTS-WOOD_SPIRIT_POWER.title": "Wood Spirit",
+  
+  
 
   "FIVEELEMENTS-BURN_POWER.description": "Burned creatures lose HP at the start of their turn. When it happens, all [gold]Burn[/gold] is removed.",
   "FIVEELEMENTS-BURN_POWER.smartDescription": "At the start of {OnPlayer:your turn, lose|its turn, loses} [blue]{Amount}[/blue] HP, then removes all [gold]Burn[/gold].",
@@ -43,17 +49,27 @@
   "FIVEELEMENTS-FIRE_WINGS_POWER.description": "At the start of your turn, add a [gold]Fire Plume[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-FIRE_WINGS_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold].",
   "FIVEELEMENTS-FIRE_WINGS_POWER.title": "Fire Wings",
-  "FIVEELEMENTS-FIRE_SPIRIT_POWER.description": "Apply [gold]Burn[/gold] to all enemies when you play a {fire_s}Fire{fire_e} card.",
-  "FIVEELEMENTS-FIRE_SPIRIT_POWER.smartDescription": "Apply [blue]{Amount}[/blue] [gold]Burn[/gold] to all enemies when you play a {fire_s}Fire{fire_e} card.",
+  "FIVEELEMENTS-FIRE_SPIRIT_POWER.description": "Whenever you play a {fire_s}Fire{fire_e} card, apply [gold]Burn[/gold] to all enemies.",
+  "FIVEELEMENTS-FIRE_SPIRIT_POWER.smartDescription": "Whenever you play a {fire_s}Fire{fire_e} card, apply [blue]{Amount}[/blue] [gold]Burn[/gold] to all enemies .",
   "FIVEELEMENTS-FIRE_SPIRIT_POWER.title": "Fire Spirit",
   "FIVEELEMENTS-FIRE_RISE_POWER.description": "Every [blue]{Threshold:diff()}[/blue] times you apply [gold]Burn[/gold], add a [gold]Fire Plume[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-FIRE_RISE_POWER.smartDescription": "Every [blue]{Threshold:diff()}[/blue] times you apply [gold]Burn[/gold], add {Amount:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold].",
   "FIVEELEMENTS-FIRE_RISE_POWER.title": "Fire Rise",
   "FIVEELEMENTS-FIRE_BLOSSOM_POWER.description": "[gold]Burn[/gold] will not be removed when it triggers.",
   "FIVEELEMENTS-FIRE_BLOSSOM_POWER.smartDescription": "[gold]Burn[/gold] will not be removed the next {Amount:plural:time|[blue]{}[/blue] times} it triggers.",
-  "FIVEELEMENTS-FIRE_BLOSSOM_POWER.title": "Fire Blossom"
+  "FIVEELEMENTS-FIRE_BLOSSOM_POWER.title": "Fire Blossom",
+
+
   
+  "FIVEELEMENTS-TEMP_THORNS_POWER.description": "When hit by an attack, deal damage back, removed at turn start.",
+  "FIVEELEMENTS-TEMP_THORNS_POWER.smartDescription": "When hit by an attack, deal [blue]{Amount}[/blue] damage back, removed at turn start.",
+  "FIVEELEMENTS-TEMP_THORNS_POWER.title": "Temporary Thorns",
   
-  
-  
+  "FIVEELEMENTS-EARTH_SPIRIT_POWER.description": "Whenever  you play a {earth_s}Earth{earth_e} card, gain [gold]Thorns[/gold] this turn.",
+  "FIVEELEMENTS-EARTH_SPIRIT_POWER.smartDescription": "Whenever  you play a {earth_s}Earth{earth_e} card, gain [blue]{Amount}[/blue] [gold]Thorns[/gold] this turn.",
+  "FIVEELEMENTS-EARTH_SPIRIT_POWER.title": "Earth Spirit",
+
+  "FIVEELEMENTS-METAL_SPIRIT_POWER.description": "Whenever  you play a {metal_s}Metal{metal_e} card, gain [gold]Vigor[/gold] this turn.",
+  "FIVEELEMENTS-METAL_SPIRIT_POWER.smartDescription": "Whenever  you play a {metal_s}Metal{metal_e} card, gain [blue]{Amount}[/blue] [gold]Vigor[/gold] this turn.",
+  "FIVEELEMENTS-METAL_SPIRIT_POWER.title": "Metal Spirit"
 }

@@ -62,7 +62,7 @@
   "FIVEELEMENTS-WATER_FLOW.title": "Water Flow",
   "FIVEELEMENTS-WATER_TIDE.description": "At the end of your turn, gain {WaterTidePower:diff()} [gold]Wave[/gold].",
   "FIVEELEMENTS-WATER_TIDE.title": "Water Tide",
-  "FIVEELEMENTS-WATER_SPIRIT.description": "Each turn, gain {Energy:energyIcons()} the first {WaterSpiritPower:diff()} {WaterSpiritPower:plural:time|times} you play a {water_s}Water{water_e} card.",
+  "FIVEELEMENTS-WATER_SPIRIT.description": "Each turn, gain {Energy:energyIcons()} the first {WaterSpiritPower:plural:time|{} times} you play a {water_s}Water{water_e} card.",
   "FIVEELEMENTS-WATER_SPIRIT.title": "Water Spirit",
   "FIVEELEMENTS-WATER_TYPHOON.description": "Gain {WavePower:diff()} [gold]Wave[/gold] X times.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Draw X cards.|{off_s}Water : Draw X cards.{off_e}}",
   "FIVEELEMENTS-WATER_TYPHOON.title": "Water Typhoon",
@@ -83,6 +83,8 @@
   
   "FIVEELEMENTS-WOOD_CREATION.description": "{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Draw {Cards:diff()} {Cards:plural:card|cards}.|{off_s}Wood : Draw {Cards:diff()} {Cards:plural:card|cards}.{off_e}}\nGain 1 [gold]Wood Essence[/gold].",
   "FIVEELEMENTS-WOOD_CREATION.title": "Wood Creation",
+  "FIVEELEMENTS-WOOD_SPIRIT.description": "Whenever you play a {wood_s}Wood{wood_e} card, gain {WoodSpiritPower:diff()} [gold]Strength[/gold] this turn.",
+  "FIVEELEMENTS-WOOD_SPIRIT.title": "Wood Spirit",
   
   
   
@@ -92,7 +94,7 @@
   "FIVEELEMENTS-FIRE_CREATION.title": "Fire Creation",
   "FIVEELEMENTS-FIRE_WINGS.description": "At the start of your turn, add a [gold]Fire Plume[/gold] into your [gold]Hand[/gold].{IfUpgraded:show:\nAdd a [gold]Fire Plume[/gold] into your [gold]Hand[/gold].|}",
   "FIVEELEMENTS-FIRE_WINGS.title": "Fire Wings",
-  "FIVEELEMENTS-FIRE_SPIRIT.description": "Apply {FireSpiritPower:diff()} [gold]Burn[/gold] to ALL enemies when you play a {fire_s}Fire{fire_e} card.",
+  "FIVEELEMENTS-FIRE_SPIRIT.description": "Apply {FireSpiritPower:diff()} [gold]Burn[/gold] to ALL enemies whenever you play a {fire_s}Fire{fire_e} card.",
   "FIVEELEMENTS-FIRE_SPIRIT.title": "Fire Spirit",
   "FIVEELEMENTS-FIRE_RISE.description": "Add {FireRisePower:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold] every {Threshold:diff()} times you apply [gold]Burn[/gold], increased by 1 each time it create one.",
   "FIVEELEMENTS-FIRE_RISE.title": "Fire Rise",
@@ -118,14 +120,16 @@
   
   "FIVEELEMENTS-EARTH_CREATION.description": "{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}\nGain 1 [gold]Earth Essence[/gold].",
   "FIVEELEMENTS-EARTH_CREATION.title": "Earth Creation",
-  
+  "FIVEELEMENTS-EARTH_SPIRIT.description": "Whenever  you play a {earth_s}Earth{earth_e} card, gain {EarthSpiritPower:diff()} [gold]Thorns[/gold] this turn.",
+  "FIVEELEMENTS-EARTH_SPIRIT.title": "Earth Spirit",
   
   
   
   
   "FIVEELEMENTS-METAL_CREATION.description": "{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain {VigorPower:diff()} [gold]Vigor[/gold].|{off_s}Metal : Gain {VigorPower:diff()} Vigor.{off_e}}\nGain 1 [gold]Metal Essence[/gold].",
   "FIVEELEMENTS-METAL_CREATION.title": "Metal Creation",
-  
+  "FIVEELEMENTS-METAL_SPIRIT.description": "Whenever you play a {metal_s}Metal{metal_e} card, gain {MetalSpiritPower:diff()} [gold]Vigor[/gold] this turn.",
+  "FIVEELEMENTS-METAL_SPIRIT.title": "Metal Spirit",
   
   
   

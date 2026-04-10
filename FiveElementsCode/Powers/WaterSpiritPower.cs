@@ -62,7 +62,6 @@ public class WaterSpiritPower : FiveElementsPower
         // Check if the played card is a Water element card
         if (cardPlay.Card is FiveElementsCard elementCard && elementCard.IsWater())
         {
-            this.
             Flash();
             data.TriggerCount++;
             DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;

@@ -84,37 +84,67 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<AllOrOne>());
-            finalDeck.Add(ModelDb.Card<FireEater>());
-            finalDeck.Add(ModelDb.Card<Domination>());
-            finalDeck.Add(ModelDb.Card<Domination>());
-            finalDeck.Add(ModelDb.Card<MoreOrLess>());
-            finalDeck.Add(ModelDb.Card<MoreOrLess>());
-            finalDeck.Add(ModelDb.Card<Recycle>());
+            finalDeck.Add(ModelDb.Card<EarthSpirit>());
+            finalDeck.Add(ModelDb.Card<EarthSpirit>());
+            finalDeck.Add(ModelDb.Card<EarthSpirit>());
             
-            
+            /*
             //WATER
-            //finalDeck.Add(ModelDb.Card<WaterCreation>());
-            //finalDeck.Add(ModelDb.Card<WaterBubble>());
-            //finalDeck.Add(ModelDb.Card<WaterMark>());
-            //finalDeck.Add(ModelDb.Card<WaterSpirit>());
-            //finalDeck.Add(ModelDb.Card<WaterCall>());
-            //finalDeck.Add(ModelDb.Card<WaterLord>());
-            //finalDeck.Add(ModelDb.Card<WaterShell>());
-            //finalDeck.Add(ModelDb.Card<WaterFlow>());
-            //finalDeck.Add(ModelDb.Card<WaterTyphoon>());
-            //finalDeck.Add(ModelDb.Card<WaterTide>());
-            //finalDeck.Add(ModelDb.Card<WaterTsunami>());
-            //finalDeck.Add(ModelDb.Card<WaterVeil>());
-            //finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCreation>());   //done
+            finalDeck.Add(ModelDb.Card<WaterBubble>());     //done
+            finalDeck.Add(ModelDb.Card<WaterMark>());       //done
+            finalDeck.Add(ModelDb.Card<WaterSpirit>());     //done
+            finalDeck.Add(ModelDb.Card<WaterCall>());       //done
+            finalDeck.Add(ModelDb.Card<WaterLord>());       //done
+            finalDeck.Add(ModelDb.Card<WaterShell>());      //done
+            finalDeck.Add(ModelDb.Card<WaterFlow>());       //done
+            finalDeck.Add(ModelDb.Card<WaterTyphoon>());    //done
+            finalDeck.Add(ModelDb.Card<WaterTide>());       //done
+            finalDeck.Add(ModelDb.Card<WaterTsunami>());    //done
+            finalDeck.Add(ModelDb.Card<WaterVeil>());       //done
+            finalDeck.Add(ModelDb.Card<WaterCanon>());      //done
+            */
             
+            /*
             //WOOD
+            finalDeck.Add(ModelDb.Card<WoodCreation>());     //done
+            finalDeck.Add(ModelDb.Card<WaterCanon>());      
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WoodSpirit>());       //done
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            */
             
             /*
             //FIRE
-            finalDeck.Add(ModelDb.Card<FireCreation>());
+            finalDeck.Add(ModelDb.Card<FireCreation>());    //done
+            finalDeck.Add(ModelDb.Card<FireNova>());        //done
+            finalDeck.Add(ModelDb.Card<FireTouch>());       //done
+            finalDeck.Add(ModelDb.Card<FireSpirit>());      //done
+            finalDeck.Add(ModelDb.Card<FireRise>());        //done
+            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done
+            finalDeck.Add(ModelDb.Card<FireStorm>());       //done
+            finalDeck.Add(ModelDb.Card<FireForce>());       //done
+            finalDeck.Add(ModelDb.Card<FireEater>());       //done
+            finalDeck.Add(ModelDb.Card<FireWings>());       //done
+            finalDeck.Add(ModelDb.Card<FireFall>());        //done
+            finalDeck.Add(ModelDb.Card<FireDance>());       //done
+            finalDeck.Add(ModelDb.Card<FireBlossom>());     //done
+            */
+            
+            /*
+            //EARTH
+            finalDeck.Add(ModelDb.Card<EarthCreation>());   //done
             finalDeck.Add(ModelDb.Card<FireNova>());
             finalDeck.Add(ModelDb.Card<FireTouch>());
-            finalDeck.Add(ModelDb.Card<FireSpirit>());
+            finalDeck.Add(ModelDb.Card<EarthSpirit>());     //done
             finalDeck.Add(ModelDb.Card<FireRise>());
             finalDeck.Add(ModelDb.Card<FireWeaving>());
             finalDeck.Add(ModelDb.Card<FireStorm>());
@@ -126,24 +156,36 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<FireBlossom>());
             */
             
-            //EARTH
-            
-            
+            /*
             //METAL
+            finalDeck.Add(ModelDb.Card<MetalCreation>());   //done
+            finalDeck.Add(ModelDb.Card<FireNova>());
+            finalDeck.Add(ModelDb.Card<FireTouch>());
+            finalDeck.Add(ModelDb.Card<MetalSpirit>());     //done
+            finalDeck.Add(ModelDb.Card<FireRise>());
+            finalDeck.Add(ModelDb.Card<FireWeaving>());
+            finalDeck.Add(ModelDb.Card<FireStorm>());
+            finalDeck.Add(ModelDb.Card<FireForce>());
+            finalDeck.Add(ModelDb.Card<FireEater>());
+            finalDeck.Add(ModelDb.Card<FireWings>());
+            finalDeck.Add(ModelDb.Card<FireFall>());
+            finalDeck.Add(ModelDb.Card<FireDance>());
+            finalDeck.Add(ModelDb.Card<FireBlossom>());
+            */
             
-            
+            /*
             //NEUTRAL
-            //finalDeck.Add(ModelDb.Card<Incantation>());
-            //finalDeck.Add(ModelDb.Card<Isolation>());
-            //finalDeck.Add(ModelDb.Card<Distortion>());
-            //finalDeck.Add(ModelDb.Card<Annihilation>());
-            //finalDeck.Add(ModelDb.Card<Decimation>());
-            //finalDeck.Add(ModelDb.Card<Circulation>());
-            //finalDeck.Add(ModelDb.Card<AllOrOne>());
-            //finalDeck.Add(ModelDb.Card<Domination>());
-            //finalDeck.Add(ModelDb.Card<MoreOrLess>());
-            //finalDeck.Add(ModelDb.Card<Recycle>());
-
+            finalDeck.Add(ModelDb.Card<Incantation>());     //done
+            finalDeck.Add(ModelDb.Card<Isolation>());       //done
+            finalDeck.Add(ModelDb.Card<Distortion>());      //done
+            finalDeck.Add(ModelDb.Card<Annihilation>());    //done
+            finalDeck.Add(ModelDb.Card<Decimation>());      //done
+            finalDeck.Add(ModelDb.Card<Circulation>());     //done need upgrade
+            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done
+            finalDeck.Add(ModelDb.Card<Domination>());      //done need upgrade
+            finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done
+            finalDeck.Add(ModelDb.Card<Recycle>());         //done
+            */
             return finalDeck;
         }
     }
