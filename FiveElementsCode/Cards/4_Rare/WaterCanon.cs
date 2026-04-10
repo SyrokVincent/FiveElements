@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,7 +13,7 @@ namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
 public sealed class WaterCanon() : WaterCard(2,
     CardType.Attack, CardRarity.Rare,
-    TargetType.Self)
+    TargetType.Self), IOnMetalStateChanged
 {
 
     //delete if shouldn't glow or replace water
@@ -88,18 +89,16 @@ public sealed class WaterCanon() : WaterCard(2,
         }
     } 
     
-    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    
+    public async Task OnMetalStateChanged(bool isActive)
     {
-        // On ne réagit que si c'est l'élément Eau qui change d'état
-        if (element == CardElementTag.Water)
-        {
-            DynamicVars["isWaterOn"].BaseValue = isActive ? 1 : 0;
-        }
-        if (element == CardElementTag.Metal)
-        {
-            DynamicVars["isMetalOn"].BaseValue = isActive ? 1 : 0;
-        }
-
+        DynamicVars["isMetalOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
+    }
+
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    {
+        if (element == CardElementTag.Water) await OnWaterStateChanged(isActive);
+        if (element == CardElementTag.Metal) await OnMetalStateChanged(isActive);
     }
 }

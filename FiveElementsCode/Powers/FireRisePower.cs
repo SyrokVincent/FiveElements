@@ -86,7 +86,7 @@ public class FireRisePower : FiveElementsPower
 
             // Création de la plume
             if (Owner.Player != null)
-                await FiveElementsCard.CreateInHand<FirePlume>(Owner.Player, Amount, false, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner.Player, Amount, false, CombatState);
         }
 
         InvokeDisplayAmountChanged();

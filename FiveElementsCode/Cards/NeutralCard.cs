@@ -9,8 +9,4 @@ public abstract class NeutralCard : FiveElementsCard
     {
         CanonicalElementTags = [CardElementTag.Neutral];
     }
-   public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
-   {
-       await Task.CompletedTask;
-   }
 }

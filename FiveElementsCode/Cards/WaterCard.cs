@@ -6,12 +6,18 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class WaterCard : FiveElementsCard
+public abstract class WaterCard : FiveElementsCard, IOnWaterStateChanged
 {
     protected WaterCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)
     {
         CanonicalElementTags = [CardElementTag.Water];
+    }
+    
+    public virtual async Task OnWaterStateChanged(bool isActive)
+    {
+        DynamicVars["isWaterOn"].BaseValue = isActive ? 1 : 0;
+        await Task.CompletedTask;
     }
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -27,15 +33,4 @@ public abstract class WaterCard : FiveElementsCard
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
     ]);
     
-    
-    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
-    {
-        // On ne réagit que si c'est l'élément Eau qui change d'état
-        if (element == CardElementTag.Water)
-        {
-            DynamicVars["isWaterOn"].BaseValue = isActive ? 1 : 0;
-        }
-
-        await Task.CompletedTask;
-    }
 }

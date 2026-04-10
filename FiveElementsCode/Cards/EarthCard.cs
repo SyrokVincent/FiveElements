@@ -7,13 +7,19 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class EarthCard : FiveElementsCard
+public abstract class EarthCard : FiveElementsCard, IOnEarthStateChanged
 {
     protected EarthCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)
     {
         CanonicalElementTags = [CardElementTag.Earth];
     }  
+    public async Task OnEarthStateChanged(bool isActive)
+    {
+        DynamicVars["isEarthOn"].BaseValue = isActive ? 1 : 0;
+        await Task.CompletedTask;
+    }
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isEarthOn"),
     ]);
@@ -27,14 +33,4 @@ public abstract class EarthCard : FiveElementsCard
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
     ]);
     
-    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
-    {
-        // On ne réagit que si c'est l'élément Earth qui change d'état
-        if (element == CardElementTag.Earth)
-        {
-            DynamicVars["isEarthOn"].BaseValue = isActive ? 1 : 0;
-        }
-
-        await Task.CompletedTask;
-    }
 }

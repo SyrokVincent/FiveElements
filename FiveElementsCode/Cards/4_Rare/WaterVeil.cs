@@ -48,7 +48,7 @@ public sealed class WaterVeil() : WaterCard(1,
             var cardsToTransform = PileType.Hand.GetPile(Owner).Cards
                 .Where(c => c != null && c.IsTransformable && c.Type == CardType.Status)
                 .ToList();
-            await TransformInHand<WaterDrop>(Owner,cardsToTransform,IsUpgraded,CombatState);
+            await FiveElementsCardExtensions.TransformInHand<WaterDrop>(Owner,cardsToTransform,IsUpgraded,CombatState);
         }
     }
 
@@ -58,6 +58,7 @@ public sealed class WaterVeil() : WaterCard(1,
     }
     
     
+    /*
     private static async Task TransformInHand<T>(Player owner, IReadOnlyList<CardModel> cards, bool isUpgraded, CombatState combatState) 
         where T : CardModel // On précise que T doit être un modèle de carte
     {
@@ -82,5 +83,5 @@ public sealed class WaterVeil() : WaterCard(1,
             await CardCmd.Transform(card, replacementCard);
         }
 
-    }
+    }*/
 }

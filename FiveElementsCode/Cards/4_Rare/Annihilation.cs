@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Interfaces;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -11,7 +12,7 @@ namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
 public sealed class Annihilation() : NeutralCard(3,
     CardType.Attack, CardRarity.Rare,
-    TargetType.AnyEnemy)
+    TargetType.AnyEnemy), IOnElementStateChanged
 {
 
 
@@ -74,7 +75,7 @@ public sealed class Annihilation() : NeutralCard(3,
         DynamicVars.Damage.UpgradeValueBy(3);
     }
     
-    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
     {
         string? varName = element switch
         {

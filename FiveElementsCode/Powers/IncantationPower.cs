@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards._5_Token;
+using FiveElements.FiveElementsCode.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -33,7 +34,7 @@ public class IncantationPower : FiveElementsPower
     {
         if (player != Owner.Player) return;
         Flash();
-        await FiveElementsCard.CreateInHand<Fulu>(Owner.Player, Amount,false, combatState);
+        await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner.Player, Amount,false, combatState);
     }
     
 }

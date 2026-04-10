@@ -20,7 +20,12 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     : CustomCardModel(cost, type, rarity, target), IOnElementStateChanged
 {
   
-    
+    // Cette méthode sera appelée par ton dispatcher et par ta fonction de transformation
+    public virtual async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    {
+        // Cette méthode peut rester vide ou servir de fallback
+        await Task.CompletedTask;
+    }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new StringVar("water_s",FiveElementsColor.WaterColor),
@@ -85,40 +90,8 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
             _liveElementTags = null; 
         }
     }
-    
-    
-    
-    
-    public static async Task CreateInHand<T>(Player owner, int count, bool isUpgraded, CombatState combatState) 
-        where T : CardModel // On précise que T doit être un modèle de carte
-    {
-        var cards = new List<CardModel>();
 
-        for (var i = 0; i < count; i++) 
-        {
-            var card = combatState.CreateCard<T>(owner);
-        
-            // --- FORCER LA MISE À JOUR INITIALE ---
-            // On vérifie manuellement chaque élément pour la nouvelle carte
-            foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
-            {
-                bool isActive = elem.IsActive(combatState);
-                // On appelle la fonction de mise à jour visuelle/logique de la carte
-                // Assure-toi que ta carte a une méthode publique pour ça
-                if (card is FiveElementsCard elementalCard) 
-                {
-                    await elementalCard.OnElementStateChanged(elem, isActive);
-                }
-            }
 
-            if (isUpgraded) CardCmd.Upgrade(card);
-            cards.Add(card);
-        }
-
-        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, true);
-    }
-
-    public abstract Task OnElementStateChanged(CardElementTag element, bool isActive);
 }  
     
     /*

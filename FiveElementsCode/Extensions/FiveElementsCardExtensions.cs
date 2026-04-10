@@ -2,17 +2,72 @@
 using FiveElements.FiveElementsCode.Cards._5_Token;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Hooks;
+using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Extensions;
 
 public static class FiveElementsCardExtensions
 {
+    
+    private static async Task SyncElementalState(CardModel potentialListener, CombatState combatState)
+    {
+        // On vérifie si l'objet écoute les changements d'éléments
+        if (potentialListener is IOnElementStateChanged elementalListener)
+        {
+            // On parcourt toutes les valeurs de l'Enum
+            foreach (CardElementTag elem in Enum.GetValues<CardElementTag>())
+            {
+                // On ignore le tag Neutre/None pour éviter les calculs inutiles
+                if (elem == CardElementTag.Neutral) continue;
+
+                // On récupère l'état actuel dans le combat
+                bool isActive = elem.IsActive(combatState);
+
+                // On déclenche la mise à jour (via l'interface maître qui redirige vers les filles)
+                await elementalListener.OnElementStateChanged(elem, isActive);
+            }
+        }
+    }
+
+
+    public static async Task TransformInHand<T>(Player owner, IReadOnlyList<CardModel> cards, bool isUpgraded, CombatState combatState) 
+        where T : CardModel // On précise que T doit être un modèle de carte
+    {
+        foreach (var card in cards )
+        {
+            var replacementCard = combatState.CreateCard<T>(owner);
+            
+            await SyncElementalState(replacementCard, combatState);
+
+            //if (isUpgraded) CardCmd.Upgrade(replacementCard);
+            await CardCmd.Transform(card, replacementCard);
+        }
+    }
+    
+    public static async Task CreateInHand<T>(Player owner, int count, bool isUpgraded, CombatState combatState) 
+        where T : CardModel // On précise que T doit être un modèle de carte
+    {
+        var cards = new List<CardModel>();
+
+        for (var i = 0; i < count; i++) 
+        {
+            var card = combatState.CreateCard<T>(owner);
+            
+            await SyncElementalState(card, combatState);
+
+            if (isUpgraded) CardCmd.Upgrade(card);
+            cards.Add(card);
+        }
+
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, true);
+    }
     
     public static async Task TryShiftFuluTransform(this FiveElementsCard cardToTransform, CardPlay cardPlay)
     {

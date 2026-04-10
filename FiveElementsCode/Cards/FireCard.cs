@@ -10,13 +10,21 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class FireCard : FiveElementsCard
+public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
 {
+    
     protected FireCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)
     {
         CanonicalElementTags = [CardElementTag.Fire];
     }   
+    
+    public async Task OnFireStateChanged(bool isActive)
+    {
+        DynamicVars["isFireOn"].BaseValue = isActive ? 1 : 0;
+        await Task.CompletedTask;
+    }
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isFireOn"),
     ]);
@@ -30,16 +38,6 @@ public abstract class FireCard : FiveElementsCard
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
     ]);
     
-    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
-    {
-        // On ne réagit que si c'est l'élément Fire qui change d'état
-        if (element == CardElementTag.Fire)
-        {
-            DynamicVars["isFireOn"].BaseValue = isActive ? 1 : 0;
-        }
-
-        await Task.CompletedTask;
-    }
     
     protected async Task<int> DealHeatDamage(PlayerChoiceContext choiceContext, Creature? target, CalculatedDamageVar damage)
     {

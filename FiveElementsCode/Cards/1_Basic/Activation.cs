@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -14,7 +15,7 @@ namespace FiveElements.FiveElementsCode.Cards._1_Basic;
 
 public sealed class Activation() : NeutralCard(1,
     CardType.Skill, CardRarity.Basic,
-    TargetType.Self)
+    TargetType.Self), IOnElementStateChanged
 {
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;
@@ -103,7 +104,7 @@ public sealed class Activation() : NeutralCard(1,
         }
     } 
     
-    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
     {
         string? varName = element switch
         {

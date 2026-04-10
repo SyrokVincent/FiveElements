@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards._5_Token;
+using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -27,7 +28,7 @@ public sealed class Distortion() : NeutralCard(1,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
-        if (CombatState != null) await CreateInHand<Fulu>(Owner, 1, IsUpgraded, CombatState);
+        if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, 1, IsUpgraded, CombatState);
     }
 
     protected override void OnUpgrade()

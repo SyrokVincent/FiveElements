@@ -1,5 +1,6 @@
 ﻿using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
@@ -20,7 +21,7 @@ namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
 public class FireBlossom() : FireCard(1,
     CardType.Skill, CardRarity.Rare,
-    TargetType.AllEnemies)
+    TargetType.AllEnemies), IOnWoodStateChanged
 {
     private readonly Color _vfxTint = new Color("ff6347"); //tomato red
     
@@ -111,17 +112,16 @@ public class FireBlossom() : FireCard(1,
         DynamicVars["BurnPower"].UpgradeValueBy(2);
     }
     
-    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
-    {
-        if (element == CardElementTag.Fire)
-        {
-            DynamicVars["isFireOn"].BaseValue = isActive ? 1 : 0;
-        }
-        if (element == CardElementTag.Wood)
-        {
-            DynamicVars["isWoodOn"].BaseValue = isActive ? 1 : 0;
-        }
 
+    public async Task OnWoodStateChanged(bool isActive)
+    {
+        DynamicVars["isWoodOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
+    }
+
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    {
+        if (element == CardElementTag.Fire) await OnFireStateChanged(isActive);
+        if (element == CardElementTag.Wood) await OnWoodStateChanged(isActive);
     }
 }

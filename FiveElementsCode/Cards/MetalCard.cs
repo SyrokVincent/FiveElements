@@ -6,13 +6,20 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards;
-public abstract class MetalCard : FiveElementsCard
+public abstract class MetalCard : FiveElementsCard, IOnMetalStateChanged
 {
     protected MetalCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)
     {
         CanonicalElementTags = [CardElementTag.Metal];
     }
+    
+    public async Task OnMetalStateChanged(bool isActive)
+    {
+        DynamicVars["isMetalOn"].BaseValue = isActive ? 1 : 0;
+        await Task.CompletedTask;
+    }
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isMetalOn"),
     ]);
@@ -25,16 +32,5 @@ public abstract class MetalCard : FiveElementsCard
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
     ]);
-
-    public override async Task OnElementStateChanged(CardElementTag element, bool isActive)
-    {
-        // On ne réagit que si c'est l'élément Metal qui change d'état
-        if (element == CardElementTag.Metal)
-        {
-            
-            DynamicVars["isMetalOn"].BaseValue = isActive ? 1 : 0;
-        }
-
-        await Task.CompletedTask;
-    }
+    
 }

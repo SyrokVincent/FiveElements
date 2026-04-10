@@ -59,7 +59,7 @@ public class FireTouch() : FireCard(0,
         
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            await FiveElementsCard.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,this.IsUpgraded, CombatState);
+            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,this.IsUpgraded, CombatState);
         }
     }
 

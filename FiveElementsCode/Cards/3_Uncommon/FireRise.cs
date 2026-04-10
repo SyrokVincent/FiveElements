@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards._5_Token;
+using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -49,7 +50,7 @@ public sealed class FireRise() : FireCard(2,
         await CommonActions.ApplySelf<FireRisePower>(this, DynamicVars["FireRisePower"].BaseValue);
         if (IsUpgraded)
         {
-            if (CombatState != null) await FiveElementsCard.CreateInHand<FirePlume>(Owner, 1, false, CombatState);
+            if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, 1, false, CombatState);
         }
     }
 
