@@ -16,9 +16,11 @@ public class Circulation() : NeutralCard(2,
     TargetType.Self)
 {
     
+    //protected override bool IsPlayable => CombatState != null && HasValidTarget();
+
     protected override bool ShouldGlowGoldInternal => CombatState != null && HasValidTarget();
 
-    protected override bool ShouldGlowRedInternal => CombatState != null && !HasValidTarget();
+    protected override bool ShouldGlowRedInternal => !(CombatState != null && HasValidTarget());
     
     private bool HasValidTarget()
     {
@@ -63,6 +65,8 @@ public class Circulation() : NeutralCard(2,
 
     
     
+    private CardModel? _cardToPlay;
+    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
@@ -70,8 +74,8 @@ public class Circulation() : NeutralCard(2,
         // 1. Préparer les préférences
         CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1)
         {
-            Cancelable = true, //todo probably not what i think
-            RequireManualConfirmation = true,
+            //Cancelable = true, //todo probably not what i think
+            RequireManualConfirmation = false,
         };
         // 2. Lancer la commande de sélection
         var selection = await CardSelectCmd.FromHand(
@@ -96,17 +100,26 @@ public class Circulation() : NeutralCard(2,
                     if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1);
                 }
             }
+            
+            //on clone la carte pour la jouer jsute apres, gratos sur une target random
+            // = card.CreateClone();
+            _cardToPlay = card;
+        }
+    }
 
-            //todo circulation is currently played after the card selected maybe making cost free is a better option
-            //on joue la carte gratos sur une target random
-            var clone = card.CreateClone();
-            await CardCmd.AutoPlay(choiceContext, clone, null,AutoPlayType.Default,false,true);
-            clone.RemoveFromState(); //probleme card is played before circulation
+
+    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+    {
+        if (cardPlay.Card == this && _cardToPlay != null)
+        {
+            //jouer la carte selectioné plus tot
+            await CardCmd.AutoPlay(context, _cardToPlay, null,AutoPlayType.Default,false,false);
+            //_clone.RemoveFromState(); 
         }
     }
 
     protected override void OnUpgrade()
     {
-
+        //todo gain attune
     }
 }

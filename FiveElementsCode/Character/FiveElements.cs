@@ -80,6 +80,11 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<AllOrOne>());
             finalDeck.Add(ModelDb.Card<AllOrOne>());
+            finalDeck.Add(ModelDb.Card<Circulation>());
+            finalDeck.Add(ModelDb.Card<Circulation>());
+            finalDeck.Add(ModelDb.Card<FireWeaving>());
+            finalDeck.Add(ModelDb.Card<FireWeaving>());
+            finalDeck.Add(ModelDb.Card<FireEater>());
             
             
             //WATER
@@ -109,7 +114,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<FireWeaving>());
             finalDeck.Add(ModelDb.Card<FireStorm>());
             finalDeck.Add(ModelDb.Card<FireBall>());
-            //finalDeck.Add(ModelDb.Card<FireFlow>());
+            finalDeck.Add(ModelDb.Card<FireEater>());
             finalDeck.Add(ModelDb.Card<FireWings>());
             finalDeck.Add(ModelDb.Card<FireFall>());
             finalDeck.Add(ModelDb.Card<FireDance>());

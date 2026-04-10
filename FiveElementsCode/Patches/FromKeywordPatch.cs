@@ -13,6 +13,7 @@ namespace FiveElements.FiveElementsCode.Patches;
 
 
 [HarmonyPatch(typeof(HoverTipFactory), "FromKeyword")] 
+[HarmonyPriority(Priority.High)] // Force mon patch à s'exécuter en premier, todo a voir si ça cause pas d'autre probleme
 public class FromKeywordPatch
 {   
     //color for element in cards description
