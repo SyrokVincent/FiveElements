@@ -42,6 +42,10 @@
   "FIVEELEMENTS-CIRCULATION.title": "Circulation",
   "FIVEELEMENTS-ALL_OR_ONE.description": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {energyPrefix:energyIcons(1)} and draw 1 card.",
   "FIVEELEMENTS-ALL_OR_ONE.title": "All or One",
+  "FIVEELEMENTS-DOMINATION.selectionScreenPrompt": "Choose a card to Dominate.",
+  "FIVEELEMENTS-DOMINATION.description": "Choose a card in [gold]Hand[/gold] that [gold]Echo[/gold] [gold]Dominate[/gold].\n[gold]Transform[/gold] it into the last card played and play it for free.",
+  "FIVEELEMENTS-DOMINATION.title": "Domination",
+  
   
   
   "FIVEELEMENTS-WATER_CREATION.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.|{off_s}Water : Gain {WavePower:diff()} Wave and {Energy:energyIcons()}.{off_e}}\nGain 1 [gold]Water Essence[/gold].",

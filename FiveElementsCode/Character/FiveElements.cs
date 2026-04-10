@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
@@ -23,6 +24,10 @@ namespace FiveElements.FiveElementsCode.Character;
   
 public class FiveElements : PlaceholderCharacterModel
 {
+    public override string CustomTrailPath
+    {
+        get => SceneHelper.GetScenePath("vfx/card_trail_" + this.PlaceholderID);
+    }
     
     //todo make echo an array for if one day some card have multi element
     public static CardElementTag Echo = CardElementTag.Neutral;
@@ -79,12 +84,9 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<AllOrOne>());
-            finalDeck.Add(ModelDb.Card<AllOrOne>());
-            finalDeck.Add(ModelDb.Card<Circulation>());
-            finalDeck.Add(ModelDb.Card<Circulation>());
-            finalDeck.Add(ModelDb.Card<FireWeaving>());
-            finalDeck.Add(ModelDb.Card<FireWeaving>());
             finalDeck.Add(ModelDb.Card<FireEater>());
+            finalDeck.Add(ModelDb.Card<Domination>());
+            finalDeck.Add(ModelDb.Card<Domination>());
             
             
             //WATER
@@ -135,6 +137,7 @@ public class FiveElements : PlaceholderCharacterModel
             //finalDeck.Add(ModelDb.Card<Decimation>());
             //finalDeck.Add(ModelDb.Card<Circulation>());
             //finalDeck.Add(ModelDb.Card<AllOrOne>());
+            //finalDeck.Add(ModelDb.Card<Domination>());
 
             return finalDeck;
         }

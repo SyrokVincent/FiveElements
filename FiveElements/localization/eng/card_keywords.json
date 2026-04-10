@@ -5,8 +5,10 @@
   
   "FIVEELEMENTS-ECHO.description": "[gold]Echo[/gold]{ElemEcho:cond:=0? as no element|=1? is {water_s}Water{water_e}|=2? is {wood_s}Wood{wood_e}|=3? is {fire_s}Fire{fire_e}|=4? is {earth_s}Earth{earth_e}| is {metal_s}Metal{metal_e}}.\n[gold]Echo[/gold] is the element of the last card played this turn.",
   "FIVEELEMENTS-ECHO.title": "Echo",
-  "FIVEELEMENTS-GENERATE.description": "{water_s}Water{wood_e} generate {wood_s}Wood{wood_e}, {wood_s}Wood{wood_e} generate {fire_s}Fire{fire_e}, {fire_s}Fire{fire_e} generate {earth_s}Earth{earth_e}, {earth_s}Earth{earth_e} generate {metal_s}Metal{metal_e} and {metal_s}Metal{metal_e} generate {water_s}Water{wood_e}.",
+  "FIVEELEMENTS-GENERATE.description": "{water_s}Water{wood_e} generate {wood_s}Wood{wood_e}.\n{wood_s}Wood{wood_e} generate {fire_s}Fire{fire_e}.\n{fire_s}Fire{fire_e} generate {earth_s}Earth{earth_e}.\n{earth_s}Earth{earth_e} generate {metal_s}Metal{metal_e}.\n{metal_s}Metal{metal_e} generate {water_s}Water{wood_e}.",
   "FIVEELEMENTS-GENERATE.title":"Generate",
+  "FIVEELEMENTS-DOMINATE.description": "{water_s}Water{wood_e} dominate {fire_s}Fire{fire_e}.\n{fire_s}Fire{fire_e} dominate {metal_s}Metal{metal_e}.\n{metal_s}Metal{metal_e} dominate {wood_s}Wood{wood_e}.\n{wood_s}Wood{wood_e} dominate {earth_s}Earth{earth_e}.\n{earth_s}Earth{earth_e} dominate {water_s}Water{wood_e}.",
+  "FIVEELEMENTS-DOMINATE.title":"Dominate",
   "FIVEELEMENTS-ESSENCE.description": "While you have an element's [gold]Essence[/gold], cards of that element always [gold]trigger[/gold] their additional effects.",
   "FIVEELEMENTS-ESSENCE.title":"Essence",
   

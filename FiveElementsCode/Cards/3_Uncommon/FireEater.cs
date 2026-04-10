@@ -59,17 +59,13 @@ public class FireEater() : FireCard(1,
         if (CardElementTag.Fire.IsActive(CombatState) && cardModels.Any())
         {
             // On répète l'action pour chaque carte épuisée
-            for (int i = 0; i < cardModels.Count(); i++)
+            for (var i = 0; i < cardModels.Count; i++)
             {
-                // Sélection d'un ennemi aléatoire
                 if (CombatState != null)
-                {
-                    var randomEnemy = Owner.RunState.Rng.CombatTargets.NextItem(CombatState.HittableEnemies);
-                    if (randomEnemy != null)
+                    foreach (var hittableEnemy in CombatState.HittableEnemies)
                     {
-                        await CommonActions.Apply<BurnPower>(randomEnemy, this, DynamicVars["BurnPower"].BaseValue);
+                        await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
                     }
-                }
             }
         }
     }

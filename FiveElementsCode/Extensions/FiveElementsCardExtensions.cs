@@ -36,7 +36,13 @@ public static class FiveElementsCardExtensions
         }
     }
 
-
+    public static async Task TransformInHand(CardModel card, CardModel intoCard, bool isUpgraded, CombatState combatState) 
+    {
+            await SyncElementalState(intoCard, combatState);
+            //if (isUpgraded) CardCmd.Upgrade(replacementCard);
+            await CardCmd.Transform(card, intoCard);
+    }
+    
     public static async Task TransformInHand<T>(Player owner, IReadOnlyList<CardModel> cards, bool isUpgraded, CombatState combatState) 
         where T : CardModel // On précise que T doit être un modèle de carte
     {

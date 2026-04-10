@@ -49,7 +49,8 @@ public class FromKeywordPatch
             keyword == FiveElementsKeywords.Fire ||
             keyword == FiveElementsKeywords.Earth ||
             keyword == FiveElementsKeywords.Metal||
-            keyword == FiveElementsKeywords.Fireboost
+            keyword == FiveElementsKeywords.Fireboost || 
+            keyword == FiveElementsKeywords.Dominate
             )
         {
             //cree locstring with dynamic var I want, then put inside hovertip

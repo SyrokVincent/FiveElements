@@ -17,16 +17,15 @@ namespace FiveElements.FiveElementsCode.Cards;
 
 [Pool(typeof(FiveElementsCardPool))]
 public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target)
-    : CustomCardModel(cost, type, rarity, target), IOnElementStateChanged
+    : CustomCardModel(cost, type, rarity, target)
 {
-  
+  /*
     // Cette méthode sera appelée par ton dispatcher et par ta fonction de transformation
-    public virtual async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public virtual Task OnElementStateChanged(CardElementTag element, bool isActive)
     {
-        // Cette méthode peut rester vide ou servir de fallback
-        await Task.CompletedTask;
+        return Task.CompletedTask;
     }
-
+*/
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new StringVar("water_s",FiveElementsColor.WaterColor),
         new StringVar("water_e","[/color]"),
