@@ -19,13 +19,7 @@ namespace FiveElements.FiveElementsCode.Cards;
 public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target)
     : CustomCardModel(cost, type, rarity, target)
 {
-  /*
-    // Cette méthode sera appelée par ton dispatcher et par ta fonction de transformation
-    public virtual Task OnElementStateChanged(CardElementTag element, bool isActive)
-    {
-        return Task.CompletedTask;
-    }
-*/
+  
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new StringVar("water_s",FiveElementsColor.WaterColor),
         new StringVar("water_e","[/color]"),
@@ -65,7 +59,7 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         get
         {
             var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigCardImagePath();
-            return ResourceLoader.Exists(path) ? path : "card.png".PowerImagePath();
+            return ResourceLoader.Exists(path) ? path : "card.png".BigCardImagePath();
         }
     }
     
@@ -82,7 +76,7 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         get
         {
             var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-            return ResourceLoader.Exists(path) ? path : "card.png".BigPowerImagePath();
+            return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
         }
     }
     

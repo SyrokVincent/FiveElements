@@ -5,6 +5,9 @@
   "FIVEELEMENTS-ALL_OR_ONE_POWER.description": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {energyPrefix:energyIcons(1)} and draw [blue]1[/blue] card.",
   "FIVEELEMENTS-ALL_OR_ONE_POWER.smartDescription": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {Amount:energyIcons()} and draw {Amount} {Amount:plural:card|cards}.",
   "FIVEELEMENTS-ALL_OR_ONE_POWER.title": "All or One",
+  "FIVEELEMENTS-ECHO_FORMATION_POWER.description": "At the end of each turn [gold]Retain[/gold] [gold]Echo[/gold] cards.",
+  "FIVEELEMENTS-ECHO_FORMATION_POWER.smartDescription": "At the end of each turn [gold]Retain[/gold] [gold]Echo[/gold] cards.",
+  "FIVEELEMENTS-ECHO_FORMATION_POWER.title": "Echo Formation",
 
   
   "FIVEELEMENTS-WAVE_POWER.description": "At the start of your turn, [gold]Wave[/gold] deals damage to the front enemy.",

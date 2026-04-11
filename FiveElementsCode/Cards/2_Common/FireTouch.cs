@@ -19,7 +19,7 @@ public class FireTouch() : FireCard(0,
     //delete if shouldn't glow or replace water
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
 
-    //Exhaust, Exhaust a non-Fire card, Fire:(add 1 Fire plume in hand)
+    //Exhaust, Exhaust a (non-Fire?) card, Fire:(add 1 Fire plume in hand)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1),
     ]);
@@ -41,12 +41,23 @@ public class FireTouch() : FireCard(0,
     {
         if (CombatState == null) return;
         var prefs = new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1);
+        /*
         // select of a non-fire card
         var selection = await CardSelectCmd.FromHand(
             choiceContext, 
             Owner, 
             prefs, 
             c => !(c is FiveElementsCard f && f.IsFire()) && c != this,
+            this
+        );
+        */
+        
+        // select of a card
+        var selection = await CardSelectCmd.FromHand(
+            choiceContext, 
+            Owner, 
+            prefs, 
+            c => c != this,
             this
         );
         

@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Enums;
+﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Interfaces;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -8,6 +9,8 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 namespace FiveElements.FiveElementsCode.Cards;
 public abstract class WaterCard : FiveElementsCard, IOnWaterStateChanged
 {
+    public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.6f, 0.9f, 1.0f);
+    
     protected WaterCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)
     {

@@ -24,7 +24,7 @@ public class Less() : NeutralCard(1,
         new ExtraDamageVar(5),    // Dégâts bonus par carte
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
-            var allCards = card.Owner.Deck.Cards;
+            var allCards = card.Owner.PlayerCombatState?.AllCards;
 
             // On prépare le compte pour les 5 éléments
             var counts = new Dictionary<CardElementTag, int>
@@ -37,19 +37,20 @@ public class Less() : NeutralCard(1,
             };
 
             // On compte les elements des cartes présentes dans le deck
-            foreach (var c in allCards)
-            {
-                if (c is FiveElementsCard fec)
+            if (allCards != null)
+                foreach (var c in allCards)
                 {
-                    foreach (var tag in fec.ElementTags)
+                    if (c is FiveElementsCard fec)
                     {
-                        if (counts.ContainsKey(tag))
+                        foreach (var tag in fec.ElementTags)
                         {
-                            counts[tag]++;
+                            if (counts.ContainsKey(tag))
+                            {
+                                counts[tag]++;
+                            }
                         }
                     }
                 }
-            }
 
             // On prend le minimum absolu parmi les 5
             var minCount = counts.Values.Min();

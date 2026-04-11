@@ -76,4 +76,17 @@ public class Element
     {
         return _essences.TryGetValue(elem, out int value) ? value : 0;
     }
+    
+    public int GetTotalEssenceCount()
+    {
+        return _essences.Values.Sum();
+    }
+    
+    // Retourne une copie pour éviter que le code extérieur ne modifie le dictionnaire interne
+    public Dictionary<CardElementTag, int> GetAllEssences()
+    {
+        // On ne retourne que les éléments qui ont au moins 1 essence
+        return _essences.Where(kvp => kvp.Value > 0)
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+    }
 }

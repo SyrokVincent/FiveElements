@@ -1,6 +1,8 @@
-﻿using FiveElements.FiveElementsCode.Enums;
+﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -9,6 +11,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace FiveElements.FiveElementsCode.Cards;
 public abstract class EarthCard : FiveElementsCard, IOnEarthStateChanged
 {
+    public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.12f, 0.8f, 0.7f);
+    
     protected EarthCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)
     {

@@ -111,29 +111,32 @@ public static class FiveElementsCardExtensions
         }
     }
 
-    public static bool IsNeutral(this FiveElementsCard card)
+    public static bool IsElement(this FiveElementsCard card, CardElementTag tag)
     {
-        return card.ElementTags.Contains(CardElementTag.Neutral);
+        return card.ElementTags.Contains(tag);
+    }public static bool IsNeutral(this FiveElementsCard card)
+    {
+        return card.IsElement(CardElementTag.Neutral);
     }
     public static bool IsWater(this FiveElementsCard card)
     {
-        return card.ElementTags.Contains(CardElementTag.Water);
+        return card.IsElement(CardElementTag.Water);
     }
     public static bool IsWood(this FiveElementsCard card)
     {
-        return card.ElementTags.Contains(CardElementTag.Wood);
+        return card.IsElement(CardElementTag.Wood);
     }
     public static bool IsFire(this FiveElementsCard card)
     {
-        return card.ElementTags.Contains(CardElementTag.Fire);
+        return card.IsElement(CardElementTag.Fire);
     }
     public static bool IsEarth(this FiveElementsCard card)
     {
-        return card.ElementTags.Contains(CardElementTag.Earth);
+        return card.IsElement(CardElementTag.Earth);
     }
     public static bool IsMetal(this FiveElementsCard card)
     {
-        return card.ElementTags.Contains(CardElementTag.Metal);
+        return card.IsElement(CardElementTag.Metal);
     }
     
     

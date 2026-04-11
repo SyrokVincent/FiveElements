@@ -84,9 +84,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<AllOrOne>());
-            finalDeck.Add(ModelDb.Card<EarthSpirit>()); 
-            finalDeck.Add(ModelDb.Card<EarthSpirit>()); 
-            finalDeck.Add(ModelDb.Card<EarthSpirit>()); 
+            finalDeck.Add(ModelDb.Card<EchoFormation>()); 
             
             /*
             //WATER
@@ -108,18 +106,18 @@ public class FiveElements : PlaceholderCharacterModel
             /*
             //WOOD
             finalDeck.Add(ModelDb.Card<WoodCreation>());     //done
-            finalDeck.Add(ModelDb.Card<WaterCanon>());      
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<Wood>());      
+            finalDeck.Add(ModelDb.Card<Wood>());
             finalDeck.Add(ModelDb.Card<WoodSpirit>());       //done
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
-            finalDeck.Add(ModelDb.Card<WaterCanon>());
+            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<WoodSeed>());        //done
+            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<Wood>());
             */
             
             /*
@@ -142,35 +140,35 @@ public class FiveElements : PlaceholderCharacterModel
             /*
             //EARTH
             finalDeck.Add(ModelDb.Card<EarthCreation>());   //done
-            finalDeck.Add(ModelDb.Card<FireNova>());
-            finalDeck.Add(ModelDb.Card<FireTouch>());
+            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<EarthShield>());     //done  maybe change how it work to only apply block once
             finalDeck.Add(ModelDb.Card<EarthSpirit>());     //done
-            finalDeck.Add(ModelDb.Card<FireRise>());
-            finalDeck.Add(ModelDb.Card<FireWeaving>());
-            finalDeck.Add(ModelDb.Card<FireStorm>());
-            finalDeck.Add(ModelDb.Card<FireForce>());
-            finalDeck.Add(ModelDb.Card<FireEater>());
-            finalDeck.Add(ModelDb.Card<FireWings>());
-            finalDeck.Add(ModelDb.Card<FireFall>());
-            finalDeck.Add(ModelDb.Card<FireDance>());
-            finalDeck.Add(ModelDb.Card<FireBlossom>());
+            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<EarthJewel>());      //done
+            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<EarthGuardian>());   //done
+            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<Earth>());
             */
             
             /*
             //METAL
             finalDeck.Add(ModelDb.Card<MetalCreation>());   //done
-            finalDeck.Add(ModelDb.Card<FireNova>());
-            finalDeck.Add(ModelDb.Card<FireTouch>());
+            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<Metal>());
             finalDeck.Add(ModelDb.Card<MetalSpirit>());     //done
-            finalDeck.Add(ModelDb.Card<FireRise>());
-            finalDeck.Add(ModelDb.Card<FireWeaving>());
-            finalDeck.Add(ModelDb.Card<FireStorm>());
-            finalDeck.Add(ModelDb.Card<FireForce>());
-            finalDeck.Add(ModelDb.Card<FireEater>());
-            finalDeck.Add(ModelDb.Card<FireWings>());
-            finalDeck.Add(ModelDb.Card<FireFall>());
-            finalDeck.Add(ModelDb.Card<FireDance>());
-            finalDeck.Add(ModelDb.Card<FireBlossom>());
+            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<MetalRush>());       //done
+            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<Metal>());
             */
             
             /*
@@ -183,8 +181,21 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Circulation>());     //done need upgrade
             finalDeck.Add(ModelDb.Card<AllOrOne>());        //done
             finalDeck.Add(ModelDb.Card<Domination>());      //done need upgrade
-            finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done
+            finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't coutn card from exhaust pile
             finalDeck.Add(ModelDb.Card<Recycle>());         //done
+            finalDeck.Add(ModelDb.Card<Absorption>());      //done
+            finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
+            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<>()); 
+            
+            //multi
+            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<>()); 
+            //ancient
+            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<>()); 
+            
             */
             return finalDeck;
         }

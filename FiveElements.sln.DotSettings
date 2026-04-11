@@ -117,7 +117,11 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace $NAMESPACE$;
 
-public sealed class $CLASS$() : FiveElements.FiveElementsCode.Cards.$ELEMENTCARD$Card($COST$, MegaCrit.Sts2.Core.Entities.Cards.CardType.$TYPE$, MegaCrit.Sts2.Core.Entities.Cards.CardRarity.$RARITY$, MegaCrit.Sts2.Core.Entities.Cards.TargetType.$TARGET$) {
+public class $CLASS$() : FiveElements.FiveElementsCode.Cards.$ELEMENTCARD$Card($COST$, MegaCrit.Sts2.Core.Entities.Cards.CardType.$TYPE$, MegaCrit.Sts2.Core.Entities.Cards.CardRarity.$RARITY$, MegaCrit.Sts2.Core.Entities.Cards.TargetType.$TARGET$) {
+    
+    
+    //Delete if it don't give block
+    public override bool GainsBlock =&gt; true;
     
     //delete if shouldn't glow or replace water
     protected override bool ShouldGlowGoldInternal =&gt; CombatState != null &amp;&amp; CardElementTag.Water.IsActive(CombatState);
