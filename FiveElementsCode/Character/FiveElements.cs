@@ -84,9 +84,9 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<AllOrOne>());
-            finalDeck.Add(ModelDb.Card<EarthSpirit>());
-            finalDeck.Add(ModelDb.Card<EarthSpirit>());
-            finalDeck.Add(ModelDb.Card<EarthSpirit>());
+            finalDeck.Add(ModelDb.Card<EarthSpirit>()); 
+            finalDeck.Add(ModelDb.Card<EarthSpirit>()); 
+            finalDeck.Add(ModelDb.Card<EarthSpirit>()); 
             
             /*
             //WATER

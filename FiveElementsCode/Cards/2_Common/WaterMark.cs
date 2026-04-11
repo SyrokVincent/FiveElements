@@ -1,4 +1,5 @@
 ﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards._5_Token;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
@@ -24,6 +25,7 @@ public sealed class WaterMark() : WaterCard(1, CardType.Skill, CardRarity.Common
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromPower<WeakPower>(),
         HoverTipFactory.FromPower<WaterDropNextTurnPower>(),
+        HoverTipFactory.FromCard<WaterDrop>(),
     ]);
     
 
