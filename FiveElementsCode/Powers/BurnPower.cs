@@ -1,10 +1,9 @@
-﻿using Godot;
+﻿using BaseLib.Hooks;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Powers;
@@ -14,15 +13,18 @@ public class BurnPower : FiveElementsPower
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    public override Color AmountLabelColor => _normalAmountLabelColor;
-
-    // it's used to make healthbar colored???
-    public int CalculateTotalDamageNextTurn()
+    public override IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(HealthBarForecastContext context)
     {
-        return Amount;
+        if (Amount <= 0) yield break;
+        
+        yield return new HealthBarForecastSegment(
+            amount: Amount,
+            color: new Color("#FF8C00"),
+            direction: HealthBarForecastDirection.FromRight,
+            order: 0
+        );
     }
     
-    //todo more logic for when burn not removed?
     public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
     {
         if (side != Owner.Side) return;

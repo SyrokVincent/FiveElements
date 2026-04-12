@@ -143,6 +143,22 @@
   "FIVEELEMENTS-METAL_SPIRIT.title": "Metal Spirit",
   "FIVEELEMENTS-METAL_RUSH.description": "Return this to your [gold]Hand[/gold].\nIncrease its [gold]Cost[/gold] and [gold]Vigor[/gold] by 1 this turn.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain {VigorThisTurn:diff()} [gold]Vigor[/gold].|{off_s}Metal : Gain {VigorThisTurn:diff()} Vigor.{off_e}}",
   "FIVEELEMENTS-METAL_RUSH.title": "Metal Rush",
+  "FIVEELEMENTS-METAL_BLADE.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain [gold]Vigor[/gold] equal to half of damage dealt.|{off_s}Metal : Gain Vigor equal to half of damage dealt.{off_e}}",
+  "FIVEELEMENTS-METAL_BLADE.title": "Metal Blade",
+  "FIVEELEMENTS-METAL_CHAINS.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Enemy lose {StrengthLoss:diff()} [gold]Strength[/gold] this turn.|{off_s}Metal : Enemy lose {StrengthLoss:diff()} Strength this turn.{off_e}}",
+  "FIVEELEMENTS-METAL_CHAINS.title": "Metal Chain",
+  "FIVEELEMENTS-METAL_REFINEMENT.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold].\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Permanently increase this card's [gold]Vigor[/gold] by {Increase:diff()}.|{off_s}Metal : Permanently increase this card's Vigor by {Increase:diff()}.{off_e}}",
+  "FIVEELEMENTS-METAL_REFINEMENT.title": "Metal Refinement",
+  "FIVEELEMENTS-METAL_MARK.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Deal {Damage:diff()} damage.|{off_s}Metal : Deal {Damage:diff()} damage.{off_e}}",
+  "FIVEELEMENTS-METAL_MARK.title": "Metal Mark",
+  "FIVEELEMENTS-METAL_POUNCE.description": "Deal {CalculatedDamage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : [gold]Vigor[/gold] apply twice to this attack.|{off_s}Metal : Vigor apply twice to this attack.{off_e}}",
+  "FIVEELEMENTS-METAL_POUNCE.title": "Metal Pounce",
+  "FIVEELEMENTS-METAL_FORGE.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : [gold]Upgrade[/gold] a random card in your [gold]Discard Pile[/gold] for each {metal_s}Metal{metal_e} card played this turn.|{off_s}Metal : Upgrade a random card in your Discard Pile for each Metal card played this turn.{off_e}}",
+  "FIVEELEMENTS-METAL_FORGE.title": "Metal Forge",
+  "FIVEELEMENTS-METAL_METTLE.description": "Each turn the first {MetalMettlePower:plural:time|{} times} [gold]Vigor[/gold] is consumed, give it back.",
+  "FIVEELEMENTS-METAL_METTLE.title": "Metal Mettle",
+  "FIVEELEMENTS-METAL_SLASH.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : If [gold]Fatal[/gold], permanently upgrade a card in your deck.|{off_s}Metal : If Fatal, permanently upgrade a card in your deck.{off_e}}",
+  "FIVEELEMENTS-METAL_SLASH.title": "Metal Slash",
   
   
   

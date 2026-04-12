@@ -21,17 +21,17 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
 {
   
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new StringVar("water_s",FiveElementsColor.WaterColor),
+        new StringVar("water_s",FiveElementsColor.WaterDescriptionColor),
         new StringVar("water_e","[/color]"),
-        new StringVar("wood_s",FiveElementsColor.WoodColor),
+        new StringVar("wood_s",FiveElementsColor.WoodDescriptionColor),
         new StringVar("wood_e","[/color]"),
-        new StringVar("fire_s",FiveElementsColor.FireColor),
+        new StringVar("fire_s",FiveElementsColor.FireDescriptionColor),
         new StringVar("fire_e", "[/color]"),
-        new StringVar("earth_s", FiveElementsColor.EarthColor),
+        new StringVar("earth_s", FiveElementsColor.EarthDescriptionColor),
         new StringVar("earth_e", "[/color]"),
-        new StringVar("metal_s", FiveElementsColor.MetalColor),
+        new StringVar("metal_s", FiveElementsColor.MetalDescriptionColor),
         new StringVar("metal_e", "[/color]"),
-        new StringVar("off_s", FiveElementsColor.OffColor ),
+        new StringVar("off_s", FiveElementsColor.OffDescriptionColor ),
         new StringVar("off_e", "[/color]" ),
     ];
     

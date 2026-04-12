@@ -84,7 +84,13 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<AllOrOne>());
-            finalDeck.Add(ModelDb.Card<EchoFormation>()); 
+            finalDeck.Add(ModelDb.Card<MetalSpirit>()); 
+            finalDeck.Add(ModelDb.Card<MetalRush>());    
+            finalDeck.Add(ModelDb.Card<MetalRush>());    
+            finalDeck.Add(ModelDb.Card<MetalMettle>()); 
+            finalDeck.Add(ModelDb.Card<MetalSlash>());  
+            finalDeck.Add(ModelDb.Card<MetalSlash>());  
+            finalDeck.Add(ModelDb.Card<MetalSlash>());  
             
             /*
             //WATER
@@ -157,17 +163,17 @@ public class FiveElements : PlaceholderCharacterModel
             /*
             //METAL
             finalDeck.Add(ModelDb.Card<MetalCreation>());   //done
-            finalDeck.Add(ModelDb.Card<Metal>());
-            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<MetalBlade>());      //done
+            finalDeck.Add(ModelDb.Card<MetalMark>());       //done
             finalDeck.Add(ModelDb.Card<MetalSpirit>());     //done
-            finalDeck.Add(ModelDb.Card<Metal>());
-            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<MetalPounce>());     //done
+            finalDeck.Add(ModelDb.Card<MetalChains>());     //done
             finalDeck.Add(ModelDb.Card<MetalRush>());       //done
+            finalDeck.Add(ModelDb.Card<MetalForge>());      //done maybe show how many card will be upgraded? and count itself ?
             finalDeck.Add(ModelDb.Card<Metal>());
-            finalDeck.Add(ModelDb.Card<Metal>());
-            finalDeck.Add(ModelDb.Card<Metal>());
-            finalDeck.Add(ModelDb.Card<Metal>());
-            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<MetalMettle>());     //done
+            finalDeck.Add(ModelDb.Card<MetalSlash>());      //done
+            finalDeck.Add(ModelDb.Card<MetalRefinement>()); //done
             finalDeck.Add(ModelDb.Card<Metal>());
             */
             
@@ -179,9 +185,9 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Annihilation>());    //done
             finalDeck.Add(ModelDb.Card<Decimation>());      //done
             finalDeck.Add(ModelDb.Card<Circulation>());     //done need upgrade
-            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done
+            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it chhose between the 2 effects ?
             finalDeck.Add(ModelDb.Card<Domination>());      //done need upgrade
-            finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't coutn card from exhaust pile
+            finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't count card from exhaust pile
             finalDeck.Add(ModelDb.Card<Recycle>());         //done
             finalDeck.Add(ModelDb.Card<Absorption>());      //done
             finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
