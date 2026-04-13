@@ -24,8 +24,8 @@
   "FIVEELEMENTS-WATER_SPIRIT_POWER.description": "Each turn, gain {Energy:energyIcons()} whenever  you play a {water_s}Water{water_e} card.",
   "FIVEELEMENTS-WATER_SPIRIT_POWER.smartDescription": "Gain {Energy:energyIcons()} whenever  you play a {water_s}Water{water_e} card.\n{DisplayAmount:cond:=0?No longer triggers this turn.|=1?Can trigger [blue]{}[/blue] more time this turn.|Can trigger [blue]{}[/blue] more times this turn.}",
   "FIVEELEMENTS-WATER_SPIRIT_POWER.title": "Water Spirit",
-  "FIVEELEMENTS-WATER_LORD_POWER.description": "Whenever  you play a {water_s}Water{water_e} card this turn, gain [gold]Wave[/gold].",
-  "FIVEELEMENTS-WATER_LORD_POWER.smartDescription": "Whenever  you play a {water_s}Water{water_e} card this turn, gain [blue]{Amount}[/blue] [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_LORD_POWER.description": "This turn whenever  you play a {water_s}Water{water_e} card, gain [gold]Wave[/gold].",
+  "FIVEELEMENTS-WATER_LORD_POWER.smartDescription": "This turn whenever  you play a {water_s}Water{water_e} card, gain [blue]{Amount}[/blue] [gold]Wave[/gold].",
   "FIVEELEMENTS-WATER_LORD_POWER.title": "Water Lord",
   "FIVEELEMENTS-WATER_TSUNAMI_POWER.description": "[gold]Wave[/gold] hit ALL enemies.",
   "FIVEELEMENTS-WATER_TSUNAMI_POWER.smartDescription": "[gold]Wave[/gold] hit ALL enemies.",
@@ -67,6 +67,15 @@
   "FIVEELEMENTS-EARTH_SPIRIT_POWER.description": "Whenever  you play a {earth_s}Earth{earth_e} card, gain [gold]Thorns[/gold] this turn.",
   "FIVEELEMENTS-EARTH_SPIRIT_POWER.smartDescription": "Whenever  you play a {earth_s}Earth{earth_e} card, gain [blue]{Amount}[/blue] [gold]Thorns[/gold] this turn.\nCurrently granting [blue]{DisplayAmount}[/blue] [gold]Thorns[/gold].",
   "FIVEELEMENTS-EARTH_SPIRIT_POWER.title": "Earth Spirit",
+  "FIVEELEMENTS-EARTH_BORN_POWER.description": "Half of your [gold]Block[/gold] persists between turns.",
+  "FIVEELEMENTS-EARTH_BORN_POWER.smartDescription": "Half of your [gold]Block[/gold] persists between turns.",
+  "FIVEELEMENTS-EARTH_BORN_POWER.title": "Earth Born",
+  "FIVEELEMENTS-EARTH_WALL_POWER.description": "Blocked damage is reflected to your attacker.",
+  "FIVEELEMENTS-EARTH_WALL_POWER.smartDescription": "Blocked damage is reflected to your attacker for [blue]{Amount}[/blue] {Amount:plural:turn|turns}.",
+  "FIVEELEMENTS-EARTH_WALL_POWER.title": "Earth Wall",
+  "FIVEELEMENTS-EARTH_CROWN_POWER.description": "This turn whenever  you play a {earth_s}Earth{earth_e} card, gain [gold]Dexterity[/gold] this turn.",
+  "FIVEELEMENTS-EARTH_CROWN_POWER.smartDescription": "This turn whenever  you play a {earth_s}Earth{earth_e} card, gain [blue]{Amount}[/blue] [gold]Dexterity[/gold] this turn.\nCurrently granting [blue]{DisplayAmount}[/blue] [gold]Dexterity[/gold].",
+  "FIVEELEMENTS-EARTH_CROWN_POWER.title": "Earth Crown",
 
   
   
@@ -75,5 +84,17 @@
   "FIVEELEMENTS-METAL_SPIRIT_POWER.title": "Metal Spirit",
   "FIVEELEMENTS-METAL_METTLE_POWER.description": "Each turn the first time [gold]Vigor[/gold] is consumed, give it back.",
   "FIVEELEMENTS-METAL_METTLE_POWER.smartDescription": "Each turn the first {Amount:plural:time|[blue]{}[/blue] times} [gold]Vigor[/gold] is consumed, give it back.",
-  "FIVEELEMENTS-METAL_METTLE_POWER.title": "Metal Mettle"
+  "FIVEELEMENTS-METAL_METTLE_POWER.title": "Metal Mettle",
+  "FIVEELEMENTS-METAL_EDGE_POWER.description": "The next Attack deals additional damage.",
+  "FIVEELEMENTS-METAL_EDGE_POWER.smartDescription": "The next Attack deals [blue]{Amount}%[/blue] additional damage.",
+  "FIVEELEMENTS-METAL_EDGE_POWER.title": "Metal Edge",
+  "FIVEELEMENTS-METAL_EDGE_DISCOUNT_POWER.description": "The next Attack this turn cost 1 {energyPrefix:energyIcons(1)} less.",
+  "FIVEELEMENTS-METAL_EDGE_DISCOUNT_POWER.smartDescription": "The next Attack this turn cost [blue]{Amount}[/blue] {energyPrefix:energyIcons(1)} less.",
+  "FIVEELEMENTS-METAL_EDGE_DISCOUNT_POWER.title": "Metal Edge Discount",
+  "FIVEELEMENTS-METAL_CORE_POWER.description": "Next turn, the first Attack deals double damage.",
+  "FIVEELEMENTS-METAL_CORE_POWER.smartDescription": "Next turn, the first Attack deals [blue]{XBonus}[/blue] times more damage.",
+  "FIVEELEMENTS-METAL_CORE_POWER.title": "Metal Core",
+  "FIVEELEMENTS-METAL_CORE_DOUBLE_POWER.description": "The next Attack this turn deals more damage.",
+  "FIVEELEMENTS-METAL_CORE_DOUBLE_POWER.smartDescription": "The next Attack this turn deals [blue]{Amount}[/blue] times more damage.",
+  "FIVEELEMENTS-METAL_CORE_DOUBLE_POWER.title": "Metal Core Double"
 }

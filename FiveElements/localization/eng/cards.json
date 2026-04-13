@@ -89,7 +89,7 @@
   "FIVEELEMENTS-WOOD_CREATION.title": "Wood Creation",
   "FIVEELEMENTS-WOOD_SPIRIT.description": "Whenever you play a {wood_s}Wood{wood_e} card, gain {WoodSpiritPower:diff()} [gold]Strength[/gold] this turn.",
   "FIVEELEMENTS-WOOD_SPIRIT.title": "Wood Spirit",
-  "FIVEELEMENTS-WOOD_SEED.description": "Each turn the first time you have no {wood_s}Wood{wood_e} cards in [gold]Hand[/gold], return this to your [gold]Hand[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Deal {Damage:diff()} damage.|{off_s}Wood : Deal {Damage:diff()} damage.{off_e}}",
+  "FIVEELEMENTS-WOOD_SEED.description": "Each turn the first time you have no {wood_s}Wood{wood_e} cards in [gold]Hand[/gold], put this into your [gold]Hand[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Deal {Damage:diff()} damage.|{off_s}Wood : Deal {Damage:diff()} damage.{off_e}}",
   "FIVEELEMENTS-WOOD_SEED.title": "Wood Seed",
   
   
@@ -126,14 +126,32 @@
   
   "FIVEELEMENTS-EARTH_CREATION.description": "{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}\nGain 1 [gold]Earth Essence[/gold].",
   "FIVEELEMENTS-EARTH_CREATION.title": "Earth Creation",
-  "FIVEELEMENTS-EARTH_SPIRIT.description": "Whenever  you play a {earth_s}Earth{earth_e} card, gain {EarthSpiritPower:diff()} [gold]Thorns[/gold] this turn.",
+  "FIVEELEMENTS-EARTH_SPIRIT.description": "Whenever you play a {earth_s}Earth{earth_e} card, gain {EarthSpiritPower:diff()} [gold]Thorns[/gold] this turn.",
   "FIVEELEMENTS-EARTH_SPIRIT.title": "Earth Spirit",
   "FIVEELEMENTS-EARTH_GUARDIAN.description": "Gain {DexterityPower:diff()} [gold]Dexterity[/gold].\nGain {ThornsPower:diff()} [gold]Thorns[/gold].\nGain {PlatingPower:diff()} [gold]Plating[/gold].",
   "FIVEELEMENTS-EARTH_GUARDIAN.title": "Earth Guardian",
   "FIVEELEMENTS-EARTH_SHIELD.description": "Gain {Block:diff()} [gold]Block[/gold] for each enemies.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Next turn, gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Next turn, gain {Block:diff()} Block.{off_e}}",
   "FIVEELEMENTS-EARTH_SHIELD.title": "Earth Shield",
-  "FIVEELEMENTS-EARTH_JEWEL.description": "If you took no damage last turn, return this to your [gold]Hand[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}",
+  "FIVEELEMENTS-EARTH_JEWEL.description": "If you took no damage last turn, put this into your [gold]Hand[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}",
   "FIVEELEMENTS-EARTH_JEWEL.title": "Earth Jewel",
+  "FIVEELEMENTS-EARTH_BORN.description": "Half of your [gold]Block[/gold] persists between turns.",
+  "FIVEELEMENTS-EARTH_BORN.title": "Earth Born",
+  "FIVEELEMENTS-EARTH_WALL.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Blocked attack damage is reflected to your attacker this turn.|{off_s}Earth : Blocked attack damage is reflected to your attacker this turn.{off_e}}",
+  "FIVEELEMENTS-EARTH_WALL.title": "Earth Wall",
+  "FIVEELEMENTS-EARTH_CROWN.description": "Gain {Block:diff()} [gold]Block[/gold] twice.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : This turn, whenever you play a {earth_s}Earth{earth_e} card, gain {EarthCrownPower:diff()} [gold]Dexterity[/gold] this turn.|{off_s}Earth : This turn, whenever you play a Earth card, gain {EarthCrownPower:diff()} Dexterity this turn.{off_e}}",
+  "FIVEELEMENTS-EARTH_CROWN.title": "Earth Crown",
+  "FIVEELEMENTS-EARTH_WARD.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {EarthWardPower:diff()} [gold]Dexterity[/gold] this turn.|{off_s}Earth : Gain {EarthWardPower:diff()} Dexterity this turn.{off_e}}",
+  "FIVEELEMENTS-EARTH_WARD.title": "Earth Ward",
+  "FIVEELEMENTS-EARTH_PLATE.description": "Gain {Block:diff()} [gold]Block[/gold]. Whenever this card is [gold]Retained[/gold], increase its [gold]Block[/gold] by {BlockIncrease:diff()}.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {PlatingPower:diff()} [gold]Plating[/gold] for each enemy intending to attack.|{off_s}Earth : Gain {PlatingPower:diff()} Plating for each enemy intending to attack.{off_e}}",
+  "FIVEELEMENTS-EARTH_PLATE.title": "Earth Plate",
+  "FIVEELEMENTS-EARTH_QUAKE.description": "Gain {Block:diff()} [gold]Block[/gold].\nRemove half your [gold]Block[/gold] to deal that much damage to ALL enemies.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : [gold]Replay[/gold] this card if it kill an enemy.|{off_s}Earth : Replay this card if it kill an enemy.{off_e}}",
+  "FIVEELEMENTS-EARTH_QUAKE.title": "Earth Quake",
+  "FIVEELEMENTS-EARTH_BLAST.description": "Deal {CalculatedDamage:diff()} damage.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Deal {ExtraDamage:diff()} more for every {Divider:diff()} [gold]Block[/gold] gained this combat.|{off_s}Earth : Deal {ExtraDamage:diff()} more for every {Divider:diff()} Block gained this combat.{off_e}}",
+  "FIVEELEMENTS-EARTH_BLAST.title": "Earth Blast",
+  
+  
+  "FIVEELEMENTS-EARTH_MAGMA.description": "{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Gain [gold]Block[/gold] equals to [gold]Burn[/gold] on the enemy.|{off_s}Fire : Gain Block equals to Burn on the enemy.{off_e}}\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {PlatingPower:diff()} [gold]Plating[/gold].|{off_s}Earth : Gain {PlatingPower:diff()} Plating.{off_e}}",
+  "FIVEELEMENTS-EARTH_MAGMA.title": "Earth Magma",
   
   
   
@@ -159,6 +177,10 @@
   "FIVEELEMENTS-METAL_METTLE.title": "Metal Mettle",
   "FIVEELEMENTS-METAL_SLASH.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : If [gold]Fatal[/gold], permanently upgrade a card in your deck.|{off_s}Metal : If Fatal, permanently upgrade a card in your deck.{off_e}}",
   "FIVEELEMENTS-METAL_SLASH.title": "Metal Slash",
+  "FIVEELEMENTS-METAL_EDGE.description": "The next Attack deals {MetalEdgePower:diff()}% additional damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : The next Attack this turn cost 1 {energyPrefix:energyIcons(1)} less.|{off_s}Metal : The next Attack this turn cost 1 {energyPrefix:energyIcons(1)} less.{off_e}}",
+  "FIVEELEMENTS-METAL_EDGE.title": "Metal Edge",
+  "FIVEELEMENTS-METAL_CORE.description": "{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {VigorGained:diff()} [gold]Vigor[/gold]. Gain {CalculationExtra:diff()} additional [gold]Vigor[/gold] for every {BlockDivider:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {VigorGained:diff()} Vigor. Gain {CalculationExtra:diff()} additional Vigor for every {BlockDivider:diff()} Block.{off_e}}\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Next turn, the first Attack deal double damage.|{off_s}Metal : Next turn, the first Attack deal double damage.{off_e}}",
+  "FIVEELEMENTS-METAL_CORE.title": "Metal Core",
   
   
   

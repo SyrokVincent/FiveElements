@@ -64,7 +64,7 @@ public class WoodSeed() : WoodCard(0,
         await CheckAndReturnToHand(choiceContext);
     }
 
-    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+    public override async Task AfterCardPlayedLate(PlayerChoiceContext context, CardPlay cardPlay)
     {
         await CheckAndReturnToHand(context);
     }

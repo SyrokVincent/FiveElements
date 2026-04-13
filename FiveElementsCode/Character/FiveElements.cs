@@ -84,13 +84,15 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
             finalDeck.Add(ModelDb.Card<AllOrOne>());
-            finalDeck.Add(ModelDb.Card<MetalSpirit>()); 
-            finalDeck.Add(ModelDb.Card<MetalRush>());    
-            finalDeck.Add(ModelDb.Card<MetalRush>());    
-            finalDeck.Add(ModelDb.Card<MetalMettle>()); 
-            finalDeck.Add(ModelDb.Card<MetalSlash>());  
-            finalDeck.Add(ModelDb.Card<MetalSlash>());  
-            finalDeck.Add(ModelDb.Card<MetalSlash>());  
+            finalDeck.Add(ModelDb.Card<EarthWard>());    
+            finalDeck.Add(ModelDb.Card<EarthPlate>());    
+            finalDeck.Add(ModelDb.Card<EarthPlate>());      
+            finalDeck.Add(ModelDb.Card<EarthWard>());   
+            finalDeck.Add(ModelDb.Card<EarthCrown>());  
+            finalDeck.Add(ModelDb.Card<EarthCrown>());  
+            finalDeck.Add(ModelDb.Card<EarthQuake>());  
+            finalDeck.Add(ModelDb.Card<EarthBlast>());
+            finalDeck.Add(ModelDb.Card<EarthBlast>());
             
             /*
             //WATER
@@ -146,18 +148,18 @@ public class FiveElements : PlaceholderCharacterModel
             /*
             //EARTH
             finalDeck.Add(ModelDb.Card<EarthCreation>());   //done
-            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<EarthWard>());       //done
             finalDeck.Add(ModelDb.Card<EarthShield>());     //done  maybe change how it work to only apply block once
             finalDeck.Add(ModelDb.Card<EarthSpirit>());     //done
-            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<EarthBlast>());      //done
             finalDeck.Add(ModelDb.Card<EarthJewel>());      //done
-            finalDeck.Add(ModelDb.Card<Earth>());
-            finalDeck.Add(ModelDb.Card<Earth>());
-            finalDeck.Add(ModelDb.Card<Earth>());
-            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<EarthWall>());       //done
+            finalDeck.Add(ModelDb.Card<EarthCrown>());  //done clunky, give dex before card being played so you don't see the real block value ganied on the card and if it give after it's useless
+            finalDeck.Add(ModelDb.Card<EarthPlate>());      //done
+            finalDeck.Add(ModelDb.Card<EarthBorn>());       //done
             finalDeck.Add(ModelDb.Card<EarthGuardian>());   //done
-            finalDeck.Add(ModelDb.Card<Earth>());
-            finalDeck.Add(ModelDb.Card<Earth>());
+            finalDeck.Add(ModelDb.Card<EarthQuake>());      //done (maybe remove the block gain on replayed card)
+            finalDeck.Add(ModelDb.Card<EarthMagma>());      //done
             */
             
             /*
@@ -170,11 +172,11 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<MetalChains>());     //done
             finalDeck.Add(ModelDb.Card<MetalRush>());       //done
             finalDeck.Add(ModelDb.Card<MetalForge>());      //done maybe show how many card will be upgraded? and count itself ?
-            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<MetalEdge>());       //done
             finalDeck.Add(ModelDb.Card<MetalMettle>());     //done
             finalDeck.Add(ModelDb.Card<MetalSlash>());      //done
             finalDeck.Add(ModelDb.Card<MetalRefinement>()); //done
-            finalDeck.Add(ModelDb.Card<Metal>());
+            finalDeck.Add(ModelDb.Card<MetalCore>());       //done
             */
             
             /*
