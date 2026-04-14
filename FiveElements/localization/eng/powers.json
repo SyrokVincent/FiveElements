@@ -3,12 +3,22 @@
   "FIVEELEMENTS-INCANTATION_POWER.smartDescription": "At the start of your turn, add {Amount:plural:a [gold]Fulu[/gold]|[blue]{}[/blue] [gold]Fulus[/gold]} into your [gold]Hand[/gold].",
   "FIVEELEMENTS-INCANTATION_POWER.title": "Incantation", 
   "FIVEELEMENTS-ALL_OR_ONE_POWER.description": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {energyPrefix:energyIcons(1)} and draw [blue]1[/blue] card.",
-  "FIVEELEMENTS-ALL_OR_ONE_POWER.smartDescription": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {Amount:energyIcons()} and draw {Amount} {Amount:plural:card|cards}.",
+  "FIVEELEMENTS-ALL_OR_ONE_POWER.smartDescription": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {Amount:energyIcons()} and draw [blue]{Amount}[/blue] {Amount:plural:card|cards}.",
   "FIVEELEMENTS-ALL_OR_ONE_POWER.title": "All or One",
   "FIVEELEMENTS-ECHO_FORMATION_POWER.description": "At the end of each turn [gold]Retain[/gold] [gold]Echo[/gold] cards.",
   "FIVEELEMENTS-ECHO_FORMATION_POWER.smartDescription": "At the end of each turn [gold]Retain[/gold] [gold]Echo[/gold] cards.",
   "FIVEELEMENTS-ECHO_FORMATION_POWER.title": "Echo Formation",
+  "FIVEELEMENTS-ULTIMATE_FORM_POWER.description": "When you play cards in the [gold]Generate[/gold] order, [gold]Upgrade[/gold] them and trigger the corresponding effect on the card [gold]Activation[/gold].",
+  "FIVEELEMENTS-ULTIMATE_FORM_POWER.smartDescription": "When you play cards in the [gold]Generate[/gold] order, [gold]Upgrade[/gold] them and trigger the corresponding effect on the card [gold]Activation[/gold] [blue]{Amount}[/blue] {Amount:plural:time|times}.\n{ElemEcho:cond:=0?|=1?Play a {wood_s}Wood{wood_e} card to:\nDraw {Cards:diff()} {Cards:plural:card|cards}.|=2?Play a {fire_s}Fire{fire_e} card to:\nApply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|=3?Play a {earth_s}Earth{earth_e} card to:\nGain {Block:diff()} [gold]Block[/gold].|=4?Play a {metal_s}Metal{metal_e} card to:\nGain {VigorPower:diff()} [gold]Vigor[/gold].|Play a {water_s}Water{water_e} card to:\nGain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.}",
+  "FIVEELEMENTS-ULTIMATE_FORM_POWER.title": "Ultimate Form",
 
+
+
+  "FIVEELEMENTS-SPIRITS_FORM_POWER.description": "Card with no [gold]Elements[/gold] are now considered to be of ALL [gold]Elements[/gold] when [gold]PLAYED[/gold].",
+  "FIVEELEMENTS-SPIRITS_FORM_POWER.smartDescription": "Card with no [gold]Elements[/gold] are now considered to be of ALL [gold]Elements[/gold] when [gold]PLAYED[/gold].",
+  "FIVEELEMENTS-SPIRITS_FORM_POWER.title": "Spirits Form",
+  
+  
   
   "FIVEELEMENTS-WAVE_POWER.description": "At the start of your turn, [gold]Wave[/gold] deals damage to the front enemy.",
   "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the start of your turn, deals [blue]{Amount}[/blue] damage to the front enemy.",

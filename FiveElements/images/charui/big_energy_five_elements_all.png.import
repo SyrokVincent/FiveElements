@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1m30sug0u5cp"
-path="res://.godot/imported/big_energy_five_elements_.png-6e8d893e3b536fd696c33d0e367e0fb4.ctex"
+path="res://.godot/imported/big_energy_five_elements_all.png-c42ff09f57a9dc020d58c0750382b34d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/charui/big_energy_five_elements_.png"
-dest_files=["res://.godot/imported/big_energy_five_elements_.png-6e8d893e3b536fd696c33d0e367e0fb4.ctex"]
+source_file="res://FiveElements/images/charui/big_energy_five_elements_all.png"
+dest_files=["res://.godot/imported/big_energy_five_elements_all.png-c42ff09f57a9dc020d58c0750382b34d.ctex"]
 
 [params]
 

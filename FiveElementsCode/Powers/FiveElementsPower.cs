@@ -42,4 +42,9 @@ public abstract class FiveElementsPower : CustomPowerModel
             return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
         }
     }
+    
+    public bool HasSpiritsForm
+    {
+        get => this.IsMutable && this.Owner.HasPower<SpiritsFormPower>();
+    }
 }

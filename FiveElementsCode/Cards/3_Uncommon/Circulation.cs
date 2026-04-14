@@ -31,7 +31,7 @@ public class Circulation() : NeutralCard(2,
         // qui correspond à tes critères de "Circulation"
         return hand.Any(c => c != this && IsValidCirculationTarget(c));
     }
-
+    
     private bool IsValidCirculationTarget(CardModel card)
     {
         // Ici, définis ta logique de filtrage. 
@@ -39,11 +39,11 @@ public class Circulation() : NeutralCard(2,
         var currentEcho = Character.FiveElements.Echo;
         if (card is FiveElementsCard fec)
         {
-            if (currentEcho == CardElementTag.Water && fec.IsWood()) return true;
-            if (currentEcho == CardElementTag.Wood && fec.IsFire()) return true;
-            if (currentEcho == CardElementTag.Fire && fec.IsEarth()) return true;
-            if (currentEcho == CardElementTag.Earth && fec.IsMetal()) return true;
-            if (currentEcho == CardElementTag.Metal && fec.IsWater()) return true;
+            if (currentEcho.Contains(CardElementTag.Water) && fec.IsWood()) return true;
+            if (currentEcho.Contains(CardElementTag.Wood) && fec.IsFire()) return true;
+            if (currentEcho.Contains(CardElementTag.Fire) && fec.IsEarth()) return true;
+            if (currentEcho.Contains(CardElementTag.Earth) && fec.IsMetal()) return true;
+            if (currentEcho.Contains(CardElementTag.Metal) && fec.IsWater()) return true;
         }
         return false;
     }

@@ -32,16 +32,17 @@ public class Domination() : NeutralCard(2,
         return hand.Any(c => c != this && IsValidDominationTarget(c));
     }
 
+    //todo ?? can curently copy neutral card when you have spirits form
     private bool IsValidDominationTarget(CardModel card)
     {
         var currentEcho = Character.FiveElements.Echo;
         if (card is FiveElementsCard fec)
         {
-            if (currentEcho == CardElementTag.Water && fec.IsFire()) return true;
-            if (currentEcho == CardElementTag.Wood && fec.IsEarth()) return true;
-            if (currentEcho == CardElementTag.Fire && fec.IsMetal()) return true;
-            if (currentEcho == CardElementTag.Earth && fec.IsWater()) return true;
-            if (currentEcho == CardElementTag.Metal && fec.IsWood()) return true;
+            if (currentEcho.Contains(CardElementTag.Water) && fec.IsFire()) return true;
+            if (currentEcho.Contains(CardElementTag.Wood) && fec.IsEarth()) return true;
+            if (currentEcho.Contains(CardElementTag.Fire) && fec.IsMetal()) return true;
+            if (currentEcho.Contains(CardElementTag.Earth) && fec.IsWater()) return true;
+            if (currentEcho.Contains(CardElementTag.Metal) && fec.IsWood()) return true;
         }
         return false;
     }

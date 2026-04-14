@@ -1,4 +1,5 @@
-﻿using BaseLib.Utils;
+﻿using BaseLib.Extensions;
+using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
@@ -23,17 +24,26 @@ public sealed class FirePlume() : FireCard(0,
 
     //Retain, Exhaust, At turn start while in hand apply 1 burn to all enemies, (keyword Incandescence 1)
     //Fire:(Deal 1 Heat damage, increased by 1 for each fire card played this turn)
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<BurnPower>(1),
         new CalculationBaseVar(1),
         new ExtraDamageVar(1),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => 
-            CombatManager.Instance.History.CardPlaysFinished.Count(e => 
-                e.HappenedThisTurn(card.CombatState) && 
-                e.CardPlay.Card is FiveElementsCard feCard && feCard.IsFire() && 
-                e.CardPlay.Card.Owner == card.Owner)),
+        {
+            if (card.CombatState == null) return 0;
+            
+            return CombatManager.Instance.History.CardPlaysFinished.Count(e => 
+            {
+                if (!e.HappenedThisTurn(card.CombatState) || e.CardPlay.Card.Owner != card.Owner)
+                    return false;
+                
+                return (e.CardPlay.Card.CountsAsElement(CardElementTag.Fire, card.Owner.Creature));
+            });
+        }),
     ]);
-
+    
+    
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
         CardKeyword.Retain,
         CardKeyword.Exhaust,

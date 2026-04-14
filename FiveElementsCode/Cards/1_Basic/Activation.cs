@@ -22,6 +22,9 @@ public sealed class Activation() : NeutralCard(1,
     protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
     
     //Water:(1 energy, 2 wave), Wood:(Draw 1), Fire:(Burn 4 to all enemies), Earth:(6 block), Metal:(3 vigor) 
+    //
+    //VALUE HERE need to be the same as on Ultimate form
+    //
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
         new PowerVar<WavePower>(2),

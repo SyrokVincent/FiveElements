@@ -3,11 +3,13 @@ using FiveElements.FiveElementsCode.Cards._5_Token;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Hooks;
 using FiveElements.FiveElementsCode.Interfaces;
+using FiveElements.FiveElementsCode.Powers;
 using FiveElements.FiveElementsCode.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 
@@ -111,10 +113,15 @@ public static class FiveElementsCardExtensions
         }
     }
 
+    public static bool IsElement(this FiveElementsCard card, HashSet<CardElementTag> tags)
+    {
+        return tags.Any(tag => tag != CardElementTag.Neutral && card.ElementTags.Contains(tag));
+    }
     public static bool IsElement(this FiveElementsCard card, CardElementTag tag)
     {
         return card.ElementTags.Contains(tag);
-    }public static bool IsNeutral(this FiveElementsCard card)
+    }
+    public static bool IsNeutral(this FiveElementsCard card)
     {
         return card.IsElement(CardElementTag.Neutral);
     }
@@ -139,6 +146,45 @@ public static class FiveElementsCardExtensions
         return card.IsElement(CardElementTag.Metal);
     }
     
+    public static bool CountsAsElement(this CardModel card, CardElementTag tag, Creature owner)
+    {
+        // 1. Si la carte est déjà de cet élément, c'est bon.
+        if (card is FiveElementsCard feCard && feCard.IsElement(tag)) 
+            return true;
+
+        // 2. Si le pouvoir SpiritsForm est absent, on s'arrête là.
+        if (!owner.HasPower<SpiritsFormPower>())
+            return false;
+
+        // 3. Si le pouvoir est présent, il convertit uniquement ce qui n'a pas d'élément.
+        if (card is FiveElementsCard feCardNeutral && feCardNeutral.IsNeutral())
+            return true;
+
+        if (card is not FiveElementsCard)
+            return true;
+
+        return false;
+    }
+    
+    public static bool IsGenerating(this IEnumerable<CardElementTag> currentEcho, CardElementTag targetElement)
+    {
+        // Si l'écho contient l'élément qui génère la cible
+        // (ex: si Echo contient Wood, il génère Fire)
+        return currentEcho.Any(e => e.IsGenerating(targetElement));
+    }
+    
+    public static bool IsGenerating(this CardElementTag elem1, CardElementTag elem2)
+    {
+        return elem1 switch
+        {
+            CardElementTag.Water => elem2 == CardElementTag.Wood,
+            CardElementTag.Wood  => elem2 == CardElementTag.Fire,
+            CardElementTag.Fire  => elem2 == CardElementTag.Earth,
+            CardElementTag.Earth => elem2 == CardElementTag.Metal,
+            CardElementTag.Metal => elem2 == CardElementTag.Water,
+            _ => false
+        };
+    }
     
     public static bool IsActive(this CardElementTag elem, CombatState? combatState)
     {
@@ -146,14 +192,14 @@ public static class FiveElementsCardExtensions
 
         var status = combatState.GetElementalStatus();
         // ON LIT L'ECHO ICI MAINTENANT :
-        CardElementTag currentEcho = Character.FiveElements.Echo; //status.ElementOfEcho;
+        HashSet<CardElementTag> currentEcho = Character.FiveElements.Echo; //status.ElementOfEcho;
         return elem switch
         {
-            CardElementTag.Water => currentEcho == CardElementTag.Water || currentEcho == CardElementTag.Metal || status.GetEssence(CardElementTag.Water) > 0,
-            CardElementTag.Wood  => currentEcho == CardElementTag.Wood  || currentEcho == CardElementTag.Water || status.GetEssence(CardElementTag.Wood) > 0,
-            CardElementTag.Fire  => currentEcho == CardElementTag.Fire  || currentEcho == CardElementTag.Wood  || status.GetEssence(CardElementTag.Fire) > 0,
-            CardElementTag.Earth => currentEcho == CardElementTag.Earth || currentEcho == CardElementTag.Fire  || status.GetEssence(CardElementTag.Earth) > 0,
-            CardElementTag.Metal => currentEcho == CardElementTag.Metal || currentEcho == CardElementTag.Earth || status.GetEssence(CardElementTag.Metal) > 0,
+            CardElementTag.Water => currentEcho.Contains(CardElementTag.Water) || currentEcho.Contains(CardElementTag.Metal) || status.GetEssence(CardElementTag.Water) > 0,
+            CardElementTag.Wood  => currentEcho.Contains(CardElementTag.Wood)  || currentEcho.Contains(CardElementTag.Water) || status.GetEssence(CardElementTag.Wood) > 0,
+            CardElementTag.Fire  => currentEcho.Contains(CardElementTag.Fire)  || currentEcho.Contains(CardElementTag.Wood)  || status.GetEssence(CardElementTag.Fire) > 0,
+            CardElementTag.Earth => currentEcho.Contains(CardElementTag.Earth) || currentEcho.Contains(CardElementTag.Fire)  || status.GetEssence(CardElementTag.Earth) > 0,
+            CardElementTag.Metal => currentEcho.Contains(CardElementTag.Metal) || currentEcho.Contains(CardElementTag.Earth) || status.GetEssence(CardElementTag.Metal) > 0,
             _ => false
         };
     }

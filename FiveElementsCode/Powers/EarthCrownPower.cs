@@ -1,4 +1,5 @@
 ﻿using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -40,7 +41,7 @@ public class EarthCrownPower : FiveElementsPower
         }
         
         // 1. On vérifie si c'est une carte Earth
-        if (cardPlay.Card is FiveElementsCard elementCard && elementCard.IsEarth())
+        if (cardPlay.Card.CountsAsElement(CardElementTag.Earth, Owner))
         {
             var data = GetInternalData<Data>();
             

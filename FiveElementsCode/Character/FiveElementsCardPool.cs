@@ -19,15 +19,22 @@ public class FiveElementsCardPool : CustomCardPoolModel
     public override string TextEnergyIconPath => _currentTextEnergy.ImagePath();
     
     // Logique de sélection de l'image
-    private string GetEnergyPath(CardElementTag echo) => echo switch
+    private string GetEnergyPath(HashSet<CardElementTag> echo)
     {
-        CardElementTag.Water => "charui/big_energy_five_elements_water.png",
-        CardElementTag.Wood  => "charui/big_energy_five_elements_wood.png",
-        CardElementTag.Fire  => "charui/big_energy_five_elements_fire.png",
-        CardElementTag.Earth => "charui/big_energy_five_elements_earth.png",
-        CardElementTag.Metal => "charui/big_energy_five_elements_metal.png",
-        _                    => "charui/big_energy_five_elements.png" // Valeur par défaut
-    };
+        if (echo.Contains(CardElementTag.Neutral))
+        {
+            if (echo.Count == 1) return "charui/big_energy_five_elements.png";
+            return "charui/big_energy_five_elements_all.png";
+        }
+        if (echo.Contains(CardElementTag.Water)) return "charui/big_energy_five_elements_water.png";
+        if (echo.Contains(CardElementTag.Wood)) return "charui/big_energy_five_elements_wood.png";
+        if (echo.Contains(CardElementTag.Fire)) return "charui/big_energy_five_elements_fire.png";
+        if (echo.Contains(CardElementTag.Earth)) return "charui/big_energy_five_elements_earth.png";
+        if (echo.Contains(CardElementTag.Metal)) return "charui/big_energy_five_elements_metal.png";
+        return "charui/big_energy_five_elements.png";
+    }
+    
+    
     //Color of small card icons
     public override Color DeckEntryCardColor => _currentDeckColor;
     

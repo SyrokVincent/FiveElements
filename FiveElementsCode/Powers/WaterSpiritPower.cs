@@ -51,9 +51,12 @@ public class WaterSpiritPower : FiveElementsPower
         //Check if we have remaining triggers
         if (data.TriggerCount >= Amount) 
             return;
-
-        // Check if the played card is a Water element card
-        if (cardPlay.Card is FiveElementsCard elementCard && elementCard.IsWater())
+        
+        var elementCard = cardPlay.Card as FiveElementsCard;
+        // Check if the played card is a Water element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
+        if (elementCard != null && elementCard.IsWater() ||
+            elementCard != null && elementCard.IsNeutral() && HasSpiritsForm ||
+            elementCard == null && HasSpiritsForm)
         {
             Flash();
             data.TriggerCount++;

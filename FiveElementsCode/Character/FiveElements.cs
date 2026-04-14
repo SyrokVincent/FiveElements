@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Cards._2_Common;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Cards._4_Rare;
+using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;
@@ -30,7 +31,39 @@ public class FiveElements : PlaceholderCharacterModel
     }
     
     //todo make echo an array for if one day some card have multi element
-    public static CardElementTag Echo = CardElementTag.Neutral;
+    //public static CardElementTag Echo = CardElementTag.Neutral;
+    
+    // Utilisation d'un HashSet pour éviter les doublons d'éléments
+    public static HashSet<CardElementTag> Echo = new() { CardElementTag.Neutral };
+
+    public static int GetEchoStateForDescription()
+    {
+        if (Echo.Count == 6) return 6; //echo has all element
+        return (int) Echo.First(); //echo has only one element
+    }
+    
+    // Méthode utilitaire pour changer l'écho facilement
+    public static void SetEcho(params CardElementTag[] elements)
+    {
+        Echo.Clear();
+        foreach (var e in elements) Echo.Add(e);
+    }
+    
+    public static void ResetEcho()
+    {
+        Echo.Clear();
+        Echo.Add(CardElementTag.Neutral);
+    }
+    
+    // Méthode utilitaire pour changer l'écho facilement
+    public static void SetEchoToAllElements()
+    {
+        Echo.Clear();
+        foreach (var element in Enum.GetValues<CardElementTag>())
+        {
+            Echo.Add(element);
+        }
+    }
     
     // this change the placeholder stuff
     public override string PlaceholderID => "silent";
@@ -83,16 +116,16 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<AllOrOne>());
-            finalDeck.Add(ModelDb.Card<EarthWard>());    
-            finalDeck.Add(ModelDb.Card<EarthPlate>());    
-            finalDeck.Add(ModelDb.Card<EarthPlate>());      
-            finalDeck.Add(ModelDb.Card<EarthWard>());   
-            finalDeck.Add(ModelDb.Card<EarthCrown>());  
-            finalDeck.Add(ModelDb.Card<EarthCrown>());  
-            finalDeck.Add(ModelDb.Card<EarthQuake>());  
-            finalDeck.Add(ModelDb.Card<EarthBlast>());
-            finalDeck.Add(ModelDb.Card<EarthBlast>());
+            finalDeck.Add(ModelDb.Card<UltimateForm>()); 
+            finalDeck.Add(ModelDb.Card<SpiritsForm>()); 
+            finalDeck.Add(ModelDb.Card<Isolation>()); 
+            finalDeck.Add(ModelDb.Card<Isolation>()); 
+            finalDeck.Add(ModelDb.Card<Incantation>()); 
+            finalDeck.Add(ModelDb.Card<Incantation>()); 
+            finalDeck.Add(ModelDb.Card<WaterSpirit>()); 
+            finalDeck.Add(ModelDb.Card<FireWings>()); 
+            finalDeck.Add(ModelDb.Card<FireWings>()); 
+            finalDeck.Add(ModelDb.Card<WaterLord>()); 
             
             /*
             //WATER
@@ -140,7 +173,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<FireForce>());       //done
             finalDeck.Add(ModelDb.Card<FireEater>());       //done
             finalDeck.Add(ModelDb.Card<FireWings>());       //done
-            finalDeck.Add(ModelDb.Card<FireFall>());        //done
+            finalDeck.Add(ModelDb.Card<FireFall>());        //done Maybe count neutral card in hand when hasSpiritform???
             finalDeck.Add(ModelDb.Card<FireDance>());       //done
             finalDeck.Add(ModelDb.Card<FireBlossom>());     //done
             */
@@ -193,7 +226,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Recycle>());         //done
             finalDeck.Add(ModelDb.Card<Absorption>());      //done
             finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
-            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<UltimateForm>());    //done
             finalDeck.Add(ModelDb.Card<>()); 
             finalDeck.Add(ModelDb.Card<>()); 
             
@@ -202,7 +235,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<>()); 
             //ancient
             finalDeck.Add(ModelDb.Card<>()); 
-            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<SpiritsForm>());     //done but not yet working for stuff that say foreach fire/etc card played this turn
             
             */
             return finalDeck;

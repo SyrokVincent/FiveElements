@@ -1,7 +1,9 @@
-﻿using BaseLib.Utils;
+﻿using BaseLib.Extensions;
+using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -43,11 +45,15 @@ public class MetalForge() : MetalCard(1,
         
         if (CardElementTag.Metal.IsActive(CombatState))
         {
-            
             var amountOfMetalCardPlayedThisTurn = CombatManager.Instance.History.CardPlaysFinished.Count(e => 
-                e.HappenedThisTurn(CombatState) && 
-                e.CardPlay.Card is FiveElementsCard feCard && feCard.IsMetal() && 
-                e.CardPlay.Card.Owner == Owner);
+            {
+                if (!e.HappenedThisTurn(CombatState) || e.CardPlay.Card.Owner != Owner)
+                    return false;
+
+                return (e.CardPlay.Card.CountsAsElement(CardElementTag.Metal, Owner.Creature));
+
+            });
+            
             
             // Logique d'amélioration des cartes dans la défausse
             // On récupère les cartes améliorables, on en selectione X au hasard selon l' RNG du combat

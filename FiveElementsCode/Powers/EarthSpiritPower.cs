@@ -39,10 +39,12 @@ public class EarthSpiritPower : FiveElementsPower
             return;
         
 
-        // Check if the played card is a Water element card
-        if (cardPlay.Card is FiveElementsCard elementCard && elementCard.IsEarth())
+        var elementCard = cardPlay.Card as FiveElementsCard;
+        // Check if the played card is a Earth element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
+        if (elementCard != null && elementCard.IsEarth() ||
+            elementCard != null && elementCard.IsNeutral() && HasSpiritsForm ||
+            elementCard == null && HasSpiritsForm)
         {
-            Flash();
             if (elementCard is EarthSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
             {
                 Flash();

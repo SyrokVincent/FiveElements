@@ -3,6 +3,7 @@ using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Powers;
 using FiveElements.FiveElementsCode.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -35,65 +36,78 @@ public class Relic1() : FiveElementsRelic
     {
         //do not work to change card description color
         //check if it's our card being played
-        if (this.Owner != cardPlay.Card.Owner)
-        {
-            //return Task.CompletedTask;
-        }
-        else
-        {
-            // On vérifie si la carte possède un composant d'élément
-            if (cardPlay.Card is FiveElementsCard elementCard) {
-                if (Character.FiveElements.Echo != elementCard.ElementTags.Single()) {
-                    Character.FiveElements.Echo = elementCard.ElementTags.Single();
-                    
-                    
-                    //objectif refresh l'icone de l'energy lorsque echo change pour montrer l'echo visuelement
-                    // mais apparament c'est deja appeler ailleurs!!
-                    /*
-                    List<CardModel> cardsInHand = PileType.Hand.GetPile(elementCard.Owner).Cards.ToList<CardModel>();
-                    GD.Print("card in hand:? : " + cardsInHand.Count);
-                    foreach (var card in cardsInHand) {
-                        // On demande au moteur de notifier que la vue doit changer
-                        card.InvokeEnergyCostChanged();
-                        GD.Print(card.Title);
-                    }
-                    GD.Print("Pool Echo mis à jour vers : " + Character.FiveElements.Echo);
-                    */
-                    
-                    //debug
-                    // Affiche l'état global avant de notifier les cartes
-                    var status = cardPlay.Card.CombatState.GetElementalStatus();
-                    GD.Print($"DEBUG: after FEcard Echo={Character.FiveElements.Echo}, WaterEssence={status.GetEssence(CardElementTag.Water)}, " +
-                             $"wood={status.GetEssence(CardElementTag.Wood)}, " +
-                             $"fire={status.GetEssence(CardElementTag.Fire)}, " +
-                             $"earth={status.GetEssence(CardElementTag.Earth)}, " +
-                             $"metal={status.GetEssence(CardElementTag.Metal)}, " +
-                             $"neutral={status.GetEssence(CardElementTag.Neutral)}");
-                    
-                    
-                    
-                    foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
-                    {
-                        _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
-                    }
+        if (this.Owner != cardPlay.Card.Owner) return;
+      
+       
+        // On vérifie si la carte possède un composant d'élément
+        if (cardPlay.Card is FiveElementsCard elementCard) {
+            if (Character.FiveElements.Echo != elementCard.ElementTags) {
+                if (elementCard.IsNeutral() && Owner.Creature.HasPower<SpiritsFormPower>())
+                {
+                    Character.FiveElements.SetEchoToAllElements();
                 }
-            } else {
-                Character.FiveElements.Echo = CardElementTag.Neutral;
-                foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
+                else
+                {
+                    Character.FiveElements.Echo = elementCard.ElementTags.ToHashSet();
+                }
+                
+                
+                
+                //objectif refresh l'icone de l'energy lorsque echo change pour montrer l'echo visuelement
+                // mais apparament c'est deja appeler ailleurs!!
+                /*
+                List<CardModel> cardsInHand = PileType.Hand.GetPile(elementCard.Owner).Cards.ToList<CardModel>();
+                GD.Print("card in hand:? : " + cardsInHand.Count);
+                foreach (var card in cardsInHand) {
+                    // On demande au moteur de notifier que la vue doit changer
+                    card.InvokeEnergyCostChanged();
+                    GD.Print(card.Title);
+                }
+                GD.Print("Pool Echo mis à jour vers : " + Character.FiveElements.Echo);
+                */
+                
+                //debug
+                // Affiche l'état global avant de notifier les cartes
+                var status = cardPlay.Card.CombatState.GetElementalStatus();
+                GD.Print($"DEBUG: after FEcard Echo={Character.FiveElements.Echo}, WaterEssence={status.GetEssence(CardElementTag.Water)}, " +
+                         $"wood={status.GetEssence(CardElementTag.Wood)}, " +
+                         $"fire={status.GetEssence(CardElementTag.Fire)}, " +
+                         $"earth={status.GetEssence(CardElementTag.Earth)}, " +
+                         $"metal={status.GetEssence(CardElementTag.Metal)}, " +
+                         $"neutral={status.GetEssence(CardElementTag.Neutral)}");
+                
+                
+                
+                foreach (CardElementTag elem in Enum.GetValues<CardElementTag>())
                 {
                     _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
                 }
             }
+        } else {  //on est entrain de jouer une carte de base
+            if(Owner.Creature.HasPower<SpiritsFormPower>())
+            {
+                Character.FiveElements.SetEchoToAllElements();
+            }
+            else
+            {
+                Character.FiveElements.ResetEcho();
+            }
+            
+            foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
+            {
+                _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
+            }
+        }
 
             //GD.Print("Echooooo: " + Character.FiveElements.Echo);
-        }
+        
         //base.AfterCardPlayed(context, cardPlay);
         //return Task.CompletedTask;
     }
 
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
-        Character.FiveElements.Echo = CardElementTag.Neutral;
+        Character.FiveElements.ResetEcho();
         //debug
         // Affiche l'état global avant de notifier les cartes
         var status = Owner.Creature.CombatState.GetElementalStatus();
@@ -117,7 +131,7 @@ public class Relic1() : FiveElementsRelic
     //todo need to do that at a better place, does'nt work when you give up and restart for example
     public override async Task AfterCombatEnd(CombatRoom room)
     {
-        Character.FiveElements.Echo = CardElementTag.Neutral;
+        Character.FiveElements.ResetEcho();
         room.CombatState.GetElementalStatus().ResetAllEssences();
         foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
         {

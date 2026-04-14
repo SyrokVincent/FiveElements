@@ -1,4 +1,5 @@
 ﻿using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -17,8 +18,8 @@ public class WaterLordPower : FiveElementsPower
     public override PowerStackType StackType => PowerStackType.Counter;
 
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromPower<WavePower>(),
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -41,16 +42,22 @@ public class WaterLordPower : FiveElementsPower
         return Task.CompletedTask;
     }
 
+    
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        // On récupère le montant stocké (si c'était une carte Water ou si elle est devenu water)
-        if (!GetInternalData<Data>().AmountsForPlayedCards.Remove(cardPlay.Card, out var amount)|| 
-            !(cardPlay.Card is FiveElementsCard elementCard && elementCard.IsWater()))
+        var data = GetInternalData<Data>();
+    
+        // 1. On récupère la valeur stockée dans BeforeCardPlayed
+        if (!data.AmountsForPlayedCards.Remove(cardPlay.Card, out var amount))
             return;
 
-        this.Flash();
-        await PowerCmd.Apply<WavePower>(this.Owner, amount, this.Applier, null);
+        if (cardPlay.Card.CountsAsElement(CardElementTag.Water, Owner))
+        {
+            this.Flash();
+            await PowerCmd.Apply<WavePower>(Owner, amount, Applier, null);
+        }
     }
+    
 
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {

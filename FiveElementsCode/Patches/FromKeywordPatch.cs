@@ -23,7 +23,7 @@ public class FromKeywordPatch
     private const string EarthColor = "[color=#8B4513]";
     private const string MetalColor = "[color=#C0C0C0]";
     
-    public static CardElementTag ElementOfEcho => Character.FiveElements.Echo;
+    public static int ElementOfEcho => Character.FiveElements.GetEchoStateForDescription();
     
     protected static IEnumerable<DynamicVar> CanonicalVars => [
         new StringVar("water_s",WaterColor),
@@ -64,7 +64,7 @@ public class FromKeywordPatch
             
             if (keyword == FiveElementsKeywords.Echo)
             {
-                var elemEcho = new IntVar("ElemEcho", (decimal)ElementOfEcho);
+                var elemEcho = new IntVar("ElemEcho", ElementOfEcho);
                 title.Add(elemEcho);
                 description.Add(elemEcho);
             }

@@ -31,8 +31,11 @@ public class MetalSpiritPower : FiveElementsPower
         if (Owner != cardPlay.Card.Owner.Creature) 
             return;
 
-        // Check if the played card is a Water element card
-        if (cardPlay.Card is FiveElementsCard elementCard && elementCard.IsMetal())
+        var elementCard = cardPlay.Card as FiveElementsCard;
+        // Check if the played card is a metal element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
+        if (elementCard != null && elementCard.IsMetal() ||
+            elementCard != null && elementCard.IsNeutral() && HasSpiritsForm ||
+            elementCard == null && HasSpiritsForm)
         {
             Flash();
             if (elementCard is MetalSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
