@@ -1,5 +1,6 @@
 ﻿using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -38,13 +39,10 @@ public class WoodSpiritPower : FiveElementsPower
         if (Owner != cardPlay.Card.Owner.Creature) 
             return;
         
-        var elementCard = cardPlay.Card as FiveElementsCard;
         // Check if the played card is a Wood element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (elementCard != null && elementCard.IsWood() ||
-            elementCard != null && elementCard.IsNeutral() && HasSpiritsForm ||
-            elementCard == null && HasSpiritsForm)
+        if (cardPlay.Card.CountsAsElement(CardElementTag.Wood,Owner))
         {
-            if (elementCard is WoodSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
+            if (cardPlay.Card is WoodSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
             {
                 Flash();
                 data.TempStrengthCount += Amount - 1;

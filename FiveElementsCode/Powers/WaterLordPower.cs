@@ -26,7 +26,6 @@ public class WaterLordPower : FiveElementsPower
     ]);
 
 
-    protected override object InitInternalData() => new Data();
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
@@ -66,6 +65,7 @@ public class WaterLordPower : FiveElementsPower
         await PowerCmd.Remove(this);
     }
 
+    protected override object InitInternalData() => new Data();
     private class Data
     {
         public readonly Dictionary<CardModel, int> AmountsForPlayedCards = new();

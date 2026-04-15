@@ -10,20 +10,17 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
+namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class WoodSeed() : WoodCard(0,
-    CardType.Skill, CardRarity.Uncommon,
+public class WoodQueen() : WoodCard(2,
+    CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
+    
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
-
-    //Gain 2 Strength this turn,
-    //Wood:(draw 1)
+    //Each turn, draw 1 and gain 1 temp strength the first time you draw a wood card
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WoodSeedPower>(2),
-        new CardsVar(1),
+        new PowerVar<WoodQueenPower>(1),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -41,17 +38,14 @@ public class WoodSeed() : WoodCard(0,
         
         if (CombatState == null) return;
 
-        //await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WoodSeedPower>(this, DynamicVars["WoodSeedPower"].BaseValue);
-        if (CardElementTag.Wood.IsActive(CombatState))
-        {
-            await CommonActions.Draw(this, choiceContext);
-        }
+        
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        await CommonActions.ApplySelf<WoodQueenPower>(this, DynamicVars["WoodQueenPower"].BaseValue);
 
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WoodSeedPower"].UpgradeValueBy(1);
+        this.EnergyCost.UpgradeBy(-1);
     }
 }

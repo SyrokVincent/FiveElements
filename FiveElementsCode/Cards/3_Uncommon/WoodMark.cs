@@ -2,7 +2,6 @@
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
-using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,26 +11,27 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class WoodSeed() : WoodCard(0,
+public class WoodMark() : WoodCard(0,
     CardType.Skill, CardRarity.Uncommon,
-    TargetType.Self)
+    TargetType.AnyEnemy)
 {
-
+    
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
 
-    //Gain 2 Strength this turn,
-    //Wood:(draw 1)
+    //Exhaust, remove all thorns and block from the enemy,  (artifact?),
+    //Wood:(Draw 1)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WoodSeedPower>(2),
         new CardsVar(1),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        CardKeyword.Exhaust, 
     ]);
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromPower<ThornsPower>(),
+        HoverTipFactory.Static(StaticHoverTip.Block)
     ]);
 
     protected override async Task OnPlay(
@@ -41,8 +41,22 @@ public class WoodSeed() : WoodCard(0,
         
         if (CombatState == null) return;
 
-        //await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WoodSeedPower>(this, DynamicVars["WoodSeedPower"].BaseValue);
+        await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+        VfxCmd.PlayOnCreatureCenter(Owner.Creature, "vfx/vfx_flying_slash");
+        if (play.Target != null)
+        {
+            // 1. Suppression totale du Block de l'ennemi
+            if ( play.Target.Block > 0)
+            {
+                await CreatureCmd.LoseBlock(play.Target, play.Target.Block);
+            }
+            // 2. Suppression du thorns 
+            if (play.Target.HasPower<ThornsPower>())
+            {
+                await PowerCmd.Remove<ThornsPower>(play.Target);
+            }
+        }
+        
         if (CardElementTag.Wood.IsActive(CombatState))
         {
             await CommonActions.Draw(this, choiceContext);
@@ -52,6 +66,6 @@ public class WoodSeed() : WoodCard(0,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WoodSeedPower"].UpgradeValueBy(1);
+        DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

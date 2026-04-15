@@ -116,6 +116,18 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<WoodQueen>());
+            finalDeck.Add(ModelDb.Card<WoodQueen>());
+            finalDeck.Add(ModelDb.Card<WoodSpirit>());
+            finalDeck.Add(ModelDb.Card<WoodMark>());
+            finalDeck.Add(ModelDb.Card<WoodMark>());
+            finalDeck.Add(ModelDb.Card<WoodSeed>());
+            finalDeck.Add(ModelDb.Card<WoodSeed>());
+            finalDeck.Add(ModelDb.Card<WoodSeed>());
+            finalDeck.Add(ModelDb.Card<WoodRoots>()); 
+            finalDeck.Add(ModelDb.Card<WoodRoots>()); 
+            finalDeck.Add(ModelDb.Card<WoodFangs>()); 
+            finalDeck.Add(ModelDb.Card<WoodSurge>()); 
             
             /*
             //WATER
@@ -136,19 +148,19 @@ public class FiveElements : PlaceholderCharacterModel
             
             /*
             //WOOD
-            finalDeck.Add(ModelDb.Card<WoodCreation>());     //done
-            finalDeck.Add(ModelDb.Card<Wood>());      
-            finalDeck.Add(ModelDb.Card<Wood>());
-            finalDeck.Add(ModelDb.Card<WoodSpirit>());       //done
-            finalDeck.Add(ModelDb.Card<Wood>());
-            finalDeck.Add(ModelDb.Card<Wood>());
-            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<WoodCreation>());    //done
+            finalDeck.Add(ModelDb.Card<Wood>(WoodBark));    //done it currently scale down with strength too
+            finalDeck.Add(ModelDb.Card<WoodFangs>());       //done way of doubling damage to block might be wrong
+            finalDeck.Add(ModelDb.Card<WoodSpirit>());      //done
+            finalDeck.Add(ModelDb.Card<WoodLash>());        //done
+            finalDeck.Add(ModelDb.Card<WoodClaws>());       //done works but need to see what happen if it gains replay
             finalDeck.Add(ModelDb.Card<WoodSeed>());        //done
-            finalDeck.Add(ModelDb.Card<Wood>());
-            finalDeck.Add(ModelDb.Card<Wood>());
-            finalDeck.Add(ModelDb.Card<Wood>());
-            finalDeck.Add(ModelDb.Card<Wood>());
-            finalDeck.Add(ModelDb.Card<Wood>());
+            finalDeck.Add(ModelDb.Card<WoodLeaf>());        //done
+            finalDeck.Add(ModelDb.Card<WoodMark>());        //done
+            finalDeck.Add(ModelDb.Card<WoodQueen>());       //done
+            finalDeck.Add(ModelDb.Card<WoodFury>());        //done maybe upgrade should give +hit instead
+            finalDeck.Add(ModelDb.Card<WoodSurge>());       //done 1 attack for every strength might be a bit absurd?
+            finalDeck.Add(ModelDb.Card<WoodRoots>());       //done
             */
             
             /*

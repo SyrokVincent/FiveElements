@@ -1,5 +1,6 @@
 ﻿using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -39,13 +40,10 @@ public class EarthSpiritPower : FiveElementsPower
             return;
         
 
-        var elementCard = cardPlay.Card as FiveElementsCard;
         // Check if the played card is a Earth element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (elementCard != null && elementCard.IsEarth() ||
-            elementCard != null && elementCard.IsNeutral() && HasSpiritsForm ||
-            elementCard == null && HasSpiritsForm)
+        if (cardPlay.Card.CountsAsElement(CardElementTag.Earth,Owner))
         {
-            if (elementCard is EarthSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
+            if (cardPlay.Card is EarthSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
             {
                 Flash();
                 data.TempThornsCount += Amount - 1;

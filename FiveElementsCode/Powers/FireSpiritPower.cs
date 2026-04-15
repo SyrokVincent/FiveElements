@@ -1,4 +1,5 @@
 ﻿using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -39,11 +40,8 @@ public class FireSpiritPower : FiveElementsPower
         if (Owner != cardPlay.Card.Owner.Creature) 
             return;
         
-        var elementCard = cardPlay.Card as FiveElementsCard;
         // Check if the played card is a fire element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (elementCard != null && elementCard.IsFire() ||
-            elementCard != null && elementCard.IsNeutral() && HasSpiritsForm ||
-            elementCard == null && HasSpiritsForm)
+        if (cardPlay.Card.CountsAsElement(CardElementTag.Fire,Owner))
         {
             Flash();
             foreach (var hittableEnemy in CombatState.HittableEnemies)

@@ -23,8 +23,7 @@ public sealed class WaterTyphoon() : WaterCard(0,
         new PowerVar<WavePower>(3),
         new CardsVar(1),
     ]);
-
-   
+    
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromPower<WavePower>()
@@ -35,13 +34,18 @@ public sealed class WaterTyphoon() : WaterCard(0,
         CardPlay play)
     {
         
+        if (CombatState == null) return;
+        
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        int xValue = ResolveEnergyXValue();
-        for (int i = 0; i < xValue; ++i)
+        var xValue = ResolveEnergyXValue();
+        for (var i = 0; i < xValue; ++i)
         {
             
             await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
-            await CommonActions.Draw(this, choiceContext);
+            if (CardElementTag.Water.IsActive(CombatState))
+            {
+                await CommonActions.Draw(this, choiceContext);
+            }
         }
         
     }
