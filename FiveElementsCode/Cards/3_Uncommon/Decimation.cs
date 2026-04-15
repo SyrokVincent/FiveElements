@@ -16,7 +16,7 @@ public class Decimation() : NeutralCard(5,
     TargetType.AnyEnemy)
 {
     
-    //Reduce cost by 1 for each diferent element played this turn, deal 25
+    //Reduce cost by 1 for each diferent element played this turn, deal 20
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(20, ValueProp.Move)
     ]);
@@ -47,72 +47,19 @@ public class Decimation() : NeutralCard(5,
         var playedCards = CombatManager.Instance.History.CardPlaysStarted
             .Where(e => e.HappenedThisTurn(CombatState) && e.CardPlay.Card.Owner == Owner)
             .Select(e => e.CardPlay.Card)
-            .OfType<FiveElementsCard>()
+            //.OfType<FiveElementsCard>()
             .ToList();
 
         int distinctElements = 0;
-        if (playedCards.Any(c => c.IsWater())) distinctElements++;
-        if (playedCards.Any(c => c.IsWood())) distinctElements++;
-        if (playedCards.Any(c => c.IsFire())) distinctElements++;
-        if (playedCards.Any(c => c.IsEarth())) distinctElements++;
-        if (playedCards.Any(c => c.IsMetal())) distinctElements++;
+        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Water,cardPlay.Card.Owner.Creature))) distinctElements++;
+        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Wood,cardPlay.Card.Owner.Creature))) distinctElements++;
+        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Fire,cardPlay.Card.Owner.Creature))) distinctElements++;
+        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Earth,cardPlay.Card.Owner.Creature))) distinctElements++;
+        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Metal,cardPlay.Card.Owner.Creature))) distinctElements++;
 
         // On ajuste le coût de base (5) moins le nombre d'éléments distincts
         this.EnergyCost.SetThisTurn(5 - distinctElements);
 
     }
-
-    /*
-    private bool _waterDone = false;
-    private bool _woodDone = false;
-    private bool _fireDone = false;
-    private bool _earthDone = false;
-    private bool _metalDone = false;
-
-    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
-    {
-
-        //Only trigger if the owner of this card play a card
-        if (Owner != cardPlay.Card.Owner)
-            return;
-        if (cardPlay.Card is FiveElementsCard elementCard)
-        {
-            if ( !_waterDone && elementCard.IsWater())
-            {
-                this.EnergyCost.AddThisTurn(-1);
-                _waterDone = true;
-            }
-            if ( !_woodDone && elementCard.IsWood())
-            {
-                this.EnergyCost.AddThisTurn(-1);
-                _woodDone = true;
-            }
-            if ( !_fireDone && elementCard.IsFire())
-            {
-                this.EnergyCost.AddThisTurn(-1);
-                _fireDone = true;
-            }
-            if ( !_earthDone && elementCard.IsEarth())
-            {
-                this.EnergyCost.AddThisTurn(-1);
-                _earthDone = true;
-            }
-            if ( !_metalDone && elementCard.IsMetal())
-            {
-                this.EnergyCost.AddThisTurn(-1);
-                _metalDone = true;
-            }
-        }
-        await Task.CompletedTask;
-    }
-
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
-    {
-        _waterDone = false;
-        _woodDone = false;
-        _fireDone = false;
-        _earthDone = false;
-        _metalDone = false;
-        await Task.CompletedTask;
-    }*/
+    
 }

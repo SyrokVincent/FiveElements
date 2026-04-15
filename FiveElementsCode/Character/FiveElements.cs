@@ -116,16 +116,6 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<UltimateForm>()); 
-            finalDeck.Add(ModelDb.Card<SpiritsForm>()); 
-            finalDeck.Add(ModelDb.Card<Isolation>()); 
-            finalDeck.Add(ModelDb.Card<Isolation>()); 
-            finalDeck.Add(ModelDb.Card<Incantation>()); 
-            finalDeck.Add(ModelDb.Card<Incantation>()); 
-            finalDeck.Add(ModelDb.Card<WaterSpirit>()); 
-            finalDeck.Add(ModelDb.Card<FireWings>()); 
-            finalDeck.Add(ModelDb.Card<FireWings>()); 
-            finalDeck.Add(ModelDb.Card<WaterLord>()); 
             
             /*
             //WATER

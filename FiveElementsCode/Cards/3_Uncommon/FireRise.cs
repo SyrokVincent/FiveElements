@@ -48,10 +48,11 @@ public sealed class FireRise() : FireCard(2,
         //add power to self
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await CommonActions.ApplySelf<FireRisePower>(this, DynamicVars["FireRisePower"].BaseValue);
+        /*
         if (IsUpgraded)
         {
             if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, 1, false, CombatState);
-        }
+        }*/
     }
 
     protected override void OnUpgrade()
