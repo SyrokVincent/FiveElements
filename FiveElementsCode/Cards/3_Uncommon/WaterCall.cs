@@ -15,14 +15,13 @@ public sealed class WaterCall() : WaterCard(1,
     TargetType.AnyEnemy)
 {
 
-    //delete if shouldn't glow
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
 
-    //Deal 3 damage, Gain 2 Wave, Water: (trigger wave) 
+    //Deal 5 damage, Gain 3 Wave, Water: (trigger wave) 
 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new DamageVar(3,ValueProp.Move),
-        new PowerVar<WavePower>(2),
+        new DamageVar(5,ValueProp.Move),
+        new PowerVar<WavePower>(3),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

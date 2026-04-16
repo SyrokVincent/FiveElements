@@ -21,7 +21,11 @@ public sealed class Activation() : NeutralCard(1,
     public override bool GainsBlock => true;
     protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
     
-    //Water:(1 energy, 2 wave), Wood:(Draw 1), Fire:(Burn 4 to all enemies), Earth:(6 block), Metal:(3 vigor) 
+    // Water:(1 energy, 2 wave),
+    // Wood:(Draw 1),
+    // Fire:(Burn 3 to all enemies),
+    // Earth:(6 block),
+    // Metal:(2 vigor) 
     //
     //VALUE HERE need to be the same as on Ultimate form
     //

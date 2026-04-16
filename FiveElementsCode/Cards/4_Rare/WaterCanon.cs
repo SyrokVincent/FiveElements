@@ -21,11 +21,11 @@ public sealed class WaterCanon() : WaterCard(2,
         CombatState != null && 
         (CardElementTag.Water.IsActive(CombatState) || CardElementTag.Metal.IsActive(CombatState));
 
-    //Metal:(Deal 3 damage, gain wave equal to damage dealt),
+    //Metal:(Deal 5 damage, gain wave equal to damage dealt),
     //Water:(Double wave until next turn start)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isMetalOn"),
-        new DamageVar(3,ValueProp.Move),
+        new DamageVar(5,ValueProp.Move),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

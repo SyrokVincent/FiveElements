@@ -21,9 +21,9 @@ public class EarthShield() : EarthCard(1,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
 
-    //Gain 3 block for each enemy, Earth:(Next turn gain 3 block)
+    //Gain 4 block for each enemy, Earth:(Next turn gain 4 block)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(3,ValueProp.Move),
+        new BlockVar(4,ValueProp.Move),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

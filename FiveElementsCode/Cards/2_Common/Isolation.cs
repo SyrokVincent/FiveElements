@@ -15,9 +15,9 @@ public sealed class Isolation() : NeutralCard(1,
 {
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;
-    //Gain 6 block, Add 1 Elemental Fulu in hand
+    //Gain 8 block, Add 1 Fulu(fulu+) in hand
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(6,ValueProp.Move),
+        new BlockVar(8,ValueProp.Move),
         new CardsVar("Fulus", 1)
     ];
     
@@ -35,6 +35,6 @@ public sealed class Isolation() : NeutralCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3);
+        DynamicVars.Block.UpgradeValueBy(2);
     }
 }

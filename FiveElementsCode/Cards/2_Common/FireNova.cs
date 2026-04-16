@@ -17,10 +17,10 @@ public sealed class FireNova() : FireCard(1,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
 
-    //Deal 2 Heat damage to all enemies, Fire:(apply 3 burn to all enemies)
+    //Deal 3 Heat damage to all enemies, Fire:(apply 3 burn to all enemies)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new DamageVar(2,ValueProp.Move),
-        new PowerVar<BurnPower>(4),
+        new DamageVar(3,ValueProp.Move),
+        new PowerVar<BurnPower>(3),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

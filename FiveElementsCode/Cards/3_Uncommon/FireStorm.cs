@@ -18,9 +18,9 @@ public class FireStorm() : FireCard(2,
 {
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
 
-    //Deal 4 Heat damage to ALL enemies. At turn start play from the exhaust pile when you end a turn with Fire Echo, Fire:(Exhaust itself)
+    //Deal 5 Heat damage to ALL enemies. At turn start play from the exhaust pile when you end a turn with Fire Echo, Fire:(Exhaust itself)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new DamageVar(4,ValueProp.Move),
+        new DamageVar(5,ValueProp.Move),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

@@ -13,9 +13,9 @@ public sealed class Distortion() : NeutralCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.AnyEnemy)
 {
-    //Deal 7, Add 1 Elemental Fulu in hand
+    //Deal 9, Add 1 Elemental Fulu in hand
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(7,ValueProp.Move),
+        new DamageVar(9,ValueProp.Move),
         new CardsVar("Fulus", 1)
     ];
     
@@ -28,11 +28,12 @@ public sealed class Distortion() : NeutralCard(1,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
-        if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, 1, IsUpgraded, CombatState);
+        if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, DynamicVars.Cards.IntValue, false, CombatState);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(3);
+        DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

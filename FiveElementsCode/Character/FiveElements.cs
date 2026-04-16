@@ -175,7 +175,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<FireForce>());       //done
             finalDeck.Add(ModelDb.Card<FireEater>());       //done
             finalDeck.Add(ModelDb.Card<FireWings>());       //done
-            finalDeck.Add(ModelDb.Card<FireFall>());        //done Maybe count neutral card in hand when hasSpiritform???
+            finalDeck.Add(ModelDb.Card<FireBall>());        //done Maybe count neutral card in hand when hasSpiritform???
             finalDeck.Add(ModelDb.Card<FireDance>());       //done
             finalDeck.Add(ModelDb.Card<FireBlossom>());     //done
             */
