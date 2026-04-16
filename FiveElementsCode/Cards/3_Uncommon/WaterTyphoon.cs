@@ -18,7 +18,7 @@ public sealed class WaterTyphoon() : WaterCard(0,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
 
-    //Gain 3*X wave, Water: (draw X)
+    //Gain 3*X wave, Water: (draw X) , X+1 on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WavePower>(3),
         new CardsVar(1),
@@ -38,6 +38,8 @@ public sealed class WaterTyphoon() : WaterCard(0,
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         var xValue = ResolveEnergyXValue();
+        if (IsUpgraded)
+            ++xValue;
         for (var i = 0; i < xValue; ++i)
         {
             
@@ -52,6 +54,5 @@ public sealed class WaterTyphoon() : WaterCard(0,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WavePower"].UpgradeValueBy(1);
     }
 }

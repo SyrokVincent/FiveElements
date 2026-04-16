@@ -18,7 +18,7 @@ namespace FiveElements.FiveElementsCode.Extensions;
 public static class FiveElementsCardExtensions
 {
     
-    private static async Task SyncElementalState(CardModel potentialListener, CombatState combatState)
+    public static async Task SyncElementalState(CardModel potentialListener, CombatState combatState)
     {
         // On vérifie si l'objet écoute les changements d'éléments
         if (potentialListener is IOnElementStateChanged elementalListener)
@@ -83,11 +83,11 @@ public static class FiveElementsCardExtensions
         var owner = cardToTransform.Owner;
         if (combatState != null && owner == cardPlay.Card.Owner && cardPlay.Card != cardToTransform && cardToTransform.Pile?.Type != PileType.Exhaust)
         {
-            var myElement = cardToTransform.CanonicalElementTags.FirstOrDefault();
+            var myElement = cardToTransform.CanonicalElementTags.LastOrDefault();
             CardModel? replacement = null;
             if (cardPlay.Card is FiveElementsCard elementCard)
             {
-                var playedElem = elementCard.CanonicalElementTags.FirstOrDefault();
+                var playedElem = elementCard.CanonicalElementTags.LastOrDefault();
                 replacement = playedElem switch
                 {
                     CardElementTag.Water   => combatState.CreateCard<WoodFulu>(owner),
@@ -106,7 +106,7 @@ public static class FiveElementsCardExtensions
             // remove useless transform if card is already of the good element
             if (replacement is FiveElementsCard replacementElementCard)
             {
-                var targetElement = replacementElementCard.CanonicalElementTags.FirstOrDefault();
+                var targetElement = replacementElementCard.CanonicalElementTags.LastOrDefault();
                 if (targetElement == myElement) return; //no transformation
             }
             await CardCmd.Transform(cardToTransform, replacement);
@@ -146,6 +146,27 @@ public static class FiveElementsCardExtensions
         return card.IsElement(CardElementTag.Metal);
     }
     
+    
+    public static bool CountsAsElement(this CardModel card, HashSet<CardElementTag> tags, Creature owner)
+    {
+        // 1. Si la carte est déjà de cet élément, c'est bon.
+        if (card is FiveElementsCard feCard && feCard.IsElement(tags)) 
+            return true;
+
+        // 2. Si le pouvoir SpiritsForm est absent, on s'arrête là.
+        if (!owner.HasPower<SpiritsFormPower>())
+            return false;
+
+        // 3. Si le pouvoir est présent, il convertit uniquement ce qui n'a pas d'élément.
+        if (card is FiveElementsCard feCardNeutral && feCardNeutral.IsNeutral())
+            return true;
+
+        if (card is not FiveElementsCard)
+            return true;
+
+        return false;
+    }
+    
     public static bool CountsAsElement(this CardModel card, CardElementTag tag, Creature owner)
     {
         // 1. Si la carte est déjà de cet élément, c'est bon.
@@ -165,6 +186,9 @@ public static class FiveElementsCardExtensions
 
         return false;
     }
+    
+    
+    
     
     public static bool IsGenerating(this IEnumerable<CardElementTag> currentEcho, CardElementTag targetElement)
     {

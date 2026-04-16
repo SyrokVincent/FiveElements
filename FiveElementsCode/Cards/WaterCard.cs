@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 namespace FiveElements.FiveElementsCode.Cards;
 public abstract class WaterCard : FiveElementsCard, IOnWaterStateChanged
 {
-    public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.6f, 0.9f, 1.0f);
+    //public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.6f, 0.9f, 1.0f);
     
     protected WaterCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)

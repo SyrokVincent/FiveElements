@@ -1,15 +1,18 @@
-﻿using FiveElements.FiveElementsCode.Enums;
+﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
-namespace FiveElements.FiveElementsCode.Cards._1_Basic;
+namespace FiveElements.FiveElementsCode.Cards._5_Token;
 
+[Pool(typeof(TokenCardPool))]
 public sealed class Creation() : NeutralCard(0,
-    CardType.Skill, CardRarity.Basic,
+    CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
     

@@ -30,9 +30,9 @@
 
 
   
-  "FIVEELEMENTS-DISTORTION.description": "Deal {Damage:diff()} damage.\nAdd {Fulus:diff()} [gold]{IfUpgraded:show:Fulu+|Fulu}[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-DISTORTION.description": "Deal {Damage:diff()} damage.\nAdd {Cards:diff()} [gold]{IfUpgraded:show:Fulu|Fulu}[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-DISTORTION.title": "Distortion",
-  "FIVEELEMENTS-ISOLATION.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd {Fulus:diff()} [gold]{IfUpgraded:show:Fulu+|Fulu}[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-ISOLATION.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd {Cards:diff()} [gold]{IfUpgraded:show:Fulu+|Fulu}[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-ISOLATION.title": "Isolation",
   "FIVEELEMENTS-INCANTATION.description": "At the start of your turn, add a [gold]Fulu[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-INCANTATION.title": "Incantation",
@@ -48,7 +48,7 @@
   "FIVEELEMENTS-DOMINATION.selectionScreenPrompt": "Choose a card to Dominate.",
   "FIVEELEMENTS-DOMINATION.description": "Choose a card in [gold]Hand[/gold] that [gold]Echo[/gold] [gold]Dominate[/gold].\n[gold]Transform[/gold] it into the last card played and play it for free.",
   "FIVEELEMENTS-DOMINATION.title": "Domination",
-  "FIVEELEMENTS-MORE_OR_LESS.description": "Choose between {IfUpgraded:show:\n[gold]More+[/gold] and [gold]Less+[/gold]|[gold]More[/gold] or [gold]Less[/gold]} to add into your [gold]Hand[/gold]",
+  "FIVEELEMENTS-MORE_OR_LESS.description": "Choose between {IfUpgraded:show:\n[gold]More+[/gold] and [gold]Less+[/gold]|[gold]More[/gold] or [gold]Less[/gold]} to add into your [gold]Hand[/gold].",
   "FIVEELEMENTS-MORE_OR_LESS.title": "More or Less",
   "FIVEELEMENTS-RECYCLE.description": "Choose a card in your [gold]Hand[/gold] to [gold]Transform[/gold] into a card of the [gold]Element[/gold] it [gold]Generate[/gold].",
   "FIVEELEMENTS-RECYCLE.title": "Recycle",
@@ -58,6 +58,10 @@
   "FIVEELEMENTS-ECHO_FORMATION.title": "Echo Formation",
   "FIVEELEMENTS-ULTIMATE_FORM.description": "When you play cards in the [gold]Generate[/gold] order, [gold]Upgrade[/gold] them and trigger the corresponding effect on the card [gold]Activation[/gold].",
   "FIVEELEMENTS-ULTIMATE_FORM.title": "Ultimate Form",
+  "FIVEELEMENTS-CYCLE.description": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} cards.\nDiscard all cards drawn this way that are not the [gold]Element[/gold] of [gold]Echo[/gold].",
+  "FIVEELEMENTS-CYCLE.title": "Cycle",
+  "FIVEELEMENTS-MEDITATION.description": "Discard 1 card with [gold]Element[/gold].\nPut {Cards:diff()} random cards with a different [gold]Element[/gold] from the [gold]Discard Pile[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-MEDITATION.title": "Meditation",
   
   
   
@@ -77,7 +81,7 @@
   "FIVEELEMENTS-WATER_SHELL.title": "Water Shell",
   "FIVEELEMENTS-WATER_FLOW.description": " Gain {Energy:energyIcons()}.\nDraw {Cards:diff()} {Cards:plural:card|cards}.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Next turn, Add {WaterDropNextTurnPower:diff()} [gold]Water Drop[/gold] into your [gold]Hand[/gold].|{off_s}Water : Next turn, Add {WaterDropNextTurnPower:diff()} Water Drop into your Hand.{off_e}}",
   "FIVEELEMENTS-WATER_FLOW.title": "Water Flow",
-  "FIVEELEMENTS-WATER_TYPHOON.description": "Gain {WavePower:diff()} [gold]Wave[/gold] X times.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Draw X cards.|{off_s}Water : Draw X cards.{off_e}}",
+  "FIVEELEMENTS-WATER_TYPHOON.description": "Gain {WavePower:diff()} [gold]Wave[/gold] {IfUpgraded:show:X+1|X} times.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Draw {IfUpgraded:show:X+1|X} cards.|{off_s}Water : Draw {IfUpgraded:show:X+1|X} cards.{off_e}}",
   "FIVEELEMENTS-WATER_TYPHOON.title": "Water Typhoon",
   "FIVEELEMENTS-WATER_TIDE.description": "At the end of your turn, gain {WaterTidePower:diff()} [gold]Wave[/gold].",
   "FIVEELEMENTS-WATER_TIDE.title": "Water Tide",

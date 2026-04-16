@@ -110,6 +110,6 @@ public class Domination() : NeutralCard(2,
     
     protected override void OnUpgrade()
     {
-
+        AddKeyword(FiveElementsKeywords.Attune);
     }
 }

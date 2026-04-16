@@ -23,7 +23,7 @@ public class FiveElementsCardPool : CustomCardPoolModel
     {
         if (echo.Contains(CardElementTag.Neutral))
         {
-            if (echo.Count == 1) return "charui/big_energy_five_elements.png";
+            if (echo.Count < 6) return "charui/big_energy_five_elements.png";
             return "charui/big_energy_five_elements_all.png";
         }
         if (echo.Contains(CardElementTag.Water)) return "charui/big_energy_five_elements_water.png";

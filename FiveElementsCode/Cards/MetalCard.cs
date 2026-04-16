@@ -10,7 +10,7 @@ namespace FiveElements.FiveElementsCode.Cards;
 public abstract class MetalCard : FiveElementsCard, IOnMetalStateChanged
 {
     //public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.55f, 0.2f, 1.2f);
-    public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.55f, 0.05f, 1.2f);
+   // public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.55f, 0.05f, 1.2f);
     
     protected MetalCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)

@@ -50,9 +50,11 @@ public class More() : NeutralCard(1,
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        FiveElementsKeywords.Attune,
     ]);
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo)
     ]);
 
     protected override async Task OnPlay(

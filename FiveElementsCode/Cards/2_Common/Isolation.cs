@@ -18,11 +18,16 @@ public sealed class Isolation() : NeutralCard(1,
     //Gain 8 block, Add 1 Fulu(fulu+) in hand
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new BlockVar(8,ValueProp.Move),
-        new CardsVar("Fulus", 1)
+        new CardsVar(1),
     ];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        FiveElementsKeywords.Attune,
+    ]);
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromCard<Fulu>(IsUpgraded),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
     ];
     
     protected override async Task OnPlay(
@@ -30,7 +35,7 @@ public sealed class Isolation() : NeutralCard(1,
         CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, 1, IsUpgraded, CombatState);
+        if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
     }
 
     protected override void OnUpgrade()

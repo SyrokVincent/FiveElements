@@ -13,6 +13,8 @@ public static class FiveElementsKeywords
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Essence;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.Before)]
+    public static CardKeyword Attune;
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.Before)]
     public static CardKeyword Shift;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Echo;
@@ -60,6 +62,7 @@ public static class FiveElementsKeywords
         if (keyword == Incandescence) return "FIVEELEMENTS-INCANDESCENCE";
         if (keyword == Fireboost) return "FIVEELEMENTS-FIREBOOST";
         if (keyword == Dominate) return "FIVEELEMENTS-DOMINATE";
+        if (keyword == Attune) return "FIVEELEMENTS-ATTUNE";
     
         // Si le nom est nul (ça arrive si c'est un keyword dynamique), on met une sécurité
         string name = Enum.GetName(typeof(CardKeyword), keyword);

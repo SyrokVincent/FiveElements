@@ -13,14 +13,20 @@ public sealed class Distortion() : NeutralCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.AnyEnemy)
 {
-    //Deal 9, Add 1 Elemental Fulu in hand
+    //Deal 9, Add 1 Fulu in hand
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(9,ValueProp.Move),
-        new CardsVar("Fulus", 1)
+        new CardsVar(1)
     ];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        FiveElementsKeywords.Shift,
+    ]);
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromCard<Fulu>(IsUpgraded),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
     ];
     
     protected override async Task OnPlay(

@@ -91,12 +91,7 @@ public sealed class Activation() : NeutralCard(1,
     }
     protected override void OnUpgrade()
     {
-        //DynamicVars.Energy.UpgradeValueBy(1);
-        DynamicVars["WavePower"].UpgradeValueBy(1);
-        //DynamicVars.Cards.UpgradeValueBy(1);
-        DynamicVars["BurnPower"].UpgradeValueBy(1);
-        DynamicVars.Block.UpgradeValueBy(1);
-        DynamicVars["VigorPower"].UpgradeValueBy(1);
+        AddKeyword(FiveElementsKeywords.Attune);
     }
     
     public override TargetType TargetType 

@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Cards._2_Common;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Cards._4_Rare;
+using FiveElements.FiveElementsCode.Cards._5_Token;
 using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
@@ -114,20 +115,11 @@ public class FiveElements : PlaceholderCharacterModel
             var finalDeck = new List<FiveElementsCard>();
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
-            finalDeck.Add(ModelDb.Card<Creation>());
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<WoodQueen>());
-            finalDeck.Add(ModelDb.Card<WoodQueen>());
-            finalDeck.Add(ModelDb.Card<WoodSpirit>());
-            finalDeck.Add(ModelDb.Card<WoodMark>());
-            finalDeck.Add(ModelDb.Card<WoodMark>());
-            finalDeck.Add(ModelDb.Card<WoodSeed>());
-            finalDeck.Add(ModelDb.Card<WoodSeed>());
-            finalDeck.Add(ModelDb.Card<WoodSeed>());
-            finalDeck.Add(ModelDb.Card<WoodRoots>()); 
-            finalDeck.Add(ModelDb.Card<WoodRoots>()); 
-            finalDeck.Add(ModelDb.Card<WoodFangs>()); 
-            finalDeck.Add(ModelDb.Card<WoodSurge>()); 
+            finalDeck.Add(ModelDb.Card<UltimateForm>());
+            finalDeck.Add(ModelDb.Card<Distortion>());
+            finalDeck.Add(ModelDb.Card<Distortion>());
+            finalDeck.Add(ModelDb.Card<Distortion>());
             
             /*
             //WATER
@@ -222,15 +214,15 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Annihilation>());    //done
             finalDeck.Add(ModelDb.Card<Decimation>());      //done
             finalDeck.Add(ModelDb.Card<Circulation>());     //done need upgrade
-            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it chhose between the 2 effects ?
+            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it choose between the 2 effects ?
             finalDeck.Add(ModelDb.Card<Domination>());      //done need upgrade
             finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't count card from exhaust pile
             finalDeck.Add(ModelDb.Card<Recycle>());         //done
             finalDeck.Add(ModelDb.Card<Absorption>());      //done
             finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
             finalDeck.Add(ModelDb.Card<UltimateForm>());    //done
-            finalDeck.Add(ModelDb.Card<>()); 
-            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<Cycle>());           //done
+            finalDeck.Add(ModelDb.Card<Meditation>());      //done could not filter draw, had to change it a bit, don't like it it's weird
             
             //multi
             finalDeck.Add(ModelDb.Card<>()); 

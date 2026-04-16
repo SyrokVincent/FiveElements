@@ -120,6 +120,6 @@ public class Circulation() : NeutralCard(2,
 
     protected override void OnUpgrade()
     {
-        //todo gain attune
+        this.AddKeyword(FiveElementsKeywords.Attune);
     }
 }
