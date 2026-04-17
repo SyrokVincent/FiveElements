@@ -36,6 +36,7 @@ public class Meditation() : NeutralCard(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         
         if (CombatState == null) return;
         var prefs = new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, 1);

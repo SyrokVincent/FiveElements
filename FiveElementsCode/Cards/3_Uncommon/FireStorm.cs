@@ -54,7 +54,7 @@ public class FireStorm() : FireCard(2,
         DynamicVars.Damage.UpgradeValueBy(2);
     }
     
-    
+    /*
     public override async Task BeforeHandDraw(
         Player player,
         PlayerChoiceContext choiceContext,
@@ -71,13 +71,48 @@ public class FireStorm() : FireCard(2,
             // - L'historique ne doit pas être vide
             // - La carte doit être de type Feu
             bool wasFireEchoLastTurn = lastPlaylastTurn != null 
-                                       && lastPlaylastTurn.CardPlay.Card is FiveElementsCard fec 
-                                       && fec.IsFire();
+                                       && lastPlaylastTurn.CardPlay.Card.CountsAsElement(CardElementTag.Fire,Owner.Creature);
 
             if (wasFireEchoLastTurn)
             {
                 await CardCmd.AutoPlay(choiceContext, this, null);
             }
+        }
+    }*/
+    
+    public override async Task BeforeHandDraw(
+        Player player,
+        PlayerChoiceContext choiceContext,
+        CombatState combatState)
+    {
+        // 1. Sécurité : La carte doit être en Exhaust et appartenir au joueur
+        if (Pile?.Type != PileType.Exhaust || player != Owner)
+            return;
+
+        // 2. On cherche la TOUTE DERNIÈRE carte jouée au tour précédent
+        var lastEntry = CombatManager.Instance.History.CardPlaysStarted
+            .LastOrDefault(e => e.RoundNumber == (combatState.RoundNumber - 1) && e.Actor.Player == player);
+
+        if (lastEntry == null) return;
+
+        // 3. Vérification de l'élément FEU via le cache
+        bool wasFire = false;
+    
+        // On vérifie d'abord dans le cache des tags figés
+        if (NeutralCard.PlayedElementsCache.TryGetValue(lastEntry.CardPlay, out var frozenTags))
+        {
+            wasFire = frozenTags.TagsCountAsElement(CardElementTag.Fire, Owner.Creature);
+        }
+        else
+        {
+            // Fallback pour les cartes pas neutres et de base sans cache
+            wasFire = lastEntry.CardPlay.Card.CountsAsElement(CardElementTag.Fire, Owner.Creature);
+        }
+
+        if (wasFire)
+        {
+            // On joue la carte automatiquement. 
+            await CardCmd.AutoPlay(choiceContext, this, null);
         }
     }
 }

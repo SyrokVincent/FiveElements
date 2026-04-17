@@ -29,6 +29,7 @@ public class SpiritsForm() : NeutralCard(2,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         if (CombatState == null) return;
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);

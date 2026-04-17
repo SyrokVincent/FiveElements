@@ -19,7 +19,13 @@ namespace FiveElements.FiveElementsCode.Cards;
 public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target)
     : CustomCardModel(cost, type, rarity, target)
 {
-  
+    protected static readonly ShaderMaterial WaterShader = ShaderUtils.GenerateHsv(0.6f, 0.9f, 1.0f);
+    protected static readonly ShaderMaterial WoodShader = ShaderUtils.GenerateHsv(0.33f, 1.0f, 0.9f);
+    protected static readonly ShaderMaterial FireShader = ShaderUtils.GenerateHsv(1.04f, 1.2f, 1.1f);
+    protected static readonly ShaderMaterial EarthShader = ShaderUtils.GenerateHsv(0.12f, 0.8f, 0.7f);
+    protected static readonly ShaderMaterial MetalShader = ShaderUtils.GenerateHsv(0.55f, 0.05f, 1.2f);
+    protected static readonly ShaderMaterial NeutralShader = ShaderUtils.GenerateHsv(1f, 0f, 0.6f);
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new StringVar("water_s",FiveElementsColor.WaterDescriptionColor),
         new StringVar("water_e","[/color]"),
@@ -90,9 +96,20 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
 
     private HashSet<CardElementTag>? _liveElementTags;
 
-    public virtual IEnumerable<CardElementTag> ElementTags => 
-        _liveElementTags ??= new HashSet<CardElementTag>(_canonicalElementTags);
-
+    public virtual HashSet<CardElementTag> ElementTags
+    {
+        get => _liveElementTags ??= new HashSet<CardElementTag>(_canonicalElementTags);
+        set 
+        {
+            // On met à jour uniquement la version "en jeu"
+            _liveElementTags = value;
+        
+            // On prévient l'UI que la carte a changé visuellement
+            //todo trouver un moyen pour mettre a jour le shaderframe
+            //this.InvokeKeywordsChanged();
+        }
+    }
+    
     public virtual HashSet<CardElementTag> CanonicalElementTags
     {
         get => _canonicalElementTags;
@@ -103,7 +120,17 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
             _liveElementTags = null; 
         }
     }
-   
+    
+    //maybe history need that to not change element of card with attune and shift already played
+    protected override void DeepCloneFields()
+    {
+        base.DeepCloneFields();
+        // On crée une nouvelle instance de HashSet pour le clone
+        this._liveElementTags = new HashSet<CardElementTag>(this.ElementTags);
+    }
+    
+    
+    /*
     public override Material? CreateCustomFrameMaterial
     {
         get
@@ -112,16 +139,16 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
             var currentElem = ElementTags.LastOrDefault();
             return currentElem switch
             {
-                CardElementTag.Water => ShaderUtils.GenerateHsv(0.6f, 0.9f, 1.0f),
-                CardElementTag.Wood  => ShaderUtils.GenerateHsv(0.33f, 1.0f, 0.9f),
-                CardElementTag.Fire  => ShaderUtils.GenerateHsv(1.04f, 1.2f, 1.1f),
-                CardElementTag.Earth => ShaderUtils.GenerateHsv(0.12f, 0.8f, 0.7f),
-                CardElementTag.Metal => ShaderUtils.GenerateHsv(0.55f, 0.05f, 1.2f), // Blanc/Gris (Sat 0)
+                CardElementTag.Water => WaterShader,
+                CardElementTag.Wood  => WoodShader,
+                CardElementTag.Fire  => FireShader,
+                CardElementTag.Earth => EarthShader,
+                CardElementTag.Metal => MetalShader, // Blanc/Gris (Sat 0)
                 _                    => base.CreateCustomFrameMaterial             // Défaut defini dans le cardpool
             };
         }
     }
-
+    */
 }  
     
     /*

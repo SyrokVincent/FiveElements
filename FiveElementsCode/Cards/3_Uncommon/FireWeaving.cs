@@ -41,7 +41,7 @@ public sealed class FireWeaving() : FireCard(1,
     {
         // 1. Trouver une carte non-feu au hasard dans la main (autre que celle-ci)
         var nonFireCards = PileType.Hand.GetPile(Owner).Cards
-            .Where(c => c != this && !(c is FiveElementsCard fec && fec.IsFire()))
+            .Where(c => c != this && !c.CountsAsElement(CardElementTag.Fire, Owner.Creature))
             .ToList();
         
         var randomTargetToExhaust = Owner.RunState.Rng.CombatCardSelection.NextItem(nonFireCards);

@@ -34,6 +34,7 @@ public sealed class Isolation() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         await CommonActions.CardBlock(this, play);
         if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
     }

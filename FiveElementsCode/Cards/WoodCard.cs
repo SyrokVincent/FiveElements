@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 namespace FiveElements.FiveElementsCode.Cards;
 public abstract class WoodCard : FiveElementsCard, IOnWoodStateChanged
 {
-    //public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.33f, 1.0f, 0.9f);
+    public override Material? CreateCustomFrameMaterial => WoodShader;
     
     protected WoodCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)

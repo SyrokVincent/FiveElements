@@ -63,6 +63,7 @@ public sealed class Activation() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         if (CombatState == null) return;
         if (CardElementTag.Water.IsActive(CombatState))
         {

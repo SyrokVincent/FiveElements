@@ -32,6 +32,7 @@ public class AllOrOne() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await CommonActions.ApplySelf<AllOrOnePower>(this, DynamicVars["AllOrOnePower"].BaseValue);

@@ -41,6 +41,7 @@ public sealed class Annihilation() : NeutralCard(3,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         if (CombatState == null) return;
         int count = 0;
         if (CardElementTag.Water.IsActive(CombatState))

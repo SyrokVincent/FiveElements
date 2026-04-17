@@ -187,6 +187,25 @@ public static class FiveElementsCardExtensions
         return false;
     }
     
+    public static bool TagsCountAsElement(this IEnumerable<CardElementTag> tags, CardElementTag targetTag, Creature owner)
+    {
+        // On transforme en HashSet pour la performance si c'est une grosse liste
+        var tagSet = tags as HashSet<CardElementTag> ?? tags.ToHashSet();
+
+        // 1. Si les tags contiennent déjà l'élément cible
+        if (tagSet.Contains(targetTag)) 
+            return true;
+
+        // 2. Si le pouvoir SpiritsForm est absent, on s'arrête là
+        if (!owner.HasPower<SpiritsFormPower>())
+            return false;
+
+        // 3. Si SpiritsForm est présent : 
+        // Il convertit les tags s'ils ne contiennent que "Neutral" ou sont vides
+        bool isNeutral = tagSet.Count == 0 || (tagSet.Count == 1 && tagSet.Contains(CardElementTag.Neutral));
+    
+        return isNeutral;
+    }
     
     
     

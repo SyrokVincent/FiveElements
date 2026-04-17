@@ -35,6 +35,7 @@ public class UltimateForm() : NeutralCard(3,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         
         if (CombatState == null) return;
         

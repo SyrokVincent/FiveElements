@@ -40,6 +40,7 @@ public class Absorption() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         if (CombatState != null)
         {
             var essencesCount = CombatState.GetElementalStatus().GetTotalEssenceCount();

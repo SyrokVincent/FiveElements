@@ -33,8 +33,7 @@ public class FireBall() : FireCard(10,
 
             // On compte les cartes Feu (en excluant la carte elle-même)
             int fireCardsInHand = handCards.Count(c => 
-                c is FiveElementsCard fec && 
-                fec.IsFire() && 
+                c.CountsAsElement(CardElementTag.Fire,card.Owner.Creature) &&
                 c != card
             );
 
@@ -69,7 +68,7 @@ public class FireBall() : FireCard(10,
         DynamicVars.CalculationBase.UpgradeValueBy(3);
         DynamicVars.ExtraDamage.UpgradeValueBy(1);
     }
-    
+    /*
     //fireboost logic 1
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
@@ -85,7 +84,40 @@ public class FireBall() : FireCard(10,
             this.EnergyCost.AddUntilPlayed(-1);
         }
         await Task.CompletedTask;
+    }*/
+    
+    
+    // Fireboost Logic 1 : Réduction par les cartes Feu jouées
+    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+    {
+        // Sécurité : Uniquement si le propriétaire joue la carte et que ce n'est pas celle-ci
+        if (Owner != cardPlay.Card.Owner || cardPlay.Card == this) 
+            return;
+
+        // On vérifie si la carte jouée était du Feu au moment de son exécution
+        bool wasFire = false;
+    
+        // On regarde dans le cache qu'on a mis en place pour le Shift/Attune
+        if (NeutralCard.PlayedElementsCache.TryGetValue(cardPlay, out var frozenTags))
+        {
+            // On utilise l'extension de tags pour inclure SpiritsForm
+            wasFire = frozenTags.TagsCountAsElement(CardElementTag.Fire, Owner.Creature);
+        }
+        else
+        {
+            // Fallback pour les cartes classiques
+            wasFire = cardPlay.Card.CountsAsElement(CardElementTag.Fire, Owner.Creature);
+        }
+
+        // Si c'était du feu ET que la carte ne s'épuise pas
+        if (wasFire && cardPlay.ResultPile != PileType.Exhaust)
+        {
+            this.EnergyCost.AddUntilPlayed(-1);
+        }
+        await Task.CompletedTask;
     }
+    
+    
     //fireboost logic 2
     public override async Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
     {
@@ -97,4 +129,8 @@ public class FireBall() : FireCard(10,
         
         await Task.CompletedTask;
     }
+    
+    
+
+    
 }

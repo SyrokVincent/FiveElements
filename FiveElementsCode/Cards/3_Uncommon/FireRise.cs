@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public sealed class FireRise() : FireCard(2,
+public sealed class FireRise() : FireCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {

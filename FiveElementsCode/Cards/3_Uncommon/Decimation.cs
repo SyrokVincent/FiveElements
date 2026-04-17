@@ -32,6 +32,7 @@ public class Decimation() : NeutralCard(5,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         if (CombatState == null) return;
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
     }
@@ -44,22 +45,58 @@ public class Decimation() : NeutralCard(5,
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        var playedCards = CombatManager.Instance.History.CardPlaysStarted
-            .Where(e => e.HappenedThisTurn(CombatState) && e.CardPlay.Card.Owner == Owner)
-            .Select(e => e.CardPlay.Card)
-            //.OfType<FiveElementsCard>()
-            .ToList();
+        
+        //Only trigger if the owner of this card play a card
+        if (Owner != cardPlay.Card.Owner) 
+            return;
+        
+        // Calculer le nombre d'éléments distincts joués ce tour via le CACHE
+        int distinctElements = CalculateDistinctElementsThisTurn();
 
-        int distinctElements = 0;
-        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Water,cardPlay.Card.Owner.Creature))) distinctElements++;
-        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Wood,cardPlay.Card.Owner.Creature))) distinctElements++;
-        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Fire,cardPlay.Card.Owner.Creature))) distinctElements++;
-        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Earth,cardPlay.Card.Owner.Creature))) distinctElements++;
-        if (playedCards.Any(c => c.CountsAsElement(CardElementTag.Metal,cardPlay.Card.Owner.Creature))) distinctElements++;
-
-        // On ajuste le coût de base (5) moins le nombre d'éléments distincts
-        this.EnergyCost.SetThisTurn(5 - distinctElements);
-
+        // On ajuste le coût : 5 de base moins les éléments trouvés (minimum 0)
+        int newCost = Math.Max(0, 5 - distinctElements);
+        
+        this.EnergyCost.SetThisTurn(newCost);
     }
     
+    private int CalculateDistinctElementsThisTurn()
+    {
+        var entries = CombatManager.Instance.History.CardPlaysStarted
+            .Where(e => e.HappenedThisTurn(CombatState) && e.Actor.Player == Owner)
+            .ToList();
+
+        if (entries.Count == 0) return 0;
+
+        var foundTags = new HashSet<CardElementTag>();
+        var targetTags = new[] { 
+            CardElementTag.Water, CardElementTag.Wood, CardElementTag.Fire, 
+            CardElementTag.Earth, CardElementTag.Metal 
+        };
+
+        foreach (var entry in entries)
+        {
+            // On récupère les tags figés du cache
+            if (NeutralCard.PlayedElementsCache.TryGetValue(entry.CardPlay, out var frozenTags))
+            {
+                foreach (var t in targetTags)
+                {
+                    if (frozenTags.TagsCountAsElement(t, Owner.Creature)) 
+                        foundTags.Add(t);
+                }
+            }
+            else
+            {
+                // Fallback pour les cartes Strike/Defend (non dynamiques)
+                foreach (var t in targetTags)
+                {
+                    if (entry.CardPlay.Card.CountsAsElement(t, Owner.Creature)) 
+                        foundTags.Add(t);
+                }
+            }
+
+            if (foundTags.Count >= 5) break;
+        }
+
+        return foundTags.Count;
+    }
 }

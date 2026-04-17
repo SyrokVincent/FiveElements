@@ -35,7 +35,12 @@ public class WoodClaws() : WoodCard(1,
             {
                 if (!e.HappenedThisTurn(card.CombatState) || e.CardPlay.Card.Owner != card.Owner)
                     return false;
-                
+                // On récupère les tags figés au moment du jeu
+                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
+                {
+                    return frozenTags.TagsCountAsElement(CardElementTag.Wood, card.Owner.Creature);
+                }
+                //si pas dans le cache, on utilise la méthode sur la carte
                 return (e.CardPlay.Card.CountsAsElement(CardElementTag.Wood, card.Owner.Creature));
             });
         })

@@ -14,7 +14,7 @@ namespace FiveElements.FiveElementsCode.Cards;
 public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
 {
     
-    //public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(1.04f, 1.2f, 1.1f);
+    public override Material? CreateCustomFrameMaterial => FireShader;
     
     protected FireCard(int cost, CardType type, CardRarity rarity, TargetType target) 
         : base(cost, type, rarity, target)

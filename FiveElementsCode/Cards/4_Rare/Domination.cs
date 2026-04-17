@@ -38,11 +38,11 @@ public class Domination() : NeutralCard(2,
         var currentEcho = Character.FiveElements.Echo;
         if (card is FiveElementsCard fec)
         {
-            if (currentEcho.Contains(CardElementTag.Water) && fec.IsFire()) return true;
-            if (currentEcho.Contains(CardElementTag.Wood) && fec.IsEarth()) return true;
-            if (currentEcho.Contains(CardElementTag.Fire) && fec.IsMetal()) return true;
-            if (currentEcho.Contains(CardElementTag.Earth) && fec.IsWater()) return true;
-            if (currentEcho.Contains(CardElementTag.Metal) && fec.IsWood()) return true;
+            if (currentEcho.Contains(CardElementTag.Water) && card.CountsAsElement(CardElementTag.Fire,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Wood) && card.CountsAsElement(CardElementTag.Earth,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Fire) && card.CountsAsElement(CardElementTag.Metal,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Earth) && card.CountsAsElement(CardElementTag.Water,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Metal) && card.CountsAsElement(CardElementTag.Wood,Owner.Creature)) return true;
         }
         return false;
     }
@@ -69,6 +69,7 @@ public class Domination() : NeutralCard(2,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         // 1. Préparer les préférences
         CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
         // 2. Lancer la commande de sélection

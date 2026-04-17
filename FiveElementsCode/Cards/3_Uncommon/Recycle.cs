@@ -49,6 +49,7 @@ public class Recycle() : NeutralCard(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         if (CombatState == null) return;
 
         // 1. Sélection de la carte à recycler dans la main

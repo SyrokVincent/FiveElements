@@ -31,8 +31,6 @@ public class FiveElements : PlaceholderCharacterModel
         get => SceneHelper.GetScenePath("vfx/card_trail_" + this.PlaceholderID);
     }
     
-    //todo make echo an array for if one day some card have multi element
-    //public static CardElementTag Echo = CardElementTag.Neutral;
     
     // Utilisation d'un HashSet pour éviter les doublons d'éléments
     public static HashSet<CardElementTag> Echo = new() { CardElementTag.Neutral };
@@ -40,7 +38,7 @@ public class FiveElements : PlaceholderCharacterModel
     public static int GetEchoStateForDescription()
     {
         if (Echo.Count == 6) return 6; //echo has all element
-        return (int) Echo.First(); //echo has only one element
+        return (int) Echo.LastOrDefault(); //echo has only one element
     }
     
     // Méthode utilitaire pour changer l'écho facilement
@@ -116,7 +114,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<UltimateForm>());
+            finalDeck.Add(ModelDb.Card<AllOrOne>());
             finalDeck.Add(ModelDb.Card<Distortion>());
             finalDeck.Add(ModelDb.Card<Distortion>());
             finalDeck.Add(ModelDb.Card<Distortion>());

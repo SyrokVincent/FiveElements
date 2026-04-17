@@ -33,6 +33,7 @@ public class EchoFormation() : NeutralCard(2,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await CommonActions.ApplySelf<EchoFormationPower>(this, DynamicVars["EchoFormationPower"].BaseValue);
     }

@@ -33,6 +33,7 @@ public sealed class Distortion() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
         if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, DynamicVars.Cards.IntValue, false, CombatState);
     }

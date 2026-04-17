@@ -72,6 +72,8 @@ public class Less() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        
+        await base.OnPlay(choiceContext, play);
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
     }
 

@@ -28,6 +28,7 @@ public sealed class Creation() : NeutralCard(0,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         // 1. Préparer les préférences
         CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
 

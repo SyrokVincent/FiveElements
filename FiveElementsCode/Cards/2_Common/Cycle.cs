@@ -36,6 +36,7 @@ public class Cycle() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         
         if (CombatState == null || play.Target == null) return;
 

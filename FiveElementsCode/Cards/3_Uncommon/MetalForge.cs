@@ -22,6 +22,7 @@ public class MetalForge() : MetalCard(1,
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
 
+    //todo mettre ça en calculatedvar
     //Deal 9 damage, Metal:(Upgrade a random card in the discard pile for each metal card played this turn)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(9,ValueProp.Move),
@@ -49,8 +50,14 @@ public class MetalForge() : MetalCard(1,
             {
                 if (!e.HappenedThisTurn(CombatState) || e.CardPlay.Card.Owner != Owner)
                     return false;
-
-                return (e.CardPlay.Card.CountsAsElement(CardElementTag.Metal, Owner.Creature));
+                
+                // On récupère les tags figés au moment du jeu
+                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
+                {
+                    return frozenTags.TagsCountAsElement(CardElementTag.Metal, play.Card.Owner.Creature);
+                }
+                //si pas dans le cache, on utilise la méthode sur la carte
+                return (e.CardPlay.Card.CountsAsElement(CardElementTag.Metal, play.Card.Owner.Creature));
 
             });
             

@@ -36,7 +36,8 @@ public sealed class Fulu() : NeutralCard(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        //nothing to do ?
+        
+        await base.OnPlay(choiceContext, play);
     }
 
     protected override void OnUpgrade()

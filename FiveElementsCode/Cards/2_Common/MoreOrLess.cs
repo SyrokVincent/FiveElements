@@ -35,6 +35,7 @@ public class MoreOrLess() : NeutralCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        await base.OnPlay(choiceContext, play);
         
         
         if (CombatState != null)
