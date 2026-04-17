@@ -34,7 +34,7 @@ public class UltimateFormPower : FiveElementsPower
         new PowerVar<WavePower>(2),
         new CardsVar(1), 
         new PowerVar<BurnPower>(3),
-        new BlockVar(4, ValueProp.Move), 
+        new BlockVar(5, ValueProp.Move), 
         new PowerVar<VigorPower>(2),
         new IntVar("ElemEcho",0)
     ]);

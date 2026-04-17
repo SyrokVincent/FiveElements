@@ -18,9 +18,9 @@ public class MetalEdge() : MetalCard(1,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
 
-    //Damage of the next attack increase by 50%, Metal:(next attack this turn cost 1 less (2? free?))
+    //Damage of the next attack increase by 100%, Metal:(next attack this turn cost 1 less (2? free?))
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<MetalEdgePower>(50), //value du %
+        new PowerVar<MetalEdgePower>(100), //value du %
         new PowerVar<MetalEdgeDiscountPower>(1), // value of discount
     ]);
 

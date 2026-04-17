@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class Circulation() : NeutralCard(2,
+public class Circulation() : NeutralCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

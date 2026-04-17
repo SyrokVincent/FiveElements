@@ -14,7 +14,8 @@ public sealed class WoodCreation() : WoodCard(1,
 {
     protected override bool ShouldGlowGoldInternal => CardElementTag.Wood.IsActive(CombatState);
     
-    //Wood:(draw 1), Gain 1 "Wood element"
+    // Draw 1
+    // Wood:(Gain 1 "Wood essencee")
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1), 
     ]);
@@ -28,12 +29,13 @@ public sealed class WoodCreation() : WoodCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        if (CombatState == null) return;
+        await CommonActions.Draw(this, choiceContext);
         if (CardElementTag.Wood.IsActive(this.CombatState))
         {
-            await CommonActions.Draw(this, choiceContext);
+            CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1);
         }
 
-        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1);
     }
 
     protected override void OnUpgrade()

@@ -15,7 +15,10 @@ public sealed class MetalCreation() : MetalCard(1,
     TargetType.Self)
 {
     protected override bool ShouldGlowGoldInternal => CardElementTag.Metal.IsActive(CombatState);
-    //Metal: (gain 3 vigor), Gain 1 "metal element"
+    
+    
+    // Gain 3 vigor
+    // Metal:( Gain 1 "metal essence")
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<VigorPower>(3),
     ]);
@@ -32,12 +35,14 @@ public sealed class MetalCreation() : MetalCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        if (CombatState == null) return;
+        
+        await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
         if (CardElementTag.Metal.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
+            CombatState.GetElementalStatus().AddEssence(CardElementTag.Metal, 1);
         }
 
-        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Metal, 1);
     }
 
     protected override void OnUpgrade()

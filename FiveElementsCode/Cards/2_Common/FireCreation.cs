@@ -16,7 +16,8 @@ public sealed class FireCreation() : FireCard(1,
 {
     protected override bool ShouldGlowGoldInternal => CardElementTag.Fire.IsActive(CombatState);
     
-    //Fire: (Apply 3 Burn to all enemies), Gain 1 "fire element"
+    //Apply 3 Burn to all enemies
+    //Fire: (Gain 1 fire essence)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<BurnPower>(3),
     ]);
@@ -33,16 +34,19 @@ public sealed class FireCreation() : FireCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        if (CombatState == null) return;
+        
+        
+        foreach (var hittableEnemy in CombatState.HittableEnemies)
+        {
+            await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
+        }
+    
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            if (CombatState != null)
-                foreach (var hittableEnemy in CombatState.HittableEnemies)
-                {
-                    await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
-                }
+           CombatState.GetElementalStatus().AddEssence(CardElementTag.Fire, 1);
         }
 
-        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Fire, 1);
     }
 
     protected override void OnUpgrade()

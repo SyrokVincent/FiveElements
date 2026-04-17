@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards._1_Basic;
+namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
 public class MetalMark() : MetalCard(1,
     CardType.Attack, CardRarity.Common,

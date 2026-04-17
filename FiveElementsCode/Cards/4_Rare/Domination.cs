@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class Domination() : NeutralCard(2,
+public class Domination() : NeutralCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {

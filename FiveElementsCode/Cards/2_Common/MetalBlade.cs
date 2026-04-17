@@ -20,9 +20,9 @@ public class MetalBlade() : MetalCard(1,
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
 
-    //Deal 6 damage, Metal:(For each 2 damage dealt gain vigor)
+    //Deal 8 damage, Metal:(For each 2 damage dealt gain vigor)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new DamageVar(6,ValueProp.Move),
+        new DamageVar(8,ValueProp.Move),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

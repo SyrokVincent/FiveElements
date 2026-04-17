@@ -24,7 +24,7 @@ public sealed class Activation() : NeutralCard(1,
     // Water:(1 energy, 2 wave),
     // Wood:(Draw 1),
     // Fire:(Burn 3 to all enemies),
-    // Earth:(6 block),
+    // Earth:(5 block),
     // Metal:(2 vigor) 
     //
     //VALUE HERE need to be the same as on Ultimate form
@@ -34,7 +34,7 @@ public sealed class Activation() : NeutralCard(1,
         new PowerVar<WavePower>(2),
         new CardsVar(1), 
         new PowerVar<BurnPower>(3),
-        new BlockVar(4, ValueProp.Move), 
+        new BlockVar(5, ValueProp.Move), 
         new PowerVar<VigorPower>(2),
         new BoolVar("isWaterOn"),
         new BoolVar("isWoodOn"),

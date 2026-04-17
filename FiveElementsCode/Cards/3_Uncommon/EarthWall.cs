@@ -21,9 +21,9 @@ public class EarthWall() : EarthCard(2,
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
 
-    //Gain 13 Block, Earth:(Blocked attack damage is reflected to your attacker this turn) ( add Retain?), 
+    //Gain 14 Block, Earth:(Blocked attack damage is reflected to your attacker this turn) ( add Retain?), 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(13,ValueProp.Move),
+        new BlockVar(14,ValueProp.Move),
         new PowerVar<EarthWallPower>(1),
     ]);
 

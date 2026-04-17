@@ -18,9 +18,10 @@ public sealed class EarthCreation() : EarthCard(1,
     public override bool GainsBlock => true;
     protected override bool ShouldGlowGoldInternal => CardElementTag.Earth.IsActive(CombatState);
 
-    //Earth: (gain 6 Block), Gain 1 "earth element"
+    //gain 5 Block,
+    //Earth: (Gain 1 "earth element")
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(6, ValueProp.Move), 
+        new BlockVar(5, ValueProp.Move), 
     ]);
 
 
@@ -32,12 +33,14 @@ public sealed class EarthCreation() : EarthCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        if (CombatState == null) return;
+        
+        await CommonActions.CardBlock(this, play);
         if (CardElementTag.Earth.IsActive(CombatState))
         {
-            await CommonActions.CardBlock(this, play);
+            CombatState.GetElementalStatus().AddEssence(CardElementTag.Earth, 1);
         }
 
-        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Earth, 1);
     }
 
     protected override void OnUpgrade()

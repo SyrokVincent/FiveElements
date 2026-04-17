@@ -17,11 +17,11 @@ public class EarthGuardian() : EarthCard(2,
     TargetType.Self)
 {
     
-    //Gain 2 dex, 3 thorns, 2 plating
+    //Gain 2 dex, 3 thorns, 4 plating
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<DexterityPower>(2),
         new PowerVar<ThornsPower>(3),
-        new PowerVar<PlatingPower>(2),
+        new PowerVar<PlatingPower>(4),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

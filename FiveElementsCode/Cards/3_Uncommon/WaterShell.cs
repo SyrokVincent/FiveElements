@@ -25,7 +25,7 @@ public sealed class WaterShell() : WaterCard(2,
 
     //Gain 13 block, Water:(Exhaust 1 random status from draw pile and 1 from discard pile)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(12, ValueProp.Move),
+        new BlockVar(13, ValueProp.Move),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -56,7 +56,7 @@ public sealed class WaterShell() : WaterCard(2,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4);
+        DynamicVars.Block.UpgradeValueBy(3);
     }
     
     

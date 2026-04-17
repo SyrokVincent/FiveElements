@@ -19,9 +19,9 @@ public class MetalChains() : MetalCard(2,
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
 
-    //Deal 12 damage, Metal(Enemy loses 7 strength this turn)
+    //Deal 14 damage, Metal(Enemy loses 7 strength this turn)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new DamageVar(12, ValueProp.Move),
+        new DamageVar(14, ValueProp.Move),
         new DynamicVar("StrengthLoss",7),
     ]);
 

@@ -20,7 +20,7 @@ public class MetalPounce() : MetalCard(2,
 
     //Deal 16 damage, Metal:(vigor apply twice to this attack)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new CalculationBaseVar(15), // Dégâts de base
+        new CalculationBaseVar(16), // Dégâts de base
         new ExtraDamageVar(1),    // Dégâts bonus par vigor
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
@@ -53,6 +53,6 @@ public class MetalPounce() : MetalCard(2,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculationBase.UpgradeValueBy(3);
+        DynamicVars.CalculationBase.UpgradeValueBy(4);
     }
 }

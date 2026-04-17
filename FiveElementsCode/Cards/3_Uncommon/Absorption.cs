@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class Absorption() : NeutralCard(1,
+public class Absorption() : NeutralCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
@@ -51,6 +51,6 @@ public class Absorption() : NeutralCard(1,
 
     protected override void OnUpgrade()
     {
-        this.EnergyCost.UpgradeBy(-1);
+        this.AddKeyword(FiveElementsKeywords.Attune);
     }
 }

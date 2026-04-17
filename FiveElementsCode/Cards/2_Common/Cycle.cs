@@ -17,7 +17,7 @@ public class Cycle() : NeutralCard(1,
     TargetType.AnyEnemy)
 {
     
-    //Deal 7 damage, draw 3 card, only keep the echo card
+    //Deal 7+2 damage, draw 3+1 card, only keep the echo card
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(7,ValueProp.Move),
         new CardsVar(3),
@@ -61,7 +61,8 @@ public class Cycle() : NeutralCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3);
+        DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars.Cards.UpgradeValueBy(1);
     }
     
 }

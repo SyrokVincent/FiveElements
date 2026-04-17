@@ -18,7 +18,8 @@ public sealed class WaterCreation() : WaterCard(1,
     
     protected override bool ShouldGlowGoldInternal => CardElementTag.Water.IsActive(CombatState);
     
-    //Water: (1 energy 2 wave), Gain 1 "water element"
+    // Gain 1 energy and 2 wave
+    // Water: (Gain 1 water essence)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
         new PowerVar<WavePower>(2),
@@ -36,13 +37,14 @@ public sealed class WaterCreation() : WaterCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        if (CombatState == null) return;
+        await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
+        await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
-            await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+            CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1);
         }
 
-        if (CombatState != null) CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1);
     }
 
     protected override void OnUpgrade()
