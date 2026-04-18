@@ -40,7 +40,7 @@ public sealed class Creation() : NeutralCard(0,
             choiceContext, 
             Owner, 
             prefs, 
-            c => c is FiveElementsCard f && !f.IsNeutral(), 
+            c => c is FiveElementsCard f && f.ElementTags.Any(t => t != CardElementTag.Neutral) && c != this,
             this
         );
 

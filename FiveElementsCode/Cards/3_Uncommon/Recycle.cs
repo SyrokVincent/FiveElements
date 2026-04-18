@@ -57,7 +57,7 @@ public class Recycle() : NeutralCard(0,
             choiceContext, 
             Owner, 
             prefs, 
-            c => c is FiveElementsCard f && !f.IsNeutral() && c != this, 
+            c => c is FiveElementsCard f && f.ElementTags.Any(t => t != CardElementTag.Neutral) && c != this,
             this
         );
 

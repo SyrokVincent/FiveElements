@@ -66,7 +66,7 @@ public class WaterSpiritPower : FiveElementsPower
     public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != Owner.Side)return;
-        //Flash();
+        Flash();
         GetInternalData<Data>().TriggerCount = 0;
         DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
         InvokeDisplayAmountChanged();

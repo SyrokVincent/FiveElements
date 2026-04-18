@@ -47,7 +47,7 @@ public class Meditation() : NeutralCard(1,
             choiceContext, 
             Owner, 
             prefs, 
-            c => c is FiveElementsCard f && !f.IsNeutral(), 
+            c => c is FiveElementsCard f && f.ElementTags.Any(t => t != CardElementTag.Neutral), 
             this
         );
 
