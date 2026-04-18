@@ -44,7 +44,19 @@ public class Relic1() : FiveElementsRelic
         // On vérifie si c'est le premier tour
         if (player == Owner && player.Creature.CombatState is { RoundNumber: 1 })
         {
+            //reset de echo et des essences au cas ou on save and exit???
+            Character.FiveElements.ResetEcho();
+            combatState.GetElementalStatus().ResetAllEssences();
+            foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
+            {
+                _ = FiveElementsCardExtensions.CheckAndNotify(combatState, elem);
+            }
+            
+            //ajout de la carte
             await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1,false, combatState);
+            
+            
+            await Task.CompletedTask;
         }
     }
 
@@ -189,11 +201,12 @@ public class Relic1() : FiveElementsRelic
         room.CombatState.GetElementalStatus().ResetAllEssences();
         foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
         {
-            _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
+            _ = FiveElementsCardExtensions.CheckAndNotify(room.CombatState, elem);
         }
         await Task.CompletedTask;
         // async or that idk what I need to do
         //base.AfterCombatEnd(room);
         //return Task.CompletedTask;
     }
+    
 }

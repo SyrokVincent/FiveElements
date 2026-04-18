@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -56,10 +57,15 @@ public class WoodLeaf() : WoodCard(0,
             }
             return  TargetType.Self;
         }
-    } 
+    }
 
+    // Variable pour s'assurer que ça ne se déclenche qu'une fois par tour
+    private int _lastTriggerTurn = -1;
+    // empeche que la carte reviennent directement en main a chaque fois lorsque une carte est autoplay before hand draw
+    private bool _canComebackToHand = false;
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        _canComebackToHand = true;
         await CheckAndReturnToHand(choiceContext);
     }
 
@@ -68,13 +74,11 @@ public class WoodLeaf() : WoodCard(0,
         await CheckAndReturnToHand(context);
     }
 
-    // Variable pour s'assurer que ça ne se déclenche qu'une fois par tour
-    internal int _lastTriggerTurn = -1;
     
     private async Task CheckAndReturnToHand(PlayerChoiceContext choiceContext)
     {
-        if (CombatState == null) return;
-    
+        if (CombatState == null || !_canComebackToHand) return;
+        
         // 1. Si CETTE graine est déjà en main ou a déjà trigger, on stop.
         if (Pile?.Type == PileType.Hand || _lastTriggerTurn == CombatState.RoundNumber) return;
 
@@ -102,5 +106,11 @@ public class WoodLeaf() : WoodCard(0,
                 }
             }
         }
+    }
+
+    public override Task AfterTurnEndLate(PlayerChoiceContext choiceContext, CombatSide side)
+    {
+        if (side == CombatSide.Player) _canComebackToHand = false;
+        return Task.CompletedTask;
     }
 }

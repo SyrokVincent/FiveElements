@@ -102,6 +102,7 @@
     <ItemGroup>
         <Folder Include="FiveElements\images\card_portraits\big\"/>
         <Folder Include="FiveElements\images\relics\big\"/>
+        <Folder Include="FiveElements\Scenes\" />
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">
