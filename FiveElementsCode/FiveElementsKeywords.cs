@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
-using static FiveElements.FiveElementsCode.FiveElementsKeywords;
 
 namespace FiveElements.FiveElementsCode;
 

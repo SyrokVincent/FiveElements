@@ -1,7 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Cards;
-using FiveElements.FiveElementsCode.Enums;
+﻿using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Interfaces;
-using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Runs;
 

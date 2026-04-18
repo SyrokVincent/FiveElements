@@ -1,9 +1,6 @@
-﻿using BaseLib.Extensions;
-using BaseLib.Utils;
-using FiveElements.FiveElementsCode.Cards;
+﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
-using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;

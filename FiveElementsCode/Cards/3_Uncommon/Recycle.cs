@@ -1,5 +1,4 @@
-﻿using FiveElements.FiveElementsCode.Cards;
-using FiveElements.FiveElementsCode.Character;
+﻿using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.CardSelection;

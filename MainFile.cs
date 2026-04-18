@@ -1,5 +1,4 @@
-﻿using Godot;
-using HarmonyLib;
+﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
 
 namespace FiveElements;

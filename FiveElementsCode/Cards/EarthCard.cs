@@ -1,12 +1,9 @@
-﻿using BaseLib.Utils;
-using FiveElements.FiveElementsCode.Enums;
+﻿using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Interfaces;
-using FiveElements.FiveElementsCode.Powers;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards;
 public abstract class EarthCard : FiveElementsCard, IOnEarthStateChanged

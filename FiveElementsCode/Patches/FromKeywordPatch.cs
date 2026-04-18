@@ -1,9 +1,4 @@
-﻿using FiveElements.FiveElementsCode.Cards;
-using FiveElements.FiveElementsCode.Enums;
-using FiveElements.FiveElementsCode.Extensions;
-using FiveElements.FiveElementsCode.Relics;
-using HarmonyLib;
-using MegaCrit.Sts2.Core.Combat;
+﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;

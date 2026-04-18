@@ -1,5 +1,4 @@
 ﻿using FiveElements.FiveElementsCode.Character;
-using MegaCrit.Sts2.Core.Entities.Cards;
 
 namespace FiveElements.FiveElementsCode.Patches;
 

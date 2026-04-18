@@ -1,5 +1,4 @@
-﻿using FiveElements.FiveElementsCode.Cards;
-using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+﻿using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;

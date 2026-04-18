@@ -1,6 +1,5 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Extensions;
-using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Cards._4_Rare;
 using FiveElements.FiveElementsCode.Extensions;
 using Godot;
