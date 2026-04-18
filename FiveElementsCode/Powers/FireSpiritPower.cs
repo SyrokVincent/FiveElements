@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Enums;
+﻿using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -6,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
@@ -22,19 +24,9 @@ public class FireSpiritPower : FiveElementsPower
     ]);
     
     
-    protected override object InitInternalData() => new Data();
-    
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        var data = GetInternalData<Data>();
         
-        // Si le pouvoir vient d'être ajouté, on ignore la toute première carte jouée 
-        // (qui est forcément celle qui a créé ce pouvoir)
-        if (data.JustAdded)
-        {
-            data.JustAdded = false;
-            return;
-        }
         //Only trigger if the owner of this power play a card
         if (Owner != cardPlay.Card.Owner.Creature) 
             return;
@@ -42,17 +34,25 @@ public class FireSpiritPower : FiveElementsPower
         // Check if the played card is a fire element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
         if (cardPlay.Card.CountsAsElement(CardElementTag.Fire,Owner))
         {
-            Flash();
-            foreach (var hittableEnemy in CombatState.HittableEnemies)
+            if (cardPlay.Card is FireSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas grace au -2
             {
-                await PowerCmd.Apply<BurnPower>(hittableEnemy, Amount, Owner,null);
+                
+                Flash();
+                foreach (var hittableEnemy in CombatState.HittableEnemies)
+                {
+                    await PowerCmd.Apply<BurnPower>(hittableEnemy, Amount-2, Owner,null);//this number need to be the same as the one on firespirit
+                }
+            }
+            else
+            {
+                Flash();
+                foreach (var hittableEnemy in CombatState.HittableEnemies)
+                {
+                    await PowerCmd.Apply<BurnPower>(hittableEnemy, Amount, Owner,null);
+                }
             }
             
         }
     }
 
-    private class Data
-    {
-        public bool JustAdded = true; // to not trigger the first time you play the card giving the power
-    }
 }

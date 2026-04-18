@@ -15,7 +15,7 @@ public sealed class FireSpirit() : FireCard(1,
 
     //Apply 2 burn to all enemies when you play a fire card 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<FireSpiritPower>(2),
+        new PowerVar<FireSpiritPower>(2),//this number need to be the same as the one on firespiritpower
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

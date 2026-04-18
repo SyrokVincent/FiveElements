@@ -45,9 +45,9 @@ public class EarthSpiritPower : FiveElementsPower
             if (cardPlay.Card is EarthSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
             {
                 Flash();
-                data.TempThornsCount += Amount - 1;
+                data.TempThornsCount += Amount - 2; //this number need to be the same as the one on earthspirit
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<ThornsPower>(Owner, Amount - 1, Owner,null);
+                await PowerCmd.Apply<ThornsPower>(Owner, Amount - 2, Owner,null);
                 InvokeDisplayAmountChanged();
             }
             else

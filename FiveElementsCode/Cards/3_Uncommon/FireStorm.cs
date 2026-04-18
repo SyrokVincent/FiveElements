@@ -45,7 +45,8 @@ public class FireStorm() : FireCard(2,
         }
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            await CardCmd.Exhaust(choiceContext, this);
+            //await CardCmd.Exhaust(choiceContext, this);
+            //use of getpile instead, for fireball to count correctly
         }
     }
 
@@ -53,7 +54,15 @@ public class FireStorm() : FireCard(2,
     {
         DynamicVars.Damage.UpgradeValueBy(2);
     }
-    
+
+    //this shit is called before onplay
+    //change the pile to exhaust if fire is active
+    protected override PileType GetResultPileType()
+    {
+        PileType resultPileType = base.GetResultPileType();
+        return (CardElementTag.Fire.IsActive(CombatState)) ? PileType.Exhaust : resultPileType;
+    }
+
     /*
     public override async Task BeforeHandDraw(
         Player player,

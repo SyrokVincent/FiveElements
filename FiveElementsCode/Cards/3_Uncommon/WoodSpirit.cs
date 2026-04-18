@@ -16,7 +16,7 @@ public class WoodSpirit() : WoodCard(1,
     
     //Gain 1 temp strength when you play a wood card
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WoodSpiritPower>(1),
+        new PowerVar<WoodSpiritPower>(1), //this number need to be the same as the one on woodspiritpower
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

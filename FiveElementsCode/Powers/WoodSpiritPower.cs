@@ -44,7 +44,7 @@ public class WoodSpiritPower : FiveElementsPower
             if (cardPlay.Card is WoodSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
             {
                 Flash();
-                data.TempStrengthCount += Amount - 1;
+                data.TempStrengthCount += Amount - 1; //this number need to be the same as the one on woodspirit
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
                 await PowerCmd.Apply<StrengthPower>(Owner, Amount - 1, Owner,null);
                 InvokeDisplayAmountChanged();

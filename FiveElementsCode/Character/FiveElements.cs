@@ -3,6 +3,7 @@ using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Cards._2_Common;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+using FiveElements.FiveElementsCode.Cards._4_Rare;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;
@@ -122,6 +123,8 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<WaterTsunami>());    //done
             finalDeck.Add(ModelDb.Card<WaterVeil>());       //done
             finalDeck.Add(ModelDb.Card<WaterCanon>());      //done
+            
+            finalDeck.Add(ModelDb.Card<WaterDrop>());       //done
             */
             
             /*
@@ -148,14 +151,16 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<FireTouch>());       //done
             finalDeck.Add(ModelDb.Card<FireSpirit>());      //done
             finalDeck.Add(ModelDb.Card<FireRise>());        //done
-            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done
+            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done is it good?
             finalDeck.Add(ModelDb.Card<FireStorm>());       //done
             finalDeck.Add(ModelDb.Card<FireForce>());       //done
             finalDeck.Add(ModelDb.Card<FireEater>());       //done
             finalDeck.Add(ModelDb.Card<FireWings>());       //done
-            finalDeck.Add(ModelDb.Card<FireBall>());        //done Maybe count neutral card in hand when hasSpiritform???
-            finalDeck.Add(ModelDb.Card<FireDance>());       //done
+            finalDeck.Add(ModelDb.Card<FireBall>());        //done
+            finalDeck.Add(ModelDb.Card<FireDance>());       //done is it good to be rare?
             finalDeck.Add(ModelDb.Card<FireBlossom>());     //done
+            
+            finalDeck.Add(ModelDb.Card<FirePlume>());       //done maybe increase incendesence damage?
             */
             
             /*
@@ -167,7 +172,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<EarthBlast>());      //done
             finalDeck.Add(ModelDb.Card<EarthJewel>());      //done
             finalDeck.Add(ModelDb.Card<EarthWall>());       //done
-            finalDeck.Add(ModelDb.Card<EarthCrown>());  //done clunky, give dex before card being played so you don't see the real block value ganied on the card and if it give after it's useless
+            finalDeck.Add(ModelDb.Card<EarthCrown>());      //done clunky, give dex before card being played so you don't see the real block value ganied on the card and if it give after it's useless
             finalDeck.Add(ModelDb.Card<EarthPlate>());      //done
             finalDeck.Add(ModelDb.Card<EarthBorn>());       //done
             finalDeck.Add(ModelDb.Card<EarthGuardian>());   //done
@@ -194,28 +199,34 @@ public class FiveElements : PlaceholderCharacterModel
             
             /*
             //NEUTRAL
-            finalDeck.Add(ModelDb.Card<Incantation>());     //done
-            finalDeck.Add(ModelDb.Card<Isolation>());       //done
-            finalDeck.Add(ModelDb.Card<Distortion>());      //done
-            finalDeck.Add(ModelDb.Card<Annihilation>());    //done
-            finalDeck.Add(ModelDb.Card<Decimation>());      //done
-            finalDeck.Add(ModelDb.Card<Circulation>());     //done need upgrade
-            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it choose between the 2 effects ?
-            finalDeck.Add(ModelDb.Card<Domination>());      //done need upgrade
-            finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't count card from exhaust pile
-            finalDeck.Add(ModelDb.Card<Recycle>());         //done
-            finalDeck.Add(ModelDb.Card<Absorption>());      //done
-            finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
-            finalDeck.Add(ModelDb.Card<UltimateForm>());    //done
             finalDeck.Add(ModelDb.Card<Cycle>());           //done
+            finalDeck.Add(ModelDb.Card<Distortion>());      //done
+            finalDeck.Add(ModelDb.Card<Isolation>());       //done
+            finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't count card from exhaust pile
+            finalDeck.Add(ModelDb.Card<Absorption>());      //done
+            finalDeck.Add(ModelDb.Card<Incantation>());     //done
+            finalDeck.Add(ModelDb.Card<Decimation>());      //done
             finalDeck.Add(ModelDb.Card<Meditation>());      //done could not filter draw, had to change it a bit, don't like it it's weird
+            finalDeck.Add(ModelDb.Card<Circulation>());     //done need upgrade
+            finalDeck.Add(ModelDb.Card<Recycle>());         //done
+            finalDeck.Add(ModelDb.Card<UltimateForm>());    //done
+            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it choose between the 2 effects ?
+            finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
+            finalDeck.Add(ModelDb.Card<Annihilation>());    //done
+            finalDeck.Add(ModelDb.Card<Domination>());      //done need upgrade
+            
+            finalDeck.Add(ModelDb.Card<Fulu>());            //done maybe go back to fulu transforming and give small buff on each fulu?
+            finalDeck.Add(ModelDb.Card<More>());            //done
+            finalDeck.Add(ModelDb.Card<Less>());            //done
+            
+            //water fulu 1or2 wave, wood fulu 1 temp str(or 2dmg?), fire fulu apply 2-3 burn, earth fulu 3 block, metal fulu 1 vigor
             
             //multi
             finalDeck.Add(ModelDb.Card<>()); 
             finalDeck.Add(ModelDb.Card<>()); 
             //ancient
             finalDeck.Add(ModelDb.Card<>()); 
-            finalDeck.Add(ModelDb.Card<SpiritsForm>());     //done but not yet working for stuff that say foreach fire/etc card played this turn
+            finalDeck.Add(ModelDb.Card<SpiritsForm>());     //done but maybe not yet working for all stuff that say foreach fire/etc card played this turn
             
             */
             return finalDeck;
