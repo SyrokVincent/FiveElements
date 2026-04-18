@@ -56,15 +56,17 @@ public class WoodRoots() : WoodCard(1,
             
             // 1. On récupère le montant actuel de Wave
             var currentWave = play.Card.Owner.Creature.GetPowerAmount<WavePower>();
-            await CommonActions.ApplySelf<WoodRootsPower>(this, currentWave/DynamicVars["WaveDivider"].BaseValue);
+            var tempStrengthToGain = currentWave / DynamicVars["WaveDivider"].BaseValue;
+            await CommonActions.ApplySelf<WoodRootsPower>(this, tempStrengthToGain);
             
             
         }
         if (CardElementTag.Wood.IsActive(CombatState))
         {
             // 1. On récupère le montant actuel de strength
-            var currentWave = play.Card.Owner.Creature.GetPowerAmount<StrengthPower>();
-            await CommonActions.ApplySelf<StrengthPower>(this, currentWave/DynamicVars["StrengthDivider"].BaseValue);
+            var currentStrength = play.Card.Owner.Creature.GetPowerAmount<StrengthPower>();
+            var strengthToGain = currentStrength / DynamicVars["StrengthDivider"].BaseValue;
+            await CommonActions.ApplySelf<StrengthPower>(this, strengthToGain);
       
         }
 
