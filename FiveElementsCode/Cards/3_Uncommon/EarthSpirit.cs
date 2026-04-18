@@ -20,7 +20,7 @@ public class EarthSpirit() : EarthCard(1,
 
     //gain 2 temp thorns when you play an earth card (temp dex?)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<EarthSpiritPower>(1),
+        new PowerVar<EarthSpiritPower>(2),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

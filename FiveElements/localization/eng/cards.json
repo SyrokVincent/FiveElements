@@ -19,53 +19,55 @@
   "FIVEELEMENTS-EARTH_DEFEND.title": "Earth Defend",
   "FIVEELEMENTS-METAL_DEFEND.description": "Gain {Block:diff()} [gold]Block[/gold].",
   "FIVEELEMENTS-METAL_DEFEND.title": "Metal Defend",
-  "FIVEELEMENTS-CREATION.description": "Choose a card in your [gold]Hand[/gold] to gain its [gold]Essence[/gold].",
-  "FIVEELEMENTS-CREATION.title": "Creation",
-  "FIVEELEMENTS-CREATION.selectionScreenPrompt": "Select a card to gain its [gold]Essence[/gold].",
   "FIVEELEMENTS-ACTIVATION.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.|{off_s}Water : Gain {WavePower:diff()} Wave and {Energy:energyIcons()}.{off_e}}\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Draw {Cards:diff()} {Cards:plural:card|cards}.|{off_s}Wood : Draw {Cards:diff()} {Cards:plural:card|cards}.{off_e}}.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|{off_s}Fire : Apply {BurnPower:diff()} Burn to all enemies.{off_e}}\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain {VigorPower:diff()} [gold]Vigor[/gold].|{off_s}Metal : Gain {VigorPower:diff()} Vigor.{off_e}}",
   "FIVEELEMENTS-ACTIVATION.title": "Activation",
+
+  "FIVEELEMENTS-CREATION.selectionScreenPrompt": "Select a card to gain its [gold]Essence[/gold].",
+  "FIVEELEMENTS-CREATION.description": "Choose a card in your [gold]Hand[/gold] to gain its [gold]Essence[/gold].",
+  "FIVEELEMENTS-CREATION.title": "Creation",
   
   "FIVEELEMENTS-SPIRITS_FORM.description": "Card with no [gold]Elements[/gold] are now considered to be of ALL [gold]Elements[/gold] when [gold]PLAYED[/gold].",
   "FIVEELEMENTS-SPIRITS_FORM.title": "Spirits Form",
 
 
-  
+
+  "FIVEELEMENTS-CYCLE.description": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} cards.\nDiscard all cards drawn this way that are not the [gold]Element[/gold] of [gold]Echo[/gold].",
+  "FIVEELEMENTS-CYCLE.title": "Cycle Strike",
   "FIVEELEMENTS-DISTORTION.description": "Deal {Damage:diff()} damage.\nAdd {Cards:diff()} [gold]{IfUpgraded:show:Fulu|Fulu}[/gold] into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-DISTORTION.title": "Distortion",
+  "FIVEELEMENTS-DISTORTION.title": "Distortion Strike",
   "FIVEELEMENTS-ISOLATION.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd {Cards:diff()} [gold]{IfUpgraded:show:Fulu+|Fulu}[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-ISOLATION.title": "Isolation",
+  "FIVEELEMENTS-MORE_OR_LESS.description": "Choose between {IfUpgraded:show:\n[gold]More+[/gold] and [gold]Less+[/gold]|[gold]More[/gold] or [gold]Less[/gold]} to add into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-MORE_OR_LESS.title": "More or Less",
+  "FIVEELEMENTS-ABSORPTION.description": "Consume all [gold]Essence[/gold], gain {Energy:energyIcons()} for each.\nYou will gain {EnergyGained:diff()}.",
+  "FIVEELEMENTS-ABSORPTION.title": "Absorption",
   "FIVEELEMENTS-INCANTATION.description": "At the start of your turn, add a [gold]Fulu[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-INCANTATION.title": "Incantation",
-  "FIVEELEMENTS-ANNIHILATION.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Deal {Damage:diff()} damage.|{off_s}Water : Deal {Damage:diff()} damage.{off_e}}\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Deal {Damage:diff()} damage.|{off_s}Wood : Deal {Damage:diff()} damage.{off_e}}\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deal {Damage:diff()} damage.|{off_s}Fire : Deal {Damage:diff()} damage.{off_e}}\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Deal {Damage:diff()} damage.|{off_s}Earth : Deal {Damage:diff()} damage.{off_e}}\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Deal {Damage:diff()} damage.|{off_s}Metal : Deal {Damage:diff()} damage.{off_e}}",
-  "FIVEELEMENTS-ANNIHILATION.title": "Annihilation",
   "FIVEELEMENTS-DECIMATION.description": "Costs 1 less for each different [gold]Element[/gold] played this turn.\nDeal {Damage:diff()} damage.",
   "FIVEELEMENTS-DECIMATION.title": "Decimation",
+  "FIVEELEMENTS-MEDITATION.selectionScreenPrompt": "Select a card to gain its [gold]Essence[/gold].",
+  "FIVEELEMENTS-MEDITATION.description": "Choose a card in your [gold]Hand[/gold] to gain its [gold]Essence[/gold].\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
+  "FIVEELEMENTS-MEDITATION.title": "Meditation",
   "FIVEELEMENTS-CIRCULATION.selectionScreenPrompt": "Choose a card to Circulate.",
   "FIVEELEMENTS-CIRCULATION.description": "Choose a card in [gold]Hand[/gold] that [gold]Echo[/gold] [gold]Generate[/gold].\nGain its [gold]Essence[/gold] and play it for free.",
   "FIVEELEMENTS-CIRCULATION.title": "Circulation",
+  "FIVEELEMENTS-RECYCLE.description": "Choose a card in your [gold]Hand[/gold] to [gold]Transform[/gold] into a card of the [gold]Element[/gold] it [gold]Generate[/gold].",
+  "FIVEELEMENTS-RECYCLE.title": "Recycle",
+  "FIVEELEMENTS-ULTIMATE_FORM.description": "When you play cards in the [gold]Generate[/gold] order, [gold]Upgrade[/gold] them and trigger the corresponding effect on the card [gold]Activation[/gold].",
+  "FIVEELEMENTS-ULTIMATE_FORM.title": "Ultimate Form",
   "FIVEELEMENTS-ALL_OR_ONE.description": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {energyPrefix:energyIcons(1)} and draw 1 card.",
   "FIVEELEMENTS-ALL_OR_ONE.title": "All or One",
+  "FIVEELEMENTS-ECHO_FORMATION.description": "At the end of each turn [gold]Retain[/gold] [gold]Echo[/gold] cards.",
+  "FIVEELEMENTS-ECHO_FORMATION.title": "Echo Formation",
+  "FIVEELEMENTS-ANNIHILATION.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Deal {Damage:diff()} damage.|{off_s}Water : Deal {Damage:diff()} damage.{off_e}}\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Deal {Damage:diff()} damage.|{off_s}Wood : Deal {Damage:diff()} damage.{off_e}}\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deal {Damage:diff()} damage.|{off_s}Fire : Deal {Damage:diff()} damage.{off_e}}\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Deal {Damage:diff()} damage.|{off_s}Earth : Deal {Damage:diff()} damage.{off_e}}\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Deal {Damage:diff()} damage.|{off_s}Metal : Deal {Damage:diff()} damage.{off_e}}",
+  "FIVEELEMENTS-ANNIHILATION.title": "Annihilation",
   "FIVEELEMENTS-DOMINATION.selectionScreenPrompt": "Choose a card to Dominate.",
   "FIVEELEMENTS-DOMINATION.description": "Choose a card in [gold]Hand[/gold] that [gold]Echo[/gold] [gold]Dominate[/gold].\n[gold]Transform[/gold] it into the last card played and play it for free.",
   "FIVEELEMENTS-DOMINATION.title": "Domination",
-  "FIVEELEMENTS-MORE_OR_LESS.description": "Choose between {IfUpgraded:show:\n[gold]More+[/gold] and [gold]Less+[/gold]|[gold]More[/gold] or [gold]Less[/gold]} to add into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-MORE_OR_LESS.title": "More or Less",
-  "FIVEELEMENTS-RECYCLE.description": "Choose a card in your [gold]Hand[/gold] to [gold]Transform[/gold] into a card of the [gold]Element[/gold] it [gold]Generate[/gold].",
-  "FIVEELEMENTS-RECYCLE.title": "Recycle",
-  "FIVEELEMENTS-ABSORPTION.description": "Consume all [gold]Essence[/gold], gain {Energy:energyIcons()} for each.\nYou will gain {EnergyGained:diff()}.",
-  "FIVEELEMENTS-ABSORPTION.title": "Absorption",
-  "FIVEELEMENTS-ECHO_FORMATION.description": "At the end of each turn [gold]Retain[/gold] [gold]Echo[/gold] cards.",
-  "FIVEELEMENTS-ECHO_FORMATION.title": "Echo Formation",
-  "FIVEELEMENTS-ULTIMATE_FORM.description": "When you play cards in the [gold]Generate[/gold] order, [gold]Upgrade[/gold] them and trigger the corresponding effect on the card [gold]Activation[/gold].",
-  "FIVEELEMENTS-ULTIMATE_FORM.title": "Ultimate Form",
-  "FIVEELEMENTS-CYCLE.description": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} cards.\nDiscard all cards drawn this way that are not the [gold]Element[/gold] of [gold]Echo[/gold].",
-  "FIVEELEMENTS-CYCLE.title": "Cycle",
-  "FIVEELEMENTS-MEDITATION.description": "Discard 1 card with [gold]Element[/gold].\nPut {Cards:diff()} random cards with a different [gold]Element[/gold] from the [gold]Discard Pile[/gold] into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-MEDITATION.title": "Meditation",
   
   
   
-  "FIVEELEMENTS-WATER_CREATION.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.|{off_s}Water : Gain {WavePower:diff()} Wave and {Energy:energyIcons()}.{off_e}}\nGain 1 [gold]Water Essence[/gold].",
+  "FIVEELEMENTS-WATER_CREATION.description": "Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain 1 [gold]Water Essence[/gold].|{off_s}Water : Gain 1 Water Essence.{off_e}}",
   "FIVEELEMENTS-WATER_CREATION.title": "Water Creation",
   "FIVEELEMENTS-WATER_BUBBLE.description": "Gain {Block:diff()} [gold]Block[/gold] and {WavePower:diff()} [gold]Wave[/gold].\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Costs 0.|{off_s}Water : Costs 0.{off_e}}",
   "FIVEELEMENTS-WATER_BUBBLE.title": "Water Bubble",
@@ -94,7 +96,7 @@
   
   
   
-  "FIVEELEMENTS-WOOD_CREATION.description": "{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Draw {Cards:diff()} {Cards:plural:card|cards}.|{off_s}Wood : Draw {Cards:diff()} {Cards:plural:card|cards}.{off_e}}\nGain 1 [gold]Wood Essence[/gold].",
+  "FIVEELEMENTS-WOOD_CREATION.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Gain 1 [gold]Wood Essence[/gold].|{off_s}Wood : Gain 1 Wood Essence.{off_e}}",
   "FIVEELEMENTS-WOOD_CREATION.title": "Wood Creation",
   "FIVEELEMENTS-WOOD_BARK.description": "Gain {CalculatedBlock:diff()} [gold]Block[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : [gold]Block[/gold] of this card also scale with [gold]Strength[/gold].|{off_s}Wood : Block of this card also scale with Strength.{off_e}}",
   "FIVEELEMENTS-WOOD_BARK.title": "Wood Bark",
@@ -123,7 +125,7 @@
   
   
   
-  "FIVEELEMENTS-FIRE_CREATION.description": "{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|{off_s}Fire : Apply {BurnPower:diff()} Burn to all enemies.{off_e}}\nGain 1 [gold]Fire Essence[/gold].",
+  "FIVEELEMENTS-FIRE_CREATION.description": "Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Gain 1 [gold]Fire Essence[/gold].|{off_s}Fire : Gain 1 Fire Essence.{off_e}}",
   "FIVEELEMENTS-FIRE_CREATION.title": "Fire Creation",
   "FIVEELEMENTS-FIRE_NOVA.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|{off_s}Fire : Apply {BurnPower:diff()} Burn to all enemies.{off_e}}",
   "FIVEELEMENTS-FIRE_NOVA.title": "Fire Nova",
@@ -152,7 +154,7 @@
   
   
   
-  "FIVEELEMENTS-EARTH_CREATION.description": "{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}\nGain 1 [gold]Earth Essence[/gold].",
+  "FIVEELEMENTS-EARTH_CREATION.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain 1 [gold]Earth Essence[/gold].|{off_s}Earth : Gain 1 Earth Essence.{off_e}}",
   "FIVEELEMENTS-EARTH_CREATION.title": "Earth Creation",
   "FIVEELEMENTS-EARTH_WARD.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {EarthWardPower:diff()} [gold]Dexterity[/gold] this turn.|{off_s}Earth : Gain {EarthWardPower:diff()} Dexterity this turn.{off_e}}",
   "FIVEELEMENTS-EARTH_WARD.title": "Earth Ward",
@@ -181,7 +183,7 @@
   
   
   
-  "FIVEELEMENTS-METAL_CREATION.description": "{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain {VigorPower:diff()} [gold]Vigor[/gold].|{off_s}Metal : Gain {VigorPower:diff()} Vigor.{off_e}}\nGain 1 [gold]Metal Essence[/gold].",
+  "FIVEELEMENTS-METAL_CREATION.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold].\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain 1 [gold]Metal Essence[/gold].|{off_s}Metal : Gain 1 Metal Essence.{off_e}}",
   "FIVEELEMENTS-METAL_CREATION.title": "Metal Creation",
   "FIVEELEMENTS-METAL_BLADE.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain [gold]Vigor[/gold] equal to half of damage dealt.|{off_s}Metal : Gain Vigor equal to half of damage dealt.{off_e}}",
   "FIVEELEMENTS-METAL_BLADE.title": "Metal Blade",
@@ -210,7 +212,7 @@
   
   
   
-  "FIVEELEMENTS-FULU.description": "Transform itself on [gold]Shift[/gold].",
+  "FIVEELEMENTS-FULU.description": "",
   "FIVEELEMENTS-FULU.title": "Fulu",
   "FIVEELEMENTS-WATER_FULU.description": "Transform itself on [gold]Shift[/gold].",
   "FIVEELEMENTS-WATER_FULU.title": "Water Fulu",
@@ -230,8 +232,8 @@
   "FIVEELEMENTS-FIRE_PLUME.title": "Fire Plume",
   
   "FIVEELEMENTS-LESS.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each card in your deck of the element you have the least of.",
-  "FIVEELEMENTS-LESS.title": "Less",
+  "FIVEELEMENTS-LESS.title": "Less Strike",
   "FIVEELEMENTS-MORE.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each card in your deck of the element you have the more of.",
-  "FIVEELEMENTS-MORE.title": "More"
+  "FIVEELEMENTS-MORE.title": "More Strike"
   
 }

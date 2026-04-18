@@ -15,7 +15,7 @@ public sealed class Creation() : NeutralCard(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
-    
+    //Innate, Ethereal,Exhaust, Select one card in hand and gain 1 "Essence" of it
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
         FiveElementsKeywords.Essence,
         CardKeyword.Innate, 
@@ -29,6 +29,9 @@ public sealed class Creation() : NeutralCard(0,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await base.OnPlay(choiceContext, play);
+        
+        if (CombatState == null) return;
+        
         // 1. Préparer les préférences
         CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
 
@@ -48,14 +51,11 @@ public sealed class Creation() : NeutralCard(0,
         {
             //todo will cause chaos when some card will have multiple element
             // On boucle sur tous les tags de la carte choisie
-            foreach (var tag in card.ElementTags)
+            // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
+            foreach (var tag in card.ElementTags.Where(tag => tag != CardElementTag.Neutral))
             {
-                // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
-                if (tag != CardElementTag.Neutral)
-                {
-                    if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1);
-                    GD.Print($"Essence ajoutée ! Élément : {tag}");
-                }
+                if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1);
+                GD.Print($"Essence ajoutée ! Élément : {tag}");
             }
         }
     }

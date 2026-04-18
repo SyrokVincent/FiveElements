@@ -84,7 +84,7 @@ public class Relic1() : FiveElementsRelic
         return Task.CompletedTask;
     }
     
-    //todo fiend  abetter way to track echo, couldnot manage to make it a CombatState "attribute" everywhere
+    //todo find a better way to track echo, couldnot manage to make it a CombatState "attribute" everywhere
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
         //do not work to change card description color

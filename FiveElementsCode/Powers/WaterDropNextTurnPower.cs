@@ -17,9 +17,6 @@ public class WaterDropNextTurnPower : FiveElementsPower
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromCard<WaterDrop>(),
     ];
-    // public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
-    // {
-    // }
 
     public override async Task BeforeHandDraw(
         Player player,
@@ -28,8 +25,8 @@ public class WaterDropNextTurnPower : FiveElementsPower
     {
         if (player != Owner.Player) return;
         Flash();
-        await FiveElementsCardExtensions.CreateInHand<WaterDrop>(Owner.Player, Amount,false, combatState);
-        await PowerCmd.Remove(this);
+        await FiveElementsCardExtensions.CreateInHand<WaterDrop>(Owner.Player, 1,false, combatState);
+        await PowerCmd.Decrement(this);
     }
     
 }

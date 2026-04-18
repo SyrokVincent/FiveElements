@@ -13,6 +13,9 @@ public sealed class Distortion() : NeutralCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.AnyEnemy)
 {
+    // need a few card with strike tag
+    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
+    
     //Deal 9, Add 1 Fulu in hand
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(9,ValueProp.Move),

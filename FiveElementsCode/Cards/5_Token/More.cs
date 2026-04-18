@@ -17,6 +17,8 @@ public class More() : NeutralCard(1,
     CardType.Attack, CardRarity.Token,
     TargetType.AnyEnemy)
 {
+    // need a few card with strike tag
+    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
     //Deal 5 damage, deal 1 more for each card in your deck of the element you have the more of  (for big mono element deck)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([

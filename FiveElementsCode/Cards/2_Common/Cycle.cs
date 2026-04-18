@@ -16,6 +16,8 @@ public class Cycle() : NeutralCard(1,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {
+    // need a few card with strike tag
+    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
     
     //Deal 7+2 damage, draw 3+1 card, only keep the echo card
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([

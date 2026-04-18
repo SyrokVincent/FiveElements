@@ -25,7 +25,7 @@
   "FIVEELEMENTS-WAVE_POWER.title": "Wave",
   
   "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.description": "At the start of your next turn, add a [gold]Water Drop[/gold] into your [gold]Hand[/gold].",
-  "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.smartDescription": "At the start of your next turn, add {Amount:plural:a [gold]Water Drop[/gold]|[blue]{}[/blue] [gold]Water Drops[/gold]} into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.smartDescription": "At the start of your next {Amount:plural:turn|[blue]{}[/blue] turns}, add a [gold]Water Drop[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-WATER_DROP_NEXT_TURN_POWER.title": "Water Drop Next Turn",
 
   "FIVEELEMENTS-WATER_TIDE_POWER.description": "At the end of your turn, gain [gold]Wave[/gold].",

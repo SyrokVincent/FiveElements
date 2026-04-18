@@ -19,7 +19,7 @@ public sealed class WaterFlow() : WaterCard(3,
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
     
-    //Gain 3 energy, draw 1, Water:(next turn add water drop in hand)
+    //Gain 3 energy, draw 1, Water:(next 1(2) turn add water drop in hand)
 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(3),
@@ -48,6 +48,6 @@ public sealed class WaterFlow() : WaterCard(3,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Energy.UpgradeValueBy(1);
+        DynamicVars["WaterDropNextTurnPower"].UpgradeValueBy(1);
     }
 }
