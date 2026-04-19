@@ -101,8 +101,6 @@ public class Circulation() : NeutralCard(1,
                 }
             }
             
-            //on clone la carte pour la jouer jsute apres, gratos sur une target random
-            // = card.CreateClone();
             _cardToPlay = card;
         }
     }

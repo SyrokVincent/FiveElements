@@ -119,7 +119,9 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Isolation>());
             finalDeck.Add(ModelDb.Card<Distortion>());
             finalDeck.Add(ModelDb.Card<Distortion>());
-            finalDeck.Add(ModelDb.Card<Incantation>());
+            finalDeck.Add(ModelDb.Card<Circulation>());
+            finalDeck.Add(ModelDb.Card<Circulation>());
+            finalDeck.Add(ModelDb.Card<Circulation>());
             
             /*
             //WATER

@@ -32,7 +32,7 @@ public sealed class WoodFulu() : WoodCard(0,
     ];
     
     //change element when a card is played
-    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+    public override async Task AfterCardPlayedLate(PlayerChoiceContext context, CardPlay cardPlay)
     {
         // 1. On ne se transforme que si une AUTRE carte est jouée par le propriétaire
         if (cardPlay.Card == this || Owner != cardPlay.Card.Owner) return;
