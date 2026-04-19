@@ -84,7 +84,7 @@ public class WoodLeaf() : WoodCard(0,
 
         // 2. On vérifie s'il y a DU BOIS en main
         bool hasAnyWoodInHand = PileType.Hand.GetPile(Owner).Cards
-            .Any(c => c.CountsAsElement(CardElementTag.Wood,Owner.Creature));
+            .Any(c => c.CountAsElement(CardElementTag.Wood,Owner.Creature));
 
         // 3. SI LA MAIN EST VIDE :
         if (!hasAnyWoodInHand)

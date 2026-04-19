@@ -80,7 +80,7 @@ public class FireStorm() : FireCard(2,
             // - L'historique ne doit pas être vide
             // - La carte doit être de type Feu
             bool wasFireEchoLastTurn = lastPlaylastTurn != null 
-                                       && lastPlaylastTurn.CardPlay.Card.CountsAsElement(CardElementTag.Fire,Owner.Creature);
+                                       && lastPlaylastTurn.CardPlay.Card.CountAsElement(CardElementTag.Fire,Owner.Creature);
 
             if (wasFireEchoLastTurn)
             {
@@ -115,7 +115,7 @@ public class FireStorm() : FireCard(2,
         else
         {
             // Fallback pour les cartes pas neutres et de base sans cache
-            wasFire = lastEntry.CardPlay.Card.CountsAsElement(CardElementTag.Fire, Owner.Creature);
+            wasFire = lastEntry.CardPlay.Card.CountAsElement(CardElementTag.Fire, Owner.Creature);
         }
 
         if (wasFire)

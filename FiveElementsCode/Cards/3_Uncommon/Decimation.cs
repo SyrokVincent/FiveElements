@@ -90,7 +90,7 @@ public class Decimation() : NeutralCard(5,
                 // Fallback pour les cartes Strike/Defend (non dynamiques)
                 foreach (var t in targetTags)
                 {
-                    if (entry.CardPlay.Card.CountsAsElement(t, Owner.Creature)) 
+                    if (entry.CardPlay.Card.CountAsElement(t, Owner.Creature)) 
                         foundTags.Add(t);
                 }
             }

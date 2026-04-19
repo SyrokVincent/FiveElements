@@ -1,6 +1,7 @@
 ﻿using FiveElements.FiveElementsCode.Enums;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Rooms;
 
@@ -51,12 +52,28 @@ public abstract class NeutralCard : FiveElementsCard
     {
         if (Owner != cardPlay.Card.Owner || cardPlay.Card == this) return Task.CompletedTask;
         
+        UpdateAttuneAndShift();
+
+        return Task.CompletedTask;
+    }
+    
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        if (player == Owner)
+        {
+            UpdateAttuneAndShift();
+        }
+        return Task.CompletedTask;
+    }
+
+    private void UpdateAttuneAndShift()
+    {
         //maybe useless?
         // On vérifie si la pile actuelle est une pile de COMBAT (Main, Pioche, Défausse, Exhaust)
         // Si la carte est dans l'historique ou le deck de base, Pile sera null ou non-combat.
-        if (this.Pile == null || !this.Pile.Type.IsCombatPile()) 
+        if (this.Pile == null || !this.Pile.Type.IsCombatPile())
         {
-            return Task.CompletedTask;
+            return;
         }
         
         // 1. Vérifie si la carte a le Keyword Attune
@@ -78,10 +95,8 @@ public abstract class NeutralCard : FiveElementsCard
             
             this.ElementTags = newEcho;
         }
-
-        return Task.CompletedTask;
     }
-    
+
     // Stockage statique : ID de l'entrée d'historique -> Tags au moment du jeu
     public static readonly Dictionary<CardPlay, HashSet<CardElementTag>> PlayedElementsCache = new();
 

@@ -52,13 +52,13 @@ public class UltimateFormPower : FiveElementsPower
         _cardElementsBeforePlay.Clear();
         var card = cardPlay.Card;
 
-        // On vérifie tous les éléments possibles via CountsAsElement
+        // On vérifie tous les éléments possibles via CountAsElement
         // car cela inclut Attune/Shift calculé au moment T
-        if (card.CountsAsElement(CardElementTag.Water, Owner)) _cardElementsBeforePlay.Add(CardElementTag.Water);
-        if (card.CountsAsElement(CardElementTag.Wood, Owner))  _cardElementsBeforePlay.Add(CardElementTag.Wood);
-        if (card.CountsAsElement(CardElementTag.Fire, Owner))  _cardElementsBeforePlay.Add(CardElementTag.Fire);
-        if (card.CountsAsElement(CardElementTag.Earth, Owner)) _cardElementsBeforePlay.Add(CardElementTag.Earth);
-        if (card.CountsAsElement(CardElementTag.Metal, Owner)) _cardElementsBeforePlay.Add(CardElementTag.Metal);
+        if (card.CountAsElement(CardElementTag.Water, Owner)) _cardElementsBeforePlay.Add(CardElementTag.Water);
+        if (card.CountAsElement(CardElementTag.Wood, Owner))  _cardElementsBeforePlay.Add(CardElementTag.Wood);
+        if (card.CountAsElement(CardElementTag.Fire, Owner))  _cardElementsBeforePlay.Add(CardElementTag.Fire);
+        if (card.CountAsElement(CardElementTag.Earth, Owner)) _cardElementsBeforePlay.Add(CardElementTag.Earth);
+        if (card.CountAsElement(CardElementTag.Metal, Owner)) _cardElementsBeforePlay.Add(CardElementTag.Metal);
 
         return Task.CompletedTask;
     }

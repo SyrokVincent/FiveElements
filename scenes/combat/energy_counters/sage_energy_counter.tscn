@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://vn51kkhc8jc1"]
+[gd_scene load_steps=9 format=3 uid="uid://vn51kkhc8jc1"]
 
 [ext_resource type="Texture2D" uid="uid://cya5oeysn4qao" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_1.png" id="1_tpr1u"]
 [ext_resource type="Texture2D" uid="uid://cmgtjnfm526ua" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_2.png" id="2_601yw"]
@@ -6,14 +6,23 @@
 [ext_resource type="Texture2D" uid="uid://ytvfr0d0kxx3" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_4.png" id="4_4wviv"]
 [ext_resource type="Texture2D" uid="uid://duxnv5mmsrdqy" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_5.png" id="5_7m6al"]
 [ext_resource type="Texture2D" uid="uid://qd3ulyj2uua2" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_6.png" id="6_1l603"]
+[ext_resource type="PackedScene" uid="uid://bxfu5lledhrro" path="res://scenes/combat/energy_counters/essence_counter.tscn" id="7_ectix"]
 
 [sub_resource type="FontVariation" id="FontVariation_5rki4"]
 
 [node name="FiveelementsEnergyCounter" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 128.0
-offset_bottom = 128.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(64, 64)
 
 [node name="Layers" type="Control" parent="."]
@@ -95,6 +104,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Layer6" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -133,3 +143,131 @@ theme_override_font_sizes/font_size = 36
 text = "3/3"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ElementLayers" type="Control" parent="."]
+modulate = Color(0.13333334, 0.54509807, 0.13333334, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="ElementLayers" instance=ExtResource("7_ectix")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+scale = Vector2(0.18, 0.18)
+
+[node name="ElementLayers2" type="Control" parent="."]
+modulate = Color(1, 0.27058825, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.2566371
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="ElementLayers2" instance=ExtResource("7_ectix")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+rotation = -1.2566371
+scale = Vector2(0.18, 0.18)
+
+[node name="ElementLayers3" type="Control" parent="."]
+modulate = Color(0.54509807, 0.27058825, 0.07450981, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 2.5132742
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="ElementLayers3" instance=ExtResource("7_ectix")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+rotation = -2.5132742
+scale = Vector2(0.18, 0.18)
+
+[node name="ElementLayers4" type="Control" parent="."]
+modulate = Color(0.7529412, 0.7529412, 0.7529412, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.7699113
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="ElementLayers4" instance=ExtResource("7_ectix")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+rotation = -3.7699113
+scale = Vector2(0.18, 0.18)
+
+[node name="ElementLayers5" type="Control" parent="."]
+modulate = Color(0.11764706, 0.5647059, 1, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 5.0265484
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="ElementLayers5" instance=ExtResource("7_ectix")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+rotation = -5.0265484
+scale = Vector2(0.18, 0.18)

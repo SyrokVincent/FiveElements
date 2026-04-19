@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
 
 namespace FiveElements.FiveElementsCode.Extensions;
 
@@ -69,47 +70,66 @@ public static class FiveElementsCardExtensions
             await SyncElementalState(card, combatState);
 
             if (isUpgraded) CardCmd.Upgrade(card);
+            
             cards.Add(card);
         }
 
         await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, true);
     }
     
-    public static async Task TryShiftFuluTransform(this FiveElementsCard cardToTransform, CardPlay cardPlay)
-    {
+    public static async Task TryShiftFuluTransform(this FiveElementsCard cardToTransform)
+    {   
         var combatState = cardToTransform.CombatState;
         var owner = cardToTransform.Owner;
-        if (combatState != null && owner == cardPlay.Card.Owner && cardPlay.Card != cardToTransform && cardToTransform.Pile?.Type != PileType.Exhaust)
+
+        // Sécurités de base
+        if (combatState == null) return;
+
+        // Empêcher la transformation si la carte n'est plus "jouable" (Exil)
+        if (cardToTransform.Pile?.Type == PileType.Exhaust) return;
+
+        var currentEcho = Character.FiveElements.Echo;
+        CardModel? replacement = null;
+
+     
+        // Si l'Echo a les 5 éléments -> on a tout les element grace au pouvoir spirit form on renvoie un fulu neutre
+        if (currentEcho.Count >= 5)
         {
-            var myElement = cardToTransform.CanonicalElementTags.LastOrDefault();
-            CardModel? replacement = null;
-            if (cardPlay.Card is FiveElementsCard elementCard)
-            {
-                var playedElem = elementCard.CanonicalElementTags.LastOrDefault();
-                replacement = playedElem switch
-                {
-                    CardElementTag.Water   => combatState.CreateCard<WoodFulu>(owner),
-                    CardElementTag.Wood    => combatState.CreateCard<FireFulu>(owner),
-                    CardElementTag.Fire    => combatState.CreateCard<EarthFulu>(owner),
-                    CardElementTag.Earth   => combatState.CreateCard<MetalFulu>(owner),
-                    CardElementTag.Metal   => combatState.CreateCard<WaterFulu>(owner),
-                    CardElementTag.Neutral => combatState.CreateCard<Fulu>(owner),
-                    _                      => throw new ArgumentOutOfRangeException()
-                };
-            }
-            else 
-            {
+            if (cardToTransform is not Fulu) // Evite de transformer un Fulu en lui-même
                 replacement = combatState.CreateCard<Fulu>(owner);
-            }
-            // remove useless transform if card is already of the good element
-            if (replacement is FiveElementsCard replacementElementCard)
+        }
+        // Cycle : Eau -> Bois -> Feu -> Terre -> Métal -> Eau
+        else if (currentEcho.TagsCountAsElement(CardElementTag.Water, owner.Creature))
+            replacement = cardToTransform is WoodFulu ? null : combatState.CreateCard<WoodFulu>(owner);
+        
+        else if (currentEcho.TagsCountAsElement(CardElementTag.Wood, owner.Creature))
+            replacement = cardToTransform is FireFulu ? null : combatState.CreateCard<FireFulu>(owner);
+        
+        else if (currentEcho.TagsCountAsElement(CardElementTag.Fire, owner.Creature))
+            replacement = cardToTransform is EarthFulu ? null : combatState.CreateCard<EarthFulu>(owner);
+        
+        else if (currentEcho.TagsCountAsElement(CardElementTag.Earth, owner.Creature))
+            replacement = cardToTransform is MetalFulu ? null : combatState.CreateCard<MetalFulu>(owner);
+        
+        else if (currentEcho.TagsCountAsElement(CardElementTag.Metal, owner.Creature))
+            replacement = cardToTransform is WaterFulu ? null : combatState.CreateCard<WaterFulu>(owner);
+        else if (cardToTransform is not Fulu) // Evite de transformer un Fulu en lui-même
+            replacement = combatState.CreateCard<Fulu>(owner);
+        
+        // --- EXÉCUTION DE LA TRANSFORMATION ---
+        if (replacement != null && cardToTransform != replacement )
+        {
+            // 1. Transférer l'upgrade
+            if (cardToTransform.IsUpgraded) 
             {
-                var targetElement = replacementElementCard.CanonicalElementTags.LastOrDefault();
-                if (targetElement == myElement) return; //no transformation
+                CardCmd.Upgrade(replacement);
             }
+            
             await CardCmd.Transform(cardToTransform, replacement);
         }
     }
+    
+ 
 
     public static bool IsElement(this FiveElementsCard card, HashSet<CardElementTag> tags)
     {
@@ -145,7 +165,7 @@ public static class FiveElementsCardExtensions
     }
     
     
-    public static bool CountsAsElement(this CardModel card, HashSet<CardElementTag> tags, Creature owner)
+    public static bool CountAsElement(this CardModel card, HashSet<CardElementTag> tags, Creature owner)
     {
         // 1. Si la carte est déjà de cet élément, c'est bon.
         if (card is FiveElementsCard feCard && feCard.IsElement(tags)) 
@@ -165,7 +185,7 @@ public static class FiveElementsCardExtensions
         return false;
     }
     
-    public static bool CountsAsElement(this CardModel card, CardElementTag tag, Creature owner)
+    public static bool CountAsElement(this CardModel card, CardElementTag tag, Creature owner)
     {
         // 1. Si la carte est déjà de cet élément, c'est bon.
         if (card is FiveElementsCard feCard && feCard.IsElement(tag)) 

@@ -32,7 +32,7 @@ public class FireSpiritPower : FiveElementsPower
             return;
         
         // Check if the played card is a fire element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (cardPlay.Card.CountsAsElement(CardElementTag.Fire,Owner))
+        if (cardPlay.Card.CountAsElement(CardElementTag.Fire,Owner))
         {
             if (cardPlay.Card is FireSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas grace au -2
             {

@@ -33,7 +33,10 @@ public sealed class EarthFulu() : EarthCard(0,
     //change element when a card is played
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        await this.TryShiftFuluTransform(cardPlay);
+        // 1. On ne se transforme que si une AUTRE carte est jouée par le propriétaire
+        if (cardPlay.Card == this || Owner != cardPlay.Card.Owner) return;
+        
+        await this.TryShiftFuluTransform();
     }
 
     protected override async Task OnPlay(

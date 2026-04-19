@@ -44,7 +44,7 @@ public class FireEater() : FireCard(1,
             choiceContext, 
             Owner, 
             prefs, 
-            c => (c.CountsAsElement(CardElementTag.Fire,Owner.Creature)) && c != this,
+            c => (c.CountAsElement(CardElementTag.Fire,Owner.Creature)) && c != this,
             this
         );
 

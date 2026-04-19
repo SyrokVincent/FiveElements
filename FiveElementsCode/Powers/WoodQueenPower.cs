@@ -44,7 +44,7 @@ public class WoodQueenPower : FiveElementsPower
             return;
         
         // Check if the drawn card is a wood card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (card.CountsAsElement(CardElementTag.Wood,Owner))
+        if (card.CountAsElement(CardElementTag.Wood,Owner))
         {
             Flash();
             data.TriggerCount++;

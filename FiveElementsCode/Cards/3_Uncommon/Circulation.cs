@@ -38,11 +38,11 @@ public class Circulation() : NeutralCard(1,
         var currentEcho = Character.FiveElements.Echo;
         if (card is FiveElementsCard fec)
         {
-            if (currentEcho.Contains(CardElementTag.Water) && card.CountsAsElement(CardElementTag.Wood,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Wood) && card.CountsAsElement(CardElementTag.Fire,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Fire) && card.CountsAsElement(CardElementTag.Earth,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Earth) && card.CountsAsElement(CardElementTag.Metal,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Metal) && card.CountsAsElement(CardElementTag.Water,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Water) && card.CountAsElement(CardElementTag.Wood,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Wood) && card.CountAsElement(CardElementTag.Fire,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Fire) && card.CountAsElement(CardElementTag.Earth,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Earth) && card.CountAsElement(CardElementTag.Metal,Owner.Creature)) return true;
+            if (currentEcho.Contains(CardElementTag.Metal) && card.CountAsElement(CardElementTag.Water,Owner.Creature)) return true;
         }
         return false;
     }

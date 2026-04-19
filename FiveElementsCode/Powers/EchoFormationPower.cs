@@ -51,7 +51,7 @@ public sealed class EchoFormationPower : FiveElementsPower
 
             // 3. On vérifie si la carte "compte comme" l'élément de l'Echo
             // Cela gère les FiveElementsCards, mais aussi les cartes de base transformées
-            return c.CountsAsElement(currentEcho, Owner);
+            return c.CountAsElement(currentEcho, Owner);
         });
 
         // On applique l'effet de Retain sur chaque carte echo

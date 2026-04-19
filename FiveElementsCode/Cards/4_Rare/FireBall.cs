@@ -33,7 +33,7 @@ public class FireBall() : FireCard(10,
 
             // On compte les cartes Feu (en excluant la carte elle-même)
             int fireCardsInHand = handCards.Count(c => 
-                c.CountsAsElement(CardElementTag.Fire,card.Owner.Creature) &&
+                c.CountAsElement(CardElementTag.Fire,card.Owner.Creature) &&
                 c != card
             );
 
@@ -106,7 +106,7 @@ public class FireBall() : FireCard(10,
         else
         {
             // Fallback pour les cartes classiques
-            wasFire = cardPlay.Card.CountsAsElement(CardElementTag.Fire, Owner.Creature);
+            wasFire = cardPlay.Card.CountAsElement(CardElementTag.Fire, Owner.Creature);
         }
 
         // Si c'était du feu ET que la carte ne s'épuise pas

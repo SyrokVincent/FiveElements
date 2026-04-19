@@ -54,7 +54,7 @@ public class MetalForge() : MetalCard(1,
                     return frozenTags.TagsCountAsElement(CardElementTag.Metal, play.Card.Owner.Creature);
                 }
                 //si pas dans le cache, on utilise la méthode sur la carte
-                return (e.CardPlay.Card.CountsAsElement(CardElementTag.Metal, play.Card.Owner.Creature));
+                return (e.CardPlay.Card.CountAsElement(CardElementTag.Metal, play.Card.Owner.Creature));
 
             });
             

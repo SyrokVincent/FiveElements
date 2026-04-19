@@ -43,7 +43,7 @@ public sealed class FirePlume() : FireCard(0,
                     return frozenTags.TagsCountAsElement(CardElementTag.Fire, card.Owner.Creature);
                 }
                 //si pas dans le cache, on utilise la méthode sur la carte
-                return (e.CardPlay.Card.CountsAsElement(CardElementTag.Fire, card.Owner.Creature));
+                return (e.CardPlay.Card.CountAsElement(CardElementTag.Fire, card.Owner.Creature));
             });
         }),
     ]);

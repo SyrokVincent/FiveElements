@@ -83,11 +83,11 @@ public sealed class AllOrOnePower : FiveElementsPower
             {
                 // FALLBACK : Uniquement pour les cartes de base (Strike/Defend) 
                 // qui n'ont PAS de mécanique d'élément dynamique.
-                if (entry.CardPlay.Card.CountsAsElement(CardElementTag.Water, Owner)) uniqueElements.Add(CardElementTag.Water);
-                if (entry.CardPlay.Card.CountsAsElement(CardElementTag.Wood, Owner))  uniqueElements.Add(CardElementTag.Wood);
-                if (entry.CardPlay.Card.CountsAsElement(CardElementTag.Fire, Owner))  uniqueElements.Add(CardElementTag.Fire);
-                if (entry.CardPlay.Card.CountsAsElement(CardElementTag.Earth, Owner)) uniqueElements.Add(CardElementTag.Earth);
-                if (entry.CardPlay.Card.CountsAsElement(CardElementTag.Metal, Owner)) uniqueElements.Add(CardElementTag.Metal);
+                if (entry.CardPlay.Card.CountAsElement(CardElementTag.Water, Owner)) uniqueElements.Add(CardElementTag.Water);
+                if (entry.CardPlay.Card.CountAsElement(CardElementTag.Wood, Owner))  uniqueElements.Add(CardElementTag.Wood);
+                if (entry.CardPlay.Card.CountAsElement(CardElementTag.Fire, Owner))  uniqueElements.Add(CardElementTag.Fire);
+                if (entry.CardPlay.Card.CountAsElement(CardElementTag.Earth, Owner)) uniqueElements.Add(CardElementTag.Earth);
+                if (entry.CardPlay.Card.CountAsElement(CardElementTag.Metal, Owner)) uniqueElements.Add(CardElementTag.Metal);
             }
             
             // --- OPTIMISATION ---

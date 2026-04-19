@@ -38,7 +38,7 @@ public class WoodClaws() : WoodCard(1,
                     return frozenTags.TagsCountAsElement(CardElementTag.Wood, card.Owner.Creature);
                 }
                 //si pas dans le cache, on utilise la méthode sur la carte
-                return (e.CardPlay.Card.CountsAsElement(CardElementTag.Wood, card.Owner.Creature));
+                return (e.CardPlay.Card.CountAsElement(CardElementTag.Wood, card.Owner.Creature));
             });
         })
     ]);

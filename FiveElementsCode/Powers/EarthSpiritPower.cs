@@ -40,7 +40,7 @@ public class EarthSpiritPower : FiveElementsPower
         
 
         // Check if the played card is a Earth element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (cardPlay.Card.CountsAsElement(CardElementTag.Earth,Owner))
+        if (cardPlay.Card.CountAsElement(CardElementTag.Earth,Owner))
         {
             if (cardPlay.Card is EarthSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
             {

@@ -49,7 +49,7 @@ public class WaterLordPower : FiveElementsPower
         if (!data.AmountsForPlayedCards.Remove(cardPlay.Card, out var amount))
             return;
 
-        if (cardPlay.Card.CountsAsElement(CardElementTag.Water, Owner))
+        if (cardPlay.Card.CountAsElement(CardElementTag.Water, Owner))
         {
             this.Flash();
             await PowerCmd.Apply<WavePower>(Owner, amount, Applier, null);

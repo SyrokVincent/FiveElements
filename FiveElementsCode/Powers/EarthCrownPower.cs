@@ -39,7 +39,7 @@ public class EarthCrownPower : FiveElementsPower
         }
         
         // 1. On vérifie si c'est une carte Earth
-        if (cardPlay.Card.CountsAsElement(CardElementTag.Earth, Owner))
+        if (cardPlay.Card.CountAsElement(CardElementTag.Earth, Owner))
         {
             var data = GetInternalData<Data>();
             

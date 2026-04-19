@@ -53,7 +53,7 @@ public class WaterSpiritPower : FiveElementsPower
             return;
         
         // Check if the played card is a Water element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (cardPlay.Card.CountsAsElement(CardElementTag.Water,Owner))
+        if (cardPlay.Card.CountAsElement(CardElementTag.Water,Owner))
         {
             Flash();
             data.TriggerCount++;
