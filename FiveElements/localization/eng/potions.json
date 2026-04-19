@@ -1,0 +1,20 @@
+﻿{
+
+  "FIVEELEMENTS-BURN_POTION.description": "Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.",
+  "FIVEELEMENTS-BURN_POTION.title": "Burn Potion",
+  
+  "FIVEELEMENTS-WAVE_POTION.description": "Gain {WavePower:diff()} [gold]Wave[/gold].",
+  "FIVEELEMENTS-WAVE_POTION.title": "Wave Potion",
+  
+  "FIVEELEMENTS-CREATION_POTION.description": "Add 1 [gold]Creation[/gold] into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-CREATION_POTION.title": "Creation Potion"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+}

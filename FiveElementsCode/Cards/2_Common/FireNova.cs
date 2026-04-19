@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -43,10 +44,9 @@ public sealed class FireNova() : FireCard(1,
         }
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            foreach (var hittableEnemy in CombatState.HittableEnemies)
-            {
-                await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
-            }
+            var targets = CombatState.HittableEnemies;
+                
+            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
         }
     }
     

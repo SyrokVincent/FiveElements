@@ -19,9 +19,10 @@ public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Comm
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
     
-    //Gain 5 block, 2 wave, Water: (cost is 0)
+    //Gain 4 block, 2 wave, Water: (cost is 0)
+    // block from 5 to 4
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(5, ValueProp.Move),
+        new BlockVar(4, ValueProp.Move),
         new PowerVar<WavePower>(2),
     ]);
 

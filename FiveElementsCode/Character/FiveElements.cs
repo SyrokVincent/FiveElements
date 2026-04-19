@@ -118,18 +118,20 @@ public class FiveElements : PlaceholderCharacterModel
             
             /*
             //WATER
+            //water feel really cool to play right now, might be a bit too strong ?
+            
             finalDeck.Add(ModelDb.Card<WaterCreation>());   //done
-            finalDeck.Add(ModelDb.Card<WaterBubble>());     //done
+            finalDeck.Add(ModelDb.Card<WaterBubble>());     //done too strong ?
             finalDeck.Add(ModelDb.Card<WaterMark>());       //done
             finalDeck.Add(ModelDb.Card<WaterSpirit>());     //done
             finalDeck.Add(ModelDb.Card<WaterCall>());       //done
             finalDeck.Add(ModelDb.Card<WaterLord>());       //done
-            finalDeck.Add(ModelDb.Card<WaterShell>());      //done
+            finalDeck.Add(ModelDb.Card<WaterShell>());      //done weird effect ?
             finalDeck.Add(ModelDb.Card<WaterFlow>());       //done
             finalDeck.Add(ModelDb.Card<WaterTyphoon>());    //done
             finalDeck.Add(ModelDb.Card<WaterTide>());       //done
             finalDeck.Add(ModelDb.Card<WaterTsunami>());    //done
-            finalDeck.Add(ModelDb.Card<WaterVeil>());       //done
+            finalDeck.Add(ModelDb.Card<WaterVeil>());       //done weird effect ?
             finalDeck.Add(ModelDb.Card<WaterCanon>());      //done
             
             finalDeck.Add(ModelDb.Card<WaterDrop>());       //done
