@@ -97,12 +97,12 @@
         <None Include="FiveElements.json"/>
         <None Include="project.godot"/>
         <None Include="FiveElements/**"/>
+        <None Include="scenes\combat\energy_counters\sage_energy_counter.tscn" />
     </ItemGroup>
 
     <ItemGroup>
         <Folder Include="FiveElements\images\card_portraits\big\"/>
         <Folder Include="FiveElements\images\relics\big\"/>
-        <Folder Include="FiveElements\Scenes\" />
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

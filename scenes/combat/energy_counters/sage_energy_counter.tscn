@@ -1,0 +1,135 @@
+[gd_scene load_steps=8 format=3 uid="uid://vn51kkhc8jc1"]
+
+[ext_resource type="Texture2D" uid="uid://cya5oeysn4qao" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_1.png" id="1_tpr1u"]
+[ext_resource type="Texture2D" uid="uid://cmgtjnfm526ua" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_2.png" id="2_601yw"]
+[ext_resource type="Texture2D" uid="uid://673it4ws0im1" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_3.png" id="3_jigvh"]
+[ext_resource type="Texture2D" uid="uid://ytvfr0d0kxx3" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_4.png" id="4_4wviv"]
+[ext_resource type="Texture2D" uid="uid://duxnv5mmsrdqy" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_5.png" id="5_7m6al"]
+[ext_resource type="Texture2D" uid="uid://qd3ulyj2uua2" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_6.png" id="6_1l603"]
+
+[sub_resource type="FontVariation" id="FontVariation_5rki4"]
+
+[node name="FiveelementsEnergyCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
+
+[node name="Layers" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer1" type="TextureRect" parent="Layers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_tpr1u")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RotationLayers" type="Control" parent="Layers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer2" type="TextureRect" parent="Layers/RotationLayers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("2_601yw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer3" type="TextureRect" parent="Layers/RotationLayers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("3_jigvh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer4" type="TextureRect" parent="Layers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_4wviv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer5" type="TextureRect" parent="Layers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_7m6al")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer6" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_1l603")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -29.0
+offset_right = -16.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = SubResource("FontVariation_5rki4")
+theme_override_font_sizes/font_size = 36
+text = "3/3"
+horizontal_alignment = 1
+vertical_alignment = 1

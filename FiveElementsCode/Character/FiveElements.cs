@@ -25,6 +25,14 @@ public class FiveElements : PlaceholderCharacterModel
     }
     
     
+    
+    public override Color EnergyLabelOutlineColor => new Color("0000007F");
+    public override string CustomEnergyCounterPath
+    {
+        get => SceneHelper.GetScenePath($"combat/energy_counters/sage_energy_counter");
+    }
+    
+    
     // Utilisation d'un HashSet pour éviter les doublons d'éléments
     public static HashSet<CardElementTag> Echo = new() { CardElementTag.Neutral };
 
