@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Enums;
+﻿using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -7,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
@@ -35,15 +37,6 @@ public class WaterSpiritPower : FiveElementsPower
     {
         var data = GetInternalData<Data>();
         
-        // Si le pouvoir vient d'être ajouté, on ignore la toute première carte jouée 
-        // (qui est forcément celle qui a créé ce pouvoir)
-        if (data.JustAdded)
-        {
-            data.JustAdded = false;
-            DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-            InvokeDisplayAmountChanged();
-            return;
-        }
         //Only trigger if the owner of this power play a card
         if (Owner != cardPlay.Card.Owner.Creature) 
             return;
@@ -55,11 +48,27 @@ public class WaterSpiritPower : FiveElementsPower
         // Check if the played card is a Water element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
         if (cardPlay.Card.CountAsElement(CardElementTag.Water,Owner))
         {
-            Flash();
-            data.TriggerCount++;
-            DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-            InvokeDisplayAmountChanged();
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner.Player);
+            //si c'est la carte qui donne le pouvoir et qu'on etait a zero stack on ne la compte pas on gagne juste un stack
+            if (cardPlay.Card is WaterSpirit && data.TriggerCount == Amount - 1) 
+            {
+                Flash();
+                //data.TriggerCount++;
+                DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
+                InvokeDisplayAmountChanged();
+                //if (Owner.Player != null) await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner.Player);
+            }
+            else
+            {
+                
+                Flash();
+                data.TriggerCount++;
+                DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
+                InvokeDisplayAmountChanged();
+                if (Owner.Player != null) await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner.Player);
+            }
+            
+            
+            
         }
     }
     
@@ -76,6 +85,5 @@ public class WaterSpiritPower : FiveElementsPower
     private class Data
     {
         public int TriggerCount;
-        public bool JustAdded = true; // to not trigger the first time you play the card giving the power
     }
 }

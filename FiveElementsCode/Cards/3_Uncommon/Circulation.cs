@@ -113,6 +113,7 @@ public class Circulation() : NeutralCard(1,
         {
             //jouer la carte selectioné plus tot
             await CardCmd.AutoPlay(context, _cardToPlay, null,AutoPlayType.Default,false,false);
+            _cardToPlay = null;
             //_clone.RemoveFromState(); 
         }
     }
