@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -17,8 +18,9 @@ public class WoodSeed() : WoodCard(0,
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
 
-    //Gain 2 Strength this turn,
-    //Wood:(draw 1)
+    //If this is the first time this card has been played this turn, draw 1 card.
+    //Wood:(Gain 2 Strength this turn)
+    //swapped the thing and added limit per turn
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodSeedPower>(2),
         new CardsVar(1),
@@ -40,10 +42,15 @@ public class WoodSeed() : WoodCard(0,
         if (CombatState == null) return;
 
         //await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WoodSeedPower>(this, DynamicVars["WoodSeedPower"].BaseValue);
-        if (CardElementTag.Wood.IsActive(CombatState))
+        
+        if (!HasBeenPlayedThisTurn)
         {
             await CommonActions.Draw(this, choiceContext);
+        }
+        
+        if (CardElementTag.Wood.IsActive(CombatState))
+        {
+            await CommonActions.ApplySelf<WoodSeedPower>(this, DynamicVars["WoodSeedPower"].BaseValue);
         }
 
     }
@@ -51,5 +58,18 @@ public class WoodSeed() : WoodCard(0,
     protected override void OnUpgrade()
     {
         DynamicVars["WoodSeedPower"].UpgradeValueBy(1);
+    }
+    
+    // LOGIQUE DE VÉRIFICATION DU TOUR
+    private bool HasBeenPlayedThisTurn
+    {
+        get
+        {
+            // On fouille dans l'historique des cartes terminées pour voir si CETTE instance existe déjà
+            return CombatManager.Instance.History.CardPlaysFinished.Any(e => 
+                e.CardPlay.Card == this && 
+                e.HappenedThisTurn(CombatState)
+            );
+        }
     }
 }

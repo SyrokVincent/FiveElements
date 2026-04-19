@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._5_Token;
 
@@ -12,9 +13,13 @@ public sealed class EarthFulu() : EarthCard(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
+    
+    //I think it's needed for enchantment?
+    public override bool GainsBlock => true;
+    
     //Exhaust, Shift (Ethereal?)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        
+        new BlockVar(2,ValueProp.Move),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
@@ -36,6 +41,7 @@ public sealed class EarthFulu() : EarthCard(0,
         CardPlay play)
     {
         //nothing to do ?
+        await CommonActions.CardBlock(this, play);
     }
 
     protected override void OnUpgrade()

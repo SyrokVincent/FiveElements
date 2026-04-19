@@ -14,6 +14,8 @@ public class WavePower : FiveElementsPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
+    //added decrement ???
+    
      public override async Task AfterPlayerTurnStart(
          PlayerChoiceContext choiceContext, 
          Player player)
@@ -45,17 +47,16 @@ public class WavePower : FiveElementsPower
                  {
                      await CreatureCmd.Damage(choiceContext, t, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
                  }
+                 
              }
              else
              {
                  await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Move | ValueProp.Unpowered, null,
                      null);
              }
-        }
+         } 
+         await PowerCmd.Decrement(this);
     }
     
-    private bool HasWaterTsunami
-    {
-        get => this.IsMutable && this.Owner.HasPower<WaterTsunamiPower>();
-    }
+    private bool HasWaterTsunami => this.IsMutable && this.Owner.HasPower<WaterTsunamiPower>();
 }

@@ -21,18 +21,20 @@ public sealed class Activation() : NeutralCard(1,
     public override bool GainsBlock => true;
     protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
     
-    // Water:(1 energy, 2 wave),
-    // Wood:(Draw 1),
+    // Water:(1 energy, 3 wave),
+    // Wood:(Draw 1 and 1 temp str),
     // Fire:(Burn 3 to all enemies),
     // Earth:(5 block),
     // Metal:(2 vigor) 
     //
-    //VALUE HERE need to be the same as on Ultimate form
+    // added 1 temp str and 1 wave
     //
+    //VALUE HERE need to be the same as on Ultimate form
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
-        new PowerVar<WavePower>(2),
+        new PowerVar<WavePower>(3),
         new CardsVar(1), 
+        new PowerVar<ActivationTempStrengthPower>(1),
         new PowerVar<BurnPower>(3),
         new BlockVar(5, ValueProp.Move), 
         new PowerVar<VigorPower>(2),
@@ -73,6 +75,7 @@ public sealed class Activation() : NeutralCard(1,
         if (CardElementTag.Wood.IsActive(CombatState))
         {
             await CommonActions.Draw(this, choiceContext);
+            await CommonActions.ApplySelf<ActivationTempStrengthPower>(this, DynamicVars["ActivationTempStrengthPower"].BaseValue);
         }   
         if (CardElementTag.Fire.IsActive(CombatState))
         {

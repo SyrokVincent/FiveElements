@@ -29,8 +29,9 @@ public class UltimateFormPower : FiveElementsPower
     //VALUE here need to be the same as on activation
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
-        new PowerVar<WavePower>(2),
+        new PowerVar<WavePower>(3),
         new CardsVar(1), 
+        new PowerVar<ActivationTempStrengthPower>(1),
         new PowerVar<BurnPower>(3),
         new BlockVar(5, ValueProp.Move), 
         new PowerVar<VigorPower>(2),
@@ -101,6 +102,7 @@ public class UltimateFormPower : FiveElementsPower
         if (cardWas.Contains(CardElementTag.Wood) && snapshotEcho.IsGenerating(CardElementTag.Wood))
         {
             await CardPileCmd.Draw(context, DynamicVars.Cards.BaseValue * Amount, Owner.Player);
+            await PowerCmd.Apply<ActivationTempStrengthPower>(Owner, DynamicVars["ActivationTempStrengthPower"].BaseValue * Amount, Owner, null);
             needUpgrade = true;
         }
         if (cardWas.Contains(CardElementTag.Fire) && snapshotEcho.IsGenerating(CardElementTag.Fire))

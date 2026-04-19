@@ -46,12 +46,13 @@ public class Domination() : NeutralCard(1,
     }
     
     
-    //Exhaust,Transform a card that Echo dominate, into the previous card and play it
+    //Transform a card that Echo dominate, into the previous card and play it
+    // removed exhaust
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
-        CardKeyword.Exhaust, 
+        //CardKeyword.Exhaust, 
     ]);
 
     //gain echo and elem: description, remove concat if I don't want them

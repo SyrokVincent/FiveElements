@@ -15,12 +15,14 @@ public class Decimation() : NeutralCard(5,
     TargetType.AnyEnemy)
 {
     
-    //Reduce cost by 1 for each diferent element played this turn, deal 20
+    //Retain, Reduce cost by 1 for each different element played this turn, deal 20
+    //added retain (too hard to play without thhat?
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(20, ValueProp.Move)
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        CardKeyword.Retain,
     ]);
 
     

@@ -65,8 +65,8 @@ public class FiveElements : PlaceholderCharacterModel
     public static readonly Color Color = new("ffffff");
 
     public override Color NameColor => Color;
-    public override CharacterGender Gender => CharacterGender.Neutral;
-    public override int StartingHp => 70;
+    public override CharacterGender Gender => CharacterGender.Feminine;
+    public override int StartingHp => 75;
     
     //deck with random starting point in the strike n defend, so the upgrading event won't always upgrade the same element
     // it will still upgrade both card of a same element thought
@@ -154,7 +154,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<FireWeaving>());     //done is it good?
             finalDeck.Add(ModelDb.Card<FireStorm>());       //done
             finalDeck.Add(ModelDb.Card<FireForce>());       //done
-            finalDeck.Add(ModelDb.Card<FireEater>());       //done
+            finalDeck.Add(ModelDb.Card<FireEater>());       //done need to do smthing when exhaust nothing ?
             finalDeck.Add(ModelDb.Card<FireWings>());       //done
             finalDeck.Add(ModelDb.Card<FireBall>());        //done
             finalDeck.Add(ModelDb.Card<FireDance>());       //done is it good to be rare?
@@ -207,13 +207,13 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Incantation>());     //done
             finalDeck.Add(ModelDb.Card<Decimation>());      //done
             finalDeck.Add(ModelDb.Card<Meditation>());      //done could not filter draw, had to change it a bit, don't like it it's weird
-            finalDeck.Add(ModelDb.Card<Circulation>());     //done need upgrade
+            finalDeck.Add(ModelDb.Card<Circulation>());     //done maybe make it cost 0(or refun itself) if it can't select anything
             finalDeck.Add(ModelDb.Card<Recycle>());         //done
             finalDeck.Add(ModelDb.Card<UltimateForm>());    //done
             finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it choose between the 2 effects ?
             finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
             finalDeck.Add(ModelDb.Card<Annihilation>());    //done
-            finalDeck.Add(ModelDb.Card<Domination>());      //done need upgrade
+            finalDeck.Add(ModelDb.Card<Domination>());      //done maybe make it cost 0(or refun itself) if it can't select anything
             
             finalDeck.Add(ModelDb.Card<Fulu>());            //done maybe go back to fulu transforming and give small buff on each fulu?
             finalDeck.Add(ModelDb.Card<More>());            //done

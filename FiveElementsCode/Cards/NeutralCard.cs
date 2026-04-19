@@ -51,6 +51,7 @@ public abstract class NeutralCard : FiveElementsCard
     {
         if (Owner != cardPlay.Card.Owner || cardPlay.Card == this) return Task.CompletedTask;
         
+        //maybe useless?
         // On vérifie si la pile actuelle est une pile de COMBAT (Main, Pioche, Défausse, Exhaust)
         // Si la carte est dans l'historique ou le deck de base, Pile sera null ou non-combat.
         if (this.Pile == null || !this.Pile.Type.IsCombatPile()) 

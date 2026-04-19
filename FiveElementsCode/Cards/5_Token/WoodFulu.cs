@@ -1,9 +1,12 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._5_Token;
 
@@ -14,7 +17,7 @@ public sealed class WoodFulu() : WoodCard(0,
 {
     //Exhaust, Shift (Ethereal?)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        
+        new PowerVar<WoodTempStrengthPower>(1),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
@@ -23,6 +26,9 @@ public sealed class WoodFulu() : WoodCard(0,
         FiveElementsKeywords.Echo,
         FiveElementsKeywords.Generate,
         CardKeyword.Exhaust, 
+    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromPower<StrengthPower>(),
     ];
     
     //change element when a card is played
@@ -36,6 +42,7 @@ public sealed class WoodFulu() : WoodCard(0,
         CardPlay play)
     {
         //nothing to do ?
+        await CommonActions.ApplySelf<WoodTempStrengthPower>(this, DynamicVars["WoodTempStrengthPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

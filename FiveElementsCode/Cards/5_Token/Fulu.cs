@@ -1,4 +1,5 @@
 ﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -24,13 +25,13 @@ public sealed class Fulu() : NeutralCard(0,
         CardKeyword.Exhaust, 
     ];
 
-/*  //removed for now need to find a way to change the texture instead
+    // need to find a way to change the texture instead ?? 
     //change element when a card is played
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
         await this.TryShiftFuluTransform(cardPlay);
     }
-*/
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
