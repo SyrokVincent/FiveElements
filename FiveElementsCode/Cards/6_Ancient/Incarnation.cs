@@ -1,6 +1,5 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Utils;
-using FiveElements.FiveElementsCode.Cards._6_Ancient;
+﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Interfaces;
@@ -10,58 +9,39 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards._1_Basic;
+namespace FiveElements.FiveElementsCode.Cards._6_Ancient;
 
-
-public static class ActivationVars
+public class Incarnation() : NeutralCard(0,
+    CardType.Skill, CardRarity.Ancient,
+    TargetType.Self), IOnElementStateChanged
 {
-    // On définit les variables réutilisables pour les differente carte qui parle de Activation ici
-    
-    public static EnergyVar Energy => new EnergyVar(1);
-    public static PowerVar<WavePower> Wave => new PowerVar<WavePower>(3);
-    public static CardsVar Cards => new CardsVar(1);
-    public static PowerVar<ActivationTempStrengthPower> TempStrength => new PowerVar<ActivationTempStrengthPower>(1);
-    public static PowerVar<BurnPower> Burn => new PowerVar<BurnPower>(3);
-    public static BlockVar Block => new BlockVar(5, ValueProp.Move);
-    public static PowerVar<VigorPower> Vigor => new PowerVar<VigorPower>(2);
-}
 
-
-public sealed class Activation() : NeutralCard(1,
-    CardType.Skill, CardRarity.Basic,
-    TargetType.Self), IOnElementStateChanged, ITranscendenceCard
-{
-    //I think it's needed for enchantment?
     public override bool GainsBlock => true;
+
     protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
-    
-    // Water:(1 energy, 3 wave),
-    // Wood:(Draw 1 and 1 temp str),
-    // Fire:(Burn 3 to all enemies),
-    // Earth:(5 block),
-    // Metal:(2 vigor) 
-    //
-    // added 1 temp str and 1 wave
-    //
-    //VALUE HERE need to be the same as on Ultimate form that why i use Activationvars
+
+    //Water:(1 energy, 5 wave),
+    //Wood:(Draw 1, 3temp str),
+    //Fire:(Burn 8 to all enemies),
+    //Earth:(10 block),
+    //Metal:(5 vigor), 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         
         //water
-        ActivationVars.Energy,
-        ActivationVars.Wave,
+        new EnergyVar(1),
+        new PowerVar<WavePower>(5),
         //wood
-        ActivationVars.Cards,
-        ActivationVars.TempStrength,
+        new CardsVar(1),
+        new PowerVar<IncarnationTempStrengthPower>(3),
         //fire
-        ActivationVars.Burn,
+        new PowerVar<BurnPower>(8),
         //earth
-        ActivationVars.Block,
+        new BlockVar(10,ValueProp.Move),
         //metal
-        ActivationVars.Vigor,
+        new PowerVar<VigorPower>(5),
         
         new BoolVar("isWaterOn"),
         new BoolVar("isWoodOn"),
@@ -69,10 +49,10 @@ public sealed class Activation() : NeutralCard(1,
         new BoolVar("isEarthOn"),
         new BoolVar("isMetalOn"),
     ]);
-    
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [
-    ];
-    
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+    ]);
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
@@ -84,11 +64,11 @@ public sealed class Activation() : NeutralCard(1,
         HoverTipFactory.FromPower<BurnPower>(),
         HoverTipFactory.FromPower<VigorPower>(),
     ];
-    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
+        
         await base.OnPlay(choiceContext, play);
         if (CombatState == null) return;
         if (CardElementTag.Water.IsActive(CombatState))
@@ -99,7 +79,7 @@ public sealed class Activation() : NeutralCard(1,
         if (CardElementTag.Wood.IsActive(CombatState))
         {
             await CommonActions.Draw(this, choiceContext);
-            await CommonActions.ApplySelf<ActivationTempStrengthPower>(this, DynamicVars["ActivationTempStrengthPower"].BaseValue);
+            await CommonActions.ApplySelf<IncarnationTempStrengthPower>(this, DynamicVars["IncarnationTempStrengthPower"].BaseValue);
         }   
         if (CardElementTag.Fire.IsActive(CombatState))
         {
@@ -114,7 +94,9 @@ public sealed class Activation() : NeutralCard(1,
         {
             await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
         }
+
     }
+
     protected override void OnUpgrade()
     {
         AddKeyword(FiveElementsKeywords.Attune);
@@ -149,10 +131,5 @@ public sealed class Activation() : NeutralCard(1,
             DynamicVars[varName].BaseValue = isActive ? 1 : 0;
         }
         await Task.CompletedTask;
-    }
-
-    public CardModel GetTranscendenceTransformedCard()
-    {
-        return ModelDb.Card<Incarnation>();
     }
 }

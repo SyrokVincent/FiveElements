@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Cards._2_Common;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Cards._4_Rare;
+using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;
@@ -235,7 +236,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<>()); 
             finalDeck.Add(ModelDb.Card<>()); 
             //ancient
-            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<Incarnation>());     //done
             finalDeck.Add(ModelDb.Card<SpiritsForm>());     //done but maybe not yet working for all stuff that say foreach fire/etc card played this turn
             
             */

@@ -1,4 +1,5 @@
 ﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -16,7 +17,7 @@ public class Decimation() : NeutralCard(5,
 {
     
     //Retain, Reduce cost by 1 for each different element played this turn, deal 20
-    //added retain (too hard to play without thhat?
+    //added retain (too hard to play without that?
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(20, ValueProp.Move)
     ]);
@@ -50,6 +51,7 @@ public class Decimation() : NeutralCard(5,
         //Only trigger if the owner of this card play a card
         if (Owner != cardPlay.Card.Owner) 
             return;
+        
         
         // Calculer le nombre d'éléments distincts joués ce tour via le CACHE
         int distinctElements = CalculateDistinctElementsThisTurn();

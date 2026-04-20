@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards._5_Token;
+using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
@@ -22,6 +23,8 @@ namespace FiveElements.FiveElementsCode.Relics;
 public class Relic1() : FiveElementsRelic
 {
 
+    public override RelicModel? GetUpgradeReplacement() => (RelicModel) ModelDb.Relic<Relic2>();
+    
     public override RelicRarity Rarity => RelicRarity.Starter;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
@@ -105,7 +108,7 @@ public class Relic1() : FiveElementsRelic
         // On vérifie si la carte possède un composant d'élément
         if (cardPlay.Card is FiveElementsCard elementCard) {
             if (!Character.FiveElements.Echo.SetEquals(cardWas)) {
-                if (elementCard.IsNeutral() && Owner.Creature.HasPower<SpiritsFormPower>())
+                if (elementCard.IsNeutral() && Owner.Creature.HasPower<SpiritsFormPower>() && cardPlay.Card is not SpiritsForm)
                 {
                     Character.FiveElements.SetEchoToAllElements();
                 }

@@ -40,7 +40,7 @@ public class WoodFury() : WoodCard(0,
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         var xValue = ResolveEnergyXValue() * 2;
         
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(CombatState))
         {
             xValue = ResolveEnergyXValue() * 3;
         }
