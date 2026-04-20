@@ -38,7 +38,7 @@ public sealed class EarthCreation() : EarthCard(1,
         await CommonActions.CardBlock(this, play);
         if (CardElementTag.Earth.IsActive(CombatState))
         {
-            CombatState.GetElementalStatus().AddEssence(CardElementTag.Earth, 1);
+            CombatState.GetElementalStatus().AddEssence(CardElementTag.Earth, 1,choiceContext);
         }
 
     }

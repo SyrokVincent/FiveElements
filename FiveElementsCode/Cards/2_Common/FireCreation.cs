@@ -43,7 +43,7 @@ public sealed class FireCreation() : FireCard(1,
     
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-           CombatState.GetElementalStatus().AddEssence(CardElementTag.Fire, 1);
+           CombatState.GetElementalStatus().AddEssence(CardElementTag.Fire, 1,choiceContext);
         }
 
     }

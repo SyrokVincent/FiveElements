@@ -2,10 +2,10 @@
 
   "FIVEELEMENTS-RELIC1.description": "At the start of each combat, add [gold]Creation[/gold] into your hand.",
   "FIVEELEMENTS-RELIC1.flavor": "(also track your element???)",
-  "FIVEELEMENTS-RELIC1.title": "Relic1",
+  "FIVEELEMENTS-RELIC1.title": "Relic 1",
 
 
-  "FIVEELEMENTS-RELIC2.description": "(same as 1 don't pick that) At the start of each combat, add [gold]Creation[/gold] into your hand.",
+  "FIVEELEMENTS-RELIC2.description": "At the start of each combat, add [gold]Creation[/gold] into your hand.\nTrigger the corresponding effect on the card [gold]Activation[/gold] when you gain an [gold]Essence[/gold].",
   "FIVEELEMENTS-RELIC2.flavor": "",
   "FIVEELEMENTS-RELIC2.title": "Relic 2"
   

@@ -42,7 +42,7 @@ public sealed class WaterCreation() : WaterCard(1,
         await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1);
+            CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1,choiceContext);
         }
 
     }

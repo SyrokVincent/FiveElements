@@ -224,7 +224,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it choose between the 2 effects ?
             finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
             finalDeck.Add(ModelDb.Card<Annihilation>());    //done
-            finalDeck.Add(ModelDb.Card<Domination>());      //done maybe make it cost 0(or refun itself) if it can't select anything
+            finalDeck.Add(ModelDb.Card<Domination>());      //done add back exhaust ? and maybe make it cost 0(or refun itself) if it can't select anything
             
             finalDeck.Add(ModelDb.Card<Fulu>());            //done
             finalDeck.Add(ModelDb.Card<More>());            //done

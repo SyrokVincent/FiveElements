@@ -1,6 +1,7 @@
 ﻿using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace FiveElements.FiveElementsCode.Models;
 
@@ -12,9 +13,13 @@ public class Element
     private readonly Dictionary<CardElementTag, int> _essences = new();
 
     public Element(CombatState combatState) => CombatState = combatState;
+    
+    // --- LE NOUVEL EVENEMENT ---
+    // Cet événement transmet l'élément concerné et la nouvelle valeur
+    public event Action<CardElementTag, int, PlayerChoiceContext?>? OnEssenceChanged;
 
     // Une méthode générique pour modifier n'importe quel élément
-    public void AddEssence(CardElementTag elem, int amount)
+    public void AddEssence(CardElementTag elem, int amount, PlayerChoiceContext? context = null)
     {
         int current = GetEssence(elem);
         int next = Math.Max(0, current + amount); // On évite les essences négatives
@@ -22,10 +27,17 @@ public class Element
         if (current != next)
         {
             _essences[elem] = next;
+            // On passe le contexte à la fonction After
+            OnEssenceChanged?.Invoke(elem, next, context);
+            
             // On notifie les cartes du changement pour cet élément spécifique
             _ = FiveElementsCardExtensions.CheckAndNotify(CombatState, elem);
         }
     } 
+    
+    
+    
+    
     /*
     private static CardElementTag _elementOfEcho = CardElementTag.Neutral;
 
@@ -47,7 +59,8 @@ public class Element
         }
     }
     */
-
+    
+    
     public void ResetEssence(CardElementTag elem)
     {
         // On vérifie si l'essence actuelle n'est pas déjà à 0
@@ -55,6 +68,9 @@ public class Element
 
         // On remet à zéro dans le dictionnaire
         _essences[elem] = 0;
+        
+        // On prévient aussi l'UI que c'est retombé à 0
+        OnEssenceChanged?.Invoke(elem, 0,null);
 
         // TRES IMPORTANT : On notifie les cartes que l'élément a disparu
         _ = FiveElementsCardExtensions.CheckAndNotify(CombatState, elem);

@@ -36,7 +36,7 @@ public sealed class WoodCreation() : WoodCard(1,
         await CommonActions.ApplySelf<WoodCreationStrengthPower>(this, DynamicVars["WoodCreationStrengthPower"].BaseValue);
         if (CardElementTag.Wood.IsActive(this.CombatState))
         {
-            CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1);
+            CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1,choiceContext);
         }
 
     }

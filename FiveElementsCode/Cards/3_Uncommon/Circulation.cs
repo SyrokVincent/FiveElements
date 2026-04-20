@@ -99,7 +99,7 @@ public class Circulation() : NeutralCard(1,
                 // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
                 if (tag != CardElementTag.Neutral)
                 {
-                    if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1);
+                    if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1,choiceContext);
                 }
             }
             
