@@ -13,6 +13,21 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._1_Basic;
 
+
+public static class ActivationVars
+{
+    // On définit les variables réutilisables pour les differente carte qui parle de Activation ici
+    
+    public static EnergyVar Energy => new EnergyVar(1);
+    public static PowerVar<WavePower> Wave => new PowerVar<WavePower>(3);
+    public static CardsVar Cards => new CardsVar(1);
+    public static PowerVar<ActivationTempStrengthPower> TempStrength => new PowerVar<ActivationTempStrengthPower>(1);
+    public static PowerVar<BurnPower> Burn => new PowerVar<BurnPower>(3);
+    public static BlockVar Block => new BlockVar(5, ValueProp.Move);
+    public static PowerVar<VigorPower> Vigor => new PowerVar<VigorPower>(2);
+}
+
+
 public sealed class Activation() : NeutralCard(1,
     CardType.Skill, CardRarity.Basic,
     TargetType.Self), IOnElementStateChanged
@@ -31,19 +46,25 @@ public sealed class Activation() : NeutralCard(1,
     //
     //VALUE HERE need to be the same as on Ultimate form
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new EnergyVar(1), 
-        new PowerVar<WavePower>(3),
-        new CardsVar(1), 
-        new PowerVar<ActivationTempStrengthPower>(1),
-        new PowerVar<BurnPower>(3),
-        new BlockVar(5, ValueProp.Move), 
-        new PowerVar<VigorPower>(2),
+        
+        //water
+        ActivationVars.Energy,
+        ActivationVars.Wave,
+        //wood
+        ActivationVars.Cards,
+        ActivationVars.TempStrength,
+        //fire
+        ActivationVars.Burn,
+        //earth
+        ActivationVars.Block,
+        //metal
+        ActivationVars.Vigor,
+        
         new BoolVar("isWaterOn"),
         new BoolVar("isWoodOn"),
         new BoolVar("isFireOn"),
         new BoolVar("isEarthOn"),
         new BoolVar("isMetalOn"),
-
     ]);
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
@@ -79,10 +100,8 @@ public sealed class Activation() : NeutralCard(1,
         }   
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            foreach (var hittableEnemy in CombatState.HittableEnemies)
-            {
-                await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
-            }
+            var targets = CombatState.HittableEnemies;
+            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
         }
         if (CardElementTag.Earth.IsActive(CombatState))
         {

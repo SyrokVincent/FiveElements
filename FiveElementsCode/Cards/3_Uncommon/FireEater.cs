@@ -61,10 +61,10 @@ public class FireEater() : FireCard(1,
             for (var i = 0; i < cardModels.Count; i++)
             {
                 if (CombatState != null)
-                    foreach (var hittableEnemy in CombatState.HittableEnemies)
-                    {
-                        await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
-                    }
+                {
+                    var targets = CombatState.HittableEnemies;
+                    await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
+                }
             }
         }
     }

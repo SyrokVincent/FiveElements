@@ -216,16 +216,16 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<Absorption>());      //done
             finalDeck.Add(ModelDb.Card<Incantation>());     //done
             finalDeck.Add(ModelDb.Card<Decimation>());      //done
-            finalDeck.Add(ModelDb.Card<Meditation>());      //done could not filter draw, had to change it a bit, don't like it it's weird
-            finalDeck.Add(ModelDb.Card<Circulation>());     //done maybe make it cost 0(or refun itself) if it can't select anything
-            finalDeck.Add(ModelDb.Card<Recycle>());         //done
+            finalDeck.Add(ModelDb.Card<Meditation>());      //done 
+            finalDeck.Add(ModelDb.Card<Circulation>());     //done probably remove essence gen? and maybe make it cost 0(or refun itself) if it can't select anything
+            finalDeck.Add(ModelDb.Card<Recycle>());         //done maybe remove retain and add shift?
             finalDeck.Add(ModelDb.Card<UltimateForm>());    //done
             finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it choose between the 2 effects ?
             finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
             finalDeck.Add(ModelDb.Card<Annihilation>());    //done
             finalDeck.Add(ModelDb.Card<Domination>());      //done maybe make it cost 0(or refun itself) if it can't select anything
             
-            finalDeck.Add(ModelDb.Card<Fulu>());            //done maybe go back to fulu transforming and give small buff on each fulu?
+            finalDeck.Add(ModelDb.Card<Fulu>());            //done
             finalDeck.Add(ModelDb.Card<More>());            //done
             finalDeck.Add(ModelDb.Card<Less>());            //done
             

@@ -1,6 +1,8 @@
 ﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Powers;
 using Godot;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -8,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
@@ -17,9 +20,26 @@ public class Meditation() : NeutralCard(1,
 {
 
 
-    //Select 1 element card, gain it's essence and draw 3+1
+    //(old)Select 1 element card, gain it's essence and draw 3+1
+    //
+    //(new) Draw 1, Select 1 element card, trigger the corresponding effect on the card Activation, 
+    //
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new CardsVar(3),
+        //need that if i ever want it to draw 2 lol
+        //new CardsVar("Draw",1),
+        
+        //water
+        ActivationVars.Energy,
+        ActivationVars.Wave,
+        //wood
+        ActivationVars.Cards,
+        ActivationVars.TempStrength,
+        //fire
+        ActivationVars.Burn,
+        //earth
+        ActivationVars.Block,
+        //metal
+        ActivationVars.Vigor,
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -27,7 +47,7 @@ public class Meditation() : NeutralCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Essence),
+        HoverTipFactory.FromCard<Activation>(),
     ]);
     
     
@@ -38,6 +58,9 @@ public class Meditation() : NeutralCard(1,
         await base.OnPlay(choiceContext, play);
         
         if (CombatState == null) return;
+        
+       
+        await CardPileCmd.Draw(choiceContext, 1, Owner);
         
         // 1. Préparer les préférences
         CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
@@ -54,25 +77,39 @@ public class Meditation() : NeutralCard(1,
         // 3. Vérifier si une carte a bien été choisie
         var selectedModel = selection?.FirstOrDefault();
     
-        if (selectedModel is FiveElementsCard card)
+        if (selectedModel == null ) return;
+
+        // 1. Déclenchement des effets selon l'élément
+        if (selectedModel.CountAsElement(CardElementTag.Water,Owner.Creature))
         {
-            // will cause chaos when some card will have multiple element?
-            // On boucle sur tous les tags de la carte choisie
-            // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
-            foreach (var tag in card.ElementTags.Where(tag => tag != CardElementTag.Neutral))
-            {
-                if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1);
-                GD.Print($"Essence ajoutée ! Élément : {tag}");
-            }
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
+            await PowerCmd.Apply<WavePower>(Owner.Creature, DynamicVars["WavePower"].BaseValue, Owner.Creature, null);
+        }
+        if (selectedModel.CountAsElement(CardElementTag.Wood, Owner.Creature))
+        {
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+            await PowerCmd.Apply<ActivationTempStrengthPower>(Owner.Creature, DynamicVars["ActivationTempStrengthPower"].BaseValue, Owner.Creature, null);
+        }
+        if (selectedModel.CountAsElement(CardElementTag.Fire, Owner.Creature))
+        {
+            var targets = CombatState.HittableEnemies;
+            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
+        }
+        if (selectedModel.CountAsElement(CardElementTag.Earth, Owner.Creature))
+        {
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue, DynamicVars.Block.Props, null);
+
+        }
+        if (selectedModel.CountAsElement(CardElementTag.Metal, Owner.Creature))
+        {
+            await PowerCmd.Apply<VigorPower>(Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, null);
         }
         
-        // 4 draw cards
-        await CommonActions.Draw(this, choiceContext);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1);
+        AddKeyword(FiveElementsKeywords.Attune);
     }
     
     

@@ -28,13 +28,18 @@ public class UltimateFormPower : FiveElementsPower
     
     //VALUE here need to be the same as on activation
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new EnergyVar(1), 
-        new PowerVar<WavePower>(3),
-        new CardsVar(1), 
-        new PowerVar<ActivationTempStrengthPower>(1),
-        new PowerVar<BurnPower>(3),
-        new BlockVar(5, ValueProp.Move), 
-        new PowerVar<VigorPower>(2),
+        //water
+        ActivationVars.Energy,
+        ActivationVars.Wave,
+        //wood
+        ActivationVars.Cards,
+        ActivationVars.TempStrength,
+        //fire
+        ActivationVars.Burn,
+        //earth
+        ActivationVars.Block,
+        //metal
+        ActivationVars.Vigor,
         new IntVar("ElemEcho",0)
     ]);
 
@@ -107,10 +112,8 @@ public class UltimateFormPower : FiveElementsPower
         }
         if (cardWas.Contains(CardElementTag.Fire) && snapshotEcho.IsGenerating(CardElementTag.Fire))
         {
-            foreach (var hittableEnemy in CombatState.HittableEnemies)
-            {
-                await PowerCmd.Apply<BurnPower>(hittableEnemy, DynamicVars["BurnPower"].BaseValue * Amount, Owner, null);
-            }
+            var targets = CombatState.HittableEnemies;
+            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue * Amount, this.Owner, null);
             needUpgrade = true;
         }
         if (cardWas.Contains(CardElementTag.Earth) && snapshotEcho.IsGenerating(CardElementTag.Earth))

@@ -100,10 +100,8 @@ public class FireBlossom() : FireCard(1,
         }
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            foreach (var hittableEnemy in CombatState.HittableEnemies)
-            {
-                await PowerCmd.Apply<FireBlossomPower>(hittableEnemy, DynamicVars["FireBlossomPower"].BaseValue, Owner.Creature, this);
-            }
+            var targets = CombatState.HittableEnemies;
+            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["FireBlossomPower"].BaseValue, this.Owner.Creature, this);
         }
     }
 

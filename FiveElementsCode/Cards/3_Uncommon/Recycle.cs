@@ -20,6 +20,8 @@ public class Recycle() : NeutralCard(0,
 
   
     //Choose a card in your hand to Transform into a card of the element it generate, (choose between 3? maybe broken it's 3 from 13)
+    //
+    //added:  it cost 1 less this turn
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1),
     ]);
@@ -99,7 +101,7 @@ public class Recycle() : NeutralCard(0,
             if (selectedChoice != null)
             {
                 await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, IsUpgraded,CombatState);
-                
+                selectedChoice.EnergyCost.AddThisTurnOrUntilPlayed(-1);
             }
         }
         else
@@ -110,7 +112,7 @@ public class Recycle() : NeutralCard(0,
             if (selectedChoice != null)
             {
                 await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, IsUpgraded,CombatState);
-
+                selectedChoice.EnergyCost.AddThisTurnOrUntilPlayed(-1);
             }
         }
         

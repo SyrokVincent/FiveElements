@@ -8,6 +8,12 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
+
+public static class FireSpiritVars
+{
+    public static PowerVar<FireSpiritPower> FireSpirit => new PowerVar<FireSpiritPower>(2);
+}
+
 public sealed class FireSpirit() : FireCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
@@ -15,7 +21,7 @@ public sealed class FireSpirit() : FireCard(1,
 
     //Apply 2 burn to all enemies when you play a fire card 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<FireSpiritPower>(2),//this number need to be the same as the one on firespiritpower
+        FireSpiritVars.FireSpirit, //pass this number because it need to be the same as the one on firespiritpower
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

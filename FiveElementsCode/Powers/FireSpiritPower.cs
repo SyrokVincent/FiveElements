@@ -21,6 +21,7 @@ public class FireSpiritPower : FiveElementsPower
     ];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        FireSpiritVars.FireSpirit, //this number need to be the same as the one on firespirit
     ]);
     
     
@@ -34,22 +35,18 @@ public class FireSpiritPower : FiveElementsPower
         // Check if the played card is a fire element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
         if (cardPlay.Card.CountAsElement(CardElementTag.Fire,Owner))
         {
-            if (cardPlay.Card is FireSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas grace au -2
+            if (cardPlay.Card is FireSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas grace au -DynamicVars["FireSpiritPower"].BaseValue)
             {
                 
                 Flash();
-                foreach (var hittableEnemy in CombatState.HittableEnemies)
-                {
-                    await PowerCmd.Apply<BurnPower>(hittableEnemy, Amount-2, Owner,null);//this number need to be the same as the one on firespirit
-                }
+                var targets = CombatState.HittableEnemies;
+                await PowerCmd.Apply<BurnPower>(targets, Amount - DynamicVars["FireSpiritPower"].BaseValue, this.Owner, null);
             }
             else
             {
                 Flash();
-                foreach (var hittableEnemy in CombatState.HittableEnemies)
-                {
-                    await PowerCmd.Apply<BurnPower>(hittableEnemy, Amount, Owner,null);
-                }
+                var targets = CombatState.HittableEnemies;
+                await PowerCmd.Apply<BurnPower>(targets, Amount, this.Owner, null);
             }
             
         }

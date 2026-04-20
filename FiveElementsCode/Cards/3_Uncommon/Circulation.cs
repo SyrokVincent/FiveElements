@@ -50,6 +50,8 @@ public class Circulation() : NeutralCard(1,
 
     //Select a card in hand that Echo generate, gain 1 of it's "Essence"
     //and play a copy of it for free (is played an extra time? or give it replay? or just is played?)
+    //
+    // probably need to remove the esence gen and maybe make it play an exhausting copy ?
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
     ]);
 
