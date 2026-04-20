@@ -11,6 +11,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
+//no longer used
+/*
 public class EarthCrownPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
@@ -69,4 +71,4 @@ public class EarthCrownPower : FiveElementsPower
     {
         public int TempDexterityCount;
     }
-}
+}*/

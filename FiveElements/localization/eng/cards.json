@@ -171,7 +171,7 @@
   "FIVEELEMENTS-EARTH_JEWEL.title": "Earth Jewel",
   "FIVEELEMENTS-EARTH_WALL.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Blocked attack damage is reflected to your attacker this turn.|{off_s}Earth : Blocked attack damage is reflected to your attacker this turn.{off_e}}",
   "FIVEELEMENTS-EARTH_WALL.title": "Earth Wall",
-  "FIVEELEMENTS-EARTH_CROWN.description": "Gain {Block:diff()} [gold]Block[/gold] twice.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : This turn, whenever you play a {earth_s}Earth{earth_e} card, gain {EarthCrownPower:diff()} [gold]Dexterity[/gold] this turn.|{off_s}Earth : This turn, whenever you play a Earth card, gain {EarthCrownPower:diff()} Dexterity this turn.{off_e}}",
+  "FIVEELEMENTS-EARTH_CROWN.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {CalculatedBlock:diff()} [gold]Block[/gold] next turn, gains {CalculationExtra:diff()} additional [gold]Block[/gold] for each {earth_s}Earth{earth_e} card played this turn.|{off_s}Earth : Gain {CalculatedBlock:diff()} Block next turn, gains {CalculationExtra:diff()} additional Block for each Earth card played this turn.{off_e}}",
   "FIVEELEMENTS-EARTH_CROWN.title": "Earth Crown",
   "FIVEELEMENTS-EARTH_PLATE.description": "Gain {Block:diff()} [gold]Block[/gold]. Whenever this card is [gold]Retained[/gold], increase its [gold]Block[/gold] by {BlockIncrease:diff()}.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {PlatingPower:diff()} [gold]Plating[/gold] for each enemy intending to attack.|{off_s}Earth : Gain {PlatingPower:diff()} Plating for each enemy intending to attack.{off_e}}",
   "FIVEELEMENTS-EARTH_PLATE.title": "Earth Plate",
@@ -183,6 +183,9 @@
   "FIVEELEMENTS-EARTH_QUAKE.title": "Earth Quake",
   "FIVEELEMENTS-EARTH_MAGMA.description": "{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Gain [gold]Block[/gold] equals to [gold]Burn[/gold] on the enemy.|{off_s}Fire : Gain Block equals to Burn on the enemy.{off_e}}\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {PlatingPower:diff()} [gold]Plating[/gold].|{off_s}Earth : Gain {PlatingPower:diff()} Plating.{off_e}}",
   "FIVEELEMENTS-EARTH_MAGMA.title": "Earth Magma",
+  "FIVEELEMENTS-EARTH_CLAY.selectionScreenPrompt": "Choose a card to gain it's [gold]Block[/gold]{isEarthOn:cond:>0? and transform into [gold]Earth Warrior[/gold]|}.",
+  "FIVEELEMENTS-EARTH_CLAY.description": "Choose a [gold]Block[/gold] card in your [gold]Hand[/gold] to gain it's [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Transform it into [gold]Earth Warrior[/gold].|{off_s}Earth : Transform it into Earth Warrior.{off_e}}",
+  "FIVEELEMENTS-EARTH_CLAY.title": "Earth Clay",
   
   
   
@@ -233,6 +236,9 @@
   
   "FIVEELEMENTS-FIRE_PLUME.description": "[gold]Incandescence[/gold] {BurnPower:diff()}.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deal {CalculatedDamage:diff()} [gold]Heat[/gold] damage. Deals {ExtraDamage:diff()} additional damage for each {fire_s}Fire{fire_e} card played this turn.|{off_s}Fire : Deal {CalculatedDamage:diff()} Heat damage. Deals {ExtraDamage:diff()} additional damage for each Fire card played this turn.{off_e}}",
   "FIVEELEMENTS-FIRE_PLUME.title": "Fire Plume",
+  
+  "FIVEELEMENTS-EARTH_WARRIOR.description": "Gain {CalculatedBlock:diff()} [gold]Block[/gold].\nGains {CalculationExtra:diff()} additional [gold]Block[/gold] for each [gold]Earth Warrior[/gold] in your deck.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gains {CalculationExtra:diff()} additional [gold]Block[/gold] for each [gold]Earth Warrior[/gold] in your [gold]Hand[/gold].|{off_s}Earth : Gains {CalculationExtra:diff()} additional Block for each Earth Warrior in your hand.{off_e}}",
+  "FIVEELEMENTS-EARTH_WARRIOR.title": "Earth Warrior",
   
   "FIVEELEMENTS-LESS.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each card in your deck of the element you have the least of.",
   "FIVEELEMENTS-LESS.title": "Less Strike",

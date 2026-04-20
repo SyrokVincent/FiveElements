@@ -116,6 +116,11 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<EarthCrown>());
+            finalDeck.Add(ModelDb.Card<EarthCrown>());
+            finalDeck.Add(ModelDb.Card<EarthGuardian>());
+            finalDeck.Add(ModelDb.Card<EarthShield>());
+            finalDeck.Add(ModelDb.Card<EarthClay>());
             
             /*
             //WATER
@@ -189,6 +194,9 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<EarthGuardian>());   //done
             finalDeck.Add(ModelDb.Card<EarthQuake>());      //done (maybe remove the block gain on replayed card)
             finalDeck.Add(ModelDb.Card<EarthMagma>());      //done
+            
+            finalDeck.Add(ModelDb.Card<EarthClay>());       //done
+            finalDeck.Add(ModelDb.Card<EarthWarrior>());    //done
             */
             
             /*

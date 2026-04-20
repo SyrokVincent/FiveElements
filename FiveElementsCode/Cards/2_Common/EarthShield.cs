@@ -36,15 +36,16 @@ public class EarthShield() : EarthCard(1,
         CardPlay play)
     {
         if (CombatState == null) return;
-        
+
+        decimal amount = 0;
         // maybe add block only once and multiply instead??
         foreach (var hittableEnemy in CombatState.HittableEnemies)
         {
-            await CommonActions.CardBlock(this, play);
+            amount = await CommonActions.CardBlock(this, play);
         }
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(CombatState) && amount>0)
         {
-            await CommonActions.ApplySelf<BlockNextTurnPower>(this, DynamicVars.Block.BaseValue);
+            await CommonActions.ApplySelf<BlockNextTurnPower>(this, amount);
         }
     }
 

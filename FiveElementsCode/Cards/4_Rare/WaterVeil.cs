@@ -43,9 +43,9 @@ public sealed class WaterVeil() : WaterCard(1,
         if (CardElementTag.Water.IsActive(CombatState))
         {
             var cardsToTransform = PileType.Hand.GetPile(Owner).Cards
-                .Where(c => c != null && c.IsTransformable && c.Type == CardType.Status)
+                .Where(c => c.IsTransformable && c.Type == CardType.Status)
                 .ToList();
-            await FiveElementsCardExtensions.TransformInHand<WaterDrop>(Owner,cardsToTransform,IsUpgraded,CombatState);
+            await FiveElementsCardExtensions.TransformInHand<WaterDrop>(Owner,cardsToTransform,false,CombatState);
         }
     }
 
