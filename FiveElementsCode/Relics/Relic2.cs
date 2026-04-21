@@ -27,7 +27,7 @@ public class Relic2() : StarterRelicLogic
     
     public override RelicRarity Rarity => RelicRarity.Starter;
     
-    //First turn add Creation in hand. Trigger corresponding effect on activation when you gain essence
+    //First turn add Creation+ in hand. Trigger corresponding effect on activation when you gain essence
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         //need that if i ever want it to draw 2 lol
         //new CardsVar("Draw",1),
@@ -48,7 +48,7 @@ public class Relic2() : StarterRelicLogic
     
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromCard<Creation>(),
+        HoverTipFactory.FromCard<Creation>(true),
         HoverTipFactory.FromCard<Activation>(),
     ]); 
     
@@ -60,7 +60,7 @@ public class Relic2() : StarterRelicLogic
         if (player == Owner && player.Creature.CombatState is { RoundNumber: 1 })
         {
             //ajout de la carte
-            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1,false, combatState);
+            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1,true, combatState);
             await Task.CompletedTask;
         }
     }

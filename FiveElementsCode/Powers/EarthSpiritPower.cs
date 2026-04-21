@@ -65,7 +65,7 @@ public class EarthSpiritPower : FiveElementsPower
     //we remove temp thorn at next turn start
     public override async Task AfterPlayerTurnStartEarly(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != Owner.Player)return;
+        if (player != Owner.Player ||  GetInternalData<Data>().TempThornsCount == 0)return;
         Flash();
         //remove of the thorns given by this power
         await PowerCmd.Apply<ThornsPower>(Owner, -GetInternalData<Data>().TempThornsCount, Owner, null);

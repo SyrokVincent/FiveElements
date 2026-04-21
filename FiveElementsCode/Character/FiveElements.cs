@@ -116,11 +116,12 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<EarthCrown>());
-            finalDeck.Add(ModelDb.Card<EarthCrown>());
-            finalDeck.Add(ModelDb.Card<EarthGuardian>());
-            finalDeck.Add(ModelDb.Card<EarthShield>());
-            finalDeck.Add(ModelDb.Card<EarthClay>());
+            finalDeck.Add(ModelDb.Card<EarthQuake>());
+            finalDeck.Add(ModelDb.Card<EarthQuake>());
+            finalDeck.Add(ModelDb.Card<EarthWard>());
+            finalDeck.Add(ModelDb.Card<EarthWard>());
+            finalDeck.Add(ModelDb.Card<EarthWard>());
+            finalDeck.Add(ModelDb.Card<WoodSpirit>());
             
             /*
             //WATER

@@ -63,7 +63,8 @@ public class WoodSpiritPower : FiveElementsPower
     
     public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
-        if (side != Owner.Side)return;
+        if (side != Owner.Side ||  GetInternalData<Data>().TempStrengthCount == 0)return;
+        
         Flash();
         //remove of the strength given by this power
         await PowerCmd.Apply<StrengthPower>(Owner, -GetInternalData<Data>().TempStrengthCount, Owner, null);

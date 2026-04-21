@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
 public class EarthQuake() : EarthCard(2,
-    CardType.Skill, CardRarity.Uncommon,
+    CardType.Attack, CardRarity.Uncommon,
     TargetType.AllEnemies)
 {
 
@@ -25,6 +25,20 @@ public class EarthQuake() : EarthCard(2,
     // mover to uncommon and reduce block by 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BlockVar(10,ValueProp.Move),
+        new CalculationBaseVar(0M),
+        new ExtraDamageVar(1M),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) => 
+        {
+            // 1. On récupère le bloc actuel du joueur
+            decimal currentBlock = (decimal)card.Owner.Creature.Block;
+
+            // 2. On récupère le bloc que la carte VA donner (Dex et buffs inclus)
+            decimal blockFromCard = (decimal)card.DynamicVars.Block.PreviewValue;
+
+            // 3. On fait le calcul sur le total futur
+            // si 15 bloc, fera 7 dmg
+            return Math.Floor((currentBlock + blockFromCard) / 2m);
+        })
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -46,12 +60,15 @@ public class EarthQuake() : EarthCard(2,
 
         // 2. Calcul des dégâts (Moitié du bloc TOTAL après le gain ci-dessus)
         var currentBlock = Owner.Creature.Block;
-        var damageAmount = currentBlock / 2m;
+        var damageAmount = Math.Floor(currentBlock / 2m);
 
+        // si 15 block, on enleve 7 et on garde 8 block
         if (damageAmount > 0)
         {
+            
             // 3. Retrait de la moitié du bloc
             await CreatureCmd.LoseBlock(Owner.Creature, damageAmount);
+            
             // 4. Attaque de zone
             var attackAction = CommonActions.CardAttack(this, play.Target,  damageAmount);
             await attackAction.Execute(choiceContext);
