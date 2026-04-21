@@ -100,7 +100,7 @@ public class Recycle() : NeutralCard(0,
 
             if (selectedChoice != null)
             {
-                await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, IsUpgraded,CombatState);
+                await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, false,CombatState);
                 selectedChoice.EnergyCost.AddThisTurnOrUntilPlayed(-1);
             }
         }
@@ -111,7 +111,7 @@ public class Recycle() : NeutralCard(0,
         
             if (selectedChoice != null)
             {
-                await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, IsUpgraded,CombatState);
+                await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, false,CombatState);
                 selectedChoice.EnergyCost.AddThisTurnOrUntilPlayed(-1);
             }
         }

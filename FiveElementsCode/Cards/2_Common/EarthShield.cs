@@ -12,7 +12,8 @@ namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
 public class EarthShield() : EarthCard(1,
     CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+    TargetType.Self,false,false) // removed from pool
+
 {
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;
@@ -20,6 +21,7 @@ public class EarthShield() : EarthCard(1,
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
 
     //Gain 4 block for each enemy, Earth:(Next turn gain 4 block)
+    
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BlockVar(4,ValueProp.Move),
     ]);

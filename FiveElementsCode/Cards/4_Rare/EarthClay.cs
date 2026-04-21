@@ -22,7 +22,7 @@ public class EarthClay() : EarthCard(1,
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
 
-    //Choose a Block card to gain it's block, Earth:(transform it into Earth Warrior)
+    //Choose a Block card to gain it's block, Earth:(transform it into Earth Warrior, it cost 1 more this turn)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
     ]);
 
@@ -82,7 +82,14 @@ public class EarthClay() : EarthCard(1,
         {
             if (CombatState != null)
             {
-                await FiveElementsCardExtensions.TransformInHand<EarthWarrior>(Owner,cardModels,selectedCard.IsUpgraded,CombatState);
+                //await FiveElementsCardExtensions.TransformInHand<EarthWarrior>(Owner,cardModels,selectedCard.IsUpgraded,CombatState);
+                
+                // 1. On crée le Warrior manuellement pour pouvoir modifier son coût
+                var warrior = CombatState.CreateCard<EarthWarrior>(Owner);
+                if (selectedCard.IsUpgraded) 
+                    CardCmd.Upgrade(warrior);
+                warrior.EnergyCost.AddThisTurnOrUntilPlayed(1);
+                await FiveElementsCardExtensions.TransformInHand(selectedCard, warrior, false,CombatState);
             }
         }
     }

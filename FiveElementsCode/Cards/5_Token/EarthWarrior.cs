@@ -67,7 +67,7 @@ public sealed class EarthWarrior() : EarthCard(1,
         //await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.PreviewValue,DynamicVars.CalculatedBlock.Props, play);
         //await CommonActions.CardBlock(this, DynamicVars.CalculatedBlock, play);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.PreviewValue,
-            DynamicVars.CalculatedBlock.Props, play);
+            ValueProp.Unpowered, play); //preview + unpowered to apply exactly waht's shown , might be wrong ??
     }
 
     protected override void OnUpgrade()

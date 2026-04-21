@@ -50,7 +50,7 @@ public class WoodBark() : WoodCard(1,
     {
         
         if (CombatState == null) return;
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.PreviewValue,DynamicVars.CalculatedBlock.Props, play);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.PreviewValue,ValueProp.Unpowered, play);
         
         //calculate prend pas en compte la dex ??
         //await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.Calculate(play.Target),DynamicVars.CalculatedBlock.Props, play);

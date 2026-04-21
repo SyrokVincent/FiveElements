@@ -11,8 +11,9 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 namespace FiveElements.FiveElementsCode.Cards;
 
 [Pool(typeof(FiveElementsCardPool))]
-public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target)
-    : CustomCardModel(cost, type, rarity, target)
+public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target,
+    bool showInCardLibrary = true, bool autoAdd = true)
+    : CustomCardModel(cost, type, rarity, target,showInCardLibrary,autoAdd)
 {
     protected static readonly ShaderMaterial WaterShader = ShaderUtils.GenerateHsv(0.6f, 0.9f, 1.0f);
     protected static readonly ShaderMaterial WoodShader = ShaderUtils.GenerateHsv(0.33f, 1.0f, 0.9f);

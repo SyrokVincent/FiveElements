@@ -8,10 +8,10 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards._4_Rare;
+namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
 public class EarthQuake() : EarthCard(2,
-    CardType.Skill, CardRarity.Rare,
+    CardType.Skill, CardRarity.Uncommon,
     TargetType.AllEnemies)
 {
 
@@ -19,10 +19,12 @@ public class EarthQuake() : EarthCard(2,
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
 
-    //Gain 12 block, Remove half your block to deal that much damage to all enemies,
+    //Gain 10 block, Remove half your block to deal that much damage to all enemies,
     //Earth:(Replay this card if it kill an enemy.)
+    //
+    // mover to uncommon and reduce block by 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(12,ValueProp.Move),
+        new BlockVar(10,ValueProp.Move),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

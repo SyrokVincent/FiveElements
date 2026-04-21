@@ -10,10 +10,10 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
+namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
 public class EarthCrown() : EarthCard(1,
-    CardType.Skill, CardRarity.Uncommon,
+    CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
 
@@ -23,9 +23,10 @@ public class EarthCrown() : EarthCard(1,
 
     // old// Gain 4*2 block, Earth:(This turn for each Earth card played gain 1 temp dex)
     //
-    // new// Gain 7 block, Earth:(Gain 2 block next turn, gains 2 additional block for every earth card played this turn)
+    // new// Gain 5 block, Earth:(Gain 2 block next turn, gains 2 additional block for every earth card played this turn)
+    // moved to common from uncommon
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(7,ValueProp.Move),
+        new BlockVar(5,ValueProp.Move),
         new CalculationBaseVar(2), // Base block
         new CalculationExtraVar(2),    // bonus block for each earth card
         new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, target) =>

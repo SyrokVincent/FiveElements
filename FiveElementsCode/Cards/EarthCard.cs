@@ -10,8 +10,9 @@ public abstract class EarthCard : FiveElementsCard, IOnEarthStateChanged
 {
     public override Material? CreateCustomFrameMaterial => EarthShader;
     
-    protected EarthCard(int cost, CardType type, CardRarity rarity, TargetType target) 
-        : base(cost, type, rarity, target)
+    protected EarthCard(int cost, CardType type, CardRarity rarity, TargetType target,
+    bool showInCardLibrary = true, bool autoAdd = true)
+        : base(cost, type, rarity, target, showInCardLibrary, autoAdd)
     {
         CanonicalElementTags = [CardElementTag.Earth];
     }  

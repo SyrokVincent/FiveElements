@@ -92,7 +92,7 @@ public class Domination() : NeutralCard(1,
         if (lastPlayedCard != null && cardsToTransform != null && CombatState != null)
         {
             var clonedCard = lastPlayedCard.CreateClone();
-            await FiveElementsCardExtensions.TransformInHand(cardsToTransform, clonedCard, IsUpgraded,CombatState);
+            await FiveElementsCardExtensions.TransformInHand(cardsToTransform, clonedCard, false,CombatState);
             _cardToPlay = clonedCard;
         }
         //la jouer gratos plus tard
