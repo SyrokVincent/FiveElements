@@ -70,7 +70,7 @@ public class Relic2() : StarterRelicLogic
     {
         await base.BeforeCombatStart();
         if (Owner.Creature.CombatState != null)
-            Owner.Creature.CombatState.GetElementalStatus().OnEssenceChanged += OnEssenceGainedTrigger;
+            Owner.Creature.CombatState.GetElementalStatus().EssenceChanged += OnEssenceGainedTrigger;
         await Task.CompletedTask;
     }
 
@@ -78,7 +78,7 @@ public class Relic2() : StarterRelicLogic
     {
         await base.AfterCombatEnd(room);
         if (Owner.Creature.CombatState != null)
-            Owner.Creature.CombatState.GetElementalStatus().OnEssenceChanged -= OnEssenceGainedTrigger;
+            Owner.Creature.CombatState.GetElementalStatus().EssenceChanged -= OnEssenceGainedTrigger;
         await Task.CompletedTask;
     }
 

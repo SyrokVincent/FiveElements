@@ -1,3 +1,14 @@
 {
+  "FIVEELEMENTS-TITLE_FIRE": "Fire",
+  "FIVEELEMENTS-TITLE_WATER": "Water",
+  "FIVEELEMENTS-TITLE_WOOD": "Wood",
+  "FIVEELEMENTS-TITLE_EARTH": "Earth",
+  "FIVEELEMENTS-TITLE_METAL": "Metal",
+  "FIVEELEMENTS-DESC_MASTER": "{essenceDesc}{echoDesc}{activeDesc}{inactiveDesc}",
+  "FIVEELEMENTS-LINE_ESSENCE": "You have {count} {count:plural:[gold]Essence[/gold]|[gold]Essences[/gold]} of that element.\n",
+  "FIVEELEMENTS-LINE_ECHO": "It's the [gold]Echo[/gold], the element of the last card you played this turn.\n",
+  "FIVEELEMENTS-LINE_ACTIVE": "Cards of that element will trigger their bonus effect.\n",
+  "FIVEELEMENTS-LINE_INACTIVE": "Card of that element won't trigger their bonus effect."
   
+ 
 }

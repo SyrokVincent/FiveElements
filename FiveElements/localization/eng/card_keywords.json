@@ -1,11 +1,11 @@
 {
   "PERIOD": ".",
-  "FIVEELEMENTS-SHIFT.description": "Automatically change it's element to the one [gold]Echo[/gold] [gold]Generate[gold].",
+  "FIVEELEMENTS-SHIFT.description": "Inherit the element that [gold]Echo[/gold] [gold]Generate[gold].",
   "FIVEELEMENTS-SHIFT.title": "Shift",
-  "FIVEELEMENTS-ATTUNE.description": "Automatically change it's element to be the same as [gold]Echo[/gold]",
+  "FIVEELEMENTS-ATTUNE.description": "Inherit the element of [gold]Echo[/gold].",
   "FIVEELEMENTS-ATTUNE.title": "Attune",
   
-  "FIVEELEMENTS-ECHO.description": "[gold]Echo[/gold]{ElemEcho:cond:=0? as no element|=1? is {water_s}Water{water_e}|=2? is {wood_s}Wood{wood_e}|=3? is {fire_s}Fire{fire_e}|=4? is {earth_s}Earth{earth_e}|=5? is {metal_s}Metal{metal_e}| is ALL [gold]Elements[/gold]}.\n[gold]Echo[/gold] is the element of the last card played this turn.",
+  "FIVEELEMENTS-ECHO.description": "[gold]Echo[/gold]{ElemEcho:cond:=0? as no element|=1? is {water_s}Water{water_e}|=2? is {wood_s}Wood{wood_e}|=3? is {fire_s}Fire{fire_e}|=4? is {earth_s}Earth{earth_e}|=5? is {metal_s}Metal{metal_e}| is ALL [gold]Elements[/gold]}.\n[gold]Echo[/gold] takes the element of the last card played this turn.",
   "FIVEELEMENTS-ECHO.title": "Echo",
   "FIVEELEMENTS-GENERATE.description": "{water_s}Water{wood_e} generate {wood_s}Wood{wood_e}.\n{wood_s}Wood{wood_e} generate {fire_s}Fire{fire_e}.\n{fire_s}Fire{fire_e} generate {earth_s}Earth{earth_e}.\n{earth_s}Earth{earth_e} generate {metal_s}Metal{metal_e}.\n{metal_s}Metal{metal_e} generate {water_s}Water{wood_e}.",
   "FIVEELEMENTS-GENERATE.title":"Generate",

@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Reflection;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
 
 namespace FiveElements;
@@ -14,6 +15,8 @@ public class MainFile
     public static void Initialize()
     {
         Harmony harmony = new(ModId);
+        var assembly = Assembly.GetExecutingAssembly();
+        Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(assembly);
         harmony.PatchAll();
     }
 }

@@ -1,0 +1,172 @@
+[gd_scene load_steps=4 format=3 uid="uid://4xjqwh64pacg"]
+
+[ext_resource type="Texture2D" uid="uid://bw33fgxmmn37w" path="res://FiveElements/images/charui/energy_counter/essence_counter_arrows.png" id="1_gqwc5"]
+[ext_resource type="Script" uid="uid://blv2rcate7ge5" path="res://scenes/combat/energy_counters/EssenceCounter.cs" id="2_6cwgd"]
+[ext_resource type="PackedScene" uid="uid://bxfu5lledhrro" path="res://scenes/combat/energy_counters/essence_counter.tscn" id="7_jnpui"]
+
+[node name="ElementsCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_gqwc5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="WoodLayer" type="Control" parent="."]
+modulate = Color(0.13333334, 0.54509807, 0.13333334, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="WoodLayer" instance=ExtResource("7_jnpui")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+scale = Vector2(0.18, 0.18)
+script = ExtResource("2_6cwgd")
+
+[node name="FireLayer" type="Control" parent="."]
+modulate = Color(1, 0.27058825, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.2566371
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="FireLayer" instance=ExtResource("7_jnpui")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+rotation = -1.2566371
+scale = Vector2(0.18, 0.18)
+script = ExtResource("2_6cwgd")
+
+[node name="EarthLayer" type="Control" parent="."]
+modulate = Color(0.54509807, 0.27058825, 0.07450981, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 2.5132742
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="EarthLayer" instance=ExtResource("7_jnpui")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+rotation = -2.5132742
+scale = Vector2(0.18, 0.18)
+script = ExtResource("2_6cwgd")
+
+[node name="MetalLayer" type="Control" parent="."]
+modulate = Color(0.7529412, 0.7529412, 0.7529412, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.7699113
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="MetalLayer" instance=ExtResource("7_jnpui")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+rotation = -3.7699113
+scale = Vector2(0.18, 0.18)
+script = ExtResource("2_6cwgd")
+
+[node name="WaterLayer" type="Control" parent="."]
+modulate = Color(0.11764706, 0.5647059, 1, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 5.0265484
+mouse_filter = 2
+
+[node name="EssenceCounter" parent="WaterLayer" instance=ExtResource("7_jnpui")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -78.0
+offset_right = 0.0
+offset_bottom = -78.0
+rotation = -5.0265484
+scale = Vector2(0.18, 0.18)
+script = ExtResource("2_6cwgd")

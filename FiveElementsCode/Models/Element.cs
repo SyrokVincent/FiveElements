@@ -16,7 +16,7 @@ public class Element
     
     // --- LE NOUVEL EVENEMENT ---
     // Cet événement transmet l'élément concerné et la nouvelle valeur
-    public event Action<CardElementTag, int, PlayerChoiceContext?>? OnEssenceChanged;
+    public event Action<CardElementTag, int, PlayerChoiceContext?>? EssenceChanged;
 
     // Une méthode générique pour modifier n'importe quel élément
     public void AddEssence(CardElementTag elem, int amount, PlayerChoiceContext? context = null)
@@ -27,8 +27,7 @@ public class Element
         if (current != next)
         {
             _essences[elem] = next;
-            // On passe le contexte à la fonction After
-            OnEssenceChanged?.Invoke(elem, next, context);
+            EssenceChanged?.Invoke(elem, next, context);
             
             // On notifie les cartes du changement pour cet élément spécifique
             _ = FiveElementsCardExtensions.CheckAndNotify(CombatState, elem);
@@ -70,7 +69,7 @@ public class Element
         _essences[elem] = 0;
         
         // On prévient aussi l'UI que c'est retombé à 0
-        OnEssenceChanged?.Invoke(elem, 0,null);
+        EssenceChanged?.Invoke(elem, 0,null);
 
         // TRES IMPORTANT : On notifie les cartes que l'élément a disparu
         _ = FiveElementsCardExtensions.CheckAndNotify(CombatState, elem);

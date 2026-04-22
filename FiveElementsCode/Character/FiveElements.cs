@@ -7,6 +7,7 @@ using FiveElements.FiveElementsCode.Cards._4_Rare;
 using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Powers;
 using FiveElements.FiveElementsCode.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
@@ -116,12 +117,16 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<EarthQuake>());
-            finalDeck.Add(ModelDb.Card<EarthQuake>());
-            finalDeck.Add(ModelDb.Card<EarthWard>());
-            finalDeck.Add(ModelDb.Card<EarthWard>());
-            finalDeck.Add(ModelDb.Card<EarthWard>());
+            finalDeck.Add(ModelDb.Card<FireSpirit>());
+            finalDeck.Add(ModelDb.Card<WaterSpirit>());
             finalDeck.Add(ModelDb.Card<WoodSpirit>());
+            finalDeck.Add(ModelDb.Card<EarthSpirit>());
+            finalDeck.Add(ModelDb.Card<MetalSpirit>());
+            finalDeck.Add(ModelDb.Card<FireSpirit>());
+            finalDeck.Add(ModelDb.Card<WaterSpirit>());
+            finalDeck.Add(ModelDb.Card<WoodSpirit>());
+            finalDeck.Add(ModelDb.Card<EarthSpirit>());
+            finalDeck.Add(ModelDb.Card<MetalSpirit>());
             
             /*
             //WATER

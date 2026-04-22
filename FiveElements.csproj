@@ -76,7 +76,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.0.6" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.0.8" PrivateAssets="All" />
         <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.9" />
         <AdditionalFiles Include="FiveElements/localization/**/*.json"/>
     </ItemGroup>
@@ -103,6 +103,11 @@
     <ItemGroup>
         <Folder Include="FiveElements\images\card_portraits\big\"/>
         <Folder Include="FiveElements\images\relics\big\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="scenes\combat\energy_counters\elements_counter.tscn" />
+      <Content Include="scenes\combat\energy_counters\essence_counter.tscn" />
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

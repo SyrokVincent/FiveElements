@@ -182,7 +182,7 @@
   "FIVEELEMENTS-EARTH_MAGMA.description": "{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Gain [gold]Block[/gold] equals to [gold]Burn[/gold] on the enemy.|{off_s}Fire : Gain Block equals to Burn on the enemy.{off_e}}\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {PlatingPower:diff()} [gold]Plating[/gold].|{off_s}Earth : Gain {PlatingPower:diff()} Plating.{off_e}}",
   "FIVEELEMENTS-EARTH_MAGMA.title": "Earth Magma",
   "FIVEELEMENTS-EARTH_CLAY.selectionScreenPrompt": "Choose a card to gain it's [gold]Block[/gold]{isEarthOn:cond:>0? and transform into [gold]Earth Warrior[/gold]|}.",
-  "FIVEELEMENTS-EARTH_CLAY.description": "Choose a [gold]Block[/gold] card in your [gold]Hand[/gold] to gain it's [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Transform it into [gold]Earth Warrior[/gold], it cost 1 {energyPrefix:energyIcons(1)} more this turn.|{off_s}Earth : Transform it into Earth Warrior, it cost 1 {energyPrefix:energyIcons(1)} more this turn.{off_e}}",
+  "FIVEELEMENTS-EARTH_CLAY.description": "Choose a [gold]Block[/gold] card in your [gold]Hand[/gold] to gain its [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Transform it into [gold]Earth Warrior[/gold], it cost 1 {energyPrefix:energyIcons(1)} more this turn.|{off_s}Earth : Transform it into Earth Warrior, it cost 1 {energyPrefix:energyIcons(1)} more this turn.{off_e}}",
   "FIVEELEMENTS-EARTH_CLAY.title": "Earth Clay",
   
   "FIVEELEMENTS-EARTH_SHIELD.description": "bug its Removed rom pool!!\nGain {Block:diff()} [gold]Block[/gold] for each enemies.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Next turn, gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Next turn, gain {Block:diff()} Block.{off_e}}",

@@ -145,6 +145,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ElementLayers" type="Control" parent="."]
+visible = false
 modulate = Color(0.13333334, 0.54509807, 0.13333334, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -169,6 +170,7 @@ offset_bottom = -78.0
 scale = Vector2(0.18, 0.18)
 
 [node name="ElementLayers2" type="Control" parent="."]
+visible = false
 modulate = Color(1, 0.27058825, 0, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -195,6 +197,7 @@ rotation = -1.2566371
 scale = Vector2(0.18, 0.18)
 
 [node name="ElementLayers3" type="Control" parent="."]
+visible = false
 modulate = Color(0.54509807, 0.27058825, 0.07450981, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -221,6 +224,7 @@ rotation = -2.5132742
 scale = Vector2(0.18, 0.18)
 
 [node name="ElementLayers4" type="Control" parent="."]
+visible = false
 modulate = Color(0.7529412, 0.7529412, 0.7529412, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -247,6 +251,7 @@ rotation = -3.7699113
 scale = Vector2(0.18, 0.18)
 
 [node name="ElementLayers5" type="Control" parent="."]
+visible = false
 modulate = Color(0.11764706, 0.5647059, 1, 1)
 layout_mode = 1
 anchors_preset = 8
