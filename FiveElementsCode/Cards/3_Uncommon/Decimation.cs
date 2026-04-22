@@ -18,12 +18,14 @@ public class Decimation() : NeutralCard(5,
     
     //Retain, Reduce cost by 1 for each different element played this turn, deal 20
     //added retain (too hard to play without that?
+    //added shift since it's a card that want lot of element it make sense to have it
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(20, ValueProp.Move)
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
         CardKeyword.Retain,
+        FiveElementsKeywords.Shift,
     ]);
 
     

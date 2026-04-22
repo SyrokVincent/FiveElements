@@ -10,8 +10,7 @@ namespace FiveElements.FiveElementsCode.Powers;
 
 public class BurnPower : FiveElementsPower
 {
-    //todo use that for wave to have the damage bar on the enemy
-    //protected override bool IsVisibleInternal => false;
+    
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
     

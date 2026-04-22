@@ -112,7 +112,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		}
 	}
 	
-	
 	public override void _ExitTree()
 	{
 		base._ExitTree();

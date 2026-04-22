@@ -18,7 +18,6 @@ public sealed class Creation() : NeutralCard(0,
     //Innate, Ethereal,Exhaust, Select one card in hand and gain 1 "Essence" of it
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
         FiveElementsKeywords.Essence,
-        CardKeyword.Innate, 
         CardKeyword.Ethereal, 
         CardKeyword.Exhaust, 
     ];
