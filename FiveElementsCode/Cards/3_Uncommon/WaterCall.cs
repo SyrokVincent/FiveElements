@@ -46,7 +46,7 @@ public sealed class WaterCall() : WaterCard(1,
             
             //todo decide if the target is the front or if it's the same as the attack
             if (wavePower != null && play.Target != null && CombatState != null)
-                    await wavePower.TriggerWave(CombatState, play.Target, choiceContext);
+                    await wavePower.TriggerWave(CombatState, choiceContext, play.Target);
         }
     }
 

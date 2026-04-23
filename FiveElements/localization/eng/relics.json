@@ -1,7 +1,7 @@
 {
 
   "FIVEELEMENTS-RELIC1.description": "At the start of each combat, add [gold]Creation[/gold] into your hand.",
-  "FIVEELEMENTS-RELIC1.flavor": "(also track your element???)",
+  "FIVEELEMENTS-RELIC1.flavor": "",
   "FIVEELEMENTS-RELIC1.title": "Relic 1",
 
 
@@ -17,5 +17,31 @@
   "ELEMENT-WOOD": "Wood {Title}",
   "ELEMENT-FIRE": "Fire {Title}",
   "ELEMENT-EARTH": "Earth {Title}",
-  "ELEMENT-METAL": "Metal {Title}"
+  "ELEMENT-METAL": "Metal {Title}",
+
+
+
+  "FIVEELEMENTS-WATER_RELIC.description": "Now [gold]Wave[/gold] deal damage at the end of your turn.",
+  "FIVEELEMENTS-WATER_RELIC.flavor": "",
+  "FIVEELEMENTS-WATER_RELIC.title": "Water Relic",
+  
+  "FIVEELEMENTS-WOOD_RELIC.description": "At the end of your turn, deal [blue]{Damage:diff()}[/blue] damage to a random enemy if you played a [gold]Wood[/gold] card this turn.",
+  "FIVEELEMENTS-WOOD_RELIC.flavor": "",
+  "FIVEELEMENTS-WOOD_RELIC.title": "Wood Relic",
+
+  "FIVEELEMENTS-FIRE_RELIC.description": "At the start of each combat, add [blue]{Cards}[/blue] [gold]Fire Plume[/gold] into your hand.",
+  "FIVEELEMENTS-FIRE_RELIC.flavor": "",
+  "FIVEELEMENTS-FIRE_RELIC.title": "Fire Relic",
+
+  "FIVEELEMENTS-EARTH_RELIC.description": "At the end of your turn, gain [blue]{Block}[/blue] [gold]Block[/gold] for each [gold]Earth[/gold] card in your [gold]Hand[/gold].",
+  "FIVEELEMENTS-EARTH_RELIC.flavor": "",
+  "FIVEELEMENTS-EARTH_RELIC.title": "Earth Relic",
+  
+  "FIVEELEMENTS-METAL_RELIC.description": "At the start of your turn, gain {VigorPower:diff()} [gold]Vigor[/gold].",
+  "FIVEELEMENTS-METAL_RELIC.flavor": "",
+  "FIVEELEMENTS-METAL_RELIC.title": "Metal Relic",
+
+  "FIVEELEMENTS-NEUTRAL_RELIC.description": "Each turn the first time you play a card of each [gold]Element[/gold], gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold] and [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
+  "FIVEELEMENTS-NEUTRAL_RELIC.flavor": "",
+  "FIVEELEMENTS-NEUTRAL_RELIC.title": "Neutral Relic"
 }

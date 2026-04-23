@@ -21,7 +21,7 @@
   
   
   "FIVEELEMENTS-WAVE_POWER.description": "At the start of your turn, [gold]Wave[/gold] deals damage to the front enemy. When [gold]Wave[/gold] trigger it is reduced by [blue]1[/blue].",
-  "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the start of your turn, deals [blue]{Amount}[/blue] damage to the front enemy and reduce [gold]Wave[/gold] by [blue]1[/blue].",
+  "FIVEELEMENTS-WAVE_POWER.smartDescription": "At the {HasWaterRelic:cond:=0?start|end} of your turn, deals [blue]{Amount}[/blue] damage to {HasWaterTsunami:cond:=0?the front enemy|ALL enemies} and reduce [gold]Wave[/gold] by [blue]1[/blue].",
   "FIVEELEMENTS-WAVE_POWER.title": "Wave",
   "FIVEELEMENTS-WAVE_TARGET_POWER.description": "",
   "FIVEELEMENTS-WAVE_TARGET_POWER.smartDescription": "",

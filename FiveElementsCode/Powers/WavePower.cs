@@ -1,10 +1,12 @@
-﻿using Godot;
+﻿using FiveElements.FiveElementsCode.Relics;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -16,10 +18,45 @@ public class WavePower : FiveElementsPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
+    protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        new IntVar("HasWaterTsunami", (Owner != null && HasWaterTsunami) ? 1M : 0M),
+        new IntVar("HasWaterRelic", (Owner != null && HasWaterRelic) ? 1M : 0M),
+    ]);
+    
     //todo this need to change for multi player, it break if multiple source of wave..
     
     //added decrement ???
     
+    // owner =! null needed do not remove
+    private bool HasWaterTsunami => 
+        this.IsMutable && 
+        Owner != null && 
+        Owner.HasPower<WaterTsunamiPower>();
+
+    private bool HasWaterRelic => 
+        Owner != null &&
+        Owner.Player.Relics != null && 
+        Owner.Player.Relics.Any(r => r is WaterRelic);
+    
+ 
+    
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        if (!HasWaterRelic)
+        {
+            await TriggerWave(CombatState,choiceContext);
+        }
+    }
+
+    public override async Task BeforeTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side)
+    {
+        if (side == CombatSide.Player && HasWaterRelic)
+        {
+            await TriggerWave(CombatState,choiceContext);
+        }
+
+        await base.BeforeTurnEndVeryEarly(choiceContext, side);
+    }
     
     public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
@@ -30,6 +67,7 @@ public class WavePower : FiveElementsPower
         if (power is WavePower || power is WaterTsunamiPower)
         {
             await SyncWaveTarget();
+            
         }
     }
 
@@ -42,15 +80,20 @@ public class WavePower : FiveElementsPower
     public override async Task AfterDeath(PlayerChoiceContext context, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
         await base.AfterDeath(context, creature, wasRemovalPrevented, deathAnimLength);
-        // On attend un tout petit peu que la liste se mette à jour
+        
         await SyncWaveTarget();
     }
 
     
     private async Task SyncWaveTarget()
     {
+        
+        // --- MISE À JOUR DE LA LOCALISATION ---
+        DynamicVars["HasWaterTsunami"].BaseValue = HasWaterTsunami ? 1M : 0M;
+        DynamicVars["HasWaterRelic"].BaseValue = HasWaterRelic ? 1M : 0M;
+        GD.Print("HasWaterTsunami",HasWaterTsunami,"HasWaterRelic",HasWaterRelic);
+        
         if (Amount <= 0) return;
-
         if (HasWaterTsunami)
         {
             // --- MODE TSUNAMI : Tout le monde doit avoir la marque ---
@@ -97,16 +140,7 @@ public class WavePower : FiveElementsPower
         }
     }
     
-
     
-    public override async Task AfterPlayerTurnStart(
-         PlayerChoiceContext choiceContext, 
-         Player player)
-     {
-         Creature? target = CombatState.HittableEnemies.FirstOrDefault();
-         await TriggerWave(CombatState, target, choiceContext);
-     }
-
     /*
     // this could make it trigger before doom but it's less fitting thematicaly
     public override async Task BeforeTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side)
@@ -121,29 +155,32 @@ public class WavePower : FiveElementsPower
         await base.BeforeTurnEndVeryEarly(choiceContext, side);
     }
 */
-    public async Task TriggerWave(CombatState combatState, Creature? target, PlayerChoiceContext choiceContext)
+    public async Task TriggerWave(CombatState combatState, PlayerChoiceContext choiceContext, Creature? target = null)
      {
-         if (target != null)
+     
+         Flash();
+         if (HasWaterTsunami)
          {
-             Flash();
-             if (HasWaterTsunami)
+             foreach (Creature t in combatState.HittableEnemies)
              {
-                 foreach (Creature t in combatState.HittableEnemies)
-                 {
-                     await CreatureCmd.Damage(choiceContext, t, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
-                     await PowerCmd.Apply<WaveTargetPower>(t, -1, Owner, null, true);
-                 }
+                 await CreatureCmd.Damage(choiceContext, t, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
+                 await PowerCmd.Apply<WaveTargetPower>(t, -1, Owner, null, true);
              }
-             else
+         }
+         else
+         {
+             if (target == null) target = CombatState.HittableEnemies.FirstOrDefault();
+             
+             if (target != null)
              {
-                 await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
+                 await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Move | ValueProp.Unpowered, null,
+                     null);
                  await PowerCmd.Apply<WaveTargetPower>(target, -1, Owner, null, true);
              }
-         } 
+         }
+         
          await PowerCmd.Decrement(this);
      }
      
     
-    
-    private bool HasWaterTsunami => this.IsMutable && this.Owner.HasPower<WaterTsunamiPower>();
 }

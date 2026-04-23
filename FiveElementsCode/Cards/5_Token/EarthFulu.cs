@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -30,6 +31,12 @@ public sealed class EarthFulu() : EarthCard(0,
         CardKeyword.Exhaust, 
     ];
 
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
+    ];
+    
     //change element when a card is played
     public override async Task AfterCardPlayedLate(PlayerChoiceContext context, CardPlay cardPlay)
     {

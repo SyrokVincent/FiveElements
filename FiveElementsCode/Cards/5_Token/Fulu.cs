@@ -2,8 +2,10 @@
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._5_Token;
 
@@ -24,6 +26,13 @@ public sealed class Fulu() : NeutralCard(0,
         FiveElementsKeywords.Generate,
         CardKeyword.Exhaust, 
     ];
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
+    ]); 
+
 
     // need to find a way to change the texture instead ?? 
     //change element when a card is played

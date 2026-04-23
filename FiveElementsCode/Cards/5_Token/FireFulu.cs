@@ -28,9 +28,12 @@ public sealed class FireFulu() : FireCard(0,
         CardKeyword.Exhaust, 
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
         HoverTipFactory.FromPower<BurnPower>(),
     ];
-
+   
     //change element when a card is played
     public override async Task AfterCardPlayedLate(PlayerChoiceContext context, CardPlay cardPlay)
     {

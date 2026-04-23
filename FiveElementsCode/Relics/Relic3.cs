@@ -28,9 +28,9 @@ using MegaCrit.Sts2.Core.Saves.Runs;
 namespace FiveElements.FiveElementsCode.Relics;
 
 [Pool(typeof(FiveElementsRelicPool))]
-public class Relic3() : FiveElementsRelic
+public sealed class Relic3() : FiveElementsRelic
 {
-    
+    // select an element from a card in deck, the relic will give it's essence on combat start and every 5 turn
     public override RelicRarity Rarity => RelicRarity.Common;
     
     public override bool HasUponPickupEffect => true;
@@ -113,6 +113,7 @@ public class Relic3() : FiveElementsRelic
     ]);
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Essence),
     ]); 
     
      
@@ -125,12 +126,14 @@ public class Relic3() : FiveElementsRelic
     {
         // On commence à turn - 1 pour que le tour 1 soit le premier incrément
         Counter = DynamicVars["Turns"].IntValue-1;
+        DynamicVars["Element"].BaseValue = (int)MyElementTag;
         Status = RelicStatus.Normal;
         return Task.CompletedTask;
     }
     
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
     {
+        if (player != Owner) return;
         await base.BeforeHandDraw(player, choiceContext, combatState);
         
         if (MyElementTag == CardElementTag.Neutral) return;

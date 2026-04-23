@@ -22,9 +22,9 @@ using MegaCrit.Sts2.Core.Rooms;
 namespace FiveElements.FiveElementsCode.Relics;
 
 [Pool(typeof(FiveElementsRelicPool))]
-public class Relic2() : StarterRelicLogic
+public sealed class Relic2() : StarterRelicLogic
 {
-    
+    // add 1 creation+ in hand at combat start, gain corresponding activation effect when gaining essence
     public override RelicRarity Rarity => RelicRarity.Starter;
     
     //First turn add Creation+ in hand. Trigger corresponding effect on activation when you gain essence
