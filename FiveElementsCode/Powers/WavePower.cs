@@ -16,6 +16,8 @@ public class WavePower : FiveElementsPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
+    //todo this need to change for multi player, it break if multiple source of wave..
+    
     //added decrement ???
     
     

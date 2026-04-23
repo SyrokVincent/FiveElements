@@ -82,7 +82,7 @@ public class Relic2() : StarterRelicLogic
         await Task.CompletedTask;
     }
 
-    
+  
 
     // --- LA LOGIQUE DE LA RELIQUE ---
     private void OnEssenceGainedTrigger(CardElementTag elem, int newValue, PlayerChoiceContext? context = null)
