@@ -17,6 +17,7 @@ public sealed class WoodCreation() : WoodCard(1,
     
     // Draw 1 and gain 1 temp strength
     // Wood:(Gain 1 "Wood essence")
+    //removed innate on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1), 
         new PowerVar<WoodCreationStrengthPower>(1)
@@ -43,7 +44,6 @@ public sealed class WoodCreation() : WoodCard(1,
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
         DynamicVars["WoodCreationStrengthPower"].UpgradeValueBy(1);
     }
 }

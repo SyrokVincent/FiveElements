@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
 namespace FiveElements.FiveElementsCode.Extensions;
 
@@ -124,7 +125,7 @@ public static class FiveElementsCardExtensions
                 CardCmd.Upgrade(replacement);
             }
             
-            await CardCmd.Transform(cardToTransform, replacement);
+            await CardCmd.Transform(cardToTransform, replacement,CardPreviewStyle.None);
         }
     }
     

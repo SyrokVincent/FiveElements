@@ -19,6 +19,7 @@ public sealed class MetalCreation() : MetalCard(1,
     
     // Gain 3 vigor
     // Metal:( Gain 1 "metal essence")
+    //removed innate on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<VigorPower>(3),
     ]);
@@ -46,8 +47,7 @@ public sealed class MetalCreation() : MetalCard(1,
     }
 
     protected override void OnUpgrade()
-    {this.
-        AddKeyword(CardKeyword.Innate);
+    {
         DynamicVars["VigorPower"].UpgradeValueBy(2);
     }
     /*

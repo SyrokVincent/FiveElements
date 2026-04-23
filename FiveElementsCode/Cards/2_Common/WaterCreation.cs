@@ -20,6 +20,7 @@ public sealed class WaterCreation() : WaterCard(1,
     
     // Gain 1 energy and 2 wave
     // Water: (Gain 1 water essence)
+    //removed innate on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
         new PowerVar<WavePower>(2),
@@ -49,7 +50,6 @@ public sealed class WaterCreation() : WaterCard(1,
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
         DynamicVars["WavePower"].UpgradeValueBy(2);
     }
 }

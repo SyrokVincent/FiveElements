@@ -20,6 +20,7 @@ public sealed class EarthCreation() : EarthCard(1,
 
     //gain 5 Block,
     //Earth: (Gain 1 "earth element")
+    //removed innate on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BlockVar(5, ValueProp.Move), 
     ]);
@@ -45,7 +46,6 @@ public sealed class EarthCreation() : EarthCard(1,
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
         DynamicVars.Block.UpgradeValueBy(3);
     }
 }

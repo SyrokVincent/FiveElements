@@ -18,6 +18,7 @@ public sealed class FireCreation() : FireCard(1,
     
     //Apply 3 Burn to all enemies
     //Fire: (Gain 1 fire essence)
+    //removed innate on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<BurnPower>(3),
     ]);
@@ -49,7 +50,6 @@ public sealed class FireCreation() : FireCard(1,
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
         DynamicVars["BurnPower"].UpgradeValueBy(2);
     }
     

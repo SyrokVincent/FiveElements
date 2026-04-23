@@ -2,12 +2,14 @@
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Powers;
@@ -47,6 +49,8 @@ public class WavePower : FiveElementsPower
             await TriggerWave(CombatState,choiceContext);
         }
     }
+    
+    
 
     public override async Task BeforeTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side)
     {
@@ -83,7 +87,26 @@ public class WavePower : FiveElementsPower
         
         await SyncWaveTarget();
     }
+    
+    //necessaire pour prendre en compte surrounded power
+    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+    {
+        // On ne synchronise que si c'est le porteur du pouvoir qui a joué la carte
+        if (cardPlay.Card.Owner.Creature == Owner)
+        {
+            await SyncWaveTarget();
+        }
+    }
 
+    //necessaire pour prendre en compte surrounded power
+    public override async Task AfterPotionUsed(PotionModel potion, Creature? target)
+    {
+        // On ne synchronise que si c'est le porteur qui a utilisé la potion
+        if (potion.Owner.Creature == Owner)
+        {
+            await SyncWaveTarget();
+        }
+    }
     
     private async Task SyncWaveTarget()
     {
@@ -115,11 +138,32 @@ public class WavePower : FiveElementsPower
         }
         else
         {
-            // --- MODE NORMAL : Uniquement le premier
-            Creature? priorityTarget = CombatState.HittableEnemies.FirstOrDefault();
+            // --- MODE NORMAL (avec gestion Surrounded) ---
+            Creature? priorityTarget = null;
+            var surrounded = Owner.GetPower<SurroundedPower>();
+
+            if (surrounded != null)
+            {
+                if (surrounded.Facing == SurroundedPower.Direction.Left)
+                {
+                    // On prend le dernier (le plus proche de nous à gauche)
+                    priorityTarget = CombatState.HittableEnemies
+                        .LastOrDefault(e => e.HasPower<BackAttackLeftPower>());
+                }
+                else
+                {
+                    // On prend le premier (le plus proche de nous à droite)
+                    priorityTarget = CombatState.HittableEnemies
+                        .FirstOrDefault(e => e.HasPower<BackAttackRightPower>());
+                }
+            }
+            
+            // Si pas de Surrounded ou cible non trouvée, premier par défaut
+            priorityTarget ??= CombatState.HittableEnemies.FirstOrDefault();
+
             if (priorityTarget == null) return;
 
-            // On cherche qui a la marque et on nettoie les autres (au cas où on vient de perdre Tsunami)
+            // On nettoie les marques sur les autres et on met à jour la cible prioritaire
             foreach (var enemy in CombatState.HittableEnemies)
             {
                 if (enemy == priorityTarget)
@@ -133,13 +177,12 @@ public class WavePower : FiveElementsPower
                 }
                 else if (enemy.HasPower<WaveTargetPower>())
                 {
-                    // Si ce n'est pas la cible prio mais qu'il a encore le pouvoir, on l'enlève
+                    // Enlève la marque si l'ennemi n'est plus "devant" le joueur
                     await PowerCmd.Remove<WaveTargetPower>(enemy);
                 }
             }
         }
     }
-    
     
     /*
     // this could make it trigger before doom but it's less fitting thematicaly
@@ -154,10 +197,39 @@ public class WavePower : FiveElementsPower
 
         await base.BeforeTurnEndVeryEarly(choiceContext, side);
     }
-*/
+    */
+    
     public async Task TriggerWave(CombatState combatState, PlayerChoiceContext choiceContext, Creature? target = null)
      {
      
+         // 1. Détermination de la cible "devant" le joueur
+         if (target == null && !HasWaterTsunami)
+         {
+             // On récupère le pouvoir Surrounded s'il existe
+             var surrounded = Owner.GetPower<SurroundedPower>();
+             
+             if (surrounded != null)
+             {
+                 if (surrounded.Facing == SurroundedPower.Direction.Left)
+                 {
+                     // À gauche, l'ennemi "devant" toi est le dernier de la file
+                     target = combatState.HittableEnemies
+                         .LastOrDefault(e => e.HasPower<BackAttackLeftPower>());
+                 }
+                 else
+                 {
+                     // À droite, l'ennemi "devant" toi est le premier de la file
+                     target = combatState.HittableEnemies
+                         .FirstOrDefault(e => e.HasPower<BackAttackRightPower>());
+                 }
+             }
+             
+             
+             // Si pas de Surrounded ou si la cible n'a pas été trouvée, on prend le premier par défaut
+             target ??= combatState.HittableEnemies.FirstOrDefault();
+         }
+         
+         
          Flash();
          if (HasWaterTsunami)
          {
