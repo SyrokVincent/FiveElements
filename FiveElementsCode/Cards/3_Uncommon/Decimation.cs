@@ -1,5 +1,4 @@
 ﻿using BaseLib.Utils;
-using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;

@@ -1,13 +1,8 @@
 ﻿using BaseLib.Abstracts;
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards._1_Basic;
-using FiveElements.FiveElementsCode.Cards._2_Common;
-using FiveElements.FiveElementsCode.Cards._3_Uncommon;
-using FiveElements.FiveElementsCode.Cards._4_Rare;
-using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
-using FiveElements.FiveElementsCode.Powers;
 using FiveElements.FiveElementsCode.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;

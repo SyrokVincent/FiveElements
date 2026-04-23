@@ -1,9 +1,7 @@
-﻿using BaseLib.Utils;
-using FiveElements.FiveElementsCode.Cards._1_Basic;
+﻿using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
-using Godot;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;

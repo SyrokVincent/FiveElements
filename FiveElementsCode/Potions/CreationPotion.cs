@@ -1,5 +1,4 @@
-﻿using FiveElements.FiveElementsCode.Powers;
-using MegaCrit.Sts2.Core.Entities.Cards;
+﻿using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -7,10 +6,8 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using Godot;
 using BaseLib.Extensions;
-using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Cards._5_Token;
 using FiveElements.FiveElementsCode.Extensions;
-using MegaCrit.Sts2.Core.Combat;
 
 namespace FiveElements.FiveElementsCode.Potions;
 
