@@ -37,11 +37,14 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	private Label? _label;
 	private TextureRect _essence;
 	private TextureRect _echo;
+	private GpuParticles2D _essenceParticles;
+	
 	private NEnergyCounter _parentCounter;
 	
 	private HoverTip _hoverTip;
 	private float _tooltipOffsetY = -50f; // Ajuste cette valeur (négatif pour monter)
-
+	
+	private int _lastState = -1; // -1: initial, 0: inactif, 1: actif, 2: essence
 
 
 	
@@ -62,7 +65,14 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		_label = GetNodeOrNull<Label>("%Label") ?? GetNodeOrNull<Label>("Label");
 		_essence = GetNodeOrNull<TextureRect>("%Essence") ?? GetNodeOrNull<TextureRect>("Essence");
 		_echo = GetNodeOrNull<TextureRect>("%Echo") ?? GetNodeOrNull<TextureRect>("Echo");
-
+		_essenceParticles = GetNodeOrNull<GpuParticles2D>("EssenceParticles");
+		
+		if (_essenceParticles != null)
+		{
+			_essenceParticles.ProcessMaterial = (ParticleProcessMaterial)_essenceParticles.ProcessMaterial.Duplicate();
+			_essenceParticles.Emitting = true;
+		}
+		
 		if (_essence == null) {
 			GD.PrintErr($"[FiveElements] ERREUR CRITIQUE : _essence est null pour {Name} !");
 		}
@@ -91,9 +101,14 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		MouseEntered += OnHovered;
 		MouseExited += OnUnhovered;
 		
-		RefreshLabel();
+		RefreshAll();
 	}
 	
+	private void RefreshAll()
+	{
+		RefreshLabel();   // Texte + Data
+		RefreshVisuals(); // Tweens + Particules
+	}
 	
 	public override void _EnterTree()
 	{
@@ -158,8 +173,22 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		RefreshLabel();
 	}
 	
-	
 	private void RefreshLabel()
+	{
+		if (_label == null || _player?.Creature?.CombatState == null) return;
+		var status = _player.Creature.CombatState.GetElementalStatus();
+		if (status == null) return;
+
+		int count = status.GetEssence(_myElement);
+		_label.Text = count <= 0 ? "" : count.ToString();
+    
+		// On met à jour l'objet HoverTip en mémoire sans l'afficher
+		bool isActive = _myElement.IsActive(_player.Creature.CombatState);
+		bool isEcho = FiveElements.FiveElementsCode.Character.FiveElements.Echo.Contains(_myElement);
+		UpdateHoverTip(isActive, isEcho, count);
+	}
+	
+	private void RefreshVisuals()
 	{
 		
 		
@@ -173,13 +202,22 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		bool isActive = _myElement.IsActive(_player.Creature.CombatState);
 		bool isEcho = FiveElements.FiveElementsCode.Character.FiveElements.Echo.Contains(_myElement);
 		int count = status.GetEssence(_myElement);
-
-		// --- MISE À JOUR DE L'INFOBULLE ---
-		UpdateHoverTip(isActive, isEcho, count);
+		bool hasEssence = count > 0;
 		
-		// 1. Texte (Rien si 0)
-		_label.Text = count <= 0 ? "" : count.ToString();
+		
+		
+		// 1. GESTION DE L'ECHO (Avant le return !)
+		// On le met ici pour qu'il se mette à jour même si l'état des particules ne change pas
+		if (_echo != null)
+		{
+			_echo.Visible = isEcho;
+		}
 
+		// 2. SÉCURITÉ ÉTAT VISUEL (Pour les Tweens uniquement)
+		int currentState = hasEssence ? 2 : (isActive ? 1 : 0);
+		if (currentState == _lastState) return; 
+		_lastState = currentState;
+		
 		// 2. Visuel de l'icône Essence
 		if (_essence != null)
 		{
@@ -199,12 +237,50 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			//
 		}
 		
-		// 3. Gestion de l'Echo (Optionnel)
-		// Si l'élément est actif à cause de l'Echo, tu peux allumer un effet spécial
-		if (_echo != null)
+		
+		if (_essenceParticles != null)
 		{
-			_echo.Visible = isEcho;
+			var tween = CreateTween().SetParallel(true);
+			var material = (ParticleProcessMaterial)_essenceParticles.ProcessMaterial;
+
+			float targetScale;
+			float targetAlpha;
+			float targetRatio;
+			float targetGravity;
+
+			if (hasEssence) // État Max : Puissant
+			{
+				targetScale = 1.1f;
+				targetAlpha = 1.0f;
+				targetRatio = 1.0f;
+				targetGravity = 0f;
+			}
+			else if (isActive) // État Moyen : Actif
+			{
+				targetScale = 0.9f;
+				targetAlpha = 0.7f;
+				targetRatio = 0.8f;
+				targetGravity = 0f;
+			}
+			else // État Mini : Inactif (Petit mais présent)
+			{
+				targetScale = 0.4f;
+				targetAlpha = 0.5f;
+				targetRatio = 0.6f;
+				targetGravity = 0f;
+			}
+
+			// Animation de la transition
+			tween.TweenProperty(_essenceParticles, "amount_ratio", targetRatio, 0.5f);
+			tween.TweenProperty(_essenceParticles, "modulate:a", targetAlpha, 0.5f);
+	
+			// Pour tweener les propriétés du matériau, on passe par Set
+			// Note : On peut aussi tweener directement l'échelle globale si on veut simplifier
+			tween.TweenProperty(material, "scale_min", targetScale, 0.5f);
+			tween.TweenProperty(material, "scale_max", targetScale + 0.1f, 0.5f);
+			tween.TweenProperty(material, "gravity", new Vector3(0, targetGravity, 0), 0.5f);
 		}
+		
 		
 	}
 	private void UpdateHoverTip(bool active, bool echo, int essenceCount)
@@ -296,7 +372,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		{
 			// 4. Calcul de la nouvelle position (30px à droite de l'icône, et aligné en hauteur)
 			Vector2 targetPos = new Vector2(myGlobalPos.X + mySize.X + 10, myGlobalPos.Y - 20);
-        
+		
 			tooltipControl.GlobalPosition = targetPos;
 
 			// 5. PRINT DE DEBUG
@@ -321,8 +397,8 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		NHoverTipSet.Remove(this);
 	}
 	
-	private void OnEssenceChanged(CardElementTag cardElementTag, int newValue, PlayerChoiceContext? context) => RefreshLabel(); 
-	private void OnCombatStateChanged(CombatState combatState) => RefreshLabel();
+	private void OnEssenceChanged(CardElementTag cardElementTag, int newValue, PlayerChoiceContext? context) => RefreshAll(); 
+	private void OnCombatStateChanged(CombatState combatState) => RefreshAll();
 /*
 	public async Task OnElementStateChanged(CardElementTag element, bool isActive)
 	{

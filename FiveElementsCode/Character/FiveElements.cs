@@ -114,10 +114,6 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<EarthWard>());
-            finalDeck.Add(ModelDb.Card<EarthWard>());
-            finalDeck.Add(ModelDb.Card<EarthPlate>());
-            finalDeck.Add(ModelDb.Card<EarthPlate>());
             
             
             /*

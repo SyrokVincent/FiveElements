@@ -60,7 +60,7 @@ anchor_bottom = 0.5
 offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
-scale = Vector2(0.18, 0.18)
+scale = Vector2(0.25, 0.25)
 script = ExtResource("2_6cwgd")
 
 [node name="FireLayer" type="Control" parent="."]
@@ -87,7 +87,7 @@ offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
 rotation = -1.2566371
-scale = Vector2(0.18, 0.18)
+scale = Vector2(0.25, 0.25)
 script = ExtResource("2_6cwgd")
 
 [node name="EarthLayer" type="Control" parent="."]
@@ -114,7 +114,7 @@ offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
 rotation = -2.5132742
-scale = Vector2(0.18, 0.18)
+scale = Vector2(0.25, 0.25)
 script = ExtResource("2_6cwgd")
 
 [node name="MetalLayer" type="Control" parent="."]
@@ -141,7 +141,7 @@ offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
 rotation = -3.7699113
-scale = Vector2(0.18, 0.18)
+scale = Vector2(0.25, 0.25)
 script = ExtResource("2_6cwgd")
 
 [node name="WaterLayer" type="Control" parent="."]
@@ -168,5 +168,5 @@ offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
 rotation = -5.0265484
-scale = Vector2(0.18, 0.18)
+scale = Vector2(0.25, 0.25)
 script = ExtResource("2_6cwgd")
