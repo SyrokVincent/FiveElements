@@ -67,11 +67,29 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		_echo = GetNodeOrNull<TextureRect>("%Echo") ?? GetNodeOrNull<TextureRect>("Echo");
 		_essenceParticles = GetNodeOrNull<GpuParticles2D>("EssenceParticles");
 		
+		if (_essence != null)
+		{
+			// On force le scale à presque rien pour éviter le flash "géant"
+			_essence.Scale = new Vector2(0.1f, 0.1f);
+			_essence.PivotOffset = _essence.Size / 2;
+		}
+		
 		if (_essenceParticles != null)
 		{
 			_essenceParticles.ProcessMaterial = (ParticleProcessMaterial)_essenceParticles.ProcessMaterial.Duplicate();
+      
+			// --- FIX DU BURST AU LANCEMENT ---
+			// On force un état "calme" tout de suite avant le premier rendu
+			var material = (ParticleProcessMaterial)_essenceParticles.ProcessMaterial;
+			_essenceParticles.AmountRatio = 0.2f; // Très peu de particules
+			_essenceParticles.Modulate = new Color(1, 1, 1, 0.3f); // Très transparent
+			material.ScaleMin = 0.4f;
+			material.Gravity = Vector3.Zero;
+      
 			_essenceParticles.Emitting = true;
+			_essenceParticles.Restart(); // On redémarre pour appliquer les changements proprement
 		}
+		
 		
 		if (_essence == null) {
 			GD.PrintErr($"[FiveElements] ERREUR CRITIQUE : _essence est null pour {Name} !");
@@ -188,36 +206,30 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		UpdateHoverTip(isActive, isEcho, count);
 	}
 	
+	
 	private void RefreshVisuals()
 	{
-		
-		
-		if (_label == null || _player?.Creature?.CombatState == null) return;
 
-		var status = _player.Creature.CombatState.GetElementalStatus();
-		if (status == null) return;
-
-		// --- UTILISATION DE TA LOGIQUE DE CARTES ---
-		// On utilise l'extension que tu as définie pour savoir si l'élément est "Actif"
-		bool isActive = _myElement.IsActive(_player.Creature.CombatState);
-		bool isEcho = FiveElements.FiveElementsCode.Character.FiveElements.Echo.Contains(_myElement);
-		int count = status.GetEssence(_myElement);
+		// On calcule les états : si le player est null, tout sera à false/0 par défaut
+		bool isActive = _player != null && _player.Creature.CombatState != null && _myElement.IsActive(_player.Creature.CombatState);
+		var status = _player?.Creature?.CombatState?.GetElementalStatus();
+		int count = status?.GetEssence(_myElement) ?? 0;
 		bool hasEssence = count > 0;
-		
-		
-		
-		// 1. GESTION DE L'ECHO (Avant le return !)
-		// On le met ici pour qu'il se mette à jour même si l'état des particules ne change pas
-		if (_echo != null)
-		{
-			_echo.Visible = isEcho;
-		}
+    
+		bool isEcho = _player != null && FiveElements.FiveElementsCode.Character.FiveElements.Echo.Contains(_myElement);
 
-		// 2. SÉCURITÉ ÉTAT VISUEL (Pour les Tweens uniquement)
+		// 1. Gestion Echo (toujours accessible)
+		if (_echo != null) _echo.Visible = isEcho;
+
+		// 2. Calcul de l'état
 		int currentState = hasEssence ? 2 : (isActive ? 1 : 0);
-		if (currentState == _lastState) return; 
+   
+		// On ne bloque le rafraîchissement que si on a déjà un player ET que l'état n'a pas changé
+		if (currentState == _lastState && _player != null) return; 
 		_lastState = currentState;
+
 		
+	
 		// 2. Visuel de l'icône Essence
 		if (_essence != null)
 		{
