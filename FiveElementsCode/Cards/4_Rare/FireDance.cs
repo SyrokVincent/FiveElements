@@ -42,7 +42,7 @@ public sealed class FireDance() : FireCard(1,
         {
           
             var clone = CreateClone();
-            var addCommand = await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Draw, true,CardPilePosition.Top);
+            var addCommand = await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Draw, Owner, CardPilePosition.Top);
             // L'effet visuel de la carte qui vole vers le deck
             CardCmd.PreviewCardPileAdd(addCommand);
         }

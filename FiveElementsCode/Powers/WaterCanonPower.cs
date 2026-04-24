@@ -19,7 +19,7 @@ public class WaterCanonPower : FiveElementsPower
     public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)
     {
         Flash();
-        await PowerCmd.Apply<WavePower>(Owner, -Amount, Owner, null);
+        await PowerCmd.Apply<WavePower>(choiceContext, Owner, -Amount, Owner, null);
         await PowerCmd.Remove(this);
     }
     

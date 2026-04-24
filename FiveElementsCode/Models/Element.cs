@@ -7,12 +7,12 @@ namespace FiveElements.FiveElementsCode.Models;
 
 public class Element
 {
-    public CombatState CombatState { get; }
+    public ICombatState CombatState { get; }
     
     // Un dictionnaire pour stocker tous les éléments : Clé = Tag, Valeur = Essence
     private readonly Dictionary<CardElementTag, int> _essences = new();
 
-    public Element(CombatState combatState) => CombatState = combatState;
+    public Element(ICombatState combatState) => CombatState = combatState;
     
     // --- LE NOUVEL EVENEMENT ---
     // Cet événement transmet l'élément concerné et la nouvelle valeur

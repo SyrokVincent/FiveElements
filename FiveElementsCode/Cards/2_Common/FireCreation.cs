@@ -39,7 +39,7 @@ public sealed class FireCreation() : FireCard(1,
         
         
         var targets = CombatState.HittableEnemies;
-        await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
+        await PowerCmd.Apply<BurnPower>(choiceContext, targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
     
         if (CardElementTag.Fire.IsActive(CombatState))
         {

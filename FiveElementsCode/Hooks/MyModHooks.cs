@@ -24,7 +24,7 @@ public static class MyModHooks
     }*/
     
     
-    public static async Task TriggerElementStateChanged(IRunState runState, CombatState? combatState, CardElementTag element, bool isActive)
+    public static async Task TriggerElementStateChanged(IRunState runState, ICombatState combatState, CardElementTag element, bool isActive)
     {
         if (combatState == null) return;
     

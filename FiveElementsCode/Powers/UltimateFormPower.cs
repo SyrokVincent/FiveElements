@@ -100,19 +100,19 @@ public class UltimateFormPower : FiveElementsPower
         if (cardWas.Contains(CardElementTag.Water) && snapshotEcho.IsGenerating(CardElementTag.Water))
         {
             await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue * Amount, Owner.Player);
-            await PowerCmd.Apply<WavePower>(Owner, DynamicVars["WavePower"].BaseValue * Amount, Owner, null);
+            await PowerCmd.Apply<WavePower>(context, Owner, DynamicVars["WavePower"].BaseValue * Amount, Owner, null);
             needUpgrade = true;
         }
         if (cardWas.Contains(CardElementTag.Wood) && snapshotEcho.IsGenerating(CardElementTag.Wood))
         {
             await CardPileCmd.Draw(context, DynamicVars.Cards.BaseValue * Amount, Owner.Player);
-            await PowerCmd.Apply<ActivationTempStrengthPower>(Owner, DynamicVars["ActivationTempStrengthPower"].BaseValue * Amount, Owner, null);
+            await PowerCmd.Apply<ActivationTempStrengthPower>(context, Owner, DynamicVars["ActivationTempStrengthPower"].BaseValue * Amount, Owner, null);
             needUpgrade = true;
         }
         if (cardWas.Contains(CardElementTag.Fire) && snapshotEcho.IsGenerating(CardElementTag.Fire))
         {
             var targets = CombatState.HittableEnemies;
-            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue * Amount, this.Owner, null);
+            await PowerCmd.Apply<BurnPower>(context, targets, this.DynamicVars["BurnPower"].BaseValue * Amount, this.Owner, null);
             needUpgrade = true;
         }
         if (cardWas.Contains(CardElementTag.Earth) && snapshotEcho.IsGenerating(CardElementTag.Earth))
@@ -122,7 +122,7 @@ public class UltimateFormPower : FiveElementsPower
         }
         if (cardWas.Contains(CardElementTag.Metal) && snapshotEcho.IsGenerating(CardElementTag.Metal))
         {
-            await PowerCmd.Apply<VigorPower>(Owner, DynamicVars["VigorPower"].BaseValue * Amount, Owner, null);
+            await PowerCmd.Apply<VigorPower>(context, Owner, DynamicVars["VigorPower"].BaseValue * Amount, Owner, null);
             needUpgrade = true;
         }
 

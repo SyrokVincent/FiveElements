@@ -25,12 +25,12 @@ public sealed class MetalRelic() : FiveElementsRelic
         HoverTipFactory.FromPower<VigorPower>()
     ]); 
     
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         if (player != Owner) return;
         
         this.Flash();
-        await PowerCmd.Apply<VigorPower>(Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature,null);
+        await PowerCmd.Apply<VigorPower>(choiceContext,Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature,null);
     }
     
 }

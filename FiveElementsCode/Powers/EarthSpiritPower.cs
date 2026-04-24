@@ -47,7 +47,7 @@ public class EarthSpiritPower : FiveElementsPower
                 Flash();
                 data.TempThornsCount += Amount - 2; //this number need to be the same as the one on earthspirit
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<ThornsPower>(Owner, Amount - 2, Owner,null);
+                await PowerCmd.Apply<ThornsPower>(context,Owner, Amount - 2, Owner,null);
                 InvokeDisplayAmountChanged();
             }
             else
@@ -55,7 +55,7 @@ public class EarthSpiritPower : FiveElementsPower
                 Flash();
                 data.TempThornsCount += Amount;
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<ThornsPower>(Owner, Amount, Owner,null);
+                await PowerCmd.Apply<ThornsPower>(context,Owner, Amount, Owner,null);
                 InvokeDisplayAmountChanged();
             }
             
@@ -68,7 +68,7 @@ public class EarthSpiritPower : FiveElementsPower
         if (player != Owner.Player ||  GetInternalData<Data>().TempThornsCount == 0)return;
         Flash();
         //remove of the thorns given by this power
-        await PowerCmd.Apply<ThornsPower>(Owner, -GetInternalData<Data>().TempThornsCount, Owner, null);
+        await PowerCmd.Apply<ThornsPower>(choiceContext,Owner, -GetInternalData<Data>().TempThornsCount, Owner, null);
         GetInternalData<Data>().TempThornsCount = 0;
         DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
         InvokeDisplayAmountChanged();

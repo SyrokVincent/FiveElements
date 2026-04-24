@@ -62,7 +62,7 @@ public sealed class BurnPotion :FiveElementsPotion
             // --- PHASE 3 : Application des dégâts ---
             // On inflige les dégâts à tous les ennemis
            
-            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
+            await PowerCmd.Apply<BurnPower>(choiceContext,targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
             //await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
             
         }

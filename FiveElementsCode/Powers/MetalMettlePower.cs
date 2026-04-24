@@ -77,7 +77,7 @@ public sealed class MetalMettlePower : FiveElementsPower
             this.Flash();
 
             // On rend exactement ce qui a été consommé, peu importe si la carte a donné de la vigueur entre temps
-            await PowerCmd.Apply<VigorPower>(Owner, _vigorConsumedByCurrentCard, Owner, null);
+            await PowerCmd.Apply<VigorPower>(choiceContext, Owner, _vigorConsumedByCurrentCard, Owner, null);
         }
 
         // Reset pour la prochaine carte

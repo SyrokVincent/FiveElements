@@ -64,7 +64,7 @@ public class MetalCore() : MetalCard(1,
 
         if (CardElementTag.Earth.IsActive(CombatState))
         {
-            await PowerCmd.Apply<VigorPower>(this.Owner.Creature, DynamicVars["VigorGained"].PreviewValue, Owner.Creature, this,false);
+            await PowerCmd.Apply<VigorPower>(choiceContext,this.Owner.Creature, DynamicVars["VigorGained"].PreviewValue, Owner.Creature, this,false);
         }
         if (CardElementTag.Metal.IsActive(CombatState))
         {

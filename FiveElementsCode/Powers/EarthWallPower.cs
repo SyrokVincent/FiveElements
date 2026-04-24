@@ -40,7 +40,7 @@ public sealed class EarthWallPower : FiveElementsPower
         await CreatureCmd.Damage(choiceContext, dealer, result.BlockedDamage, ValueProp.Unpowered, Owner);
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         // Au début de son tour (Joueur ou Monstre), on réduit le compteur de 1
         if (side == Owner.Side)

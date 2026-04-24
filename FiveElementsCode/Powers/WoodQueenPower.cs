@@ -53,7 +53,7 @@ public class WoodQueenPower : FiveElementsPower
             if (Owner.Player != null)
             {
                 await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner.Player);
-                await PowerCmd.Apply<StrengthPower>(Owner, DynamicVars["StrengthPower"].BaseValue, Owner, null);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, DynamicVars["StrengthPower"].BaseValue, Owner, null);
             }
         }
     }
@@ -63,7 +63,7 @@ public class WoodQueenPower : FiveElementsPower
         if (side != Owner.Side)return;
         Flash();
         //remove of the strength given by this power
-        await PowerCmd.Apply<StrengthPower>(Owner, -GetInternalData<Data>().TriggerCount, Owner, null);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -GetInternalData<Data>().TriggerCount, Owner, null);
         GetInternalData<Data>().TriggerCount = 0;
         DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
         InvokeDisplayAmountChanged();

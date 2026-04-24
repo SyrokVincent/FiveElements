@@ -27,7 +27,7 @@ public sealed class FireRelic() : FiveElementsRelic
     ]); 
     
 
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         if (player != Owner) return;
         await base.BeforeHandDraw(player,choiceContext, combatState);

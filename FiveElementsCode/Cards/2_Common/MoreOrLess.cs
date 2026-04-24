@@ -54,7 +54,7 @@ public class MoreOrLess() : NeutralCard(1,
             if (selectedInternalCard != null)
             {
                 // Ajout de la carte générée dans la main avec animation
-                await CardPileCmd.AddGeneratedCardToCombat(selectedInternalCard, PileType.Hand, true);
+                await CardPileCmd.AddGeneratedCardToCombat(selectedInternalCard, PileType.Hand, Owner);
             }
         }
     }

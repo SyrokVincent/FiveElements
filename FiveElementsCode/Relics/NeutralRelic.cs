@@ -48,7 +48,7 @@ public sealed class NeutralRelic() : FiveElementsRelic
         }
     }
 
-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, ICombatState combatState)
     {
         if (side != Owner.Creature.Side)
             return Task.CompletedTask;
@@ -80,8 +80,8 @@ public sealed class NeutralRelic() : FiveElementsRelic
         {
             this.Flash();
 
-            await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature,null);
-            await PowerCmd.Apply<DexterityPower>(Owner.Creature, DynamicVars["DexterityPower"].BaseValue, Owner.Creature, null);
+            await PowerCmd.Apply<StrengthPower>(context,Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature,null);
+            await PowerCmd.Apply<DexterityPower>(context,Owner.Creature, DynamicVars["DexterityPower"].BaseValue, Owner.Creature, null);
 
             ActivationsThisTurn++;
         }

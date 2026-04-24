@@ -83,7 +83,7 @@ public class Incarnation() : NeutralCard(0,
         if (CardElementTag.Fire.IsActive(CombatState))
         {
             var targets = CombatState.HittableEnemies;
-            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
+            await PowerCmd.Apply<BurnPower>(choiceContext,targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
         }
         if (CardElementTag.Earth.IsActive(CombatState))
         {

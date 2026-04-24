@@ -26,7 +26,9 @@ public class BurnPower : FiveElementsPower
         );
     }
     
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    
+    
+    public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side != Owner.Side) return;
         await CreatureCmd.Damage( new ThrowingPlayerChoiceContext(),Owner, Amount,ValueProp.Unblockable | ValueProp.Unpowered,null,null);

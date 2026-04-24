@@ -17,7 +17,7 @@ namespace FiveElements.FiveElementsCode.Extensions;
 public static class FiveElementsCardExtensions
 {
     
-    public static async Task SyncElementalState(CardModel potentialListener, CombatState combatState)
+    public static async Task SyncElementalState(CardModel potentialListener, ICombatState combatState)
     {
         // On vérifie si l'objet écoute les changements d'éléments
         if (potentialListener is IOnElementStateChanged elementalListener)
@@ -37,14 +37,14 @@ public static class FiveElementsCardExtensions
         }
     }
 
-    public static async Task TransformInHand(CardModel card, CardModel intoCard, bool needUpgrade, CombatState combatState) 
+    public static async Task TransformInHand(CardModel card, CardModel intoCard, bool needUpgrade, ICombatState combatState) 
     {
             await SyncElementalState(intoCard, combatState);
             if (needUpgrade) CardCmd.Upgrade(intoCard);
             await CardCmd.Transform(card, intoCard);
     }
     
-    public static async Task TransformInHand<T>(Player owner, IEnumerable<CardModel> cards, bool needUpgrade, CombatState combatState) 
+    public static async Task TransformInHand<T>(Player owner, IEnumerable<CardModel> cards, bool needUpgrade, ICombatState combatState) 
         where T : CardModel // On précise que T doit être un modèle de carte
     {
         foreach (var card in cards )
@@ -58,7 +58,7 @@ public static class FiveElementsCardExtensions
         }
     }
     
-    public static async Task CreateInHand<T>(Player owner, int count, bool needUpgrade, CombatState combatState) 
+    public static async Task CreateInHand<T>(Player owner, int count, bool needUpgrade, ICombatState combatState) 
         where T : CardModel // On précise que T doit être un modèle de carte
     {
         var cards = new List<CardModel>();
@@ -74,7 +74,7 @@ public static class FiveElementsCardExtensions
             cards.Add(card);
         }
 
-        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, true);
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, owner);
     }
     
     public static async Task TryShiftFuluTransform(this FiveElementsCard cardToTransform)
@@ -247,7 +247,7 @@ public static class FiveElementsCardExtensions
         };
     }
     
-    public static bool IsActive(this CardElementTag elem, CombatState? combatState)
+    public static bool IsActive(this CardElementTag elem, ICombatState combatState)
     {
         if (combatState == null) return false;
 
@@ -266,7 +266,7 @@ public static class FiveElementsCardExtensions
     }
     
 
-    public static bool IsAnyElementActive(CombatState combatState)
+    public static bool IsAnyElementActive(ICombatState combatState)
     {
         return CardElementTag.Water.IsActive(combatState) ||
                CardElementTag.Wood.IsActive(combatState)  ||
@@ -280,7 +280,7 @@ public static class FiveElementsCardExtensions
     // Un dictionnaire pour mémoriser l'état de chaque élément (Eau, Bois, etc.)
     private static readonly Dictionary<CardElementTag, bool> _lastStates = new();
 
-    public static async Task CheckAndNotify(CombatState combatState, CardElementTag elem)
+    public static async Task CheckAndNotify(ICombatState combatState, CardElementTag elem)
     {
         //GD.Print("CheckAndNotify TRIGGERED");
         // 1. On calcule l'état actuel (Essence + Echo) pour cet élément précis

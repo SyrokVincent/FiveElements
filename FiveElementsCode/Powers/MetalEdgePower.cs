@@ -2,6 +2,7 @@
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -40,7 +41,7 @@ public class MetalEdgePower : FiveElementsPower
         
     }
 
-    public override async Task AfterAttack(AttackCommand command)
+    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
         // On vérifie que la source de l'attaque est bien le porteur du pouvoir
         if (command.Attacker == Owner)

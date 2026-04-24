@@ -47,7 +47,7 @@ public class EarthJewel() : EarthCard(0,
     }
     
     
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         // Si ce n'est pas le tour du propriétaire, on ne fait rien
         // Si on est au premier tour, il n'y a pas de "tour précédent", donc on ignore.

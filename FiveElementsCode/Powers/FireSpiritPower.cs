@@ -39,13 +39,13 @@ public class FireSpiritPower : FiveElementsPower
                 
                 Flash();
                 var targets = CombatState.HittableEnemies;
-                await PowerCmd.Apply<BurnPower>(targets, Amount - DynamicVars["FireSpiritPower"].BaseValue, this.Owner, null);
+                await PowerCmd.Apply<BurnPower>(context, targets, Amount - DynamicVars["FireSpiritPower"].BaseValue, this.Owner, null);
             }
             else
             {
                 Flash();
                 var targets = CombatState.HittableEnemies;
-                await PowerCmd.Apply<BurnPower>(targets, Amount, this.Owner, null);
+                await PowerCmd.Apply<BurnPower>(context, targets, Amount, this.Owner, null);
             }
             
         }

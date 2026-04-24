@@ -52,7 +52,7 @@ public class WaterLordPower : FiveElementsPower
         if (cardPlay.Card.CountAsElement(CardElementTag.Water, Owner))
         {
             this.Flash();
-            await PowerCmd.Apply<WavePower>(Owner, amount, Applier, null);
+            await PowerCmd.Apply<WavePower>(context, Owner, amount, Applier, null);
         }
     }
     

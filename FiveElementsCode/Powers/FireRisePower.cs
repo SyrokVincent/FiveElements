@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -48,10 +49,8 @@ public class FireRisePower : FiveElementsPower
         }
     }
 
-    public override async Task AfterPowerAmountChanged(
-        PowerModel power,
-        decimal amount,
-        Creature? applier,
+
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier,
         CardModel? cardSource)
     {
         // On ne réagit que si c'est le porteur du pouvoir qui applique du burn (montant positif)
@@ -81,6 +80,7 @@ public class FireRisePower : FiveElementsPower
 
         InvokeDisplayAmountChanged();
     }
+    
 
     protected override object InitInternalData() => new Data { Threshold = InitialThreshold };
     

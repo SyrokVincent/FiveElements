@@ -81,17 +81,17 @@ public class Meditation() : NeutralCard(1,
         if (selectedModel.CountAsElement(CardElementTag.Water,Owner.Creature))
         {
             await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
-            await PowerCmd.Apply<WavePower>(Owner.Creature, DynamicVars["WavePower"].BaseValue, Owner.Creature, null);
+            await PowerCmd.Apply<WavePower>(choiceContext,Owner.Creature, DynamicVars["WavePower"].BaseValue, Owner.Creature, null);
         }
         if (selectedModel.CountAsElement(CardElementTag.Wood, Owner.Creature))
         {
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-            await PowerCmd.Apply<ActivationTempStrengthPower>(Owner.Creature, DynamicVars["ActivationTempStrengthPower"].BaseValue, Owner.Creature, null);
+            await PowerCmd.Apply<ActivationTempStrengthPower>(choiceContext,Owner.Creature, DynamicVars["ActivationTempStrengthPower"].BaseValue, Owner.Creature, null);
         }
         if (selectedModel.CountAsElement(CardElementTag.Fire, Owner.Creature))
         {
             var targets = CombatState.HittableEnemies;
-            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
+            await PowerCmd.Apply<BurnPower>(choiceContext,targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
         }
         if (selectedModel.CountAsElement(CardElementTag.Earth, Owner.Creature))
         {
@@ -100,7 +100,7 @@ public class Meditation() : NeutralCard(1,
         }
         if (selectedModel.CountAsElement(CardElementTag.Metal, Owner.Creature))
         {
-            await PowerCmd.Apply<VigorPower>(Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, null);
+            await PowerCmd.Apply<VigorPower>(choiceContext,Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, null);
         }
         
     }

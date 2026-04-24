@@ -94,14 +94,14 @@ public class FireBlossom() : FireCard(1,
                     }
 
                     // Application du burn
-                    await PowerCmd.Apply<BurnPower>(enemy, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
+                    await PowerCmd.Apply<BurnPower>(choiceContext,enemy, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
                 }
             }
         }
         if (CardElementTag.Fire.IsActive(CombatState))
         {
             var targets = CombatState.HittableEnemies;
-            await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["FireBlossomPower"].BaseValue, this.Owner.Creature, this);
+            await PowerCmd.Apply<BurnPower>(choiceContext,targets, this.DynamicVars["FireBlossomPower"].BaseValue, this.Owner.Creature, this);
         }
     }
 

@@ -39,7 +39,7 @@ public class MetalCoreDoublePower : FiveElementsPower
         return 1m;
     }
 
-    public override async Task AfterAttack(AttackCommand command)
+    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
         // On vérifie que la source de l'attaque est bien le porteur du pouvoir
         if (command.Attacker == Owner)

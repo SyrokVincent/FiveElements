@@ -23,7 +23,7 @@ public class FireWingsPower : FiveElementsPower
     public override async Task BeforeHandDraw(
         Player player,
         PlayerChoiceContext choiceContext,
-        CombatState combatState)
+        ICombatState combatState)
     {
         if (player != Owner.Player) return;
         Flash();

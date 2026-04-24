@@ -42,6 +42,6 @@ public class WaterTidePower : FiveElementsPower
     {
         if (side != Owner.Side)return;
         Flash();
-        await PowerCmd.Apply<WavePower>(Owner, Amount, Owner, null);
+        await PowerCmd.Apply<WavePower>(choiceContext, Owner, Amount, Owner, null);
     }
 }

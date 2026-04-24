@@ -44,7 +44,7 @@ public class MetalRush() : MetalCard(0,
         if (CombatState == null) return;
         if (CardElementTag.Metal.IsActive(CombatState))
         {
-            await PowerCmd.Apply<VigorPower>(this.Owner.Creature, DynamicVars["VigorThisTurn"].PreviewValue, Owner.Creature, this,false);
+            await PowerCmd.Apply<VigorPower>(choiceContext,this.Owner.Creature, DynamicVars["VigorThisTurn"].PreviewValue, Owner.Creature, this,false);
         }
         this.EnergyCost.AddThisTurn(1);
         await CardPileCmd.Add(this, PileType.Hand);

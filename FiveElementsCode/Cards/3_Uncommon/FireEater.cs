@@ -62,7 +62,7 @@ public class FireEater() : FireCard(1,
                 if (CombatState != null)
                 {
                     var targets = CombatState.HittableEnemies;
-                    await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
+                    await PowerCmd.Apply<BurnPower>(choiceContext, targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
                 }
             }
         }

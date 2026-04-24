@@ -62,7 +62,7 @@ public class WavePower : FiveElementsPower
         await base.BeforeTurnEndVeryEarly(choiceContext, side);
     }
     
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         // On ne réagit que si c'est le porteur du pouvoir Wave qui change
         // OU si c'est le pouvoir Tsunami qui est ajouté/modifié
@@ -70,51 +70,50 @@ public class WavePower : FiveElementsPower
 
         if (power is WavePower || power is WaterTsunamiPower)
         {
-            await SyncWaveTarget();
+            await SyncWaveTarget(choiceContext);
             
         }
     }
 
-    public override async Task AfterCreatureAddedToCombat(Creature creature)
-    {
-        await base.AfterCreatureAddedToCombat(creature);
-        await SyncWaveTarget();
-    }
 
     public override async Task AfterDeath(PlayerChoiceContext context, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
         await base.AfterDeath(context, creature, wasRemovalPrevented, deathAnimLength);
         
-        await SyncWaveTarget();
+        await SyncWaveTarget(context);
     }
     
-    //necessaire pour prendre en compte surrounded power
+    //needed for surrounded power
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        // On ne synchronise que si c'est le porteur du pouvoir qui a joué la carte
         if (cardPlay.Card.Owner.Creature == Owner)
         {
-            await SyncWaveTarget();
+            await SyncWaveTarget(context);
         }
     }
 
-    //necessaire pour prendre en compte surrounded power
+    //needed for surrounded power
     public override async Task AfterPotionUsed(PotionModel potion, Creature? target)
     {
-        // On ne synchronise que si c'est le porteur qui a utilisé la potion
         if (potion.Owner.Creature == Owner)
         {
-            await SyncWaveTarget();
+            await SyncWaveTarget(new ThrowingPlayerChoiceContext());
         }
     }
     
-    private async Task SyncWaveTarget()
+    public override async Task AfterCreatureAddedToCombat(Creature creature)
+    {
+        await base.AfterCreatureAddedToCombat(creature);
+        await SyncWaveTarget(new ThrowingPlayerChoiceContext());
+    }
+    
+    
+    private async Task SyncWaveTarget(PlayerChoiceContext context)
     {
         
         // --- MISE À JOUR DE LA LOCALISATION ---
         DynamicVars["HasWaterTsunami"].BaseValue = HasWaterTsunami ? 1M : 0M;
         DynamicVars["HasWaterRelic"].BaseValue = HasWaterRelic ? 1M : 0M;
-        GD.Print("HasWaterTsunami",HasWaterTsunami,"HasWaterRelic",HasWaterRelic);
         
         if (Amount <= 0) return;
         if (HasWaterTsunami)
@@ -131,7 +130,7 @@ public class WavePower : FiveElementsPower
                     decimal diff = Amount - (p?.Amount ?? 0);
                     if (diff != 0)
                     {
-                        await PowerCmd.Apply<WaveTargetPower>(enemy, diff, Owner, null, true);
+                        await PowerCmd.Apply<WaveTargetPower>(context,enemy, diff, Owner, null, true);
                     }
                 }
             }
@@ -172,7 +171,7 @@ public class WavePower : FiveElementsPower
                     if (p == null || p.Amount != Amount)
                     {
                         decimal diff = Amount - (p?.Amount ?? 0);
-                        await PowerCmd.Apply<WaveTargetPower>(enemy, diff, Owner, null, true);
+                        await PowerCmd.Apply<WaveTargetPower>(context, enemy, diff, Owner, null, true);
                     }
                 }
                 else if (enemy.HasPower<WaveTargetPower>())
@@ -199,7 +198,7 @@ public class WavePower : FiveElementsPower
     }
     */
     
-    public async Task TriggerWave(CombatState combatState, PlayerChoiceContext choiceContext, Creature? target = null)
+    public async Task TriggerWave(ICombatState combatState, PlayerChoiceContext choiceContext, Creature? target = null)
      {
      
          // 1. Détermination de la cible "devant" le joueur
@@ -236,7 +235,7 @@ public class WavePower : FiveElementsPower
              foreach (Creature t in combatState.HittableEnemies)
              {
                  await CreatureCmd.Damage(choiceContext, t, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
-                 await PowerCmd.Apply<WaveTargetPower>(t, -1, Owner, null, true);
+                 await PowerCmd.Apply<WaveTargetPower>(choiceContext, t, -1, Owner, null, true);
              }
          }
          else
@@ -247,7 +246,7 @@ public class WavePower : FiveElementsPower
              {
                  await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Move | ValueProp.Unpowered, null,
                      null);
-                 await PowerCmd.Apply<WaveTargetPower>(target, -1, Owner, null, true);
+                 await PowerCmd.Apply<WaveTargetPower>(choiceContext, target, -1, Owner, null, true);
              }
          }
          

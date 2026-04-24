@@ -89,10 +89,11 @@ public class FireStorm() : FireCard(2,
         }
     }*/
     
+    /*
     public override async Task BeforeHandDraw(
         Player player,
         PlayerChoiceContext choiceContext,
-        CombatState combatState)
+        ICombatState combatState)
     {
         // 1. Sécurité : La carte doit être en Exhaust et appartenir au joueur
         if (Pile?.Type != PileType.Exhaust || player != Owner)
@@ -101,6 +102,41 @@ public class FireStorm() : FireCard(2,
         // 2. On cherche la TOUTE DERNIÈRE carte jouée au tour précédent
         var lastEntry = CombatManager.Instance.History.CardPlaysStarted
             .LastOrDefault(e => e.RoundNumber == (combatState.RoundNumber - 1) && e.Actor.Player == player);
+
+        if (lastEntry == null) return;
+
+        // 3. Vérification de l'élément FEU via le cache
+        bool wasFire = false;
+    
+        // On vérifie d'abord dans le cache des tags figés
+        if (NeutralCard.PlayedElementsCache.TryGetValue(lastEntry.CardPlay, out var frozenTags))
+        {
+            wasFire = frozenTags.TagsCountAsElement(CardElementTag.Fire, Owner.Creature);
+        }
+        else
+        {
+            // Fallback pour les cartes pas neutres et de base sans cache
+            wasFire = lastEntry.CardPlay.Card.CountAsElement(CardElementTag.Fire, Owner.Creature);
+        }
+
+        if (wasFire)
+        {
+            // On joue la carte automatiquement. 
+            await CardCmd.AutoPlay(choiceContext, this, null);
+        }
+    }
+    */
+    
+    public override async Task AfterAutoPrePlayPhaseEnteredEarly(PlayerChoiceContext choiceContext, Player player)
+    {
+        
+        // 1. Sécurité : La carte doit être en Exhaust et appartenir au joueur
+        if (Pile?.Type != PileType.Exhaust || player != Owner)
+            return;
+
+        // 2. On cherche la TOUTE DERNIÈRE carte jouée au tour précédent
+        var lastEntry = CombatManager.Instance.History.CardPlaysStarted
+            .LastOrDefault(e => player.Creature.CombatState != null && e.RoundNumber == (player.Creature.CombatState.RoundNumber - 1) && e.Actor.Player == player);
 
         if (lastEntry == null) return;
 

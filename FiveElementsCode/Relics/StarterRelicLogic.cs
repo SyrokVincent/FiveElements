@@ -15,7 +15,7 @@ namespace FiveElements.FiveElementsCode.Relics;
 
 public abstract class StarterRelicLogic : FiveElementsRelic
 {
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         // On vérifie si c'est le premier tour
         if (player == Owner && player.Creature.CombatState is { RoundNumber: 1 })
@@ -33,15 +33,15 @@ public abstract class StarterRelicLogic : FiveElementsRelic
     }
     
     //should make all card generated from potion have their description working
-    public override async Task AfterCardGeneratedForCombat(CardModel card, bool addedByPlayer)
+    public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
         if (card is FiveElementsCard feCard)
         {
             await FiveElementsCardExtensions.SyncElementalState(feCard, this.Owner.Creature.CombatState);
         }
-        await base.AfterCardGeneratedForCombat(card, addedByPlayer);
+        await base.AfterCardGeneratedForCombat(card, creator);
     }
-    
+
     // On stocke les éléments que la carte "avait" au moment du clic
     private HashSet<CardElementTag> _cardElementsBeforePlay = new();
 

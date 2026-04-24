@@ -48,7 +48,7 @@ public sealed class Relic2() : StarterRelicLogic
         HoverTipFactory.FromCard<Activation>(),
     ]); 
     
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         await base.BeforeHandDraw(player,choiceContext, combatState);
         
@@ -99,20 +99,26 @@ public sealed class Relic2() : StarterRelicLogic
             
             case CardElementTag.Water:
                 await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
-                await PowerCmd.Apply<WavePower>(Owner.Creature, DynamicVars["WavePower"].BaseValue, Owner.Creature, null);
+                if (context != null)
+                    await PowerCmd.Apply<WavePower>(context, Owner.Creature, DynamicVars["WavePower"].BaseValue,
+                        Owner.Creature, null);
                 break;
             
            
             case CardElementTag.Wood:
                 if (context != null) await CardPileCmd.Draw(context, DynamicVars.Cards.BaseValue, Owner);
-                await PowerCmd.Apply<ActivationTempStrengthPower>(Owner.Creature, DynamicVars["ActivationTempStrengthPower"].BaseValue, Owner.Creature, null);
+                if (context != null)
+                    await PowerCmd.Apply<ActivationTempStrengthPower>(context, Owner.Creature,
+                        DynamicVars["ActivationTempStrengthPower"].BaseValue, Owner.Creature, null);
                 break;
             
             case CardElementTag.Fire:
                 if (Owner.Creature.CombatState != null)
                 {
                     var targets = Owner.Creature.CombatState.HittableEnemies;
-                    await PowerCmd.Apply<BurnPower>(targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
+                    if (context != null)
+                        await PowerCmd.Apply<BurnPower>(context, targets, this.DynamicVars["BurnPower"].BaseValue,
+                            this.Owner.Creature, null);
                 }
 
                 break;
@@ -122,7 +128,9 @@ public sealed class Relic2() : StarterRelicLogic
                 break;
             
             case CardElementTag.Metal:
-                await PowerCmd.Apply<VigorPower>(Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, null);
+                if (context != null)
+                    await PowerCmd.Apply<VigorPower>(context, Owner.Creature, DynamicVars["VigorPower"].BaseValue,
+                        Owner.Creature, null);
                 break;
         }
     }

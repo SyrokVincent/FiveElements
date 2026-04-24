@@ -46,7 +46,7 @@ public class WoodSpiritPower : FiveElementsPower
                 Flash();
                 data.TempStrengthCount += Amount - 1; //this number need to be the same as the one on woodspirit
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<StrengthPower>(Owner, Amount - 1, Owner,null);
+                await PowerCmd.Apply<StrengthPower>(context, Owner, Amount - 1, Owner,null);
                 InvokeDisplayAmountChanged();
             }
             else
@@ -54,7 +54,7 @@ public class WoodSpiritPower : FiveElementsPower
                 Flash();
                 data.TempStrengthCount += Amount;
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<StrengthPower>(Owner, Amount, Owner,null);
+                await PowerCmd.Apply<StrengthPower>(context, Owner, Amount, Owner,null);
                 InvokeDisplayAmountChanged();
             }
             
@@ -67,7 +67,7 @@ public class WoodSpiritPower : FiveElementsPower
         
         Flash();
         //remove of the strength given by this power
-        await PowerCmd.Apply<StrengthPower>(Owner, -GetInternalData<Data>().TempStrengthCount, Owner, null);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -GetInternalData<Data>().TempStrengthCount, Owner, null);
         GetInternalData<Data>().TempStrengthCount = 0;
         DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
         InvokeDisplayAmountChanged();
