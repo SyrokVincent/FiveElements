@@ -29,15 +29,17 @@ public class EarthPlate() : EarthCard(1,
         }
     }
 
-    public override bool ShouldReceiveCombatHooks => true;
+    //I think it's useless
+    //public override bool ShouldReceiveCombatHooks => true;
     
     public override bool GainsBlock => true;
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
 
-    //Retain, Gain 1 block, for each turn in hand increase by 2, Earth:(Gain 1 Plating for each enemy that plan to attack)
+    //Retain, Gain 5 block, for each turn in hand increase by 2, Earth:(Gain 1 Plating for each enemy that plan to attack)
+    // no longer gain for combat, but faster scaling
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(1,ValueProp.Move),
+        new BlockVar(5,ValueProp.Move),
         new IntVar("BlockIncrease",2),
         new PowerVar<PlatingPower>(1),
     ]);
@@ -49,6 +51,7 @@ public class EarthPlate() : EarthCard(1,
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromPower<PlatingPower>(),
+        HoverTipFactory.FromKeyword(CardKeyword.Retain),
     ]);
 
     protected override async Task OnPlay(
@@ -59,6 +62,7 @@ public class EarthPlate() : EarthCard(1,
         if (CombatState == null) return;
  
         await CommonActions.CardBlock(this, play);
+        ResetBlockValue();
         if (CardElementTag.Earth.IsActive(CombatState))
         {
             
@@ -74,9 +78,15 @@ public class EarthPlate() : EarthCard(1,
             if (enemyWithAttackIntent>0)
             {
                 await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-                await CommonActions.ApplySelf<PlatingPower>(this, DynamicVars["PlatingPower"].BaseValue*enemyWithAttackIntent);
+                await CommonActions.ApplySelf<PlatingPower>(choiceContext,this, DynamicVars["PlatingPower"].BaseValue*enemyWithAttackIntent);
             }
         }
+    }
+    
+    private void ResetBlockValue()
+    {
+        DynamicVars.Block.BaseValue = IsUpgraded ? 7 : 5;
+        ExtraBlockFromRetains = 0;
     }
 
     protected override void OnUpgrade()

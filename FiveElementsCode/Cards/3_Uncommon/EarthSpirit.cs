@@ -32,7 +32,7 @@ public class EarthSpirit() : EarthCard(1,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<EarthSpiritPower>(this, DynamicVars["EarthSpiritPower"].BaseValue);
+        await CommonActions.ApplySelf<EarthSpiritPower>(choiceContext,this, DynamicVars["EarthSpiritPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

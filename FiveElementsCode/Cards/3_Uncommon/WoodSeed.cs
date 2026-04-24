@@ -50,7 +50,7 @@ public class WoodSeed() : WoodCard(0,
         
         if (CardElementTag.Wood.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<WoodSeedPower>(this, DynamicVars["WoodSeedPower"].BaseValue);
+            await CommonActions.ApplySelf<WoodSeedPower>(choiceContext,this, DynamicVars["WoodSeedPower"].BaseValue);
         }
 
     }

@@ -37,10 +37,10 @@ public sealed class WaterLord() : WaterCard(1,
     {
         if (CombatState == null) return;
         
-        await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+        await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<WaterLordPower>(this, DynamicVars["WaterLordPower"].BaseValue);
+            await CommonActions.ApplySelf<WaterLordPower>(choiceContext,this, DynamicVars["WaterLordPower"].BaseValue);
         }
     }
 

@@ -38,7 +38,7 @@ public sealed class MetalCreation() : MetalCard(1,
     {
         if (CombatState == null) return;
         
-        await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
+        await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue);
         if (CardElementTag.Metal.IsActive(CombatState))
         {
             CombatState.GetElementalStatus().AddEssence(CardElementTag.Metal, 1,choiceContext);

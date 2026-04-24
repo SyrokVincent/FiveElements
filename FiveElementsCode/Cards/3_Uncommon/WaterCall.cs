@@ -37,7 +37,7 @@ public sealed class WaterCall() : WaterCard(1,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
-        await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+        await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
             // trigger wave

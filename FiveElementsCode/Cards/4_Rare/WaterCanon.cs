@@ -51,7 +51,7 @@ public sealed class WaterCanon() : WaterCard(2,
             decimal totalDamage = attackResult.Results.Sum(r => r.TotalDamage);
 
             // Gain wave based on damge dealt
-            await CommonActions.ApplySelf<WavePower>(this, totalDamage);
+            await CommonActions.ApplySelf<WavePower>(choiceContext,this, totalDamage);
         }
         if (CardElementTag.Water.IsActive(CombatState))
         {
@@ -61,10 +61,10 @@ public sealed class WaterCanon() : WaterCard(2,
             if (currentWave > 0)
             {
                 // 2. On ajoute le même montant pour "Doubler"
-                await CommonActions.ApplySelf<WavePower>(this, currentWave);
+                await CommonActions.ApplySelf<WavePower>(choiceContext,this, currentWave);
                 
                 // 3. On applique un pouvoir négatif qui retirera ce surplus au tour suivant
-                await CommonActions.ApplySelf<WaterCanonPower>(this, currentWave);
+                await CommonActions.ApplySelf<WaterCanonPower>(choiceContext,this, currentWave);
             }
       
         }

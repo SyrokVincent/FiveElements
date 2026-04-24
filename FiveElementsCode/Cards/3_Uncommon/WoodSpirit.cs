@@ -14,9 +14,10 @@ public class WoodSpirit() : WoodCard(1,
     TargetType.Self)
 {
     
-    //Gain 1 temp strength when you play a wood card
+    //Gain 2 temp strength when you play a wood card
+    // buffed from 1 to 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WoodSpiritPower>(1), //this number need to be the same as the one on woodspiritpower
+        new PowerVar<WoodSpiritPower>(2), //this number need to be the same as the one on woodspiritpower
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -32,7 +33,7 @@ public class WoodSpirit() : WoodCard(1,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WoodSpiritPower>(this, DynamicVars["WoodSpiritPower"].BaseValue);
+        await CommonActions.ApplySelf<WoodSpiritPower>(choiceContext,this, DynamicVars["WoodSpiritPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

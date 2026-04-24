@@ -56,7 +56,7 @@ public sealed class EarthMagma() : EarthCard(1,
         }
         if (CardElementTag.Earth.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<PlatingPower>(this, DynamicVars["PlatingPower"].BaseValue);
+            await CommonActions.ApplySelf<PlatingPower>(choiceContext,this, DynamicVars["PlatingPower"].BaseValue);
         }
     }
     

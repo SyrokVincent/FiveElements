@@ -49,7 +49,7 @@ public sealed class MetalFulu() : MetalCard(0,
         CardPlay play)
     {
         //nothing to do ?
-        await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
+        await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

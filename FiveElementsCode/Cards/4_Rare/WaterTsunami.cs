@@ -31,7 +31,7 @@ public sealed class WaterTsunami() : WaterCard(3,
     {
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WaterTsunamiPower>(this, 1);
+        await CommonActions.ApplySelf<WaterTsunamiPower>(choiceContext,this, 1);
     }
 
     protected override void OnUpgrade()

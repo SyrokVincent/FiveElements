@@ -32,7 +32,7 @@ public class EchoFormation() : NeutralCard(2,
     {
         await base.OnPlay(choiceContext, play);
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<EchoFormationPower>(this, DynamicVars["EchoFormationPower"].BaseValue);
+        await CommonActions.ApplySelf<EchoFormationPower>(choiceContext,this, DynamicVars["EchoFormationPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

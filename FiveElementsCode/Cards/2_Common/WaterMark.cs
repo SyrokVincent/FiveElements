@@ -36,11 +36,11 @@ public sealed class WaterMark() : WaterCard(1, CardType.Skill, CardRarity.Common
         if (CombatState == null) return;
         foreach (var target in CombatState.HittableEnemies)
         {
-            await CommonActions.Apply<WeakPower>(target, this, DynamicVars["WeakPower"].BaseValue);
+            await CommonActions.Apply<WeakPower>(choiceContext,target, this, DynamicVars["WeakPower"].BaseValue);
         }
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<WaterDropNextTurnPower>(this, DynamicVars["WaterDropNextTurnPower"].BaseValue);
+            await CommonActions.ApplySelf<WaterDropNextTurnPower>(choiceContext,this, DynamicVars["WaterDropNextTurnPower"].BaseValue);
         }
     }
 

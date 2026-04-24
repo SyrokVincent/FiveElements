@@ -159,7 +159,7 @@
   
   "FIVEELEMENTS-EARTH_CREATION.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain 1 [gold]Earth Essence[/gold].|{off_s}Earth : Gain 1 Earth Essence.{off_e}}",
   "FIVEELEMENTS-EARTH_CREATION.title": "Earth Creation",
-  "FIVEELEMENTS-EARTH_WARD.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {EarthWardPower:diff()} [gold]Dexterity[/gold] this turn.|{off_s}Earth : Gain {EarthWardPower:diff()} Dexterity this turn.{off_e}}",
+  "FIVEELEMENTS-EARTH_WARD.description": "When [gold]Retained[/gold], reduce its cost by {Energy:energyIcons()} and its [gold]Block[/gold] by {ReductionOnRetain} until played.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}",
   "FIVEELEMENTS-EARTH_WARD.title": "Earth Ward",
   "FIVEELEMENTS-EARTH_CROWN.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {CalculatedBlock:diff()} [gold]Block[/gold] next turn, gains {CalculationExtra:diff()} additional [gold]Block[/gold] for each {earth_s}Earth{earth_e} card played this turn.|{off_s}Earth : Gain {CalculatedBlock:diff()} Block next turn, gains {CalculationExtra:diff()} additional Block for each Earth card played this turn.{off_e}}",
   "FIVEELEMENTS-EARTH_CROWN.title": "Earth Crown",
@@ -173,7 +173,7 @@
   "FIVEELEMENTS-EARTH_JEWEL.title": "Earth Jewel",
   "FIVEELEMENTS-EARTH_WALL.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Blocked attack damage is reflected to your attacker this turn.|{off_s}Earth : Blocked attack damage is reflected to your attacker this turn.{off_e}}",
   "FIVEELEMENTS-EARTH_WALL.title": "Earth Wall",
-  "FIVEELEMENTS-EARTH_PLATE.description": "Gain {Block:diff()} [gold]Block[/gold]. Whenever this card is [gold]Retained[/gold], increase its [gold]Block[/gold] by {BlockIncrease:diff()}.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {PlatingPower:diff()} [gold]Plating[/gold] for each enemy intending to attack.|{off_s}Earth : Gain {PlatingPower:diff()} Plating for each enemy intending to attack.{off_e}}",
+  "FIVEELEMENTS-EARTH_PLATE.description": "Gain {Block:diff()} [gold]Block[/gold]. Whenever this card is [gold]Retained[/gold], increase its [gold]Block[/gold] by {BlockIncrease:diff()} until played.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {PlatingPower:diff()} [gold]Plating[/gold] for each enemy intending to attack.|{off_s}Earth : Gain {PlatingPower:diff()} Plating for each enemy intending to attack.{off_e}}",
   "FIVEELEMENTS-EARTH_PLATE.title": "Earth Plate",
   "FIVEELEMENTS-EARTH_BORN.description": "Half of your [gold]Block[/gold] persists between turns.",
   "FIVEELEMENTS-EARTH_BORN.title": "Earth Born",

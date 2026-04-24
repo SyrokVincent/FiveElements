@@ -46,7 +46,7 @@ public sealed class FireRise() : FireCard(1,
     {
         //add power to self
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<FireRisePower>(this, DynamicVars["FireRisePower"].BaseValue);
+        await CommonActions.ApplySelf<FireRisePower>(choiceContext,this, DynamicVars["FireRisePower"].BaseValue);
         /*
         if (IsUpgraded)
         {

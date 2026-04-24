@@ -35,9 +35,9 @@ public class EarthGuardian() : EarthCard(2,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<DexterityPower>(this, DynamicVars["DexterityPower"].BaseValue);
-        await CommonActions.ApplySelf<ThornsPower>(this, DynamicVars["ThornsPower"].BaseValue);
-        await CommonActions.ApplySelf<PlatingPower>(this, DynamicVars["PlatingPower"].BaseValue);
+        await CommonActions.ApplySelf<DexterityPower>(choiceContext,this, DynamicVars["DexterityPower"].BaseValue);
+        await CommonActions.ApplySelf<ThornsPower>(choiceContext,this, DynamicVars["ThornsPower"].BaseValue);
+        await CommonActions.ApplySelf<PlatingPower>(choiceContext,this, DynamicVars["PlatingPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

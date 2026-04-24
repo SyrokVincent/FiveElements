@@ -32,7 +32,7 @@ public class EarthBorn() : EarthCard(2,
         if (CombatState == null) return;
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<EarthBornPower>(this, 1);
+        await CommonActions.ApplySelf<EarthBornPower>(choiceContext,this, 1);
 
     }
 

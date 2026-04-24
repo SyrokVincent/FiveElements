@@ -28,7 +28,7 @@ public sealed class Incantation() : NeutralCard(1,
         await base.OnPlay(choiceContext, play);
         //add power to self
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<IncantationPower>(this, DynamicVars["IncantationPower"].BaseValue);
+        await CommonActions.ApplySelf<IncantationPower>(choiceContext,this, DynamicVars["IncantationPower"].BaseValue);
 
     }
 

@@ -47,7 +47,7 @@ public class EarthShield() : EarthCard(1,
         }
         if (CardElementTag.Earth.IsActive(CombatState) && amount>0)
         {
-            await CommonActions.ApplySelf<BlockNextTurnPower>(this, amount);
+            await CommonActions.ApplySelf<BlockNextTurnPower>(choiceContext,this, amount);
         }
     }
 

@@ -30,7 +30,7 @@ public sealed class WaterSpirit() : WaterCard(2,
     {
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WaterSpiritPower>(this, DynamicVars["WaterSpiritPower"].BaseValue);
+        await CommonActions.ApplySelf<WaterSpiritPower>(choiceContext,this, DynamicVars["WaterSpiritPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

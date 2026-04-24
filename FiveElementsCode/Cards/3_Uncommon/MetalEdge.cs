@@ -37,12 +37,12 @@ public class MetalEdge() : MetalCard(1,
         if (CombatState == null) return;
 
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<MetalEdgePower>(this, DynamicVars["MetalEdgePower"].BaseValue);
+        await CommonActions.ApplySelf<MetalEdgePower>(choiceContext,this, DynamicVars["MetalEdgePower"].BaseValue);
         if (CardElementTag.Metal.IsActive(CombatState))
         {
             //next attack cost reduction
             //parcourir les carte de la main, reduire le cout des attack de 1 pour ce tour, lorsque une est joué enlever le buff des autre attack
-            await CommonActions.ApplySelf<MetalEdgeDiscountPower>(this, DynamicVars["MetalEdgeDiscountPower"].BaseValue);
+            await CommonActions.ApplySelf<MetalEdgeDiscountPower>(choiceContext,this, DynamicVars["MetalEdgeDiscountPower"].BaseValue);
         }
     }
 

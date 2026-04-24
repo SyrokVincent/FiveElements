@@ -47,7 +47,7 @@ public sealed class WaterFulu() : WaterCard(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+        await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

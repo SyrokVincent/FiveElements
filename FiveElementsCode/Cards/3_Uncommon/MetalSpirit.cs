@@ -32,7 +32,7 @@ public class MetalSpirit() : MetalCard(1,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<MetalSpiritPower>(this, DynamicVars["MetalSpiritPower"].BaseValue);
+        await CommonActions.ApplySelf<MetalSpiritPower>(choiceContext,this, DynamicVars["MetalSpiritPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

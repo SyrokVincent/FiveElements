@@ -39,7 +39,7 @@ public sealed class WaterVeil() : WaterCard(1,
         
        
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WaterVeilPower>(this, DynamicVars["WaterVeilPower"].BaseValue);
+        await CommonActions.ApplySelf<WaterVeilPower>(choiceContext,this, DynamicVars["WaterVeilPower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
             var cardsToTransform = PileType.Hand.GetPile(Owner).Cards

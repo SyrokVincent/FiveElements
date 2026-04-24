@@ -43,7 +43,7 @@ public sealed class WaterTyphoon() : WaterCard(0,
         for (var i = 0; i < xValue; ++i)
         {
             
-            await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+            await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
             if (CardElementTag.Water.IsActive(CombatState))
             {
                 await CommonActions.Draw(this, choiceContext);

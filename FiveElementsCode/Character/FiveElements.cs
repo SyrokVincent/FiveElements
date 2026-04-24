@@ -1,6 +1,7 @@
 ﻿using BaseLib.Abstracts;
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards._1_Basic;
+using FiveElements.FiveElementsCode.Cards._2_Common;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
@@ -113,11 +114,10 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<FireStorm>());
-            finalDeck.Add(ModelDb.Card<FireStorm>());
-            finalDeck.Add(ModelDb.Card<WaterCall>());
-            finalDeck.Add(ModelDb.Card<WaterCall>());
-            finalDeck.Add(ModelDb.Card<WaterCall>());
+            finalDeck.Add(ModelDb.Card<EarthWard>());
+            finalDeck.Add(ModelDb.Card<EarthWard>());
+            finalDeck.Add(ModelDb.Card<EarthPlate>());
+            finalDeck.Add(ModelDb.Card<EarthPlate>());
             
             
             /*

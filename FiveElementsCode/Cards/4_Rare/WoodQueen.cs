@@ -37,7 +37,7 @@ public class WoodQueen() : WoodCard(2,
 
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WoodQueenPower>(this, DynamicVars["WoodQueenPower"].BaseValue);
+        await CommonActions.ApplySelf<WoodQueenPower>(choiceContext,this, DynamicVars["WoodQueenPower"].BaseValue);
 
     }
 

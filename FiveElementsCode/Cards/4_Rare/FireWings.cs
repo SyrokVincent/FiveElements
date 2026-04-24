@@ -36,7 +36,7 @@ public sealed class FireWings() : FireCard(1,
     {
         //add power to self
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<FireWingsPower>(this, DynamicVars["FireWingsPower"].BaseValue);
+        await CommonActions.ApplySelf<FireWingsPower>(choiceContext,this, DynamicVars["FireWingsPower"].BaseValue);
 
         if (IsUpgraded)
         {

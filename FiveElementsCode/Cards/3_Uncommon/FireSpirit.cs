@@ -37,7 +37,7 @@ public sealed class FireSpirit() : FireCard(1,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<FireSpiritPower>(this, DynamicVars["FireSpiritPower"].BaseValue);
+        await CommonActions.ApplySelf<FireSpiritPower>(choiceContext,this, DynamicVars["FireSpiritPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

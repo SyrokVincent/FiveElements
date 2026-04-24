@@ -69,7 +69,7 @@ public class MetalCore() : MetalCard(1,
         if (CardElementTag.Metal.IsActive(CombatState))
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            await CommonActions.ApplySelf<MetalCorePower>(this, DynamicVars["MetalCorePower"].BaseValue);
+            await CommonActions.ApplySelf<MetalCorePower>(choiceContext,this, DynamicVars["MetalCorePower"].BaseValue);
         }
 
     }

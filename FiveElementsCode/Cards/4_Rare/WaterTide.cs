@@ -29,7 +29,7 @@ public sealed class WaterTide() : WaterCard(1,
     {
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<WaterTidePower>(this, DynamicVars["WaterTidePower"].BaseValue);
+        await CommonActions.ApplySelf<WaterTidePower>(choiceContext,this, DynamicVars["WaterTidePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

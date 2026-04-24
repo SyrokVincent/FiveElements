@@ -65,7 +65,7 @@ public class EarthCrown() : EarthCard(1,
         await CommonActions.CardBlock(this, play);
         if (CardElementTag.Earth.IsActive(CombatState))
         {   
-            await CommonActions.ApplySelf<BlockNextTurnPower>(this, DynamicVars.CalculatedBlock.PreviewValue);
+            await CommonActions.ApplySelf<BlockNextTurnPower>(choiceContext,this, DynamicVars.CalculatedBlock.PreviewValue);
         }
 
     }

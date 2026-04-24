@@ -35,7 +35,7 @@ public class MetalMettle() : MetalCard(2,
         if (CombatState == null) return;
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<MetalMettlePower>(this, DynamicVars["MetalMettlePower"].BaseValue);
+        await CommonActions.ApplySelf<MetalMettlePower>(choiceContext,this, DynamicVars["MetalMettlePower"].BaseValue);
 
     }
 

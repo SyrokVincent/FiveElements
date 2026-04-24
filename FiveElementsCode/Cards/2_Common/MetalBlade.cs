@@ -50,7 +50,7 @@ public class MetalBlade() : MetalCard(1,
             // Application du vigor si dégâts > 0
             if (vigorToApply > 0)
             {
-                await CommonActions.ApplySelf<VigorPower>(this, vigorToApply);
+                await CommonActions.ApplySelf<VigorPower>(choiceContext,this, vigorToApply);
             }
         }
     }

@@ -37,7 +37,7 @@ public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Comm
         CardPlay play)
     {
         await CommonActions.CardBlock(this, play);
-        await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+        await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

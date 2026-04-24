@@ -94,12 +94,12 @@ public sealed class Activation() : NeutralCard(1,
         if (CardElementTag.Water.IsActive(CombatState))
         {
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
-            await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+            await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
         }
         if (CardElementTag.Wood.IsActive(CombatState))
         {
             await CommonActions.Draw(this, choiceContext);
-            await CommonActions.ApplySelf<ActivationTempStrengthPower>(this, DynamicVars["ActivationTempStrengthPower"].BaseValue);
+            await CommonActions.ApplySelf<ActivationTempStrengthPower>(choiceContext,this, DynamicVars["ActivationTempStrengthPower"].BaseValue);
         }   
         if (CardElementTag.Fire.IsActive(CombatState))
         {
@@ -112,7 +112,7 @@ public sealed class Activation() : NeutralCard(1,
         }
         if (CardElementTag.Metal.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<VigorPower>(this, DynamicVars["VigorPower"].BaseValue);
+            await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue);
         }
     }
     protected override void OnUpgrade()

@@ -40,7 +40,7 @@ public sealed class WaterCreation() : WaterCard(1,
     {
         if (CombatState == null) return;
         await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
-        await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+        await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
             CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1,choiceContext);

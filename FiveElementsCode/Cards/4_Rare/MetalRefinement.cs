@@ -64,7 +64,7 @@ public class MetalRefinement() : MetalCard(1,
         CardPlay play)
     {
         // On gagne le vigor actuel
-        await CommonActions.ApplySelf<VigorPower>(this, CurrentVigor);
+        await CommonActions.ApplySelf<VigorPower>(choiceContext,this, CurrentVigor);
         
         if (CardElementTag.Metal.IsActive(CombatState))
         {

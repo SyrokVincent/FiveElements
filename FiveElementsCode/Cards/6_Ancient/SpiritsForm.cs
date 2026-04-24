@@ -30,7 +30,7 @@ public class SpiritsForm() : NeutralCard(2,
         if (CombatState == null) return;
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<SpiritsFormPower>(this, 1);
+        await CommonActions.ApplySelf<SpiritsFormPower>(choiceContext,this, 1);
 
     }
 

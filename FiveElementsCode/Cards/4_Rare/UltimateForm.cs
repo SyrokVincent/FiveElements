@@ -37,7 +37,7 @@ public class UltimateForm() : NeutralCard(3,
         if (CombatState == null) return;
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<UltimateFormPower>(this, 1);
+        await CommonActions.ApplySelf<UltimateFormPower>(choiceContext,this, 1);
 
     }
 

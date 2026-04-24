@@ -32,7 +32,7 @@ public class AllOrOne() : NeutralCard(1,
         await base.OnPlay(choiceContext, play);
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await CommonActions.ApplySelf<AllOrOnePower>(this, DynamicVars["AllOrOnePower"].BaseValue);
+        await CommonActions.ApplySelf<AllOrOnePower>(choiceContext,this, DynamicVars["AllOrOnePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

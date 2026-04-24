@@ -48,7 +48,7 @@ public sealed class WoodFulu() : WoodCard(0,
         CardPlay play)
     {
         //nothing to do ?
-        await CommonActions.ApplySelf<WoodTempStrengthPower>(this, DynamicVars["WoodTempStrengthPower"].BaseValue);
+        await CommonActions.ApplySelf<WoodTempStrengthPower>(choiceContext,this, DynamicVars["WoodTempStrengthPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

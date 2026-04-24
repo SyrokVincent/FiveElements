@@ -70,7 +70,7 @@ public class WoodSurge() : WoodCard(2,
         var strengthToGain = DynamicVars["EnergyGained"].PreviewValue / DynamicVars["EnergyDivider"].BaseValue;
         if (strengthToGain > 0)
         {
-            await CommonActions.ApplySelf<StrengthPower>(this, strengthToGain);
+            await CommonActions.ApplySelf<StrengthPower>(choiceContext,this, strengthToGain);
         }
         
         if (CardElementTag.Wood.IsActive(CombatState))

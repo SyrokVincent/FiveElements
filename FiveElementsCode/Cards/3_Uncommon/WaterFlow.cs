@@ -42,10 +42,10 @@ public sealed class WaterFlow() : WaterCard(3,
         if (CombatState == null) return;
         await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
         //await CommonActions.Draw(this, choiceContext);
-        await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
+        await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
         if (CardElementTag.Water.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<WaterDropNextTurnPower>(this, DynamicVars["WaterDropNextTurnPower"].BaseValue);
+            await CommonActions.ApplySelf<WaterDropNextTurnPower>(choiceContext,this, DynamicVars["WaterDropNextTurnPower"].BaseValue);
         }
     }
 

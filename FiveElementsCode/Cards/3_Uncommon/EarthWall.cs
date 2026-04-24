@@ -45,7 +45,7 @@ public class EarthWall() : EarthCard(2,
         if (CardElementTag.Earth.IsActive(CombatState))
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            await CommonActions.ApplySelf<EarthWallPower>(this, DynamicVars["EarthWallPower"].BaseValue);
+            await CommonActions.ApplySelf<EarthWallPower>(choiceContext,this, DynamicVars["EarthWallPower"].BaseValue);
         }
 
     }
