@@ -44,8 +44,8 @@ public sealed class MetalMettlePower : FiveElementsPower
     {
         if (play.Card.Owner != Owner.Player) return;
         
-        //todo remove cadrtypeattack if other source of vigor consumption
-        if (play.Card.Type == CardType.Attack && _timeTriggeredThisTurn < Amount)
+        //was checking cartypeattack before I don't know why ??
+        if (_timeTriggeredThisTurn < Amount)
         {
             _isTrackingConsumption = true;
             _vigorConsumedByCurrentCard = 0;

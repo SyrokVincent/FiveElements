@@ -36,14 +36,13 @@ public class Circulation() : NeutralCard(1,
         // Ici, définis ta logique de filtrage. 
         // Par exemple, si tes cartes Echo/Generate héritent de FiveElementsCard :
         var currentEcho = Character.FiveElements.Echo;
-        if (card is FiveElementsCard fec)
-        {
-            if (currentEcho.Contains(CardElementTag.Water) && card.CountAsElement(CardElementTag.Wood,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Wood) && card.CountAsElement(CardElementTag.Fire,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Fire) && card.CountAsElement(CardElementTag.Earth,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Earth) && card.CountAsElement(CardElementTag.Metal,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Metal) && card.CountAsElement(CardElementTag.Water,Owner.Creature)) return true;
-        }
+        
+        if (currentEcho.Contains(CardElementTag.Water) && card.CountAsElement(CardElementTag.Wood,Owner.Creature)) return true;
+        if (currentEcho.Contains(CardElementTag.Wood) && card.CountAsElement(CardElementTag.Fire,Owner.Creature)) return true;
+        if (currentEcho.Contains(CardElementTag.Fire) && card.CountAsElement(CardElementTag.Earth,Owner.Creature)) return true;
+        if (currentEcho.Contains(CardElementTag.Earth) && card.CountAsElement(CardElementTag.Metal,Owner.Creature)) return true;
+        if (currentEcho.Contains(CardElementTag.Metal) && card.CountAsElement(CardElementTag.Water,Owner.Creature)) return true;
+        
         return false;
     }
 
@@ -52,6 +51,8 @@ public class Circulation() : NeutralCard(1,
     //and play a copy of it for free (is played an extra time? or give it replay? or just is played?)
     //
     // probably need to remove the esence gen and maybe make it play an exhausting copy ?
+    // don't change to shift, it make it not work well with bielem card, it can target another circulation and also it's no longer drawed by cycle
+    // rework essence removed and exhaust a copy firestorm stonk
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
     ]);
 
@@ -61,7 +62,6 @@ public class Circulation() : NeutralCard(1,
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Essence),
     ]);
 
     
@@ -84,39 +84,36 @@ public class Circulation() : NeutralCard(1,
             choiceContext, 
             Owner, 
             prefs, 
-            c => c is FiveElementsCard f && IsValidCirculationTarget(f), 
+            IsValidCirculationTarget, 
             this
         );
 
         // 3. Vérifier si une carte a bien été choisie
         var selectedModel = selection?.FirstOrDefault();
-    
-        if (selectedModel is FiveElementsCard card)
+        if (selectedModel != null)
         {
-            // On boucle sur tous les tags de la carte choisie
-            foreach (var tag in card.ElementTags)
-            {
-                // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
-                if (tag != CardElementTag.Neutral)
-                {
-                    if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1,choiceContext);
-                }
-            }
-            
-            _cardToPlay = card;
+            // 1. Créer un clone de la carte sélectionnée
+            var clone = selectedModel.CreateClone();
+
+            // 2. Modifier le clone pour qu'il s'épuise (Exhaust) et coûte 0
+            // On utilise SetThisTurn pour le coût si on veut être sûr qu'il soit gratuit
+            clone.EnergyCost.SetThisTurn(0);
+            clone.AddKeyword(CardKeyword.Exhaust);
+
+            // 3. Stocker le clone pour le jouer dans AfterCardPlayed
+            _cardToPlay = clone;
         }
+        
     }
 
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        
         if (cardPlay.Card == this && _cardToPlay != null)
         {
             //jouer la carte selectioné plus tot
             await CardCmd.AutoPlay(context, _cardToPlay, null,AutoPlayType.Default,false,false);
             _cardToPlay = null;
-            //_clone.RemoveFromState(); 
         }
     }
 

@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
 public sealed class Distortion() : NeutralCard(1,
-    CardType.Skill, CardRarity.Common,
+    CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {
     // need a few card with strike tag

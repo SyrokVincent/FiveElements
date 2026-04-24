@@ -34,14 +34,13 @@ public class Domination() : NeutralCard(1,
     private bool IsValidDominationTarget(CardModel card)
     {
         var currentEcho = Character.FiveElements.Echo;
-        if (card is FiveElementsCard fec)
-        {
-            if (currentEcho.Contains(CardElementTag.Water) && card.CountAsElement(CardElementTag.Fire,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Wood) && card.CountAsElement(CardElementTag.Earth,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Fire) && card.CountAsElement(CardElementTag.Metal,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Earth) && card.CountAsElement(CardElementTag.Water,Owner.Creature)) return true;
-            if (currentEcho.Contains(CardElementTag.Metal) && card.CountAsElement(CardElementTag.Wood,Owner.Creature)) return true;
-        }
+        
+        if (currentEcho.Contains(CardElementTag.Water) && card.CountAsElement(CardElementTag.Fire,Owner.Creature)) return true;
+        if (currentEcho.Contains(CardElementTag.Wood) && card.CountAsElement(CardElementTag.Earth,Owner.Creature)) return true;
+        if (currentEcho.Contains(CardElementTag.Fire) && card.CountAsElement(CardElementTag.Metal,Owner.Creature)) return true;
+        if (currentEcho.Contains(CardElementTag.Earth) && card.CountAsElement(CardElementTag.Water,Owner.Creature)) return true;
+        if (currentEcho.Contains(CardElementTag.Metal) && card.CountAsElement(CardElementTag.Wood,Owner.Creature)) return true;
+        
         return false;
     }
     
@@ -76,7 +75,7 @@ public class Domination() : NeutralCard(1,
             choiceContext, 
             Owner, 
             prefs, 
-            c => c is FiveElementsCard f && IsValidDominationTarget(f), 
+            IsValidDominationTarget, 
             this
         );
         var cardsToTransform = selection.FirstOrDefault();

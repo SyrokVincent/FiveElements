@@ -142,6 +142,7 @@ public abstract class StarterRelicLogic : FiveElementsRelic
 
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
+        if (side != CombatSide.Player) return;
         Character.FiveElements.ResetEcho();
         //debug
         // Affiche l'état global avant de notifier les cartes

@@ -3,6 +3,7 @@ using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Cards._2_Common;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+using FiveElements.FiveElementsCode.Cards._4_Rare;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;
@@ -161,35 +162,34 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<FireTouch>());       //done
             finalDeck.Add(ModelDb.Card<FireSpirit>());      //done
             finalDeck.Add(ModelDb.Card<FireRise>());        //done
-            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done is it good?
+            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done super good in niche case
             finalDeck.Add(ModelDb.Card<FireStorm>());       //done
             finalDeck.Add(ModelDb.Card<FireForce>());       //done
             finalDeck.Add(ModelDb.Card<FireEater>());       //done need to do smthing when exhaust nothing ?
             finalDeck.Add(ModelDb.Card<FireWings>());       //done
             finalDeck.Add(ModelDb.Card<FireBall>());        //done
-            finalDeck.Add(ModelDb.Card<FireDance>());       //done is it good to be rare?
+            finalDeck.Add(ModelDb.Card<FireDance>());       //done is it good enough to be rare?
             finalDeck.Add(ModelDb.Card<FireBlossom>());     //done
             
-            finalDeck.Add(ModelDb.Card<FirePlume>());       //done maybe increase incendesence damage?
+            finalDeck.Add(ModelDb.Card<FirePlume>());       //done maybe increase incendescence damage?
             */
             
             /*
             //EARTH
             finalDeck.Add(ModelDb.Card<EarthCreation>());   //done
             finalDeck.Add(ModelDb.Card<EarthWard>());       //done
-            finalDeck.Add(ModelDb.Card<EarthShield>());     //done  maybe change how it work to only apply block once
             finalDeck.Add(ModelDb.Card<EarthSpirit>());     //done
             finalDeck.Add(ModelDb.Card<EarthBlast>());      //done
+            finalDeck.Add(ModelDb.Card<EarthQuake>());      //done (maybe remove the block gain on replayed card)
             finalDeck.Add(ModelDb.Card<EarthJewel>());      //done
             finalDeck.Add(ModelDb.Card<EarthWall>());       //done
-            finalDeck.Add(ModelDb.Card<EarthCrown>());      //done clunky, give dex before card being played so you don't see the real block value ganied on the card and if it give after it's useless
+            finalDeck.Add(ModelDb.Card<EarthCrown>());      //done 
             finalDeck.Add(ModelDb.Card<EarthPlate>());      //done
             finalDeck.Add(ModelDb.Card<EarthBorn>());       //done
             finalDeck.Add(ModelDb.Card<EarthGuardian>());   //done
-            finalDeck.Add(ModelDb.Card<EarthQuake>());      //done (maybe remove the block gain on replayed card)
+            finalDeck.Add(ModelDb.Card<EarthClay>());       //done
             finalDeck.Add(ModelDb.Card<EarthMagma>());      //done
             
-            finalDeck.Add(ModelDb.Card<EarthClay>());       //done
             finalDeck.Add(ModelDb.Card<EarthWarrior>());    //done
             */
             
@@ -218,7 +218,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't count card from exhaust pile
             finalDeck.Add(ModelDb.Card<Absorption>());      //done
             finalDeck.Add(ModelDb.Card<Incantation>());     //done
-            finalDeck.Add(ModelDb.Card<Decimation>());      //done
+            finalDeck.Add(ModelDb.Card<Decimation>());      //done //maybe need to add reduce cost for each essence too
             finalDeck.Add(ModelDb.Card<Meditation>());      //done 
             finalDeck.Add(ModelDb.Card<Circulation>());     //done probably remove essence gen? and maybe make it cost 0(or refun itself) if it can't select anything
             finalDeck.Add(ModelDb.Card<Recycle>());         //done maybe remove retain and add shift?

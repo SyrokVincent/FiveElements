@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -42,7 +43,12 @@ public sealed class MetalFulu() : MetalCard(0,
         await this.TryShiftFuluTransform();
     }
 
-    
+    public override async Task AfterTurnEndLate(PlayerChoiceContext choiceContext, CombatSide side)
+    {
+        if (side != CombatSide.Player) return;
+        await this.TryShiftFuluTransform();
+    }
+
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
