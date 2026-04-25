@@ -19,6 +19,7 @@ public sealed class Annihilation() : NeutralCard(3,
     protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
 
     // Wood:(Deal 12), Fire:(Deal 12), Earth:(Deal 12), Metal:(Deal 12), Water:(Deal 12)
+    //added shift on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(12,ValueProp.Move),
         new BoolVar("isWaterOn"),
@@ -74,6 +75,7 @@ public sealed class Annihilation() : NeutralCard(3,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(3);
+        AddKeyword(FiveElementsKeywords.Shift);
     }
     
     public async Task OnElementStateChanged(CardElementTag element, bool isActive)
