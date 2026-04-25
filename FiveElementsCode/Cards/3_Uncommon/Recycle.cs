@@ -76,7 +76,7 @@ public class Recycle() : NeutralCard(0,
         
         // On ne garde que les cartes de l'élément généré
         var filteredPool = fullPool
-            .Where(c => c is FiveElementsCard f && f.ElementTags.Contains(targetElement))
+            .Where(c => c is FiveElementsCard f && f.CanonicalElementTags.Contains(targetElement))
             .ToList();
 
         // 4. Générer les x choix (Discover)

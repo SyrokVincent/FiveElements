@@ -24,8 +24,8 @@ public class MoreOrLess() : NeutralCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromCard<More>(),
-        HoverTipFactory.FromCard<Less>(),
+        HoverTipFactory.FromCard<More>(IsUpgraded),
+        HoverTipFactory.FromCard<Less>(IsUpgraded),
     ]);
 
     protected override async Task OnPlay(
