@@ -23,7 +23,7 @@ public class WoodQueenPower : FiveElementsPower
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1),
-        new PowerVar<StrengthPower>(1),
+        new PowerVar<StrengthPower>(2),
         new IntVar("DisplayAmount",Amount), //could not find how to acces DisplayAmount in localization otherwise
     ]);
     

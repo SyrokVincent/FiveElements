@@ -115,6 +115,10 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<Distortion>());
+            finalDeck.Add(ModelDb.Card<Incantation>());
+            finalDeck.Add(ModelDb.Card<Decimation>());
+            finalDeck.Add(ModelDb.Card<Isolation>());
             
             
             /*

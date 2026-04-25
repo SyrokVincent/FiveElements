@@ -15,7 +15,8 @@ public class WoodQueen() : WoodCard(2,
 {
     
 
-    //Each turn, draw 1 and gain 1 temp strength the first time you draw a wood card
+    //Each turn, draw 1 and gain 2 temp strength the first time you draw a wood card
+    //buffed to 2 temp str from 1
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodQueenPower>(1),
     ]);

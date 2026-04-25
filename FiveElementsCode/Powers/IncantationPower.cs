@@ -27,9 +27,6 @@ public class IncantationPower : FiveElementsPower
         ICombatState combatState)
     {
         if (player != Owner.Player) return;
-        Flash();
-        await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner.Player, 1,false, combatState);
-        
         if (CombatState != null)
         {
             // just in case I change how echo reseting works
@@ -37,25 +34,25 @@ public class IncantationPower : FiveElementsPower
             // Si l'Echo a les 5 éléments -> on a tout les element grace au pouvoir spirit form on renvoie un fulu neutre
             if (this.HasSpiritsForm)
             {
-                await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner.Player, 1, false, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner.Player, 1, false, combatState);
             }
             // Cycle : Eau -> Bois -> Feu -> Terre -> Métal -> Eau
             else if (currentEcho.TagsCountAsElement(CardElementTag.Water, Owner))
-                await FiveElementsCardExtensions.CreateInHand<WoodFulu>(Owner.Player, 1, false, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<WoodFulu>(Owner.Player, 1, false, combatState);
         
             else if (currentEcho.TagsCountAsElement(CardElementTag.Wood, Owner))
-                await FiveElementsCardExtensions.CreateInHand<FireFulu>(Owner.Player, 1, false, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<FireFulu>(Owner.Player, 1, false, combatState);
         
             else if (currentEcho.TagsCountAsElement(CardElementTag.Fire, Owner))
-                await FiveElementsCardExtensions.CreateInHand<EarthFulu>(Owner.Player, 1, false, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<EarthFulu>(Owner.Player, 1, false, combatState);
         
             else if (currentEcho.TagsCountAsElement(CardElementTag.Earth, Owner))
-                await FiveElementsCardExtensions.CreateInHand<MetalFulu>(Owner.Player, 1, false, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<MetalFulu>(Owner.Player, 1, false, combatState);
         
             else if (currentEcho.TagsCountAsElement(CardElementTag.Metal, Owner))
-                await FiveElementsCardExtensions.CreateInHand<WaterFulu>(Owner.Player, 1, false, CombatState);
-            else await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner.Player, 1, false, CombatState);
-            
+                await FiveElementsCardExtensions.CreateInHand<WaterFulu>(Owner.Player, 1, false, combatState);
+            else await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner.Player, 1, false, combatState);
+            Flash();
         }
     }
     

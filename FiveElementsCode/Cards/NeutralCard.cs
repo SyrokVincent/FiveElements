@@ -1,8 +1,11 @@
 ﻿using FiveElements.FiveElementsCode.Enums;
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Rooms;
 
 namespace FiveElements.FiveElementsCode.Cards;
@@ -14,38 +17,55 @@ public abstract class NeutralCard : FiveElementsCard
         CanonicalElementTags = [CardElementTag.Neutral];
     }
     
-    public override Material? CreateCustomFrameMaterial => NeutralShader;
-    
-    //je change directement l'elementag fianelement
-    /*
     public override HashSet<CardElementTag> ElementTags 
     {
         get 
         {
-            // 1. Vérifie si la carte a le Keyword Attune
-            if (Keywords.Contains(FiveElementsKeywords.Attune))
+            if (CombatManager.Instance?.IsInProgress == true && Owner != null)
             {
-                return Character.FiveElements.Echo;
-            }
-            // 1. Vérifie si la carte a le Keyword Shift
-            if (Keywords.Contains(FiveElementsKeywords.Shift))
-            {
-                // return what echo generate
-            
-                HashSet<CardElementTag> newEcho = new(){ CardElementTag.Neutral };
-                if (Character.FiveElements.Echo.Contains(CardElementTag.Water)) newEcho.Add(CardElementTag.Wood);
-                if (Character.FiveElements.Echo.Contains(CardElementTag.Wood)) newEcho.Add(CardElementTag.Fire);
-                if (Character.FiveElements.Echo.Contains(CardElementTag.Fire)) newEcho.Add(CardElementTag.Earth);
-                if (Character.FiveElements.Echo.Contains(CardElementTag.Earth)) newEcho.Add(CardElementTag.Metal);
-                if (Character.FiveElements.Echo.Contains(CardElementTag.Metal)) newEcho.Add(CardElementTag.Water);
-                
-                return newEcho;
-            }
+                if (Keywords.Contains(FiveElementsKeywords.Attune))
+                {
+                    return Character.FiveElements.Echo;
+                }
 
-            // 2. Si pas de Attune ni Shift, on utilise le comportement de base de FiveElementsCard
+                if (Keywords.Contains(FiveElementsKeywords.Shift))
+                {
+                    return CalculateShift(Character.FiveElements.Echo);
+                }
+            }
+            // Si hors combat ou pas de mot-clé spécial, on utilise les tags de base
             return base.ElementTags;
         }
-    }*/
+    }
+    
+    private HashSet<CardElementTag> CalculateShift(HashSet<CardElementTag> echo)
+    {
+        HashSet<CardElementTag> newEcho = new(){ CardElementTag.Neutral };
+        if (echo.Contains(CardElementTag.Water)) newEcho.Add(CardElementTag.Wood);
+        if (echo.Contains(CardElementTag.Wood))  newEcho.Add(CardElementTag.Fire);
+        if (echo.Contains(CardElementTag.Fire))  newEcho.Add(CardElementTag.Earth);
+        if (echo.Contains(CardElementTag.Earth)) newEcho.Add(CardElementTag.Metal);
+        if (echo.Contains(CardElementTag.Metal)) newEcho.Add(CardElementTag.Water);
+        return newEcho;
+    }
+    
+    
+    public override Material? CreateCustomFrameMaterial
+    {
+        get
+        {
+            if (ElementTags.Count >= 5) return NeutralShader;
+        
+            if (ElementTags.Contains(CardElementTag.Water)) return WaterShader;
+            if (ElementTags.Contains(CardElementTag.Wood))  return WoodShader;
+            if (ElementTags.Contains(CardElementTag.Fire))  return FireShader;
+            if (ElementTags.Contains(CardElementTag.Earth)) return EarthShader;
+            if (ElementTags.Contains(CardElementTag.Metal)) return MetalShader;
+
+            return NeutralShader;
+        }
+    }
+    
 
     //late pour que ce soit apres que l'echo ai changer comme il faut
     public override Task AfterCardPlayedLate(PlayerChoiceContext context, CardPlay cardPlay)
@@ -53,6 +73,8 @@ public abstract class NeutralCard : FiveElementsCard
         if (Owner != cardPlay.Card.Owner || cardPlay.Card == this) return Task.CompletedTask;
         
         UpdateAttuneAndShift();
+        //PileType.Draw.GetPile(Owner).InvokeContentsChanged();
+        //PileType.Discard.GetPile(Owner).InvokeContentsChanged();
 
         return Task.CompletedTask;
     }
@@ -62,6 +84,8 @@ public abstract class NeutralCard : FiveElementsCard
         if (player == Owner)
         {
             UpdateAttuneAndShift();
+            //PileType.Draw.GetPile(Owner).InvokeContentsChanged();
+            //PileType.Discard.GetPile(Owner).InvokeContentsChanged();
         }
         return Task.CompletedTask;
     }
@@ -80,23 +104,36 @@ public abstract class NeutralCard : FiveElementsCard
         if (Keywords.Contains(FiveElementsKeywords.Attune))
         {
             this.ElementTags = Character.FiveElements.Echo;
+            UpdateVisualMaterial();
         }
         // 1. Vérifie si la carte a le Keyword Shift
         if (Keywords.Contains(FiveElementsKeywords.Shift))
         {
             // return what echo generate
-        
-            HashSet<CardElementTag> newEcho = new(){ CardElementTag.Neutral };
-            if (Character.FiveElements.Echo.Contains(CardElementTag.Water)) newEcho.Add(CardElementTag.Wood);
-            if (Character.FiveElements.Echo.Contains(CardElementTag.Wood)) newEcho.Add(CardElementTag.Fire);
-            if (Character.FiveElements.Echo.Contains(CardElementTag.Fire)) newEcho.Add(CardElementTag.Earth);
-            if (Character.FiveElements.Echo.Contains(CardElementTag.Earth)) newEcho.Add(CardElementTag.Metal);
-            if (Character.FiveElements.Echo.Contains(CardElementTag.Metal)) newEcho.Add(CardElementTag.Water);
-            
-            this.ElementTags = newEcho;
+            this.ElementTags = CalculateShift(Character.FiveElements.Echo);
+            UpdateVisualMaterial();
         }
     }
 
+    public void UpdateVisualMaterial()
+    {
+        var cardNode = NCard.FindOnTable(this);
+        if (cardNode == null) return;
+
+        var frame = cardNode.GetNodeOrNull<CanvasItem>("CardContainer/Frame");
+        if (frame != null)
+        {
+            // 1. On récupère le nouveau matériau basé sur l'élément actuel
+
+            if (CreateCustomFrameMaterial is ShaderMaterial newMat)
+            {
+                frame.Material = newMat;
+                frame.QueueRedraw(); 
+            }
+        }
+    }
+    
+    
     // Stockage statique : ID de l'entrée d'historique -> Tags au moment du jeu
     public static readonly Dictionary<CardPlay, HashSet<CardElementTag>> PlayedElementsCache = new();
 
@@ -114,5 +151,11 @@ public abstract class NeutralCard : FiveElementsCard
         PlayedElementsCache.Clear();
 
         return Task.CompletedTask;
+    }
+    
+    public override void AfterCreated()
+    {
+        base.AfterCreated();
+        UpdateAttuneAndShift(); 
     }
 }
