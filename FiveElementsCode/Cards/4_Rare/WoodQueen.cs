@@ -19,6 +19,8 @@ public class WoodQueen() : WoodCard(2,
     //buffed to 2 temp str from 1
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodQueenPower>(1),
+        new CardsVar(1),
+        new IntVar("WoodQueenTempStrengthPower", 2) //this is just for json, need to sync with the power
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

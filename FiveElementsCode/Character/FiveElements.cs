@@ -115,10 +115,6 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<Distortion>());
-            finalDeck.Add(ModelDb.Card<Incantation>());
-            finalDeck.Add(ModelDb.Card<Decimation>());
-            finalDeck.Add(ModelDb.Card<Isolation>());
             
             
             /*
@@ -155,7 +151,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<WoodMark>());        //done
             finalDeck.Add(ModelDb.Card<WoodQueen>());       //done
             finalDeck.Add(ModelDb.Card<WoodFury>());        //done maybe upgrade should give +hit instead
-            finalDeck.Add(ModelDb.Card<WoodSurge>());       //done 1 attack for every strength might be a bit absurd?
+            finalDeck.Add(ModelDb.Card<WoodSurge>());       //done might be too strong
             finalDeck.Add(ModelDb.Card<WoodRoots>());       //done
             */
             

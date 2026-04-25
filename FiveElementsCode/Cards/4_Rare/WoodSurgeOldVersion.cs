@@ -1,36 +1,32 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
-using FiveElements.FiveElementsCode.Interfaces;
-using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class WoodRoots() : WoodCard(1,
+public class WoodSurgeOldVersion() : WoodCard(2,
     CardType.Skill, CardRarity.Rare,
-    TargetType.Self), IOnWaterStateChanged
+    TargetType.Self,false,false)
 {
     
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
 
-    protected override bool ShouldGlowGoldInternal => 
-        CombatState != null && 
-        (CardElementTag.Water.IsActive(CombatState) || CardElementTag.Wood.IsActive(CombatState));
-
-    //Water:(for each energy gained this turn and for every 5 wave, gain 1 temp strength),
-    //Wood:(for every 3 strength gain 1 strength)
+    //gain 1 strength, 1 for every 3 energy gained this turn ,
+    //Wood:(Deal 1 to a random enemies for each strength)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BoolVar("isWaterOn"),
-        new IntVar("WaveDivider",5),
-        new IntVar("StrengthDivider",3),
-        new CalculationBaseVar(0), 
-        new CalculationExtraVar(1),    
+        new IntVar("EnergyDivider",3), // divise la strengt bonus
+        new DamageVar(1,ValueProp.Move),
+        new CalculationBaseVar(0), // Dégâts de base
+        new CalculationExtraVar(1),    // strength bonus 
         new CalculatedVar("EnergyGained").WithMultiplier((card, target) =>
         {
             if (card.CombatState == null) 
@@ -60,53 +56,55 @@ public class WoodRoots() : WoodCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
-        HoverTipFactory.FromPower<WavePower>(),
         HoverTipFactory.FromPower<StrengthPower>(),
     ]);
 
+    
+    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        
         if (CombatState == null) return;
-        if (CardElementTag.Water.IsActive(CombatState))
+        
+        var strengthToGain = DynamicVars["EnergyGained"].PreviewValue / DynamicVars["EnergyDivider"].BaseValue;
+        if (strengthToGain > 0)
         {
-            
-            // 1. On récupère le montant actuel de Wave et d'energy gagner
-            var currentWave = play.Card.Owner.Creature.GetPowerAmount<WavePower>();
-            var tempStrengthToGain = DynamicVars["EnergyGained"].PreviewValue + (currentWave / DynamicVars["WaveDivider"].BaseValue);
-            await CommonActions.ApplySelf<WoodRootsPower>(choiceContext,this, tempStrengthToGain);
-            
-            
+            await CommonActions.ApplySelf<StrengthPower>(choiceContext,this, strengthToGain);
         }
+        
         if (CardElementTag.Wood.IsActive(CombatState))
         {
-            // 1. On récupère le montant actuel de strength
-            var currentStrength = play.Card.Owner.Creature.GetPowerAmount<StrengthPower>();
-            var strengthToGain = currentStrength / DynamicVars["StrengthDivider"].BaseValue;
-            await CommonActions.ApplySelf<StrengthPower>(choiceContext,this, strengthToGain);
-      
-        }
 
+            var currentStrength = Owner.Creature.GetPowerAmount<StrengthPower>();
+            if (currentStrength > 0)
+            {
+                await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                    .WithHitCount(currentStrength)
+                    .FromCard(this)
+                    .TargetingRandomOpponents(CombatState)
+                    .WithHitFx("vfx/vfx_attack_slash")
+                    .Execute(choiceContext);
+            }
+        }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WaveDivider"].UpgradeValueBy(-1);
-        DynamicVars["StrengthDivider"].UpgradeValueBy(-1);
+        DynamicVars["EnergyDivider"].UpgradeValueBy(-1);
     }
-
-    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    
+    
+    public override TargetType TargetType 
     {
-        if (element == CardElementTag.Water) await OnWaterStateChanged(isActive);
-        if (element == CardElementTag.Wood) await OnWoodStateChanged(isActive);
+        get
+        {
+            if (CardElementTag.Wood.IsActive(CombatState))
+            {
+                return TargetType.RandomEnemy;
+            }
+            return  TargetType.Self;
+        }
     }
-
-    public async Task OnWaterStateChanged(bool isActive)
-    {
-        DynamicVars["isWaterOn"].BaseValue = isActive ? 1 : 0;
-        await Task.CompletedTask;
-    }
+    
 }

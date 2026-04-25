@@ -13,7 +13,7 @@ namespace FiveElements.scenes.combat.energy_counters;
 
 
 
-
+/*
 public partial class exempleNEnergyCounter : Control
 {
     private const string DarkenedMatPath = "res://materials/ui/energy_orb_dark.tres";
@@ -221,3 +221,4 @@ public partial class exempleNStarCounter : Control
     private void OnUnhovered() => NHoverTipSet.Remove(this);
 }
 
+*/

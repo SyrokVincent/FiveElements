@@ -10,8 +10,9 @@ public abstract class WoodCard : FiveElementsCard, IOnWoodStateChanged
 {
     public override Material? CreateCustomFrameMaterial => WoodShader;
     
-    protected WoodCard(int cost, CardType type, CardRarity rarity, TargetType target) 
-        : base(cost, type, rarity, target)
+    protected WoodCard(int cost, CardType type, CardRarity rarity, TargetType target,
+        bool showInCardLibrary = true, bool autoAdd = true) 
+        : base(cost, type, rarity, target,showInCardLibrary,autoAdd)
     {
         CanonicalElementTags = [CardElementTag.Wood];
     }
