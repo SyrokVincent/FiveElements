@@ -18,7 +18,7 @@ public sealed class WoodFulu() : WoodCard(0,
 {
     //Exhaust, Shift (Ethereal?) give 1 surge
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WoodTempStrengthPower>(1),
+        new PowerVar<SurgePower>(1),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
@@ -32,7 +32,7 @@ public sealed class WoodFulu() : WoodCard(0,
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>(),
     ];
     
     //change element when a card is played
@@ -55,7 +55,7 @@ public sealed class WoodFulu() : WoodCard(0,
         CardPlay play)
     {
         //nothing to do ?
-        await CommonActions.ApplySelf<WoodTempStrengthPower>(choiceContext,this, DynamicVars["WoodTempStrengthPower"].BaseValue);
+        await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

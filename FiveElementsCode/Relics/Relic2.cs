@@ -33,7 +33,7 @@ public sealed class Relic2() : StarterRelicLogic
         ActivationVars.Wave,
         //wood
         ActivationVars.Cards,
-        ActivationVars.TempStrength,
+        ActivationVars.Surge,
         //fire
         ActivationVars.Burn,
         //earth
@@ -108,8 +108,8 @@ public sealed class Relic2() : StarterRelicLogic
             case CardElementTag.Wood:
                 if (context != null) await CardPileCmd.Draw(context, DynamicVars.Cards.BaseValue, Owner);
                 if (context != null)
-                    await PowerCmd.Apply<ActivationTempStrengthPower>(context, Owner.Creature,
-                        DynamicVars["ActivationTempStrengthPower"].BaseValue, Owner.Creature, null);
+                    await PowerCmd.Apply<SurgePower>(context, Owner.Creature,
+                        DynamicVars["SurgePower"].BaseValue, Owner.Creature, null);
                 break;
             
             case CardElementTag.Fire:

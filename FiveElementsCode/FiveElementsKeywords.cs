@@ -39,8 +39,6 @@ public static class FiveElementsKeywords
     public static CardKeyword Incandescence;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Fireboost;
-    [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
-    public static CardKeyword Surge;
 
     
     public static bool IsShift(this CardModel card)
@@ -59,7 +57,6 @@ public static class FiveElementsKeywords
         if (keyword == Fire)   return "FIVEELEMENTS-FIRE";
         if (keyword == Earth)  return "FIVEELEMENTS-EARTH";
         if (keyword == Metal)  return "FIVEELEMENTS-METAL";
-        if (keyword == Surge)  return "FIVEELEMENTS-SURGE";
         if (keyword == Heat)   return "FIVEELEMENTS-HEAT";
         if (keyword == Essence)  return "FIVEELEMENTS-ESSENCE";
         if (keyword == Shift)  return "FIVEELEMENTS-SHIFT";

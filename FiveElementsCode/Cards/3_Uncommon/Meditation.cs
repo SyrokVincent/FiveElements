@@ -31,7 +31,7 @@ public class Meditation() : NeutralCard(1,
         ActivationVars.Wave,
         //wood
         ActivationVars.Cards,
-        ActivationVars.TempStrength,
+        ActivationVars.Surge,
         //fire
         ActivationVars.Burn,
         //earth
@@ -86,7 +86,7 @@ public class Meditation() : NeutralCard(1,
         if (selectedModel.CountAsElement(CardElementTag.Wood, Owner.Creature))
         {
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-            await PowerCmd.Apply<ActivationTempStrengthPower>(choiceContext,Owner.Creature, DynamicVars["ActivationTempStrengthPower"].BaseValue, Owner.Creature, null);
+            await PowerCmd.Apply<SurgePower>(choiceContext,Owner.Creature, DynamicVars["SurgePower"].BaseValue, Owner.Creature, null);
         }
         if (selectedModel.CountAsElement(CardElementTag.Fire, Owner.Creature))
         {

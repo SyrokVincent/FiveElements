@@ -21,7 +21,7 @@ public sealed class WoodCreation() : WoodCard(1,
     //removed innate on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1), 
-        new PowerVar<WoodCreationStrengthPower>(1)
+        new PowerVar<SurgePower>(1)
     ]);
 
 
@@ -31,7 +31,7 @@ public sealed class WoodCreation() : WoodCard(1,
     
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>(),
     ]);
 
     protected override async Task OnPlay(
@@ -40,7 +40,7 @@ public sealed class WoodCreation() : WoodCard(1,
     {
         if (CombatState == null) return;
         await CommonActions.Draw(this, choiceContext);
-        await CommonActions.ApplySelf<WoodCreationStrengthPower>(choiceContext,this, DynamicVars["WoodCreationStrengthPower"].BaseValue);
+        await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
         if (CardElementTag.Wood.IsActive(this.CombatState))
         {
             CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1,choiceContext);
@@ -50,6 +50,6 @@ public sealed class WoodCreation() : WoodCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WoodCreationStrengthPower"].UpgradeValueBy(1);
+        DynamicVars["SurgePower"].UpgradeValueBy(1);
     }
 }

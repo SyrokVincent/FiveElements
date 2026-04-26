@@ -64,7 +64,7 @@ public class WoodRoots() : WoodCard(1,
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
         HoverTipFactory.FromPower<WavePower>(),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>(),
         HoverTipFactory.FromPower<StrengthPower>(),
     ];
 
@@ -80,7 +80,7 @@ public class WoodRoots() : WoodCard(1,
             // 1. On récupère le montant actuel de Wave et d'energy gagner
             var currentWave = play.Card.Owner.Creature.GetPowerAmount<WavePower>();
             var tempStrengthToGain = DynamicVars["EnergyGained"].PreviewValue + (currentWave / DynamicVars["WaveDivider"].BaseValue);
-            await CommonActions.ApplySelf<WoodRootsPower>(choiceContext,this, tempStrengthToGain);
+            await CommonActions.ApplySelf<SurgePower>(choiceContext,this, tempStrengthToGain);
             
             
         }

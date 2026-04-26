@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -18,13 +19,13 @@ public class WoodQueenPower : FiveElementsPower
 
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromPower<SurgePower>(),
     ];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1),
-        new PowerVar<StrengthPower>(2),
-        new IntVar("DisplayAmount",Amount), //could not find how to acces DisplayAmount in localization otherwise
+        new PowerVar<SurgePower>(2),
+        new IntVar("DisplayAmount",0), //could not find how to acces DisplayAmount in localization otherwise
     ]);
     
     public override int DisplayAmount => Amount - this.GetInternalData<Data>().TriggerCount;
@@ -53,7 +54,7 @@ public class WoodQueenPower : FiveElementsPower
             if (Owner.Player != null)
             {
                 await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner.Player);
-                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, DynamicVars["StrengthPower"].BaseValue, Owner, null);
+                await PowerCmd.Apply<SurgePower>(choiceContext, Owner, DynamicVars["SurgePower"].BaseValue, Owner, null);
             }
         }
     }
@@ -62,9 +63,15 @@ public class WoodQueenPower : FiveElementsPower
     {
         if (side != Owner.Side)return;
         Flash();
-        //remove of the strength given by this power
-        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -GetInternalData<Data>().TriggerCount, Owner, null);
         GetInternalData<Data>().TriggerCount = 0;
+        DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
+        InvokeDisplayAmountChanged();
+    }
+
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        if ( power != this) return;
+        //mise a jour du displayamount
         DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
         InvokeDisplayAmountChanged();
     }

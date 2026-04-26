@@ -18,7 +18,7 @@ public class WoodSpiritPower : FiveElementsPower
     public override PowerStackType StackType => this.GetInternalData<Data>().TempStrengthCount != 0 ? PowerStackType.Counter : PowerStackType.None;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromPower<SurgePower>(),
     ];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -46,7 +46,7 @@ public class WoodSpiritPower : FiveElementsPower
                 Flash();
                 data.TempStrengthCount += Amount - 2; //this number need to be the same as the one on woodspirit
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<StrengthPower>(context, Owner, Amount - 2, Owner,null);
+                await PowerCmd.Apply<SurgePower>(context, Owner, Amount - 2, Owner,null);
                 InvokeDisplayAmountChanged();
             }
             else
@@ -54,7 +54,7 @@ public class WoodSpiritPower : FiveElementsPower
                 Flash();
                 data.TempStrengthCount += Amount;
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<StrengthPower>(context, Owner, Amount, Owner,null);
+                await PowerCmd.Apply<SurgePower>(context, Owner, Amount, Owner,null);
                 InvokeDisplayAmountChanged();
             }
             
@@ -66,8 +66,6 @@ public class WoodSpiritPower : FiveElementsPower
         if (side != Owner.Side ||  GetInternalData<Data>().TempStrengthCount == 0)return;
         
         Flash();
-        //remove of the strength given by this power
-        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -GetInternalData<Data>().TempStrengthCount, Owner, null);
         GetInternalData<Data>().TempStrengthCount = 0;
         DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
         InvokeDisplayAmountChanged();

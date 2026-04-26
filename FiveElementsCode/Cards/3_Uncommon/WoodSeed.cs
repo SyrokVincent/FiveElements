@@ -22,7 +22,7 @@ public class WoodSeed() : WoodCard(0,
     //Wood:(Gain 2 Surge)
     //swapped the thing and added limit per turn
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WoodSeedPower>(2),
+        new PowerVar<SurgePower>(2),
         new CardsVar(1),
     ]);
 
@@ -31,7 +31,7 @@ public class WoodSeed() : WoodCard(0,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>()
     ]);
 
     protected override async Task OnPlay(
@@ -50,14 +50,14 @@ public class WoodSeed() : WoodCard(0,
         
         if (CardElementTag.Wood.IsActive(CombatState))
         {
-            await CommonActions.ApplySelf<WoodSeedPower>(choiceContext,this, DynamicVars["WoodSeedPower"].BaseValue);
+            await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
         }
 
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WoodSeedPower"].UpgradeValueBy(1);
+        DynamicVars["SurgePower"].UpgradeValueBy(1);
     }
     
     // LOGIQUE DE VÉRIFICATION DU TOUR

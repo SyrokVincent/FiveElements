@@ -25,7 +25,7 @@ public class WoodSpirit() : WoodCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>(),
     ];
 
     protected override async Task OnPlay(

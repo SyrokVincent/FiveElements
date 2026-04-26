@@ -52,11 +52,15 @@
 
 
   
+  "FIVEELEMENTS-SURGE_POWER.description": "Gain [gold]Strength[/gold] until the end of this turn.",
+  "FIVEELEMENTS-SURGE_POWER.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Strength[/gold] until the end of this turn.",
+  "FIVEELEMENTS-SURGE_POWER.title": "Surge",
+  
   "FIVEELEMENTS-WOOD_SPIRIT_POWER.description": "Whenever  you play a {wood_s}Wood{wood_e} card, gain [gold]Surge[/gold].",
-  "FIVEELEMENTS-WOOD_SPIRIT_POWER.smartDescription": "Whenever  you play a {wood_s}Wood{wood_e} card, gain [blue]{Amount}[/blue] [gold]Strength[/gold] this turn.\nCurrently granting [blue]{DisplayAmount}[/blue] [gold]Strength[/gold].",
+  "FIVEELEMENTS-WOOD_SPIRIT_POWER.smartDescription": "Whenever  you play a {wood_s}Wood{wood_e} card, gain [blue]{Amount}[/blue] [gold]Surge[/gold].\nCurrently granting [blue]{DisplayAmount}[/blue] [gold]Surge[/gold].",
   "FIVEELEMENTS-WOOD_SPIRIT_POWER.title": "Wood Spirit",
-  "FIVEELEMENTS-WOOD_QUEEN_POWER.description": "Each turn, gain {StrengthPower:diff()} [gold]Surge[/gold] and draw {Cards:diff()} card, whenever you draw a {wood_s}Wood{wood_e} card.",
-  "FIVEELEMENTS-WOOD_QUEEN_POWER.smartDescription": "Gain {StrengthPower:diff()} [gold]Surge[/gold] and draw {Cards:diff()} card, whenever you draw a {wood_s}Wood{wood_e} card.\n{DisplayAmount:cond:=0?No longer triggers this turn.|=1?Can trigger [blue]{}[/blue] more time this turn.|Can trigger [blue]{}[/blue] more times this turn.}",
+  "FIVEELEMENTS-WOOD_QUEEN_POWER.description": "Each turn, gain {SurgePower:diff()} [gold]Surge[/gold] and draw {Cards:diff()} card, whenever you draw a {wood_s}Wood{wood_e} card.",
+  "FIVEELEMENTS-WOOD_QUEEN_POWER.smartDescription": "Gain {SurgePower:diff()} [gold]Surge[/gold] and draw {Cards:diff()} card, whenever you draw a {wood_s}Wood{wood_e} card.\n{DisplayAmount:cond:=0?No longer triggers this turn.|=1?Can trigger [blue]{}[/blue] more time this turn.|Can trigger [blue]{}[/blue] more times this turn.}",
   "FIVEELEMENTS-WOOD_QUEEN_POWER.title": "Wood Queen",
   
   

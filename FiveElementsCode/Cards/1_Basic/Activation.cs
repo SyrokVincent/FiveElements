@@ -24,7 +24,7 @@ public static class ActivationVars
     public static EnergyVar Energy => new EnergyVar(1);
     public static PowerVar<WavePower> Wave => new PowerVar<WavePower>(3);
     public static CardsVar Cards => new CardsVar(1);
-    public static PowerVar<ActivationTempStrengthPower> TempStrength => new PowerVar<ActivationTempStrengthPower>(1);
+    public static PowerVar<SurgePower> Surge => new PowerVar<SurgePower>(1);
     public static PowerVar<BurnPower> Burn => new PowerVar<BurnPower>(3);
     public static BlockVar Block => new BlockVar(5, ValueProp.Move);
     public static PowerVar<VigorPower> Vigor => new PowerVar<VigorPower>(2);
@@ -55,7 +55,7 @@ public sealed class Activation() : NeutralCard(1,
         ActivationVars.Wave,
         //wood
         ActivationVars.Cards,
-        ActivationVars.TempStrength,
+        ActivationVars.Surge,
         //fire
         ActivationVars.Burn,
         //earth
@@ -78,7 +78,7 @@ public sealed class Activation() : NeutralCard(1,
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
         HoverTipFactory.FromPower<WavePower>(),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>(),
         HoverTipFactory.FromPower<BurnPower>(),
         HoverTipFactory.FromPower<VigorPower>(),
     ];
@@ -97,7 +97,7 @@ public sealed class Activation() : NeutralCard(1,
         if (CardElementTag.Wood.IsActive(CombatState))
         {
             await CommonActions.Draw(this, choiceContext);
-            await CommonActions.ApplySelf<ActivationTempStrengthPower>(choiceContext,this, DynamicVars["ActivationTempStrengthPower"].BaseValue);
+            await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
         }   
         if (CardElementTag.Fire.IsActive(CombatState))
         {

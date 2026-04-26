@@ -32,7 +32,7 @@ public class UltimateFormPower : FiveElementsPower
         ActivationVars.Wave,
         //wood
         ActivationVars.Cards,
-        ActivationVars.TempStrength,
+        ActivationVars.Surge,
         //fire
         ActivationVars.Burn,
         //earth
@@ -106,7 +106,7 @@ public class UltimateFormPower : FiveElementsPower
         if (cardWas.Contains(CardElementTag.Wood) && snapshotEcho.IsGenerating(CardElementTag.Wood))
         {
             await CardPileCmd.Draw(context, DynamicVars.Cards.BaseValue * Amount, Owner.Player);
-            await PowerCmd.Apply<ActivationTempStrengthPower>(context, Owner, DynamicVars["ActivationTempStrengthPower"].BaseValue * Amount, Owner, null);
+            await PowerCmd.Apply<SurgePower>(context, Owner, DynamicVars["SurgePower"].BaseValue * Amount, Owner, null);
             needUpgrade = true;
         }
         if (cardWas.Contains(CardElementTag.Fire) && snapshotEcho.IsGenerating(CardElementTag.Fire))

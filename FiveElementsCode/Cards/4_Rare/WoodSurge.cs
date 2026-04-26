@@ -26,7 +26,7 @@ public class WoodSurge() : WoodCard(1,
     //Wood:(This card is Played when drawn once per turn).
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(2),
-        new PowerVar<WoodSurgeTempStrengthPower>(3),
+        new PowerVar<SurgePower>(3),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -34,7 +34,7 @@ public class WoodSurge() : WoodCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>(),
     ]);
 
     protected override async Task OnPlay(
@@ -46,14 +46,14 @@ public class WoodSurge() : WoodCard(1,
 
         
         await CommonActions.Draw(this, choiceContext);
-        await CommonActions.ApplySelf<WoodSurgeTempStrengthPower>(choiceContext,this, DynamicVars["WoodSurgeTempStrengthPower"].BaseValue);
+        await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
 
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(1);
-        DynamicVars["WoodSurgeTempStrengthPower"].UpgradeValueBy(2);
+        DynamicVars["SurgePower"].UpgradeValueBy(2);
     }
 
     public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)

@@ -34,7 +34,7 @@ public class Incarnation() : NeutralCard(0,
         new PowerVar<WavePower>(5),
         //wood
         new CardsVar(1),
-        new PowerVar<IncarnationTempStrengthPower>(3),
+        new PowerVar<SurgePower>(3),
         //fire
         new PowerVar<BurnPower>(8),
         //earth
@@ -57,7 +57,7 @@ public class Incarnation() : NeutralCard(0,
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
         HoverTipFactory.FromPower<WavePower>(),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>(),
         HoverTipFactory.FromPower<BurnPower>(),
         HoverTipFactory.FromPower<VigorPower>(),
     ];
@@ -76,7 +76,7 @@ public class Incarnation() : NeutralCard(0,
         if (CardElementTag.Wood.IsActive(CombatState))
         {
             await CommonActions.Draw(this, choiceContext);
-            await CommonActions.ApplySelf<IncarnationTempStrengthPower>(choiceContext,this, DynamicVars["IncarnationTempStrengthPower"].BaseValue);
+            await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
         }   
         if (CardElementTag.Fire.IsActive(CombatState))
         {

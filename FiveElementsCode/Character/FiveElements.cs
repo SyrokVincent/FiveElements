@@ -115,6 +115,15 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<WoodCreation>());    //done
+            finalDeck.Add(ModelDb.Card<WoodBark>());        //done it currently scale down with strength too
+            finalDeck.Add(ModelDb.Card<WoodFangs>());       //done way of doubling damage to block might be wrong
+            finalDeck.Add(ModelDb.Card<WoodSpirit>());      //done
+            finalDeck.Add(ModelDb.Card<WoodSeed>());        //done
+            finalDeck.Add(ModelDb.Card<WoodLeaf>());        //done
+            finalDeck.Add(ModelDb.Card<WoodQueen>());       //done
+            finalDeck.Add(ModelDb.Card<WoodSurge>());       //done might be too strong
+            finalDeck.Add(ModelDb.Card<WoodRoots>()); 
             
             
             /*
@@ -141,7 +150,7 @@ public class FiveElements : PlaceholderCharacterModel
             /*
             //WOOD
             finalDeck.Add(ModelDb.Card<WoodCreation>());    //done
-            finalDeck.Add(ModelDb.Card<Wood>(WoodBark));    //done it currently scale down with strength too
+            finalDeck.Add(ModelDb.Card<WoodBark>());        //done it currently scale down with strength too
             finalDeck.Add(ModelDb.Card<WoodFangs>());       //done way of doubling damage to block might be wrong
             finalDeck.Add(ModelDb.Card<WoodSpirit>());      //done
             finalDeck.Add(ModelDb.Card<WoodLash>());        //done

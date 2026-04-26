@@ -20,7 +20,7 @@ public class WoodQueen() : WoodCard(2,
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodQueenPower>(1),
         new CardsVar(1),
-        new IntVar("WoodQueenTempStrengthPower", 2) //this is just for json, need to sync with the power
+        new IntVar("SurgePower", 2) //this is just for json, need to sync with the power
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -28,7 +28,7 @@ public class WoodQueen() : WoodCard(2,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+        HoverTipFactory.FromPower<SurgePower>()
     ];
 
     protected override async Task OnPlay(
