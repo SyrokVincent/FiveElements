@@ -10,9 +10,9 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class MetalRush() : MetalCard(0,
+public class MetalRushOldVersion() : MetalCard(0,
     CardType.Skill, CardRarity.Uncommon,
-    TargetType.Self)
+    TargetType.Self,false,false)
 {
 
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
@@ -21,8 +21,13 @@ public class MetalRush() : MetalCard(0,
     //
     // new // Gain 2(3) vigor, Metal:(gain 1 vigor. Return in hand if it is the first card you play this turn.)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<VigorPower>(2),
-        new PowerVar<VigorPower>("VigorPower2",1)
+        new CalculationBaseVar(1),
+        new CalculationExtraVar(1),
+        new CalculatedVar("VigorThisTurn").WithMultiplier((card, _) => 
+            CombatManager.Instance.History.CardPlaysFinished.Count(e => 
+                e.HappenedThisTurn(card.CombatState) && 
+                e.CardPlay.Card == card && 
+                e.CardPlay.Card.Owner == card.Owner)),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -38,30 +43,16 @@ public class MetalRush() : MetalCard(0,
         CardPlay play)
     {
         if (CombatState == null) return;
-        await PowerCmd.Apply<VigorPower>(choiceContext,this.Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, this,false);
         if (CardElementTag.Metal.IsActive(CombatState))
         {
-            await PowerCmd.Apply<VigorPower>(choiceContext,this.Owner.Creature, DynamicVars["VigorPower2"].BaseValue, Owner.Creature, this,false);
-            
-            if (IsFirstManualCardPlayedThisTurn())
-                await CardPileCmd.Add(this, PileType.Hand);
+            await PowerCmd.Apply<VigorPower>(choiceContext,this.Owner.Creature, DynamicVars["VigorThisTurn"].PreviewValue, Owner.Creature, this,false);
         }
+        this.EnergyCost.AddThisTurn(1);
+        await CardPileCmd.Add(this, PileType.Hand);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["VigorPower"].UpgradeValueBy(1);
-    }
-    
-    private bool IsFirstManualCardPlayedThisTurn()
-    {
-        if (CombatManager.Instance?.History == null || CombatState == null) return false;
-
-        // On regarde l'historique des cartes terminées ce tour-ci
-        // On ignore les cartes qui ont été jouées via un effet AutoPlay
-        return !CombatManager.Instance.History.CardPlaysFinished.Any(e => 
-                e.HappenedThisTurn(CombatState) && 
-                !e.CardPlay.IsAutoPlay // <-- On ignore les Wood Surge et autres triggers
-        );
+        DynamicVars.CalculationBase.UpgradeValueBy(1);
     }
 }

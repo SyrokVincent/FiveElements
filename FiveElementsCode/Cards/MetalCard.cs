@@ -11,8 +11,9 @@ public abstract class MetalCard : FiveElementsCard, IOnMetalStateChanged
     //public override Material? CreateCustomFrameMaterial => ShaderUtils.GenerateHsv(0.55f, 0.2f, 1.2f);
     public override Material? CreateCustomFrameMaterial => MetalShader;
     
-    protected MetalCard(int cost, CardType type, CardRarity rarity, TargetType target) 
-        : base(cost, type, rarity, target)
+    protected MetalCard(int cost, CardType type, CardRarity rarity, TargetType target,
+        bool showInCardLibrary = true, bool autoAdd = true)
+        : base(cost, type, rarity, target,showInCardLibrary,autoAdd)
     {
         CanonicalElementTags = [CardElementTag.Metal];
     }

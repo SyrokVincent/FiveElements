@@ -204,7 +204,7 @@
   "FIVEELEMENTS-METAL_POUNCE.title": "Metal Pounce",
   "FIVEELEMENTS-METAL_CHAINS.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Enemy lose {StrengthLoss:diff()} [gold]Strength[/gold] this turn.|{off_s}Metal : Enemy lose {StrengthLoss:diff()} Strength this turn.{off_e}}",
   "FIVEELEMENTS-METAL_CHAINS.title": "Metal Chain",
-  "FIVEELEMENTS-METAL_RUSH.description": "Return this to your [gold]Hand[/gold].\nIncrease its [gold]Cost[/gold] and [gold]Vigor[/gold] by 1 this turn.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain {VigorThisTurn:diff()} [gold]Vigor[/gold].|{off_s}Metal : Gain {VigorThisTurn:diff()} Vigor.{off_e}}",
+  "FIVEELEMENTS-METAL_RUSH.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold].\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain {VigorPower2:diff()} [gold]Vigor[/gold]. Return this to your [gold]Hand[/gold] if it's the first card you play this turn.|{off_s}Metal : Gain {VigorPower2:diff()} Vigor. Return this to your Hand if it's the first card you play this turn.{off_e}}",
   "FIVEELEMENTS-METAL_RUSH.title": "Metal Rush",
   "FIVEELEMENTS-METAL_FORGE.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : [gold]Upgrade[/gold] a random card in your [gold]Discard Pile[/gold] for each {metal_s}Metal{metal_e} card played this turn.|{off_s}Metal : Upgrade a random card in your Discard Pile for each Metal card played this turn.{off_e}}",
   "FIVEELEMENTS-METAL_FORGE.title": "Metal Forge",
@@ -218,7 +218,9 @@
   "FIVEELEMENTS-METAL_REFINEMENT.title": "Metal Refinement",
   "FIVEELEMENTS-METAL_CORE.description": "{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {VigorGained:diff()} [gold]Vigor[/gold]. Gain {CalculationExtra:diff()} additional [gold]Vigor[/gold] for every {BlockDivider:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {VigorGained:diff()} Vigor. Gain {CalculationExtra:diff()} additional Vigor for every {BlockDivider:diff()} Block.{off_e}}\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Next turn, the first Attack deal double damage.|{off_s}Metal : Next turn, the first Attack deal double damage.{off_e}}",
   "FIVEELEMENTS-METAL_CORE.title": "Metal Core",
-  
+
+  "FIVEELEMENTS-METAL_RUSH_OLD_VERSION.description": "Return this to your [gold]Hand[/gold].\nIncrease its [gold]Cost[/gold] and [gold]Vigor[/gold] by 1 this turn.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain {VigorThisTurn:diff()} [gold]Vigor[/gold].|{off_s}Metal : Gain {VigorThisTurn:diff()} Vigor.{off_e}}",
+  "FIVEELEMENTS-METAL_RUSH_OLD_VERSION.title": "Metal Rush old version",
   
   
   "FIVEELEMENTS-FULU.description": "Transform itself on [gold]Shift[/gold].",
