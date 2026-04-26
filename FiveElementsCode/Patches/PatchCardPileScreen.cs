@@ -6,10 +6,10 @@ using MegaCrit.Sts2.Core.Nodes.Screens;
 
 namespace FiveElements.FiveElementsCode.Patches;
 
-public static class CardPileScreenPatchs
+public static class PatchCardPileScreen
 {
     [HarmonyPatch(typeof(NCardPileScreen), "_Ready")]
-    public static class CardPileScreenReadyPatch
+    public static class PatchCardPileScreenReady
     {
         public static void Postfix(NCardPileScreen __instance)
         {
