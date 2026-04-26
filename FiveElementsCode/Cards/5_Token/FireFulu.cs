@@ -16,7 +16,7 @@ public sealed class FireFulu() : FireCard(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
-    //Exhaust, Shift (Ethereal?)
+    //Exhaust, Shift (Ethereal?) apply 2 burn to all enemeies
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<BurnPower>(2)
     ]);

@@ -33,10 +33,12 @@ public sealed class EarthMagma() : EarthCard(1,
     ]);
 
     //gain echo and elem: description, remove concat if I don't want them
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
         HoverTipFactory.FromPower<BurnPower>(),
-    ]);
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

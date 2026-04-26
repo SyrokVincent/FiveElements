@@ -19,7 +19,7 @@ public sealed class EarthFulu() : EarthCard(0,
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;
     
-    //Exhaust, Shift (Ethereal?)
+    //Exhaust, Shift (Ethereal?), gain 2 block
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BlockVar(2,ValueProp.Move),
     ]);

@@ -15,8 +15,8 @@ public class WoodQueen() : WoodCard(2,
 {
     
 
-    //Each turn, draw 1 and gain 2 temp strength the first time you draw a wood card
-    //buffed to 2 temp str from 1
+    //Each turn, draw 1 and gain 2 surge the first time you draw a wood card
+    //buffed to 2 surge from 1
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodQueenPower>(1),
         new CardsVar(1),
@@ -27,9 +27,9 @@ public class WoodQueen() : WoodCard(2,
     ]);
 
     //gain echo and elem: description, remove concat if I don't want them
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromPower<StrengthPower>(),
-    ]);
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

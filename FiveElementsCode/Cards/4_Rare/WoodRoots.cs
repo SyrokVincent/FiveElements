@@ -23,7 +23,7 @@ public class WoodRoots() : WoodCard(1,
         CombatState != null && 
         (CardElementTag.Water.IsActive(CombatState) || CardElementTag.Wood.IsActive(CombatState));
 
-    //Water:(for each energy gained this turn and for every 5 wave, gain 1 temp strength),
+    //Water:(for each energy gained this turn and for every 5 wave, gain 1 surge),
     //Wood:(for every 3 strength gain 1 strength)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isWaterOn"),
@@ -59,11 +59,14 @@ public class WoodRoots() : WoodCard(1,
     ]);
 
     //gain echo and elem: description, remove concat if I don't want them
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
         HoverTipFactory.FromPower<WavePower>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
         HoverTipFactory.FromPower<StrengthPower>(),
-    ]);
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

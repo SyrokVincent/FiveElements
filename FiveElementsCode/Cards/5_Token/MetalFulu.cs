@@ -15,7 +15,7 @@ public sealed class MetalFulu() : MetalCard(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
-    //Exhaust, Shift (Ethereal?)
+    //Exhaust, Shift (Ethereal?) gain 1 vigor
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<VigorPower>(1),
     ]);

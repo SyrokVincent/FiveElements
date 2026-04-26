@@ -15,7 +15,7 @@ public sealed class WaterFulu() : WaterCard(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
-    //Exhaust, Shift (Ethereal?)
+    //Exhaust, Shift (Ethereal?) gain 2 wave
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WavePower>(2),
     ]);

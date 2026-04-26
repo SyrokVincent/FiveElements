@@ -14,7 +14,7 @@ public class WoodSpirit() : WoodCard(1,
     TargetType.Self)
 {
     
-    //Gain 2 temp strength when you play a wood card
+    //Gain 2 surge when you play a wood card
     // buffed from 1 to 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodSpiritPower>(2), //this number need to be the same as the one on woodspiritpower
@@ -25,7 +25,7 @@ public class WoodSpirit() : WoodCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
     ];
 
     protected override async Task OnPlay(

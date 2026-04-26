@@ -32,10 +32,12 @@ public sealed class WaterCanon() : WaterCard(2,
     ]);
 
     //gain echo and elem: description, remove concat if I don't want them
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
         HoverTipFactory.FromPower<WavePower>(),
-    ]);
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

@@ -23,7 +23,7 @@ public class Incarnation() : NeutralCard(0,
     protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
 
     //Water:(1 energy, 5 wave),
-    //Wood:(Draw 1, 3temp str),
+    //Wood:(Draw 1, 3 surge),
     //Fire:(Burn 8 to all enemies),
     //Earth:(10 block),
     //Metal:(5 vigor), 
@@ -54,12 +54,10 @@ public class Incarnation() : NeutralCard(0,
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
         HoverTipFactory.FromPower<WavePower>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
         HoverTipFactory.FromPower<BurnPower>(),
         HoverTipFactory.FromPower<VigorPower>(),
     ];

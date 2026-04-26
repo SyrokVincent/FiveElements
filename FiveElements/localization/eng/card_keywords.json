@@ -1,11 +1,11 @@
 {
   "PERIOD": ".",
-  "FIVEELEMENTS-SHIFT.description": "Inherit the element that [gold]Echo[/gold] [gold]Generate[gold].",
+  "FIVEELEMENTS-SHIFT.description": "Inherit the element that [gold]Echo[/gold] [gold]Generate[/gold].",
   "FIVEELEMENTS-SHIFT.title": "Shift",
   "FIVEELEMENTS-ATTUNE.description": "Inherit the element of [gold]Echo[/gold].",
   "FIVEELEMENTS-ATTUNE.title": "Attune",
   
-  "FIVEELEMENTS-ECHO.description": "[gold]Echo[/gold]{ElemEcho:cond:=0? as no element|=1? is {water_s}Water{water_e}|=2? is {wood_s}Wood{wood_e}|=3? is {fire_s}Fire{fire_e}|=4? is {earth_s}Earth{earth_e}|=5? is {metal_s}Metal{metal_e}| is ALL [gold]Elements[/gold]}.\n[gold]Echo[/gold] takes the element of the last card played this turn.",
+  "FIVEELEMENTS-ECHO.description": "[gold]Echo[/gold]{ElemEcho:cond:=0? has no element|=1? is {water_s}Water{water_e}|=2? is {wood_s}Wood{wood_e}|=3? is {fire_s}Fire{fire_e}|=4? is {earth_s}Earth{earth_e}|=5? is {metal_s}Metal{metal_e}| is ALL [gold]Elements[/gold]}.\n[gold]Echo[/gold] takes the element of the last card played this turn.",
   "FIVEELEMENTS-ECHO.title": "Echo",
   "FIVEELEMENTS-GENERATE.description": "{water_s}Water{wood_e} generate {wood_s}Wood{wood_e}.\n{wood_s}Wood{wood_e} generate {fire_s}Fire{fire_e}.\n{fire_s}Fire{fire_e} generate {earth_s}Earth{earth_e}.\n{earth_s}Earth{earth_e} generate {metal_s}Metal{metal_e}.\n{metal_s}Metal{metal_e} generate {water_s}Water{wood_e}.",
   "FIVEELEMENTS-GENERATE.title":"Generate",
@@ -13,18 +13,23 @@
   "FIVEELEMENTS-DOMINATE.title":"Dominate",
   "FIVEELEMENTS-ESSENCE.description": "While you have an element's [gold]Essence[/gold], cards of that element always [gold]trigger[/gold] their additional effects.",
   "FIVEELEMENTS-ESSENCE.title":"Essence",
-  
-  
-  "FIVEELEMENTS-WATER.description": "{water_s}Water{water_e} : [gold]Trigger[/gold] additional effects if [gold]Echo[/gold] is {metal_s}Metal{metal_e} or {water_s}Water{water_e}, or if you have {water_s}Water{water_e} [gold]Essence[/gold].",
+
+
+  "FIVEELEMENTS-ELEMENT.description": "[gold]Trigger[/gold] effect if :\nIt's the [gold]Echo[/gold],\n[gold]Echo[/gold] [gold]Generates[/gold] it,\nor you have its [gold]Essence[/gold].",
+  "FIVEELEMENTS-ELEMENT.title": "Element",
+  "FIVEELEMENTS-WATER.description": "{water_s}Water{water_e} : [gold]Trigger[/gold] effect if\n[gold]Echo[/gold] is {metal_s}Metal{metal_e} or {water_s}Water{water_e},\nor if you have {water_s}Water{water_e} [gold]Essence[/gold].",
   "FIVEELEMENTS-WATER.title": "Water",
-  "FIVEELEMENTS-WOOD.description": "{wood_s}Wood{wood_e} : [gold]Trigger[/gold] additional effects if [gold]Echo[/gold] is {water_s}Water{water_e} or {wood_s}Wood{wood_e}, or if you have {wood_s}Wood{wood_e} [gold]Essence[/gold].",
+  "FIVEELEMENTS-WOOD.description": "{wood_s}Wood{wood_e} : [gold]Trigger[/gold] effect if\n[gold]Echo[/gold] is {water_s}Water{water_e} or {wood_s}Wood{wood_e},\nor if you have {wood_s}Wood{wood_e} [gold]Essence[/gold].",
   "FIVEELEMENTS-WOOD.title": "Wood",
-  "FIVEELEMENTS-FIRE.description": "{fire_s}Fire{fire_e} : [gold]Trigger[/gold] additional effects if [gold]Echo[/gold] is {wood_s}Wood{wood_e} or {fire_s}Fire{fire_e}, or if you have {fire_s}Fire{fire_e} [gold]Essence[/gold].",
+  "FIVEELEMENTS-FIRE.description": "{fire_s}Fire{fire_e} : [gold]Trigger[/gold] effect if\n[gold]Echo[/gold] is {wood_s}Wood{wood_e} or {fire_s}Fire{fire_e},\nor if you have {fire_s}Fire{fire_e} [gold]Essence[/gold].",
   "FIVEELEMENTS-FIRE.title": "Fire",
-  "FIVEELEMENTS-EARTH.description": "{earth_s}Earth{earth_e} : [gold]Trigger[/gold] additional effects if [gold]Echo[/gold] is {fire_s}Fire{fire_e} or {earth_s}Earth{earth_e}, or if you have {earth_s}Earth{earth_e} [gold]Essence[/gold].",
+  "FIVEELEMENTS-EARTH.description": "{earth_s}Earth{earth_e} : [gold]Trigger[/gold] effect if\n[gold]Echo[/gold] is {fire_s}Fire{fire_e} or {earth_s}Earth{earth_e},\nor if you have {earth_s}Earth{earth_e} [gold]Essence[/gold].",
   "FIVEELEMENTS-EARTH.title": "Earth",
-  "FIVEELEMENTS-METAL.description": "{metal_s}Metal{metal_e} : [gold]Trigger[/gold] additional effects if [gold]Echo[/gold] is {earth_s}Earth{earth_e} or {metal_s}Metal{metal_e}, or if you have {metal_s}Metal{metal_e} [gold]Essence[/gold].",
+  "FIVEELEMENTS-METAL.description": "{metal_s}Metal{metal_e} : [gold]Trigger[/gold] effect if\n[gold]Echo[/gold] is {earth_s}Earth{earth_e} or {metal_s}Metal{metal_e},\nor if you have {metal_s}Metal{metal_e} [gold]Essence[/gold].",
   "FIVEELEMENTS-METAL.title": "Metal",
+
+  "FIVEELEMENTS-SURGE.description": "It's [gold]Strength[/gold] this turn.\n[gold]Strength[/gold] adds additional damage to Attacks.",
+  "FIVEELEMENTS-SURGE.title": "Surge",
 
 
   "FIVEELEMENTS-HEAT.description": "Damage dealt to HP applies an equal amount of [gold]Burn[/gold].",

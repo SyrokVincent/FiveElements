@@ -22,7 +22,7 @@ public class WoodSurge() : WoodCard(1,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
 
-    //Draw 2(3) card and gain 3(5) strength this turn,
+    //Draw 2(3) card and gain 3(5) surge,
     //Wood:(This card is Played when drawn once per turn).
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(2),
@@ -34,7 +34,7 @@ public class WoodSurge() : WoodCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
     ]);
 
     protected override async Task OnPlay(

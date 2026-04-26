@@ -19,7 +19,7 @@ public class WoodSeed() : WoodCard(0,
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
 
     //If this is the first time this card has been played this turn, draw 1 card.
-    //Wood:(Gain 2 Strength this turn)
+    //Wood:(Gain 2 Surge)
     //swapped the thing and added limit per turn
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodSeedPower>(2),
@@ -31,7 +31,7 @@ public class WoodSeed() : WoodCard(0,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
     ]);
 
     protected override async Task OnPlay(

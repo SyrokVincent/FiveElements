@@ -16,7 +16,7 @@ public sealed class WoodFulu() : WoodCard(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
-    //Exhaust, Shift (Ethereal?)
+    //Exhaust, Shift (Ethereal?) give 1 surge
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodTempStrengthPower>(1),
     ]);
@@ -32,7 +32,7 @@ public sealed class WoodFulu() : WoodCard(0,
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
-        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
     ];
     
     //change element when a card is played

@@ -22,6 +22,8 @@ public static class FiveElementsKeywords
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Dominate;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
+    public static CardKeyword Element;
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Water;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Wood;
@@ -37,6 +39,8 @@ public static class FiveElementsKeywords
     public static CardKeyword Incandescence;
     [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
     public static CardKeyword Fireboost;
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.None)]
+    public static CardKeyword Surge;
 
     
     public static bool IsShift(this CardModel card)
@@ -49,11 +53,13 @@ public static class FiveElementsKeywords
     public static string GetLocKeyPrefix(this CardKeyword keyword)
     {
         if (keyword == Echo)   return "FIVEELEMENTS-ECHO";
+        if (keyword == Element)  return "FIVEELEMENTS-ELEMENT";
         if (keyword == Water)  return "FIVEELEMENTS-WATER";
         if (keyword == Wood)   return "FIVEELEMENTS-WOOD";
         if (keyword == Fire)   return "FIVEELEMENTS-FIRE";
         if (keyword == Earth)  return "FIVEELEMENTS-EARTH";
         if (keyword == Metal)  return "FIVEELEMENTS-METAL";
+        if (keyword == Surge)  return "FIVEELEMENTS-SURGE";
         if (keyword == Heat)   return "FIVEELEMENTS-HEAT";
         if (keyword == Essence)  return "FIVEELEMENTS-ESSENCE";
         if (keyword == Shift)  return "FIVEELEMENTS-SHIFT";
@@ -63,7 +69,7 @@ public static class FiveElementsKeywords
         if (keyword == Dominate) return "FIVEELEMENTS-DOMINATE";
         if (keyword == Attune) return "FIVEELEMENTS-ATTUNE";
     
-        // Si le nom est nul (ça arrive si c'est un keyword dynamique), on met une sécurité
+        // Si le nom est nul (ça arrive ptetre si c'est un keyword dynamique), on met une sécurité
         string name = Enum.GetName(typeof(CardKeyword), keyword);
         if (string.IsNullOrEmpty(name)) return keyword.ToString();
         return StringHelper.Slugify(name);

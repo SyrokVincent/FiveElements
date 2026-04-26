@@ -17,7 +17,7 @@ public class WoodMark() : WoodCard(0,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
 
-    //Exhaust, remove all thorns and block from the enemy,  (artifact?),
+    //Exhaust, remove all thorns and block from the enemy,
     //Wood:(Draw 1)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1),

@@ -47,7 +47,7 @@ public sealed class Activation() : NeutralCard(1,
     //
     // added 1 temp str and 1 wave
     //
-    //VALUE HERE need to be the same as on Ultimate form that why i use Activationvars
+    //VALUE HERE need to be the same as on Ultimate form and others similar, that why I use Activationvars
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         
         //water
@@ -75,12 +75,10 @@ public sealed class Activation() : NeutralCard(1,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
         HoverTipFactory.FromPower<WavePower>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Surge),
         HoverTipFactory.FromPower<BurnPower>(),
         HoverTipFactory.FromPower<VigorPower>(),
     ];
