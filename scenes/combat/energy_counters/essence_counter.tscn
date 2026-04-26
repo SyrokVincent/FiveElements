@@ -156,7 +156,7 @@ lifetime = 1.5
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_ediag")
 
-[node name="Label" type="Label" parent="."]
+[node name="EssenceLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

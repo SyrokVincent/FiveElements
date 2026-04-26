@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bxfu5lledhrro" path="res://scenes/combat/energy_counters/essence_counter.tscn" id="7_jnpui"]
 
 [node name="ElementsCounter" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

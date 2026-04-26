@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://vn51kkhc8jc1"]
+[gd_scene load_steps=12 format=3 uid="uid://vn51kkhc8jc1"]
 
+[ext_resource type="Shader" uid="uid://j10rbh7h7xcu" path="res://scenes/combat/energy_counters/sage_energy_counter.gdshader" id="1_k8lep"]
 [ext_resource type="Texture2D" uid="uid://cya5oeysn4qao" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_1.png" id="1_tpr1u"]
 [ext_resource type="Texture2D" uid="uid://cmgtjnfm526ua" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_2.png" id="2_601yw"]
 [ext_resource type="Texture2D" uid="uid://673it4ws0im1" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_3.png" id="3_jigvh"]
@@ -7,6 +8,17 @@
 [ext_resource type="Texture2D" uid="uid://duxnv5mmsrdqy" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_5.png" id="5_7m6al"]
 [ext_resource type="Texture2D" uid="uid://qd3ulyj2uua2" path="res://FiveElements/images/charui/energy_counter/sage_orb_layer_6.png" id="6_1l603"]
 [ext_resource type="PackedScene" uid="uid://bxfu5lledhrro" path="res://scenes/combat/energy_counters/essence_counter.tscn" id="7_ectix"]
+[ext_resource type="PackedScene" uid="uid://4xjqwh64pacg" path="res://scenes/combat/energy_counters/elements_counter.tscn" id="9_t6dpn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t6dpn"]
+shader = ExtResource("1_k8lep")
+shader_parameter/parent_screen_pos = Vector2(0, 0)
+shader_parameter/parent_size = Vector2(0, 0)
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/radius = 0.0
+shader_parameter/feather = 0.1
+shader_parameter/base_color = Color(0, 0, 0, 0)
+shader_parameter/target_color = Color(1, 1, 1, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_5rki4"]
 
@@ -26,6 +38,8 @@ grow_vertical = 2
 pivot_offset = Vector2(64, 64)
 
 [node name="Layers" type="Control" parent="."]
+material = SubResource("ShaderMaterial_t6dpn")
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +49,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Layer1" type="TextureRect" parent="Layers"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,6 +62,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="RotationLayers" type="Control" parent="Layers"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,6 +72,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Layer2" type="TextureRect" parent="Layers/RotationLayers"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,6 +86,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Layer3" type="TextureRect" parent="Layers/RotationLayers"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,6 +100,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Layer4" type="TextureRect" parent="Layers"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,6 +112,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Layer5" type="TextureRect" parent="Layers"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -276,3 +296,7 @@ offset_right = 0.0
 offset_bottom = -78.0
 rotation = -5.0265484
 scale = Vector2(0.18, 0.18)
+
+[node name="ElementsCounter" parent="." instance=ExtResource("9_t6dpn")]
+visible = true
+layout_mode = 1

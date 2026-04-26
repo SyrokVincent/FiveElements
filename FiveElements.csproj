@@ -108,6 +108,8 @@
     <ItemGroup>
       <Content Include="scenes\combat\energy_counters\elements_counter.tscn" />
       <Content Include="scenes\combat\energy_counters\essence_counter.tscn" />
+      <Content Include="scenes\combat\energy_counters\sage_energy_counter.gdshader" />
+      <Content Include="scenes\combat\energy_counters\sage_energy_counter.gdshader.uid" />
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">
