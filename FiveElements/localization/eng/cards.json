@@ -40,7 +40,7 @@
   "FIVEELEMENTS-DISTORTION.title": "Distortion Strike",
   "FIVEELEMENTS-ISOLATION.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd {Cards:diff()} [gold]{IfUpgraded:show:Fulu+|Fulu}[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-ISOLATION.title": "Isolation",
-  "FIVEELEMENTS-MORE_OR_LESS.description": "Choose between {IfUpgraded:show:\n[gold]More+[/gold] and [gold]Less+[/gold]|[gold]More[/gold] or [gold]Less[/gold]} to add into your [gold]Hand[/gold].",
+  "FIVEELEMENTS-MORE_OR_LESS.description": "Choose between\n{IfUpgraded:show:[gold]More+[/gold]|[gold]More[/gold]} or {IfUpgraded:show:[gold]Less+[/gold]|[gold]Less[/gold]} to add into your [gold]Hand[/gold].",
   "FIVEELEMENTS-MORE_OR_LESS.title": "More or Less",
   "FIVEELEMENTS-ABSORPTION.description": "Consume all [gold]Essence[/gold], gain {Energy:energyIcons()} for each.{InCombat:\nYou will gain {EnergyGained:diff()}.|}",
   "FIVEELEMENTS-ABSORPTION.title": "Absorption",
