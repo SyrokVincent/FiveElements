@@ -16,7 +16,7 @@ shader_parameter/center = Vector2(0.5, 0.5)
 shader_parameter/radius = 0.615
 shader_parameter/feather = 0.1
 shader_parameter/base_color = Color(0, 0, 0, 0)
-shader_parameter/target_color = Color(1, 0, 0, 1)
+shader_parameter/target_color = Color(0, 0, 0, 0)
 
 [sub_resource type="FontVariation" id="FontVariation_5rki4"]
 

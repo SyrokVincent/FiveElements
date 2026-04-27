@@ -467,7 +467,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 
 		// 1. On bascule l'ancienne cible en "base_color" pour une transition fluide
 		mat.SetShaderParameter("base_color", currentTarget);
-    
+	
 		// 2. Setup des nouveaux paramètres
 		mat.SetShaderParameter("target_color", targetColor);
 		mat.SetShaderParameter("center", new Vector2(0.5f, 0.5f));
