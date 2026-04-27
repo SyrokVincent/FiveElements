@@ -12,13 +12,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t6dpn"]
 shader = ExtResource("1_k8lep")
-shader_parameter/parent_screen_pos = Vector2(0, 0)
-shader_parameter/parent_size = Vector2(0, 0)
 shader_parameter/center = Vector2(0.5, 0.5)
-shader_parameter/radius = 0.0
+shader_parameter/radius = 0.615
 shader_parameter/feather = 0.1
 shader_parameter/base_color = Color(0, 0, 0, 0)
-shader_parameter/target_color = Color(1, 1, 1, 1)
+shader_parameter/target_color = Color(1, 0, 0, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_5rki4"]
 
@@ -39,7 +37,6 @@ pivot_offset = Vector2(64, 64)
 
 [node name="Layers" type="Control" parent="."]
 material = SubResource("ShaderMaterial_t6dpn")
-use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -298,5 +295,4 @@ rotation = -5.0265484
 scale = Vector2(0.18, 0.18)
 
 [node name="ElementsCounter" parent="." instance=ExtResource("9_t6dpn")]
-visible = true
 layout_mode = 1

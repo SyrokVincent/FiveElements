@@ -15,7 +15,6 @@ using MegaCrit.Sts2.Core.Nodes.HoverTips;
 namespace FiveElements.scenes.combat.energy_counters;
 public partial class EssenceCounter : Control//, IOnElementStateChanged
 {
-	//todo finish this!!!
 	//need to do better animation and better image, and manage to display hovertip at a good place
 	/*
 	public static readonly AddedNode<NEnergyCounter, Control> Node = new((energyCounter) =>
@@ -36,6 +35,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	private bool _isInitialized = false;
 	private bool _hadEcho = false;
 	
+	private NEnergyCounter _parentCounter;
 	private Player? _player;
 	private Label? _label;
 	private TextureRect _essence;
@@ -43,29 +43,20 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	private GpuParticles2D _essenceParticles;
 	private Control _layersRef;
 	
-	private NEnergyCounter _parentCounter;
+	private Color _neutralColor = new Color(0.05f, 0.05f, 0.08f, 0.7f);
 	
 	private HoverTip _hoverTip;
 	private float _tooltipOffsetY = -50f; // Ajuste cette valeur (négatif pour monter)
 	
 	private int _lastState = -1; // -1: initial, 0: inactif, 1: actif, 2: essence
 
-// Une seule référence pour toutes les instances
+	// Une seule référence pour toutes les instances
 	private static Tween _activeWaveTween;
 	private static CardElementTag _currentAnimatingElement = CardElementTag.Neutral;
 	
 	
 	public override void _Ready()
 	{
-		/*
-		GD.Print($"--- Inventaire des enfants de {Name} ---");
-		foreach (Node child in GetChildren())
-		{
-			GD.Print($"Nom: {child.Name} | Type: {child.GetType()}");
-		}
-		*/
-		
-		// On récupère les nodes
 		// Le % ne fonctionne que si "Access as Unique Name" est coché dans l'éditeur Godot
 		// On ajoute donc une recherche par nom direct au cas où
 		_label = GetNodeOrNull<Label>("%EssenceLabel") ?? GetNodeOrNull<Label>("EssenceLabel");
@@ -74,7 +65,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		_essenceParticles = GetNodeOrNull<GpuParticles2D>("EssenceParticles");
 		
 		Node current = GetParent();
-		while (current != null && current.Name != "FiveelementsEnergyCounter") // Ton root
+		while (current != null && current.Name != "FiveelementsEnergyCounter") // The root
 		{
 			current = current.GetParent();
 		}
@@ -88,6 +79,14 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 				_layersRef.Material = (ShaderMaterial)_layersRef.Material.Duplicate();
 				_layersRef.Material.ResourceName = "UniqueMaterial";
 			}
+		}
+		//default "neutral" value of the shader
+		if (_layersRef?.Material is ShaderMaterial sm2)
+		{
+			sm2.SetShaderParameter("base_color", _neutralColor);
+			sm2.SetShaderParameter("target_color", _neutralColor);
+			sm2.SetShaderParameter("radius", 0.0f);
+			sm2.SetShaderParameter("center", new Vector2(0.5f, 0.5f));
 		}
 		
 		if (_essence != null)
@@ -162,7 +161,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			CombatManager.Instance.StateTracker.CombatStateChanged += OnCombatStateChanged;
 		}
 	}
-	
 	public override void _ExitTree()
 	{
 		base._ExitTree();
@@ -196,8 +194,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			}
 		}
 	}
-	
-
 	private void InitializeWithPlayer(Player p)
 	{
 		if (_player != null) return; // Sécurité supplémentaire
@@ -249,7 +245,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			// 1. DÉTECTION DE L'APPARITION (Ton code existant)
 			if (isEcho && !_hadEcho) 
 			{
-				TriggerGlobalWave();
+				TriggerWave(GetElementColor());
 			}
 
 			// 2. DÉTECTION DU RESET
@@ -264,7 +260,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 
 				if (isGloballyNeutral && currentTarget.A > 0.01f)
 				{
-					TriggerNeutralWave();
+					TriggerWave(_neutralColor);
 				}
 			}
 		}
@@ -294,11 +290,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			tween.TweenProperty(_essence, "scale", targetScale, 0.25f)
 				.SetEase(Tween.EaseType.Out)
 				.SetTrans(Tween.TransitionType.Back);
-			//
-			// Si actif : Lumineux (White), sinon assombri/transparent
-			//Color targetColor = isActive ? Colors.White : new Color(0.3f, 0.3f, 0.3f, 0.6f);
-			//tween.Parallel().TweenProperty(_essence, "modulate", targetColor, 0.25f);
-			//
+		
 		}
 		
 		
@@ -395,8 +387,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	}
 	
 	// --- MÉTHODES DE SURVOL ---
-	
-	
 	private void OnHovered() 
 	{
 		if (_player == null || _hoverTip == null) return;
@@ -404,14 +394,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		NHoverTipSet.Remove(this);
 		var tooltip = NHoverTipSet.CreateAndShow(this, _hoverTip, HoverTipAlignment.Right);
 	}
-	
-	/*
-		// 3. Ajustement manuel de la position
-		if (tooltip is Control tooltipControl)
-		{
-			tooltipControl.GlobalPosition = GlobalPosition + new Vector2(Size.X + 10f, _tooltipOffsetY);
-		}*/
-	
 	
 	
 	/*
@@ -452,9 +434,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		}
 	}*/
 	
-
-	
-	
 	private void OnUnhovered() 
 	{
 		NHoverTipSet.Remove(this);
@@ -462,7 +441,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	
 	private void OnEssenceChanged(CardElementTag cardElementTag, int newValue, PlayerChoiceContext? context) => RefreshAll(); 
 	private void OnCombatStateChanged(CombatState combatState) => RefreshAll();
-/*
+/*  // combatstateChnaged already do this
 	public async Task OnElementStateChanged(CardElementTag element, bool isActive)
 	{
 		// On ne réagit que si le changement concerne NOTRE élément
@@ -476,96 +455,32 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 
 
 ////////
- 
 
-	private void TriggerGlobalWave()
+	
+	private void TriggerWave(Color targetColor, float duration = 0.8f, float feather = 0.3f)
 	{
 		if (_layersRef?.Material is not ShaderMaterial mat) return;
 
-		// 1. Calcul de la position relative réelle (sans clamp)
-		Vector2 myCenterGlobal = GlobalPosition + (Size / 2);
-		Vector2 localPos = _layersRef.MakeCanvasPositionLocal(myCenterGlobal);
-	
-		// 2. On obtient l'UV réel (qui peut être -0.1 ou 1.1)
-		Vector2 centerUV = localPos / _layersRef.Size;
+		// Sécurité : Si on anime déjà vers cette couleur exacte, on ignore
+		Color currentTarget = (Color)mat.GetShaderParameter("target_color");
+		if (currentTarget.IsEqualApprox(targetColor)) return;
 
-		// On envoie le vrai centre, même s'il est un peu en dehors. 
-		// Le shader s'en sortira mieux qu'avec un "0" brutal.
-		mat.SetShaderParameter("center", centerUV);
+		// 1. On bascule l'ancienne cible en "base_color" pour une transition fluide
+		mat.SetShaderParameter("base_color", currentTarget);
+    
+		// 2. Setup des nouveaux paramètres
+		mat.SetShaderParameter("target_color", targetColor);
+		mat.SetShaderParameter("center", new Vector2(0.5f, 0.5f));
+		mat.SetShaderParameter("feather", feather);
+		mat.SetShaderParameter("radius", 0f);
 
-		// --- LE RESTE EST IDENTIQUE ---
-		Vector2 screenPos = _layersRef.GetGlobalTransformWithCanvas().Origin;
-		mat.SetShaderParameter("parent_screen_pos", screenPos);
-		mat.SetShaderParameter("parent_size", _layersRef.Size);
-	
-		Color oldColor = (Color)mat.GetShaderParameter("target_color");
-		mat.SetShaderParameter("base_color", oldColor);
-		mat.SetShaderParameter("target_color", GetElementColor());
-		mat.SetShaderParameter("radius", 0.0f);
-
+		// 3. Animation
 		_activeWaveTween?.Kill();
 		_activeWaveTween = CreateTween();
-		_activeWaveTween.TweenProperty(mat, "shader_parameter/radius", 2.0f, 0.8f) // Radius un peu plus grand
+		_activeWaveTween.TweenProperty(mat, "shader_parameter/radius", 1.5f, duration)
 			.SetTrans(Tween.TransitionType.Cubic)
 			.SetEase(Tween.EaseType.Out);
 	}
-/*
-	private void TriggerGlobalWave()
-{
-   if (_layersRef?.Material is not ShaderMaterial mat) return;
-
-   // 1. On arrête l'animation en cours immédiatement
-   if (_activeWaveTween != null && _activeWaveTween.IsRunning())
-   {
-	   _activeWaveTween.Kill();
-   }
-
-   // 2. Setup des couleurs
-   Color oldColor = (Color)mat.GetShaderParameter("target_color");
-   mat.SetShaderParameter("base_color", oldColor);
-   
-   // 3. Setup du centre propre à CETTE orbe
-   Vector2 relativePos = GlobalPosition - _layersRef.GlobalPosition;
-   Vector2 size = _layersRef.Size;
-   Vector2 centerUV = (relativePos + (Size / 2)) / size;
-
-   mat.SetShaderParameter("center", centerUV);
-   mat.SetShaderParameter("target_color", GetElementColor());
-   mat.SetShaderParameter("radius", 0.0f);
-   mat.SetShaderParameter("feather", 0.15f); // On remet un feather propre
-
-   // 4. Lancement
-   _activeWaveTween = CreateTween();
-   _activeWaveTween.TweenProperty(mat, "shader_parameter/radius", 1.5f, 0.8f)
-	  .SetTrans(Tween.TransitionType.Cubic)
-	  .SetEase(Tween.EaseType.Out);
-}*/
-
-private void TriggerNeutralWave()
-{
-   if (_layersRef?.Material is not ShaderMaterial mat) return;
-
-   // Si on est déjà en train d'aller vers le neutre, on ne fait rien
-   Color currentTarget = (Color)mat.GetShaderParameter("target_color");
-   Color neutralColor = new Color(0.05f, 0.05f, 0.08f, 0.8f);
-   if (currentTarget.IsEqualApprox(neutralColor)) return;
-
-   if (_activeWaveTween != null && _activeWaveTween.IsRunning()) _activeWaveTween.Kill();
-
-   Color oldColor = (Color)mat.GetShaderParameter("target_color");
-   mat.SetShaderParameter("base_color", oldColor);
-
-   mat.SetShaderParameter("center", new Vector2(0.5f, 0.5f));
-   mat.SetShaderParameter("target_color", neutralColor);
-   mat.SetShaderParameter("radius", 0.0f);
-   mat.SetShaderParameter("feather", 0.3f); // Plus doux pour le noir
-
-   _activeWaveTween = CreateTween();
-   _activeWaveTween.TweenProperty(mat, "shader_parameter/radius", 1.5f, 1.2f)
-	  .SetTrans(Tween.TransitionType.Cubic)
-	  .SetEase(Tween.EaseType.Out);
-}
-	
 	
 	private Color GetElementColor()
 	{
