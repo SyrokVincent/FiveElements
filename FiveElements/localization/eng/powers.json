@@ -99,8 +99,8 @@
 
   
   
-  "FIVEELEMENTS-METAL_SPIRIT_POWER.description": "Whenever  you play a {metal_s}Metal{metal_e} card, gain [gold]Vigor[/gold] this turn.",
-  "FIVEELEMENTS-METAL_SPIRIT_POWER.smartDescription": "Whenever  you play a {metal_s}Metal{metal_e} card, gain [blue]{Amount}[/blue] [gold]Vigor[/gold] this turn.",
+  "FIVEELEMENTS-METAL_SPIRIT_POWER.description": "Whenever  you play a {metal_s}Metal{metal_e} card, gain [gold]Vigor[/gold].",
+  "FIVEELEMENTS-METAL_SPIRIT_POWER.smartDescription": "Whenever  you play a {metal_s}Metal{metal_e} card, gain [blue]{Amount}[/blue] [gold]Vigor[/gold].",
   "FIVEELEMENTS-METAL_SPIRIT_POWER.title": "Metal Spirit",
   "FIVEELEMENTS-METAL_METTLE_POWER.description": "Each turn the first time [gold]Vigor[/gold] is consumed, give it back.",
   "FIVEELEMENTS-METAL_METTLE_POWER.smartDescription": "Each turn the first {Amount:plural:time|[blue]{}[/blue] times} [gold]Vigor[/gold] is consumed, give it back.",

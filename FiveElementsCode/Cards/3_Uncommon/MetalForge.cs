@@ -23,6 +23,26 @@ public class MetalForge() : MetalCard(1,
     //Deal 9 damage, Metal:(Upgrade a random card in the discard pile for each metal card played this turn)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(9,ValueProp.Move),
+        new CalculationBaseVar(0), // card upgraded
+        new CalculationExtraVar(1),   
+        new CalculatedVar("AmountOfMetalCardPlayedThisTurn").WithMultiplier((card, target) =>
+        {
+            if (card.CombatState == null) return 0;
+
+            return CombatManager.Instance.History.CardPlaysFinished.Count(e => 
+            {
+                if (!e.HappenedThisTurn(card.CombatState) || e.CardPlay.Card.Owner != card.Owner)
+                    return false;
+                
+                // On récupère les tags figés au moment du jeu
+                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
+                {
+                    return frozenTags.TagsCountAsElement(CardElementTag.Metal, card.Owner.Creature);
+                }
+                //si pas dans le cache, on utilise la méthode sur la carte
+                return (e.CardPlay.Card.CountAsElement(CardElementTag.Metal, card.Owner.Creature));
+            });
+        })
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -43,27 +63,13 @@ public class MetalForge() : MetalCard(1,
         
         if (CardElementTag.Metal.IsActive(CombatState))
         {
-            var amountOfMetalCardPlayedThisTurn = CombatManager.Instance.History.CardPlaysFinished.Count(e => 
-            {
-                if (!e.HappenedThisTurn(CombatState) || e.CardPlay.Card.Owner != Owner)
-                    return false;
-                
-                // On récupère les tags figés au moment du jeu
-                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
-                {
-                    return frozenTags.TagsCountAsElement(CardElementTag.Metal, play.Card.Owner.Creature);
-                }
-                //si pas dans le cache, on utilise la méthode sur la carte
-                return (e.CardPlay.Card.CountAsElement(CardElementTag.Metal, play.Card.Owner.Creature));
-
-            });
-            
+            var amountOfMetalCardPlayedThisTurn = DynamicVars["AmountOfMetalCardPlayedThisTurn"].PreviewValue;
             
             // Logique d'amélioration des cartes dans la défausse
             // On récupère les cartes améliorables, on en selectione X au hasard selon l' RNG du combat
             var upgradableCards = PileType.Discard.GetPile(Owner).Cards
                 .Where(c => c.IsUpgradable)
-                .TakeRandom(amountOfMetalCardPlayedThisTurn, Owner.RunState.Rng.CombatCardSelection);
+                .TakeRandom((int)amountOfMetalCardPlayedThisTurn, Owner.RunState.Rng.CombatCardSelection);
 
             foreach (var cardToUpgrade in upgradableCards)
             {

@@ -1,10 +1,13 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -18,11 +21,12 @@ public class MetalMark() : MetalCard(1,
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
 
     
-    //todo find a way to preview damage as if opponent already as vulnerable ? maybe with previewValue or with calcultatedVar/damage
-    //Apply 1 vulnerable, Metal:(Deal 6 damage(or gain vigor?))
+    
+    // old // Apply 1 vulnerable, Metal:(Deal 6 damage(or gain vigor?))
+    //
+    // new // Apply 2(3) vulnerable, Metal:(Put a card from your Discard Pile on top of your Draw Pile)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<VulnerablePower>(1),
-        new DamageVar(6,ValueProp.Move),
+        new PowerVar<VulnerablePower>(2),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -39,10 +43,22 @@ public class MetalMark() : MetalCard(1,
     {
         if (play.Target != null)
         {
-            await CommonActions.Apply<VulnerablePower>(play.Target, this, DynamicVars["VulnerablePower"].BaseValue);
-            if (CardElementTag.Metal.IsActive(CombatState))
+            await CommonActions.Apply<VulnerablePower>(choiceContext, play.Target, this, DynamicVars["VulnerablePower"].BaseValue);
+            if (CombatState != null && CardElementTag.Metal.IsActive(CombatState))
             {
-                await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
+                // Sélection d'une carte dans la défausse
+                CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
+        
+                var discardPile = PileType.Discard.GetPile(Owner);
+                var selection = await CardSelectCmd.FromSimpleGrid(choiceContext, discardPile.Cards, Owner, prefs);
+        
+                CardModel? selectedTrack = selection.FirstOrDefault();
+
+                // Si une carte est choisie, on la place sur le dessus de la pioche
+                if (selectedTrack != null)
+                {
+                    await CardPileCmd.Add(selectedTrack, PileType.Draw, CardPilePosition.Top);
+                }
             }
         }
     }
