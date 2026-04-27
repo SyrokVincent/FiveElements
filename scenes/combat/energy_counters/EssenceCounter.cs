@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using BaseLib.Utils;
+using FiveElements.FiveElementsCode;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
@@ -14,9 +15,8 @@ using MegaCrit.Sts2.Core.Nodes.HoverTips;
 namespace FiveElements.scenes.combat.energy_counters;
 public partial class EssenceCounter : Control//, IOnElementStateChanged
 {
-	//todo finish this!!!
 	//need to do better animation and better image, and manage to display hovertip at a good place
-	
+	/*
 	public static readonly AddedNode<NEnergyCounter, Control> Node = new((energyCounter) =>
 	{
 		var scene = ResourceLoader.Load<PackedScene>("res://scenes/combat/energy_counters/elements_counter.tscn");
@@ -30,42 +30,64 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		
 	});
 	
+	*/
 	private CardElementTag _myElement;
 	private bool _isInitialized = false;
+	private bool _hadEcho = false;
 	
+	private NEnergyCounter _parentCounter;
 	private Player? _player;
 	private Label? _label;
 	private TextureRect _essence;
 	private TextureRect _echo;
 	private GpuParticles2D _essenceParticles;
+	private Control _layersRef;
 	
-	private NEnergyCounter _parentCounter;
+	private Color _neutralColor = new Color(0.05f, 0.05f, 0.08f, 0.7f);
 	
 	private HoverTip _hoverTip;
 	private float _tooltipOffsetY = -50f; // Ajuste cette valeur (négatif pour monter)
 	
 	private int _lastState = -1; // -1: initial, 0: inactif, 1: actif, 2: essence
 
-
+	// Une seule référence pour toutes les instances
+	private static Tween _activeWaveTween;
+	private static CardElementTag _currentAnimatingElement = CardElementTag.Neutral;
 	
 	
 	public override void _Ready()
 	{
-		/*
-		GD.Print($"--- Inventaire des enfants de {Name} ---");
-		foreach (Node child in GetChildren())
-		{
-			GD.Print($"Nom: {child.Name} | Type: {child.GetType()}");
-		}
-		*/
-		
-		// On récupère les nodes
 		// Le % ne fonctionne que si "Access as Unique Name" est coché dans l'éditeur Godot
 		// On ajoute donc une recherche par nom direct au cas où
-		_label = GetNodeOrNull<Label>("%Label") ?? GetNodeOrNull<Label>("Label");
+		_label = GetNodeOrNull<Label>("%EssenceLabel") ?? GetNodeOrNull<Label>("EssenceLabel");
 		_essence = GetNodeOrNull<TextureRect>("%Essence") ?? GetNodeOrNull<TextureRect>("Essence");
 		_echo = GetNodeOrNull<TextureRect>("%Echo") ?? GetNodeOrNull<TextureRect>("Echo");
 		_essenceParticles = GetNodeOrNull<GpuParticles2D>("EssenceParticles");
+		
+		Node current = GetParent();
+		while (current != null && current.Name != "FiveelementsEnergyCounter") // The root
+		{
+			current = current.GetParent();
+		}
+		_layersRef = current?.GetNodeOrNull<Control>("Layers");
+		if (_layersRef?.Material != null)
+		{
+			// On ne duplique que si ce n'est pas déjà un ShaderMaterial unique
+			// (Pour éviter que chaque orbe le fasse)
+			if (_layersRef.Material is not ShaderMaterial sm || !sm.ResourceName.Contains("Unique"))
+			{
+				_layersRef.Material = (ShaderMaterial)_layersRef.Material.Duplicate();
+				_layersRef.Material.ResourceName = "UniqueMaterial";
+			}
+		}
+		//default "neutral" value of the shader
+		if (_layersRef?.Material is ShaderMaterial sm2)
+		{
+			sm2.SetShaderParameter("base_color", _neutralColor);
+			sm2.SetShaderParameter("target_color", _neutralColor);
+			sm2.SetShaderParameter("radius", 0.0f);
+			sm2.SetShaderParameter("center", new Vector2(0.5f, 0.5f));
+		}
 		
 		if (_essence != null)
 		{
@@ -77,7 +99,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		if (_essenceParticles != null)
 		{
 			_essenceParticles.ProcessMaterial = (ParticleProcessMaterial)_essenceParticles.ProcessMaterial.Duplicate();
-      
+	  
 			// --- FIX DU BURST AU LANCEMENT ---
 			// On force un état "calme" tout de suite avant le premier rendu
 			var material = (ParticleProcessMaterial)_essenceParticles.ProcessMaterial;
@@ -85,7 +107,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			_essenceParticles.Modulate = new Color(1, 1, 1, 0.3f); // Très transparent
 			material.ScaleMin = 0.4f;
 			material.Gravity = Vector3.Zero;
-      
+	  
 			_essenceParticles.Emitting = true;
 			_essenceParticles.Restart(); // On redémarre pour appliquer les changements proprement
 		}
@@ -139,7 +161,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			CombatManager.Instance.StateTracker.CombatStateChanged += OnCombatStateChanged;
 		}
 	}
-	
 	public override void _ExitTree()
 	{
 		base._ExitTree();
@@ -173,8 +194,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			}
 		}
 	}
-	
-
 	private void InitializeWithPlayer(Player p)
 	{
 		if (_player != null) return; // Sécurité supplémentaire
@@ -199,7 +218,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 
 		int count = status.GetEssence(_myElement);
 		_label.Text = count <= 0 ? "" : count.ToString();
-    
+	
 		// On met à jour l'objet HoverTip en mémoire sans l'afficher
 		bool isActive = _myElement.IsActive(_player.Creature.CombatState);
 		bool isEcho = FiveElements.FiveElementsCode.Character.FiveElements.Echo.Contains(_myElement);
@@ -215,15 +234,44 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		var status = _player?.Creature?.CombatState?.GetElementalStatus();
 		int count = status?.GetEssence(_myElement) ?? 0;
 		bool hasEssence = count > 0;
-    
+	
 		bool isEcho = _player != null && FiveElements.FiveElementsCode.Character.FiveElements.Echo.Contains(_myElement);
 
 		// 1. Gestion Echo (toujours accessible)
 		if (_echo != null) _echo.Visible = isEcho;
 
+		if (_layersRef?.Material is ShaderMaterial mat) 
+		{
+			// 1. DÉTECTION DE L'APPARITION (Ton code existant)
+			if (isEcho && !_hadEcho) 
+			{
+				TriggerWave(GetElementColor());
+			}
+
+			// 2. DÉTECTION DU RESET
+			// Seul l'élément Fire s'en occupe pour ne pas lancer 5 ondes
+			if (_myElement == CardElementTag.Fire)
+			{
+				var globalEcho = FiveElements.FiveElementsCode.Character.FiveElements.Echo;
+				bool isGloballyNeutral = globalEcho.Count == 0 || (globalEcho.Count == 1 && globalEcho.Contains(CardElementTag.Neutral));
+
+				// On regarde si le shader a encore une couleur (Alpha > 0)
+				Color currentTarget = (Color)mat.GetShaderParameter("target_color");
+
+				if (isGloballyNeutral && currentTarget.A > 0.01f)
+				{
+					TriggerWave(_neutralColor);
+				}
+			}
+		}
+		
+		// On met à jour la mémoire pour le prochain rafraîchissement
+		_hadEcho = isEcho;
+		
 		// 2. Calcul de l'état
 		int currentState = hasEssence ? 2 : (isActive ? 1 : 0);
-   
+		
+		
 		// On ne bloque le rafraîchissement que si on a déjà un player ET que l'état n'a pas changé
 		if (currentState == _lastState && _player != null) return; 
 		_lastState = currentState;
@@ -242,11 +290,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			tween.TweenProperty(_essence, "scale", targetScale, 0.25f)
 				.SetEase(Tween.EaseType.Out)
 				.SetTrans(Tween.TransitionType.Back);
-			//
-			// Si actif : Lumineux (White), sinon assombri/transparent
-			//Color targetColor = isActive ? Colors.White : new Color(0.3f, 0.3f, 0.3f, 0.6f);
-			//tween.Parallel().TweenProperty(_essence, "modulate", targetColor, 0.25f);
-			//
+		
 		}
 		
 		
@@ -343,24 +387,13 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	}
 	
 	// --- MÉTHODES DE SURVOL ---
-	
-	
 	private void OnHovered() 
 	{
 		if (_player == null || _hoverTip == null) return;
 		RefreshLabel();
-		
 		NHoverTipSet.Remove(this);
 		var tooltip = NHoverTipSet.CreateAndShow(this, _hoverTip, HoverTipAlignment.Right);
 	}
-	
-	/*
-		// 3. Ajustement manuel de la position
-		if (tooltip is Control tooltipControl)
-		{
-			tooltipControl.GlobalPosition = GlobalPosition + new Vector2(Size.X + 10f, _tooltipOffsetY);
-		}*/
-	
 	
 	
 	/*
@@ -401,9 +434,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		}
 	}*/
 	
-
-	
-	
 	private void OnUnhovered() 
 	{
 		NHoverTipSet.Remove(this);
@@ -411,7 +441,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	
 	private void OnEssenceChanged(CardElementTag cardElementTag, int newValue, PlayerChoiceContext? context) => RefreshAll(); 
 	private void OnCombatStateChanged(CombatState combatState) => RefreshAll();
-/*
+/*  // combatstateChnaged already do this
 	public async Task OnElementStateChanged(CardElementTag element, bool isActive)
 	{
 		// On ne réagit que si le changement concerne NOTRE élément
@@ -422,4 +452,49 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		}
 		await Task.CompletedTask;
 	}*/
+
+
+////////
+
+	
+	private void TriggerWave(Color targetColor, float duration = 0.8f, float feather = 0.3f)
+	{
+		if (_layersRef?.Material is not ShaderMaterial mat) return;
+
+		// Sécurité : Si on anime déjà vers cette couleur exacte, on ignore
+		Color currentTarget = (Color)mat.GetShaderParameter("target_color");
+		if (currentTarget.IsEqualApprox(targetColor)) return;
+
+		// 1. On bascule l'ancienne cible en "base_color" pour une transition fluide
+		mat.SetShaderParameter("base_color", currentTarget);
+    
+		// 2. Setup des nouveaux paramètres
+		mat.SetShaderParameter("target_color", targetColor);
+		mat.SetShaderParameter("center", new Vector2(0.5f, 0.5f));
+		mat.SetShaderParameter("feather", feather);
+		mat.SetShaderParameter("radius", 0f);
+
+		// 3. Animation
+		_activeWaveTween?.Kill();
+		_activeWaveTween = CreateTween();
+		_activeWaveTween.TweenProperty(mat, "shader_parameter/radius", 1.5f, duration)
+			.SetTrans(Tween.TransitionType.Cubic)
+			.SetEase(Tween.EaseType.Out);
+	}
+	
+	private Color GetElementColor()
+	{
+		return _myElement switch
+		{
+			CardElementTag.Water => new Color(FiveElementsColor.WaterColor),
+			CardElementTag.Wood  => new Color(FiveElementsColor.WoodColor),
+			CardElementTag.Fire  => new Color(FiveElementsColor.FireColor),
+			CardElementTag.Earth => new Color(FiveElementsColor.EarthColor),
+			CardElementTag.Metal => new Color(FiveElementsColor.MetalColor),
+			_ => Colors.White
+		};
+	}
+
+
+
 }
