@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class MetalSlash() : MetalCard(1,
+public sealed class MetalSlash() : MetalCard(1,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy)
 {

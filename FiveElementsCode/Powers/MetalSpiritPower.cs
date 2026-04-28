@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class MetalSpiritPower : FiveElementsPower
+public sealed class MetalSpiritPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

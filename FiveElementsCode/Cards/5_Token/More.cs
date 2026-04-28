@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Cards._5_Token;
 
 [Pool(typeof(TokenCardPool))]
-public class More() : NeutralCard(1,
+public sealed class More() : NeutralCard(1,
     CardType.Attack, CardRarity.Token,
     TargetType.AnyEnemy)
 {

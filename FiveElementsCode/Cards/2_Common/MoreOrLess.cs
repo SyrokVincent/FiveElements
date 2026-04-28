@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class MoreOrLess() : NeutralCard(1,
+public sealed class MoreOrLess() : NeutralCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {

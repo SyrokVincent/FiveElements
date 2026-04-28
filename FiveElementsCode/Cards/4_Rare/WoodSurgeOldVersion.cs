@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class WoodSurgeOldVersion() : WoodCard(2,
+public sealed class WoodSurgeOldVersion() : WoodCard(2,
     CardType.Skill, CardRarity.Rare,
     TargetType.RandomEnemy,false,false)
 {

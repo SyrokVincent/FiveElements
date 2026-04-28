@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class Absorption() : NeutralCard(0,
+public sealed class Absorption() : NeutralCard(0,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {

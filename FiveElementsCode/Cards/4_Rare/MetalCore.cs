@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class MetalCore() : MetalCard(1,
+public sealed class MetalCore() : MetalCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self), IOnEarthStateChanged
 {

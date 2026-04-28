@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class FireTouch() : FireCard(0,
+public sealed class FireTouch() : FireCard(0,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {

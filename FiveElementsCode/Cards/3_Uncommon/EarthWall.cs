@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class EarthWall() : EarthCard(2,
+public sealed class EarthWall() : EarthCard(2,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

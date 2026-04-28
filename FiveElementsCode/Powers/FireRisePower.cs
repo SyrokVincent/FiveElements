@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class FireRisePower : FiveElementsPower
+public sealed class FireRisePower : FiveElementsPower
 {
     public const int InitialThreshold = 3; //when changing base value here need to also change value in the card
     

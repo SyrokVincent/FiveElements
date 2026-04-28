@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class MetalRefinement() : MetalCard(1,
+public sealed class MetalRefinement() : MetalCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {

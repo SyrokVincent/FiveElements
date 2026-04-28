@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class Meditation() : NeutralCard(1,
+public sealed class Meditation() : NeutralCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

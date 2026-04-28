@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class EarthWard() : EarthCard(1,
+public sealed class EarthWard() : EarthCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {

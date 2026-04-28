@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class EarthQuake() : EarthCard(2,
+public sealed class EarthQuake() : EarthCard(2,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AllEnemies)
 {

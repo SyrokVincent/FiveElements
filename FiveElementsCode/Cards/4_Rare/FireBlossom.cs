@@ -19,7 +19,7 @@ using MegaCrit.Sts2.Core.TestSupport;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class FireBlossom() : FireCard(1,
+public sealed class FireBlossom() : FireCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.AllEnemies), IOnWoodStateChanged
 {

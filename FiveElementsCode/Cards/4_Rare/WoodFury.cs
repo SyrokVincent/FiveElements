@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class WoodFury() : WoodCard(0,
+public sealed class WoodFury() : WoodCard(0,
     CardType.Attack, CardRarity.Rare,
     TargetType.RandomEnemy)
 {

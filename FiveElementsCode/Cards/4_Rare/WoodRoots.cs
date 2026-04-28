@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class WoodRoots() : WoodCard(1,
+public sealed class WoodRoots() : WoodCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self), IOnWaterStateChanged
 {

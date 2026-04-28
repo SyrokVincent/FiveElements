@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class EarthBorn() : EarthCard(2,
+public sealed class EarthBorn() : EarthCard(2,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {

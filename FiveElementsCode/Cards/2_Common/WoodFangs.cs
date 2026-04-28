@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class WoodFangs() : WoodCard(1,
+public sealed class WoodFangs() : WoodCard(1,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {

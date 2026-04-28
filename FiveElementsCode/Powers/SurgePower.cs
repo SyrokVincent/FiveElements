@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class SurgePower : FiveElementsPower
+public sealed class SurgePower : FiveElementsPower
 {
     
     public override PowerType Type => PowerType.Buff;

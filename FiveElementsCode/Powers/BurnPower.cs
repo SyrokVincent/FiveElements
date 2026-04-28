@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class BurnPower : FiveElementsPower
+public sealed class BurnPower : FiveElementsPower
 {
     
     public override PowerType Type => PowerType.Debuff;

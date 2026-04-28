@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class Cycle() : NeutralCard(1,
+public sealed class Cycle() : NeutralCard(1,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {

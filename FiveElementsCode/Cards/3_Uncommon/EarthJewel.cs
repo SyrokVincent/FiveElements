@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class EarthJewel() : EarthCard(0,
+public sealed class EarthJewel() : EarthCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

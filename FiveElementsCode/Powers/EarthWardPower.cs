@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class EarthWardPower : TemporaryDexterityPower, ICustomPower
+public sealed class EarthWardPower : TemporaryDexterityPower, ICustomPower
 {
     // Indique que le pouvoir provient de la carte Earth Ward
     public override AbstractModel OriginModel => ModelDb.Card<EarthWard>();

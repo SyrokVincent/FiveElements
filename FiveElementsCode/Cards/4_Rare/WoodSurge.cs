@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class WoodSurge() : WoodCard(1,
+public sealed class WoodSurge() : WoodCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {

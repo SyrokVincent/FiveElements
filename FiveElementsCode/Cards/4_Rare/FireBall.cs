@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class FireBall() : FireCard(10,
+public sealed class FireBall() : FireCard(10,
     CardType.Attack, CardRarity.Rare,
     TargetType.AllEnemies)
 {

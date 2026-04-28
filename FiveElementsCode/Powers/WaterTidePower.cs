@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class WaterTidePower : FiveElementsPower
+public sealed class WaterTidePower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

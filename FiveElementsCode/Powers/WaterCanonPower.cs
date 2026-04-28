@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class WaterCanonPower : FiveElementsPower
+public sealed class WaterCanonPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;

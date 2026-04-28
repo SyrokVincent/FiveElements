@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class EarthShield() : EarthCard(1,
+public sealed class EarthShield() : EarthCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self,false,false) // removed from pool
 

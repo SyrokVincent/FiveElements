@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class MetalBlade() : MetalCard(1,
+public sealed class MetalBlade() : MetalCard(1,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {

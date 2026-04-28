@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class WaterLordPower : FiveElementsPower
+public sealed class WaterLordPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

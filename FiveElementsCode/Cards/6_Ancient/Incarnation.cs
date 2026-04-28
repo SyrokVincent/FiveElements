@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._6_Ancient;
 
-public class Incarnation() : NeutralCard(0,
+public sealed class Incarnation() : NeutralCard(0,
     CardType.Skill, CardRarity.Ancient,
     TargetType.AllEnemies), IOnElementStateChanged
 {

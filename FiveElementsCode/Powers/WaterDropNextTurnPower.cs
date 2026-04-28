@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class WaterDropNextTurnPower : FiveElementsPower
+public sealed class WaterDropNextTurnPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class EarthClay() : EarthCard(1,
+public sealed class EarthClay() : EarthCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {

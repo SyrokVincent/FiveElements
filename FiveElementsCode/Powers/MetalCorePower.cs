@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class MetalCorePower : FiveElementsPower
+public sealed class MetalCorePower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

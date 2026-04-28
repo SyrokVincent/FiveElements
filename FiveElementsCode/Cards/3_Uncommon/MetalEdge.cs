@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class MetalEdge() : MetalCard(1,
+public sealed class MetalEdge() : MetalCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

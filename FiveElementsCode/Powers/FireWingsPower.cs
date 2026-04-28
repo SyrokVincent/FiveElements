@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class FireWingsPower : FiveElementsPower
+public sealed class FireWingsPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

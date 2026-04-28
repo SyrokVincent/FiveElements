@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class EchoFormation() : NeutralCard(2,
+public sealed class EchoFormation() : NeutralCard(2,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {

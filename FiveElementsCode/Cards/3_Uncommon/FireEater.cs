@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class FireEater() : FireCard(1,
+public sealed class FireEater() : FireCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

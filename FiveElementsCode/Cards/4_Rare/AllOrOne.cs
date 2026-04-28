@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class AllOrOne() : NeutralCard(1,
+public sealed class AllOrOne() : NeutralCard(1,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {

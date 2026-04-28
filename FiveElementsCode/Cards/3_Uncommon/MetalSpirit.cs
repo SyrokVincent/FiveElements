@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class MetalSpirit() : MetalCard(1,
+public sealed class MetalSpirit() : MetalCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {

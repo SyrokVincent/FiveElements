@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Powers;
 
   
-public class WavePower : FiveElementsPower
+public sealed class WavePower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

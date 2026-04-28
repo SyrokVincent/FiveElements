@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class FireStorm() : FireCard(2,
+public sealed class FireStorm() : FireCard(2,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AllEnemies)
 {

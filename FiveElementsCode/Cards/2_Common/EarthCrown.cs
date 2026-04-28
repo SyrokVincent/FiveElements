@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
-public class EarthCrown() : EarthCard(1,
+public sealed class EarthCrown() : EarthCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {

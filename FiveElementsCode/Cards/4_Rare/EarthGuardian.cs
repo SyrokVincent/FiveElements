@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class EarthGuardian() : EarthCard(2,
+public sealed class EarthGuardian() : EarthCard(2,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {

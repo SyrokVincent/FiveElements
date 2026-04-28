@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 namespace FiveElements.FiveElementsCode.Powers;
 
   
-public class WaveTargetPower : FiveElementsPower
+public sealed class WaveTargetPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;

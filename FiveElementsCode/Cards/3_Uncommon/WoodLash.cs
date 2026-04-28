@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class WoodLash() : WoodCard(1,
+public sealed class WoodLash() : WoodCard(1,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.RandomEnemy)
 {

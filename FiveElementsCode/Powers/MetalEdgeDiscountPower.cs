@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class MetalEdgeDiscountPower : FiveElementsPower
+public sealed class MetalEdgeDiscountPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

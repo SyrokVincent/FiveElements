@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class MetalMettle() : MetalCard(2,
+public sealed class MetalMettle() : MetalCard(2,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {

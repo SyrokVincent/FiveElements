@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class EarthSpiritPower : FiveElementsPower
+public sealed class EarthSpiritPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => this.GetInternalData<Data>().TempThornsCount != 0 ? PowerStackType.Counter : PowerStackType.None;

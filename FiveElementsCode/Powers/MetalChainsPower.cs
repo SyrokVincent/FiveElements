@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
-public class MetalChainsPower : TemporaryStrengthPower, ICustomPower
+public sealed class MetalChainsPower : TemporaryStrengthPower, ICustomPower
 {
     // Indique que le pouvoir provient de la carte Metal Chain
     public override AbstractModel OriginModel => ModelDb.Card<MetalChains>();

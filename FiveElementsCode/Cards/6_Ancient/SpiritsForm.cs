@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._6_Ancient;
 
-public class SpiritsForm() : NeutralCard(2,
+public sealed class SpiritsForm() : NeutralCard(2,
     CardType.Power, CardRarity.Ancient,
     TargetType.Self)
 {

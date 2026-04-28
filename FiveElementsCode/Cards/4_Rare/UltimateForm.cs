@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public class UltimateForm() : NeutralCard(3,
+public sealed class UltimateForm() : NeutralCard(3,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {

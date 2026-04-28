@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
-public class Recycle() : NeutralCard(0,
+public sealed class Recycle() : NeutralCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
