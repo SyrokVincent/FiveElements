@@ -13,7 +13,7 @@ namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
 public sealed class WaterCanon() : WaterCard(2,
     CardType.Attack, CardRarity.Rare,
-    TargetType.Self), IOnMetalStateChanged
+    TargetType.AnyEnemy), IOnMetalStateChanged
 {
 
     //delete if shouldn't glow or replace water

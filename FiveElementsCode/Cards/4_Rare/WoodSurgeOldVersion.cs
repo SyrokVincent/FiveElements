@@ -15,7 +15,7 @@ namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
 public class WoodSurgeOldVersion() : WoodCard(2,
     CardType.Skill, CardRarity.Rare,
-    TargetType.Self,false,false)
+    TargetType.RandomEnemy,false,false)
 {
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);

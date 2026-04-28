@@ -15,7 +15,7 @@ namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
 public sealed class EarthMagma() : EarthCard(1,
     CardType.Skill, CardRarity.Rare,
-    TargetType.Self), IOnFireStateChanged
+    TargetType.AnyEnemy), IOnFireStateChanged
 {
 
     protected override bool ShouldGlowGoldInternal => 

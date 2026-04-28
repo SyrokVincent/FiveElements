@@ -12,7 +12,7 @@ namespace FiveElements.FiveElementsCode.Cards._2_Common;
   
 public sealed class FireCreation() : FireCard(1,
     CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+    TargetType.AllEnemies)
 {
     protected override bool ShouldGlowGoldInternal => CardElementTag.Fire.IsActive(CombatState);
     
@@ -53,15 +53,4 @@ public sealed class FireCreation() : FireCard(1,
         DynamicVars["BurnPower"].UpgradeValueBy(2);
     }
     
-    public override TargetType TargetType 
-    {
-        get
-        {
-            if (CardElementTag.Fire.IsActive(CombatState))
-            {
-                return TargetType.AllEnemies;
-            }
-            return  TargetType.Self;
-        }
-    } 
 }

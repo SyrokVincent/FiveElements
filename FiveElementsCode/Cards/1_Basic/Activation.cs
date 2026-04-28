@@ -33,7 +33,7 @@ public static class ActivationVars
 
 public sealed class Activation() : NeutralCard(1,
     CardType.Skill, CardRarity.Basic,
-    TargetType.Self), IOnElementStateChanged, ITranscendenceCard
+    TargetType.AllEnemies), IOnElementStateChanged, ITranscendenceCard
 {
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;

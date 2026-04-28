@@ -15,7 +15,7 @@ namespace FiveElements.FiveElementsCode.Cards._6_Ancient;
 
 public class Incarnation() : NeutralCard(0,
     CardType.Skill, CardRarity.Ancient,
-    TargetType.Self), IOnElementStateChanged
+    TargetType.AllEnemies), IOnElementStateChanged
 {
 
     public override bool GainsBlock => true;
