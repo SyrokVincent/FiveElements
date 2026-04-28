@@ -8,7 +8,6 @@ namespace FiveElements.FiveElementsCode.Character;
 public class FiveElementsCardPool : CustomCardPoolModel
 {
     
-    // Variables de stockage (Backing fields) avec valeurs par défaut
     private string _currentTextEnergy = "charui/text_energy_five_elements.png";
     private Color _currentDeckColor = new("ffffff");
 

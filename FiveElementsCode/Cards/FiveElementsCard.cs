@@ -125,6 +125,13 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         this._liveElementTags = new HashSet<CardElementTag>(this.ElementTags);
     }
     
+    //should make description of downgraded card still work
+    protected override async void AfterDowngraded()
+    {
+        base.AfterDowngraded();
+        await FiveElementsCardExtensions.SyncElementalState(this, CombatState);
+    }
+    
     
     /*
     public override Material? CreateCustomFrameMaterial

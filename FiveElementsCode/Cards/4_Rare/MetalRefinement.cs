@@ -88,7 +88,11 @@ public sealed class MetalRefinement() : MetalCard(1,
         DynamicVars[IncreaseKey].UpgradeValueBy(1);
     }
     
-    protected override void AfterDowngraded() => UpdateVigor();
+    protected override void AfterDowngraded()
+    {
+        base.AfterDowngraded();
+        UpdateVigor();
+    }
 
     private void BuffFromPlay(int extraBlock)
     {
