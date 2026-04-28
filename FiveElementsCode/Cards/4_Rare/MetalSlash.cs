@@ -18,9 +18,11 @@ public sealed class MetalSlash() : MetalCard(1,
     TargetType.AnyEnemy)
 {
 
+    //card with fatal permanent upgrade can't be generated in combat
+    public override bool CanBeGeneratedInCombat => false;
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
 
-    //Exhaust, Deal 10 damage, Metal:(if permanently upgrade a random card)
+    //Exhaust, Deal 10 damage, Metal:(fatal permanently upgrade a random card)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(10, ValueProp.Move),
         new CardsVar(1),

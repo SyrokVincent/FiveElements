@@ -22,6 +22,7 @@ public sealed class Recycle() : NeutralCard(0,
     //Choose a card in your hand to Transform into a card of the element it generate, (choose between 3? maybe broken it's 3 from 13)
     //
     //added:  it cost 1 less this turn
+    // change on upgrade -retain + shift
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1),
     ]);
@@ -120,6 +121,6 @@ public sealed class Recycle() : NeutralCard(0,
     
     protected override void OnUpgrade()
     {
-        this.AddKeyword(CardKeyword.Retain);
+        this.AddKeyword(FiveElementsKeywords.Shift);
     }
 }

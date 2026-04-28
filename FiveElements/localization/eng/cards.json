@@ -121,7 +121,7 @@
   "FIVEELEMENTS-WOOD_QUEEN.title": "Wood Queen",
   "FIVEELEMENTS-WOOD_FURY.description": "Deal {Damage:diff()} damage to a random enemy X times, X is doubled.\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : X is instead tripled.|{off_s}Wood : X is instead tripled.{off_e}}",
   "FIVEELEMENTS-WOOD_FURY.title": "Wood Fury",
-  "FIVEELEMENTS-WOOD_SURGE.description": "Draw {Cards:diff()} {Cards:plural:card|cards} and gain {SurgePower:diff()} [gold]Surge[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : This card is played when drawn once per turn.|{off_s}Wood :  This card is played when drawn once per turn.{off_e}}",
+  "FIVEELEMENTS-WOOD_SURGE.description": "Draw {Cards:diff()} {Cards:plural:card|cards} and gain {SurgePower:diff()} [gold]Surge[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : This card is played the first time it is drawn this turn.|{off_s}Wood :  This card is played the first time it is drawn this turn.{off_e}}",
   "FIVEELEMENTS-WOOD_SURGE.title": "Wood Surge",
   "FIVEELEMENTS-WOOD_ROOTS.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain 1 [gold]Surge[/gold] for every {WaveDivider:diff()} [gold]Wave[/gold] or each {energyPrefix:energyIcons(1)} gained this turn.{InCombat:\n{EnergyGained:diff()} {energyPrefix:energyIcons(1)} gained this turn.|}|{off_s}Water : Gain 1 Surge for every {WaveDivider:diff()} Wave or each {energyPrefix:energyIcons(1)} gained this turn{off_e}}\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Gain 1 [gold]Strength[/gold] for every {StrengthDivider:diff()} [gold]Strength[/gold].|{off_s}Wood : Gain 1 Strength for every {StrengthDivider:diff()} Strength.{off_e}}",
   "FIVEELEMENTS-WOOD_ROOTS.title": "Wood Roots",
