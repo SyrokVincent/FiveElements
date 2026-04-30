@@ -80,12 +80,15 @@ public sealed class Activation() : NeutralCard(1,
         {
             var tips = new List<IHoverTip>
             {
-                HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
-                HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
-                HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate)
             };
             //todo could also make the starter relic be a tuto explaining which elements trigger their effect
-            
+            if (IsInCombat)
+            {
+
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo));
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Element));
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate));
+            }
             if (IsUpgraded)
             {
                 tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));

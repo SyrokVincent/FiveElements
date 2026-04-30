@@ -58,11 +58,18 @@ public sealed class Incarnation() : NeutralCard(0,
         {
             var tips = new List<IHoverTip>
             {
-                HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
-                HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
-                HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate)
+                //todo removed for now, hopefully someone getting the crad understand how that work
+                //HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+                //HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
+                //HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate)
             };
-            
+            if (IsInCombat)
+            {
+
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo));
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Element));
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate));
+            }
             if (IsUpgraded)
             {
                 tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));
