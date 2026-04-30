@@ -98,7 +98,7 @@ public sealed class WoodRoots() : WoodCard(1,
     protected override void OnUpgrade()
     {
         DynamicVars["WaveDivider"].UpgradeValueBy(-1);
-        DynamicVars["StrengthDivider"].UpgradeValueBy(-1);
+        //DynamicVars["StrengthDivider"].UpgradeValueBy(-1);
     }
 
     public async Task OnElementStateChanged(CardElementTag element, bool isActive)

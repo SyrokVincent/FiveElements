@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements;
 
@@ -17,6 +18,12 @@ public class MainFile
         Harmony harmony = new(ModId);
         var assembly = Assembly.GetExecutingAssembly();
         Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(assembly);
+        
+        //todo delete c'est 3 ligne une fois que baselib est fixé
+        var targetMethod = typeof(CardModel).GetProperty(nameof(CardModel.BannerMaterial)).GetGetMethod();
+        // Supprime le patch spécifique de la BaseLib pour cette méthode
+        harmony.Unpatch(targetMethod, HarmonyPatchType.Prefix, "BaseLib");
+        
         harmony.PatchAll();
     }
 }

@@ -68,6 +68,7 @@ public sealed class FireBlossom() : FireCard(1,
 
                 if (enemy != null)
                 {
+                    /* //was wayway too long with too much strength
                     if (TestMode.IsOff)
                     {
                         // Gestion des effets visuels (VFX)
@@ -93,7 +94,7 @@ public sealed class FireBlossom() : FireCard(1,
                             NCombatRoom.Instance.CombatVfxContainer.AddChildSafely(
                                 NGaseousImpactVfx.Create(targetNode.VfxSpawnPosition, _vfxTint));
                         }
-                    }
+                    }*/
 
                     // Application du burn
                     await PowerCmd.Apply<BurnPower>(choiceContext,enemy, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
@@ -103,7 +104,7 @@ public sealed class FireBlossom() : FireCard(1,
         if (CardElementTag.Fire.IsActive(CombatState))
         {
             var targets = CombatState.HittableEnemies;
-            await PowerCmd.Apply<BurnPower>(choiceContext,targets, this.DynamicVars["FireBlossomPower"].BaseValue, this.Owner.Creature, this);
+            await PowerCmd.Apply<FireBlossomPower>(choiceContext,targets, this.DynamicVars["FireBlossomPower"].BaseValue, this.Owner.Creature, this);
         }
     }
 
