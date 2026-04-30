@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
 public sealed class MetalMark() : MetalCard(1,
-    CardType.Attack, CardRarity.Common,
+    CardType.Skill, CardRarity.Common,
     TargetType.AnyEnemy)
 {
 
