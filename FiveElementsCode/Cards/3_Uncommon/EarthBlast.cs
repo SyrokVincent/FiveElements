@@ -23,7 +23,7 @@ public sealed class EarthBlast() : EarthCard(2,
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CalculationBaseVar(10), // Dégâts de base
         new ExtraDamageVar(1),    // Dégâts bonus par brûlure
-        new IntVar("Divider",10), // divise les degat bonus
+        new IntVar("Divider",8), // divise les degat bonus
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
             var divider = card.DynamicVars["Divider"].BaseValue;

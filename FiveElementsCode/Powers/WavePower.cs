@@ -106,6 +106,17 @@ public sealed class WavePower : FiveElementsPower
         await base.AfterCreatureAddedToCombat(creature);
         await SyncWaveTarget(new ThrowingPlayerChoiceContext());
     }
+
+    //needed for enemies that revive with the IllusionPower
+    public override async Task AfterCurrentHpChanged(Creature creature, decimal delta)
+    {
+        // On ne synchronise que si c'est un soin (delta > 0) 
+        // ET que la créature a le potentiel de ressusciter (IllusionPower)
+        if (delta > 0 && creature.HasPower<IllusionPower>())
+        {
+            await SyncWaveTarget(new ThrowingPlayerChoiceContext());
+        }
+    }
     
     
     private async Task SyncWaveTarget(PlayerChoiceContext context)

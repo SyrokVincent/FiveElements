@@ -17,10 +17,11 @@ public sealed class FireEater() : FireCard(1,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
 
-    //Ethereal, Exhaust 2(3) Fire card (maybe draw1), Fire:(for each card exhausted apply 4 burn to all enemies)
+    //Ethereal, Exhaust 2(3) Fire card, Fire:(for each card exhausted apply 8 burn to all enemies)
+    // buffed from 4 burn to 8
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(2),
-        new PowerVar<BurnPower>(4),
+        new PowerVar<BurnPower>(8),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
