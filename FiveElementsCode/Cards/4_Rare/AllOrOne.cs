@@ -13,7 +13,9 @@ public sealed class AllOrOne() : NeutralCard(1,
     TargetType.Self)
 {
     
-    //At turn start gain 1 energy and draw 1 if you played either All or only One element last turn (only one of those??)
+    //At turn start draw 1 and if you played either All or only One element last turn gain 1 energy  (only one of those??)
+    //
+    //now always draw 1 more
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<AllOrOnePower>(1),
     ]);

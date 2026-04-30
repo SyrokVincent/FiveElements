@@ -58,7 +58,7 @@
   "FIVEELEMENTS-RECYCLE.title": "Recycle",
   "FIVEELEMENTS-ULTIMATE_FORM.description": "When you play cards in the [gold]Generate[/gold] order, [gold]Upgrade[/gold] them and trigger the corresponding effect on the card [gold]Activation[/gold].",
   "FIVEELEMENTS-ULTIMATE_FORM.title": "Ultimate Form",
-  "FIVEELEMENTS-ALL_OR_ONE.description": "At the start of your turn, if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {energyPrefix:energyIcons(1)} and draw 1 card.",
+  "FIVEELEMENTS-ALL_OR_ONE.description": "At the start of your turn, draw 1 additional card and if last turn you either played ALL [gold]Elements[/gold] or a single [gold]Element[/gold], gain {energyPrefix:energyIcons(1)}.",
   "FIVEELEMENTS-ALL_OR_ONE.title": "All or One",
   "FIVEELEMENTS-ECHO_FORMATION.description": "At the end of each turn [gold]Retain[/gold] [gold]Echo[/gold] cards.",
   "FIVEELEMENTS-ECHO_FORMATION.title": "Echo Formation",

@@ -14,9 +14,10 @@ public sealed class MetalSpirit() : MetalCard(1,
     TargetType.Self)
 {
     
-    //Gain 1 vigor when you play a metal card
+    // Gain 2 vigor when you play a metal card
+    // buffed to 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<MetalSpiritPower>(1),
+        new PowerVar<MetalSpiritPower>(2), //need to be the same number as on metalspiritPower
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

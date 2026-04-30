@@ -56,6 +56,10 @@ public sealed class AllOrOnePower : FiveElementsPower
     
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        
+        this.Flash();
+        await CardPileCmd.Draw(choiceContext, (int)Amount, player);
+        
         // 1. Récupération des entrées du tour précédent
         // On utilise CardPlaysFinished pour être sûr que la carte a bien fini son effet
         var lastTurnEntries = CombatManager.Instance.History.CardPlaysFinished
@@ -106,7 +110,7 @@ public sealed class AllOrOnePower : FiveElementsPower
         {
             this.Flash();
             await PlayerCmd.GainEnergy((int)Amount, player);
-            await CardPileCmd.Draw(choiceContext, (int)Amount, player);
+            //await CardPileCmd.Draw(choiceContext, (int)Amount, player);
         }
     }
 }

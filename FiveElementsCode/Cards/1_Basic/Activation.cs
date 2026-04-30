@@ -28,7 +28,7 @@ public static class ActivationVars
     public static PowerVar<SurgePower> Surge => new PowerVar<SurgePower>(1);
     public static PowerVar<BurnPower> Burn => new PowerVar<BurnPower>(3);
     public static BlockVar Block => new BlockVar(5, ValueProp.Move);
-    public static PowerVar<VigorPower> Vigor => new PowerVar<VigorPower>(2);
+    public static PowerVar<VigorPower> Vigor => new PowerVar<VigorPower>(3);
 }
 
 
@@ -44,9 +44,9 @@ public sealed class Activation() : NeutralCard(1,
     // Wood:(Draw 1 and 1 temp str),
     // Fire:(Burn 3 to all enemies),
     // Earth:(5 block),
-    // Metal:(2 vigor) 
+    // Metal:(3 vigor) 
     //
-    // added 1 temp str and 1 wave
+    // added 1 temp str and 1 wave, buffed vigor to 3
     //
     //VALUE HERE need to be the same as on Ultimate form and others similar, that why I use Activationvars
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([

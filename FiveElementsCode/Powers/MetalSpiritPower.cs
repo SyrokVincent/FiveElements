@@ -37,7 +37,7 @@ public sealed class MetalSpiritPower : FiveElementsPower
             Flash();
             if (cardPlay.Card is MetalSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
             {
-                await PowerCmd.Apply<VigorPower>(context, Owner, Amount-1, Owner,null);
+                await PowerCmd.Apply<VigorPower>(context, Owner, Amount-2, Owner,null); //need to be the same number as on metalspirit
             }else 
                 await PowerCmd.Apply<VigorPower>(context, Owner, Amount, Owner,null);
         }
