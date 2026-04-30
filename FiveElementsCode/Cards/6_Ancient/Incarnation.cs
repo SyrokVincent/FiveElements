@@ -52,15 +52,55 @@ public sealed class Incarnation() : NeutralCard(0,
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
     ]);
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
-        HoverTipFactory.FromPower<WavePower>(),
-        HoverTipFactory.FromPower<SurgePower>(),
-        HoverTipFactory.FromPower<BurnPower>(),
-        HoverTipFactory.FromPower<VigorPower>(),
-    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            var tips = new List<IHoverTip>
+            {
+                HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+                HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
+                HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate)
+            };
+            
+            if (IsUpgraded)
+            {
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));
+            }
+
+            if (CardElementTag.Water.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.FromPower<WavePower>());
+            }
+
+            if (CardElementTag.Wood.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.FromPower<SurgePower>());
+            }
+
+            if (CardElementTag.Fire.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.FromPower<BurnPower>());
+            }
+            
+            //just to place it before vigor
+            if (CardElementTag.Earth.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
+            }
+            // Pour Earth, vu que GainsBlock est à true, le tooltip "Block" 
+            // s'ajoute automatiquement via la classe de base, un patch en plus gere si on doit l'enlever ou pas
+
+            if (CardElementTag.Metal.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.FromPower<VigorPower>());
+            }
+
+        
+            return tips;
+        }
+    }
+    
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)

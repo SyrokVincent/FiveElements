@@ -78,7 +78,6 @@ public class FiveElements : PlaceholderCharacterModel
     
     //deck with random starting point in the strike n defend, so the upgrading event won't always upgrade the same element
     // it will still upgrade both card of a same element thought
-    //todo when strike are added by event their are always the same elem..
     public override IEnumerable<FiveElementsCard> StartingDeck
     {
         get

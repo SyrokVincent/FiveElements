@@ -31,11 +31,8 @@ public sealed class Annihilation() : NeutralCard(3,
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate)
     ]);
 
     protected override async Task OnPlay(

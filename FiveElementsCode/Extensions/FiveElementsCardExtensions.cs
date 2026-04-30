@@ -247,7 +247,7 @@ public static class FiveElementsCardExtensions
         };
     }
     
-    public static bool IsActive(this CardElementTag elem, ICombatState combatState)
+    public static bool IsActive(this CardElementTag elem, ICombatState? combatState)
     {
         if (combatState == null) return false;
 

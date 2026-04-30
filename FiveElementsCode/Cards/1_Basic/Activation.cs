@@ -5,6 +5,7 @@ using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -72,16 +73,57 @@ public sealed class Activation() : NeutralCard(1,
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
     ];
-    
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
-        HoverTipFactory.FromPower<WavePower>(),
-        HoverTipFactory.FromPower<SurgePower>(),
-        HoverTipFactory.FromPower<BurnPower>(),
-        HoverTipFactory.FromPower<VigorPower>(),
-    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            var tips = new List<IHoverTip>
+            {
+                HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+                HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
+                HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate)
+            };
+            //todo could also make the starter relic be a tuto explaining which elements trigger their effect
+            
+            if (IsUpgraded)
+            {
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));
+            }
+
+            if (CardElementTag.Water.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.FromPower<WavePower>());
+            }
+
+            if (CardElementTag.Wood.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.FromPower<SurgePower>());
+            }
+
+            if (CardElementTag.Fire.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.FromPower<BurnPower>());
+            }
+            
+            //just to place it before vigor
+            if (CardElementTag.Earth.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
+            }
+            // Pour Earth, vu que GainsBlock est à true, le tooltip "Block" 
+            // s'ajoute automatiquement via la classe de base, un patch en plus gere si on doit l'enlever ou pas
+
+            if (CardElementTag.Metal.IsActive(CombatState) || !IsInCombat)
+            {
+                tips.Add(HoverTipFactory.FromPower<VigorPower>());
+            }
+
+        
+            return tips;
+        }
+    }
+  
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -122,7 +164,7 @@ public sealed class Activation() : NeutralCard(1,
     {
         get
         {
-            if (CardElementTag.Fire.IsActive(CombatState))
+            if (CombatState != null && CardElementTag.Fire.IsActive(CombatState))
             {
                 return TargetType.AllEnemies;
             }

@@ -17,23 +17,31 @@ public abstract class NeutralCard : FiveElementsCard
         CanonicalElementTags = [CardElementTag.Neutral];
     }
     
+    
     public override HashSet<CardElementTag> ElementTags 
     {
         get 
         {
-            if (CombatManager.Instance?.IsInProgress == true && Owner != null)
+            // On vérifie d'abord si CombatManager existe
+            if (CombatManager.Instance?.IsInProgress == true)
             {
-                if (Keywords.Contains(FiveElementsKeywords.Attune))
+                // IMPORTANT : On vérifie IsCanonical pour éviter d'accéder à Owner
+                // Si la carte est canonique (bibliothèque), on saute la logique de combat
+                if (!IsCanonical && Owner != null)
                 {
-                    return Character.FiveElements.Echo;
-                }
+                    if (Keywords.Contains(FiveElementsKeywords.Attune))
+                    {
+                        return Character.FiveElements.Echo;
+                    }
 
-                if (Keywords.Contains(FiveElementsKeywords.Shift))
-                {
-                    return CalculateShift(Character.FiveElements.Echo);
+                    if (Keywords.Contains(FiveElementsKeywords.Shift))
+                    {
+                        return CalculateShift(Character.FiveElements.Echo);
+                    }
                 }
             }
-            // Si hors combat ou pas de mot-clé spécial, on utilise les tags de base
+        
+            // Si hors combat, ou carte canonique, on utilise les tags de base
             return base.ElementTags;
         }
     }

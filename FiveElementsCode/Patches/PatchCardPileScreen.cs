@@ -25,6 +25,9 @@ public static class PatchCardPileScreen
 
             foreach (var model in __instance.Pile.Cards)
             {
+                // Sécurité : Si le modèle est canonique, on ne touche à rien qui utilise 'Owner'
+                if (model.IsCanonical) continue; 
+
                 if (model is NeutralCard neutralModel)
                 {
                     // On cherche le Node de la carte
@@ -33,8 +36,12 @@ public static class PatchCardPileScreen
 
                     if (cardNode != null)
                     {
+                        // On vérifie que CreateCustomFrameMaterial ne va pas planter
+                        // (Assure-toi d'avoir aussi ajouté le check IsCanonical dans NeutralCard)
+                        var material = neutralModel.CreateCustomFrameMaterial;
+            
                         var frame = cardNode.GetNodeOrNull<CanvasItem>("CardContainer/Frame");
-                        if (frame != null && neutralModel.CreateCustomFrameMaterial is ShaderMaterial newMat)
+                        if (frame != null && material is ShaderMaterial newMat)
                         {
                             frame.Material = newMat;
                             frame.QueueRedraw();
