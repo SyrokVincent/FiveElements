@@ -23,10 +23,10 @@ public sealed class EarthMagma() : EarthCard(1,
         (CardElementTag.Earth.IsActive(CombatState) || CardElementTag.Fire.IsActive(CombatState));
 
     //Fire:(Gain Block equals to Burn on the enemy),
-    //Earth:(Gain 3 plating (or thorn?this turn?) //todo decide
+    //Earth:(Gain 4+1 plating (or thorn?this turn?)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new BoolVar("isFireOn"),
-        new PowerVar<PlatingPower>(3),
+        new PowerVar<PlatingPower>(4),
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -66,7 +66,7 @@ public sealed class EarthMagma() : EarthCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["PlatingPower"].UpgradeValueBy(2);
+        DynamicVars["PlatingPower"].UpgradeValueBy(1);
     }
     
     public override TargetType TargetType 

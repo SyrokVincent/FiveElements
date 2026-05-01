@@ -114,10 +114,6 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<FireTouch>());
-            finalDeck.Add(ModelDb.Card<FireTouch>());
-            finalDeck.Add(ModelDb.Card<FireTouch>());
-            finalDeck.Add(ModelDb.Card<MetalRefinement>());
             
             
             /*
@@ -221,9 +217,9 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't count card from exhaust pile
             finalDeck.Add(ModelDb.Card<Absorption>());      //done
             finalDeck.Add(ModelDb.Card<Incantation>());     //done
-            finalDeck.Add(ModelDb.Card<Decimation>());      //done //maybe need to add reduce cost for each essence too
+            finalDeck.Add(ModelDb.Card<Decimation>());      //done //could have shift by default and reduce cost every time it change element //maybe need to add reduce cost for each essence too
             finalDeck.Add(ModelDb.Card<Meditation>());      //done 
-            finalDeck.Add(ModelDb.Card<Circulation>());     //done can't select power? maybe make it cost 0(or refun itself) if it can't select anything
+            finalDeck.Add(ModelDb.Card<Circulation>());     //done can't select power? maybe make it cost 0(or refund itself) if it can't select anything
             finalDeck.Add(ModelDb.Card<Recycle>());         //done maybe remove retain and add shift?
             finalDeck.Add(ModelDb.Card<UltimateForm>());    //done
             finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it choose between the 2 effects ?
