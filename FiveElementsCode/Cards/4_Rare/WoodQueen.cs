@@ -17,10 +17,11 @@ public sealed class WoodQueen() : WoodCard(2,
 
     //Each turn, draw 1 and gain 2 surge the first time you draw a wood card
     //buffed to 2 surge from 1
+    //changed to 1 strength
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WoodQueenPower>(1),
         new CardsVar(1),
-        new IntVar("SurgePower", 2) //this is just for json, need to sync with the power
+        new IntVar("StrengthPower", 1) //this is just for json, need to sync with the power
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -28,7 +29,7 @@ public sealed class WoodQueen() : WoodCard(2,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<SurgePower>()
+        HoverTipFactory.FromPower<StrengthPower>()
     ];
 
     protected override async Task OnPlay(

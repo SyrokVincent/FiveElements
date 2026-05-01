@@ -19,12 +19,12 @@ public sealed class WoodQueenPower : FiveElementsPower
 
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<SurgePower>(),
+        HoverTipFactory.FromPower<StrengthPower>(),
     ];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1),
-        new PowerVar<SurgePower>(2),
+        new PowerVar<StrengthPower>(1),
         new IntVar("DisplayAmount",0), //could not find how to acces DisplayAmount in localization otherwise
     ]);
     
@@ -54,7 +54,7 @@ public sealed class WoodQueenPower : FiveElementsPower
             if (Owner.Player != null)
             {
                 await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner.Player);
-                await PowerCmd.Apply<SurgePower>(choiceContext, Owner, DynamicVars["SurgePower"].BaseValue, Owner, null);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, DynamicVars["StrengthPower"].BaseValue, Owner, null);
             }
         }
     }
