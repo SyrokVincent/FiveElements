@@ -8,7 +8,12 @@
   "FIVEELEMENTS-LINE_ESSENCE": "You have {count} {count:plural:[gold]Essence[/gold]|[gold]Essences[/gold]} of that element.\n",
   "FIVEELEMENTS-LINE_ECHO": "It's the [gold]Echo[/gold], the element of the last card played this turn.\n",
   "FIVEELEMENTS-LINE_ACTIVE": "Cards of that element will trigger their bonus effect.\n",
-  "FIVEELEMENTS-LINE_INACTIVE": "Card of that element won't trigger their bonus effect."
-  
- 
+  "FIVEELEMENTS-LINE_INACTIVE": "Card of that element won't trigger their bonus effect.",
+
+
+  "FIVEELEMENTS-LINE_WATER": "[gold]Water[/gold] is active if the last card played this turn is either Water or Metal, or if you have its [gold]Essence[/gold].",
+  "FIVEELEMENTS-LINE_WOOD": "[gold]Wood[/gold] is active if the last card played this turn is either Wood or Water, or if you have its [gold]Essence[/gold].",
+  "FIVEELEMENTS-LINE_FIRE": "[gold]Fire[/gold] is active if the last card played this turn is either Fire or Wood, or if you have its [gold]Essence[/gold].",
+  "FIVEELEMENTS-LINE_EARTH": "[gold]Earth[/gold] is active if the last card played this turn is either Earth or Fire, or if you have its [gold]Essence[/gold].",
+  "FIVEELEMENTS-LINE_METAL": "[gold]Metal[/gold] is active if the last card played this turn is either Metal or Earth, or if you have its [gold]Essence[/gold]."
 }

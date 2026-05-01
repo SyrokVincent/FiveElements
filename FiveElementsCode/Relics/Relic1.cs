@@ -21,6 +21,9 @@ public sealed class Relic1() : StarterRelicLogic
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromCard<Creation>(),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.ElementTuto),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
     ]); 
     
 

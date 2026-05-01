@@ -5,7 +5,7 @@
   "FIVEELEMENTS-ATTUNE.description": "Inherit the element of [gold]Echo[/gold].",
   "FIVEELEMENTS-ATTUNE.title": "Attune",
   
-  "FIVEELEMENTS-ECHO.description": "[gold]Echo[/gold]{ElemEcho:cond:=0? has no element|=1? is {water_s}Water{water_e}|=2? is {wood_s}Wood{wood_e}|=3? is {fire_s}Fire{fire_e}|=4? is {earth_s}Earth{earth_e}|=5? is {metal_s}Metal{metal_e}| is ALL [gold]Elements[/gold]}.\n[gold]Echo[/gold] takes the element of the last card played this turn.",
+  "FIVEELEMENTS-ECHO.description": "[gold]Echo[/gold] is the element of the last card played this turn.\nCurrently [gold]Echo[/gold]{ElemEcho:cond:=0? has no element|=1? is {water_s}Water{water_e}|=2? is {wood_s}Wood{wood_e}|=3? is {fire_s}Fire{fire_e}|=4? is {earth_s}Earth{earth_e}|=5? is {metal_s}Metal{metal_e}| is ALL [gold]Elements[/gold]}.",
   "FIVEELEMENTS-ECHO.title": "Echo",
   "FIVEELEMENTS-GENERATE.description": "{water_s}Water{wood_e} generate {wood_s}Wood{wood_e}.\n{wood_s}Wood{wood_e} generate {fire_s}Fire{fire_e}.\n{fire_s}Fire{fire_e} generate {earth_s}Earth{earth_e}.\n{earth_s}Earth{earth_e} generate {metal_s}Metal{metal_e}.\n{metal_s}Metal{metal_e} generate {water_s}Water{wood_e}.",
   "FIVEELEMENTS-GENERATE.title":"Generate",
@@ -15,6 +15,8 @@
   "FIVEELEMENTS-ESSENCE.title":"Essence",
 
 
+  "FIVEELEMENTS-ELEMENTTUTO.description": "After playing an [gold]Element[/gold] card, your next card can trigger the effect of both this [gold]Element[/gold] and the one it [gold]Generate[/gold].",
+  "FIVEELEMENTS-ELEMENTTUTO.title": "Elements",
   "FIVEELEMENTS-ELEMENT.description": "[gold]Trigger[/gold] effect if :\nIt's the [gold]Echo[/gold],\n[gold]Echo[/gold] [gold]Generates[/gold] it,\nor you have its [gold]Essence[/gold].",
   "FIVEELEMENTS-ELEMENT.title": "Element",
   "FIVEELEMENTS-WATER.description": "{water_s}Water{water_e} : [gold]Trigger[/gold] effect if\n[gold]Echo[/gold] is {metal_s}Metal{metal_e} or {water_s}Water{water_e},\nor if you have {water_s}Water{water_e} [gold]Essence[/gold].",
