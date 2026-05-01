@@ -114,6 +114,10 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<FireTouch>());
+            finalDeck.Add(ModelDb.Card<FireTouch>());
+            finalDeck.Add(ModelDb.Card<FireTouch>());
+            finalDeck.Add(ModelDb.Card<MetalRefinement>());
             
             
             /*
@@ -201,7 +205,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<MetalPounce>());     //done
             finalDeck.Add(ModelDb.Card<MetalChains>());     //done
             finalDeck.Add(ModelDb.Card<MetalRush>());       //done
-            finalDeck.Add(ModelDb.Card<MetalForge>());      //done maybe show how many card will be upgraded? and count itself ?
+            finalDeck.Add(ModelDb.Card<MetalForge>());      //done
             finalDeck.Add(ModelDb.Card<MetalEdge>());       //done
             finalDeck.Add(ModelDb.Card<MetalMettle>());     //done
             finalDeck.Add(ModelDb.Card<MetalSlash>());      //done

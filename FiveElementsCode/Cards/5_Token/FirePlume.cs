@@ -23,10 +23,11 @@ public sealed class FirePlume() : FireCard(0,
 
     //Retain, Exhaust, At turn start while in hand apply 1 burn to all enemies, (keyword Incandescence 1)
     //Fire:(Deal 1 Heat damage, increased by 1 for each fire card played this turn)
+    // now deal 2 heat damage
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<BurnPower>(1),
-        new CalculationBaseVar(1),
+        new CalculationBaseVar(2),
         new ExtraDamageVar(1),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => 
         {

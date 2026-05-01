@@ -135,7 +135,7 @@
   "FIVEELEMENTS-FIRE_CREATION.title": "Fire Creation",
   "FIVEELEMENTS-FIRE_NOVA.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|{off_s}Fire : Apply {BurnPower:diff()} Burn to all enemies.{off_e}}",
   "FIVEELEMENTS-FIRE_NOVA.title": "Fire Nova",
-  "FIVEELEMENTS-FIRE_TOUCH.description": "[gold]Exhaust[/gold] a card.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]{IfUpgraded:show:Fire Plume+|Fire Plume}[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} {IfUpgraded:show:Fire Plume+|Fire Plume} into your Hand.{off_e}}",
+  "FIVEELEMENTS-FIRE_TOUCH.description": "[gold]Exhaust[/gold] a card.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]{IfUpgraded:show:Fire Plume|Fire Plume}[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} {IfUpgraded:show:Fire Plume|Fire Plume} into your Hand.{off_e}}",
   "FIVEELEMENTS-FIRE_TOUCH.title": "Fire Touch",
   "FIVEELEMENTS-FIRE_SPIRIT.description": "Whenever you play a {fire_s}Fire{fire_e} card, apply {FireSpiritPower:diff()} [gold]Burn[/gold] to ALL enemies.",
   "FIVEELEMENTS-FIRE_SPIRIT.title": "Fire Spirit",

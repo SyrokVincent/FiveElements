@@ -20,6 +20,7 @@ public sealed class FireTouch() : FireCard(0,
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
 
     //Exhaust, Exhaust a (non-Fire?) card, Fire:(add 1 Fire plume in hand)
+    // on upgrade 2 plume instead of plume+
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(1),
     ]);
@@ -30,7 +31,7 @@ public sealed class FireTouch() : FireCard(0,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromCard<FirePlume>(IsUpgraded),
+        HoverTipFactory.FromCard<FirePlume>(),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Incandescence),
         HoverTipFactory.FromPower<BurnPower>(),
     ]);
@@ -70,12 +71,12 @@ public sealed class FireTouch() : FireCard(0,
         
         if (CardElementTag.Fire.IsActive(CombatState))
         {
-            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,this.IsUpgraded, CombatState);
+            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,false, CombatState);
         }
     }
 
     protected override void OnUpgrade()
     {
-        //already create fire plume+
+        DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

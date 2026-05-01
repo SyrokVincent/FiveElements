@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace FiveElements.FiveElementsCode.Cards._4_Rare;
 
-public sealed class MetalRefinement() : MetalCard(1,
+public sealed class MetalRefinement() : MetalCard(0,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
@@ -45,6 +45,7 @@ public sealed class MetalRefinement() : MetalCard(1,
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
 
     //Exhaust, Gain 1 vigor, Metal:(permanentaly increase this card vigor by 1)
+    // from 1 cost to 0
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<VigorPower>(CurrentVigor),
         new IntVar(IncreaseKey, 1)
