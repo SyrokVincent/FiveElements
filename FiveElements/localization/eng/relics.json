@@ -39,9 +39,9 @@
   
   "FIVEELEMENTS-METAL_RELIC.description": "At the start of your turn, gain {VigorPower:diff()} [gold]Vigor[/gold].",
   "FIVEELEMENTS-METAL_RELIC.flavor": "",
-  "FIVEELEMENTS-METAL_RELIC.title": "Metal Relic",
+  "FIVEELEMENTS-METAL_RELIC.title": "Metal Tripod",
 
   "FIVEELEMENTS-NEUTRAL_RELIC.description": "Each turn the first time you play a card of each [gold]Element[/gold], gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold] and [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
   "FIVEELEMENTS-NEUTRAL_RELIC.flavor": "",
-  "FIVEELEMENTS-NEUTRAL_RELIC.title": "Neutral Relic"
+  "FIVEELEMENTS-NEUTRAL_RELIC.title": "Rainbow Necklace"
 }
