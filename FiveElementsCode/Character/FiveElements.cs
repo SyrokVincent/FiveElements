@@ -114,11 +114,6 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<WaterSource>());
-            finalDeck.Add(ModelDb.Card<WoodChop>());
-            finalDeck.Add(ModelDb.Card<FireProtection>());
-            finalDeck.Add(ModelDb.Card<EarthFoundation>());
-            finalDeck.Add(ModelDb.Card<MetalMuscle>());
             
             
             /*
@@ -126,6 +121,7 @@ public class FiveElements : PlaceholderCharacterModel
             //water feel really cool to play right now, might be a bit too strong ?
             
             finalDeck.Add(ModelDb.Card<WaterCreation>());   //done
+            finalDeck.Add(ModelDb.Card<WaterSource>());     //done
             finalDeck.Add(ModelDb.Card<WaterBubble>());     //done too strong ?
             finalDeck.Add(ModelDb.Card<WaterMark>());       //done
             finalDeck.Add(ModelDb.Card<WaterSpirit>());     //done
@@ -144,7 +140,8 @@ public class FiveElements : PlaceholderCharacterModel
             
             /*
             //WOOD
-            finalDeck.Add(ModelDb.Card<WoodCreation>());    //done
+            finalDeck.Add(ModelDb.Card<WoodCreation>());    //removed
+            finalDeck.Add(ModelDb.Card<WoodChop>());        //done
             finalDeck.Add(ModelDb.Card<WoodBark>());        //done it currently scale down with strength too
             finalDeck.Add(ModelDb.Card<WoodFangs>());       //done way of doubling damage to block might be wrong
             finalDeck.Add(ModelDb.Card<WoodSpirit>());      //done
@@ -161,12 +158,13 @@ public class FiveElements : PlaceholderCharacterModel
             
             /*
             //FIRE
-            finalDeck.Add(ModelDb.Card<FireCreation>());    //done
+            finalDeck.Add(ModelDb.Card<FireCreation>());    //removed
+            finalDeck.Add(ModelDb.Card<FireProtection>());  //done
             finalDeck.Add(ModelDb.Card<FireNova>());        //done
             finalDeck.Add(ModelDb.Card<FireTouch>());       //done
             finalDeck.Add(ModelDb.Card<FireSpirit>());      //done
             finalDeck.Add(ModelDb.Card<FireRise>());        //done
-            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done super good in niche case
+            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done excellent in niche case
             finalDeck.Add(ModelDb.Card<FireStorm>());       //done
             finalDeck.Add(ModelDb.Card<FireForce>());       //done
             finalDeck.Add(ModelDb.Card<FireEater>());       //done need to do smthing when exhaust nothing ?
@@ -180,7 +178,8 @@ public class FiveElements : PlaceholderCharacterModel
             
             /*
             //EARTH
-            finalDeck.Add(ModelDb.Card<EarthCreation>());   //done
+            finalDeck.Add(ModelDb.Card<EarthCreation>());   //removed
+            finalDeck.Add(ModelDb.Card<EarthFoundation>()); //done
             finalDeck.Add(ModelDb.Card<EarthWard>());       //done
             finalDeck.Add(ModelDb.Card<EarthSpirit>());     //done
             finalDeck.Add(ModelDb.Card<EarthBlast>());      //done
@@ -199,7 +198,8 @@ public class FiveElements : PlaceholderCharacterModel
             
             /*
             //METAL
-            finalDeck.Add(ModelDb.Card<MetalCreation>());   //done
+            finalDeck.Add(ModelDb.Card<MetalCreation>());   //removed
+            finalDeck.Add(ModelDb.Card<MetalMuscle>());     //done
             finalDeck.Add(ModelDb.Card<MetalBlade>());      //done
             finalDeck.Add(ModelDb.Card<MetalMark>());       //done
             finalDeck.Add(ModelDb.Card<MetalSpirit>());     //done

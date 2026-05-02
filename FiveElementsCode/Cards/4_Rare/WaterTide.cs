@@ -13,10 +13,10 @@ public sealed class WaterTide() : WaterCard(1,
     TargetType.Self)
 {
     
-    //At turn end gain 2 waves
-
+    //At turn end gain 3 waves
+    // upgraded to 3 from 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WaterTidePower>(2),
+        new PowerVar<WaterTidePower>(3),
     ]);
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [

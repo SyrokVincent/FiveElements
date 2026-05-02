@@ -218,6 +218,16 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 
 		int count = status.GetEssence(_myElement);
 		_label.Text = count <= 0 ? "" : count.ToString();
+		if (count <= 0) 
+		{
+			_label.Text = "";
+		}
+		else 
+		{
+			_label.Text = _myElement.GetChineseSymbol(); 
+		}
+		
+		
 	
 		// On met à jour l'objet HoverTip en mémoire sans l'afficher
 		bool isActive = _myElement.IsActive(_player.Creature.CombatState);

@@ -176,11 +176,7 @@ mouse_filter = 2
 
 [node name="EssenceCounter" parent="ElementLayers" instance=ExtResource("7_ectix")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+offset_left = -32.0
 offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
@@ -202,11 +198,7 @@ mouse_filter = 2
 
 [node name="EssenceCounter" parent="ElementLayers2" instance=ExtResource("7_ectix")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+offset_left = -32.0
 offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
@@ -229,11 +221,7 @@ mouse_filter = 2
 
 [node name="EssenceCounter" parent="ElementLayers3" instance=ExtResource("7_ectix")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+offset_left = -32.0
 offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
@@ -256,11 +244,7 @@ mouse_filter = 2
 
 [node name="EssenceCounter" parent="ElementLayers4" instance=ExtResource("7_ectix")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+offset_left = -32.0
 offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
@@ -283,11 +267,7 @@ mouse_filter = 2
 
 [node name="EssenceCounter" parent="ElementLayers5" instance=ExtResource("7_ectix")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+offset_left = -32.0
 offset_top = -78.0
 offset_right = 0.0
 offset_bottom = -78.0
@@ -296,3 +276,7 @@ scale = Vector2(0.18, 0.18)
 
 [node name="ElementsCounter" parent="." instance=ExtResource("9_t6dpn")]
 layout_mode = 1
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0

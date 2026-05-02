@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Extensions;
+﻿using FiveElements.FiveElementsCode.Enums;
+using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -42,9 +43,36 @@ public sealed class Absorption() : NeutralCard(0,
         await base.OnPlay(choiceContext, play);
         if (CombatState != null)
         {
-            var essencesCount = CombatState.GetElementalStatus().GetTotalEssenceCount();
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue * essencesCount, Owner);
-            //CombatState.GetElementalStatus().ResetAllEssences();
+            var essences = CombatState.GetElementalStatus();
+            var count = 0;
+            if (essences.GetEssence(CardElementTag.Water)>0)
+            {
+                count++;
+            }
+            if (essences.GetEssence(CardElementTag.Wood)>0)
+            {
+                count++;
+            }   
+            if (essences.GetEssence(CardElementTag.Fire)>0)
+            {
+                count++;
+            }
+            if (essences.GetEssence(CardElementTag.Earth)>0)
+            {
+                count++;
+            }
+            if (essences.GetEssence(CardElementTag.Metal)>0)
+            {
+                count++;
+            }
+            if (count!=0)
+            {
+                await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue * count, Owner);
+                //CombatState.GetElementalStatus().ResetAllEssences();
+            }
+            
+            
+            
         }
     }
 

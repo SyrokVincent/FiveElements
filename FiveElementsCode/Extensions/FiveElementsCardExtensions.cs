@@ -265,6 +265,23 @@ public static class FiveElementsCardExtensions
         };
     }
     
+   
+    /// <summary>
+    /// Retourne le caractère chinois (Wuxing) correspondant à l'élément.
+    /// </summary>
+    public static string GetChineseSymbol(this CardElementTag element)
+    {
+        return element switch
+        {
+            CardElementTag.Wood  => "木", //
+            CardElementTag.Fire  => "火", //
+            CardElementTag.Earth => "土", //
+            CardElementTag.Metal => "金", //
+            CardElementTag.Water => "水", //
+            _ => "" 
+        };
+    }
+    
 
     public static bool IsAnyElementActive(ICombatState combatState)
     {
