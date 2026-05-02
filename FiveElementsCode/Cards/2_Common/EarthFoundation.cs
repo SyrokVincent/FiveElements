@@ -22,7 +22,7 @@ public class EarthFoundation() : EarthCard(1,
     //delete if shouldn't glow or replace water
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
 
-    //Deal 4(6), Choose a card in Hand to retain this turn, Earth: (Gain 4(6) Block) 
+    //Deal 4(6) Gain 4(6) Block, Earth: (Choose a card in Hand to retain this turn) 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(4,ValueProp.Move),
         new BlockVar(4,ValueProp.Move),
@@ -45,24 +45,25 @@ public class EarthFoundation() : EarthCard(1,
 
         
         await CommonActions.CardAttack(this,play.Target).Execute(choiceContext);
-        // select a card to give it singleturnretain
-        // 1. Préparer les préférences
-        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
-
-        // 2. Lancer la commande de sélection
-        var selection = await CardSelectCmd.FromHand(
-            choiceContext, 
-            Owner, 
-            prefs, 
-            c => !c.ShouldRetainThisTurn, 
-            this
-        );
-        var selectedModel = selection?.FirstOrDefault();
-        selectedModel?.GiveSingleTurnRetain();
-
+        await CommonActions.CardBlock(this, play);
+       
         if (CardElementTag.Earth.IsActive(CombatState))
         {
-            await CommonActions.CardBlock(this, play);
+            // select a card to give it singleturnretain
+            // 1. Préparer les préférences
+            CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
+
+            // 2. Lancer la commande de sélection
+            var selection = await CardSelectCmd.FromHand(
+                choiceContext, 
+                Owner, 
+                prefs, 
+                c => !c.ShouldRetainThisTurn, 
+                this
+            );
+            var selectedModel = selection?.FirstOrDefault();
+            selectedModel?.GiveSingleTurnRetain();
+
         }
 
     }

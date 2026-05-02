@@ -170,7 +170,7 @@
   "FIVEELEMENTS-EARTH_CREATION.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain [gold]Earth Essence[/gold], or if you have it double this card effect and [gold]Exhaust[/gold] it.|{off_s}Earth : Gain Earth Essence, or if you have it double this card effect and Exhaust it.{off_e}}",
   "FIVEELEMENTS-EARTH_CREATION.title": "Earth Creation",
   "FIVEELEMENTS-EARTH_FOUNDATION.selectionScreenPrompt": "Choose a card to [gold]Retain[/gold] this turn.",
-  "FIVEELEMENTS-EARTH_FOUNDATION.description": "Deal {Damage:diff()} damage.\nChoose a card in [gold]Hand[/gold] to [gold]Retain[/gold] this turn.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}",
+  "FIVEELEMENTS-EARTH_FOUNDATION.description": "Deal {Damage:diff()} damage.\nGain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Choose a card in [gold]Hand[/gold] to [gold]Retain[/gold] this turn.|{off_s}Earth : Choose a card in Hand to Retain this turn.{off_e}}",
   "FIVEELEMENTS-EARTH_FOUNDATION.title": "Earth Foundation",
   "FIVEELEMENTS-EARTH_WARD.description": "When [gold]Retained[/gold], reduce its cost by {Energy:energyIcons()} and its [gold]Block[/gold] by {ReductionOnRetain} until played.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}",
   "FIVEELEMENTS-EARTH_WARD.title": "Earth Ward",
