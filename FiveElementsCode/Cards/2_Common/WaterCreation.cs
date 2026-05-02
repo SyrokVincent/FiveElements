@@ -13,14 +13,15 @@ namespace FiveElements.FiveElementsCode.Cards._2_Common;
   
 public sealed class WaterCreation() : WaterCard(1,
     CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+    TargetType.Self,false,false) //removed
 {
     
     protected override bool ShouldGlowGoldInternal => CardElementTag.Water.IsActive(CombatState);
     
     // Gain 1 energy and 2 wave
     // Water: (Gain 1 water essence)
-    //removed innate on upgrade
+    // removed innate on upgrade
+    // test: now double the card effect and exhaust itself if you already have the essence
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1), 
         new PowerVar<WavePower>(2),
@@ -39,17 +40,34 @@ public sealed class WaterCreation() : WaterCard(1,
         CardPlay play)
     {
         if (CombatState == null) return;
-        await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
-        await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
-        if (CardElementTag.Water.IsActive(CombatState))
-        {
-            CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1,choiceContext);
-        }
 
+        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Water) > 0)
+        {
+            await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue*2, Owner);
+            await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue*2);
+        }
+        else
+        {
+            await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
+            await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
+            if (CardElementTag.Water.IsActive(CombatState))
+            {
+                CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1,choiceContext);
+            }
+        }
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars["WavePower"].UpgradeValueBy(2);
     }
+    
+    //this shit is called before onplay
+    //change the pile to exhaust if you have the corresponding essence
+    protected override PileType GetResultPileType()
+    {
+        PileType resultPileType = base.GetResultPileType();
+        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Water) > 0) ? PileType.Exhaust : resultPileType;
+    }
+    
 }

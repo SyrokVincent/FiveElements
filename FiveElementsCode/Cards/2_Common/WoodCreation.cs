@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -12,7 +13,7 @@ namespace FiveElements.FiveElementsCode.Cards._2_Common;
   
 public sealed class WoodCreation() : WoodCard(1,
     CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+    TargetType.Self,false,false) //removed
 {
     protected override bool ShouldGlowGoldInternal => CardElementTag.Wood.IsActive(CombatState);
     
@@ -39,17 +40,34 @@ public sealed class WoodCreation() : WoodCard(1,
         CardPlay play)
     {
         if (CombatState == null) return;
-        await CommonActions.Draw(this, choiceContext);
-        await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
-        if (CardElementTag.Wood.IsActive(this.CombatState))
+        
+        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Wood) > 0)
         {
-            CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1,choiceContext);
+            await CardPileCmd.Draw(choiceContext, this.DynamicVars.Cards.BaseValue*2, this.Owner);
+            await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue*2);
         }
-
+        else
+        {
+            await CommonActions.Draw(this, choiceContext);
+            await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
+            if (CardElementTag.Wood.IsActive(this.CombatState))
+            {
+                CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1,choiceContext);
+            }
+        }
+        
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars["SurgePower"].UpgradeValueBy(1);
+    }
+    
+    //this shit is called before onplay
+    //change the pile to exhaust if you have the corresponding essence
+    protected override PileType GetResultPileType()
+    {
+        PileType resultPileType = base.GetResultPileType();
+        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Wood) > 0) ? PileType.Exhaust : resultPileType;
     }
 }

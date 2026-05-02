@@ -42,7 +42,7 @@
   "FIVEELEMENTS-ISOLATION.title": "Isolation",
   "FIVEELEMENTS-MORE_OR_LESS.description": "Choose between\n{IfUpgraded:show:[gold]More+[/gold]|[gold]More[/gold]} or {IfUpgraded:show:[gold]Less+[/gold]|[gold]Less[/gold]} to add into your [gold]Hand[/gold].",
   "FIVEELEMENTS-MORE_OR_LESS.title": "More or Less",
-  "FIVEELEMENTS-ABSORPTION.description": "Consume all [gold]Essence[/gold], gain {Energy:energyIcons()} for each.{InCombat:\nYou will gain {EnergyGained:diff()}.|}",
+  "FIVEELEMENTS-ABSORPTION.description": "Gain {Energy:energyIcons()} for each [gold]Essence[/gold] you have.{InCombat:\nYou will gain {EnergyGained:diff()}.|}",
   "FIVEELEMENTS-ABSORPTION.title": "Absorption",
   "FIVEELEMENTS-INCANTATION.description": "At the start of your turn, add a [gold]Fulu[/gold] into your [gold]Hand[/gold].",
   "FIVEELEMENTS-INCANTATION.title": "Incantation",
@@ -67,11 +67,13 @@
   "FIVEELEMENTS-DOMINATION.selectionScreenPrompt": "Choose a card to Dominate.",
   "FIVEELEMENTS-DOMINATION.description": "Choose a card in your [gold]Hand[/gold] that [gold]Echo[/gold] [gold]Dominate[/gold].\n[gold]Transform[/gold] it into the last card played and play it for free.",
   "FIVEELEMENTS-DOMINATION.title": "Domination",
-  
-  
-  
-  "FIVEELEMENTS-WATER_CREATION.description": "Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain 1 [gold]Water Essence[/gold].|{off_s}Water : Gain 1 Water Essence.{off_e}}",
+
+
+
+  "FIVEELEMENTS-WATER_CREATION.description": "Gain {WavePower:diff()} [gold]Wave[/gold] and {Energy:energyIcons()}.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain [gold]Water Essence[/gold], or if you have it double this card effect and [gold]Exhaust[/gold] it.|{off_s}Water : Gain Water Essence, or if you have it double this card effect and Exhaust it.{off_e}}",
   "FIVEELEMENTS-WATER_CREATION.title": "Water Creation",
+  "FIVEELEMENTS-WATER_SOURCE.description": "Gain {WavePower:diff()} [gold]Wave[/gold].\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Costs 1 less.|{off_s}Water : Costs 1 less.{off_e}}",
+  "FIVEELEMENTS-WATER_SOURCE.title": "Water Source",
   "FIVEELEMENTS-WATER_BUBBLE.description": "Gain {Block:diff()} [gold]Block[/gold] and {WavePower:diff()} [gold]Wave[/gold].\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Costs 0.|{off_s}Water : Costs 0.{off_e}}",
   "FIVEELEMENTS-WATER_BUBBLE.title": "Water Bubble",
   "FIVEELEMENTS-WATER_MARK.description": "Apply {WeakPower:diff()} [gold]Weak[/gold] to ALL enemies.\n{isWaterOn:cond:>0?{water_s}Water{water_e} : Next turn, Add {WaterDropNextTurnPower:diff()} [gold]Water Drop[/gold] into your [gold]Hand[/gold].|{off_s}Water : Next turn, Add {WaterDropNextTurnPower:diff()} Water Drop into your Hand.{off_e}}",
@@ -99,8 +101,10 @@
   
   
   
-  "FIVEELEMENTS-WOOD_CREATION.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nGain {SurgePower:diff()} [gold]Surge[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Gain 1 [gold]Wood Essence[/gold].|{off_s}Wood : Gain 1 Wood Essence.{off_e}}",
+  "FIVEELEMENTS-WOOD_CREATION.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nGain {SurgePower:diff()} [gold]Surge[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Gain [gold]Wood Essence[/gold], or if you have it double this card effect and [gold]Exhaust[/gold] it.|{off_s}Wood : Gain Wood Essence, or if you have it double this card effect and Exhaust it.{off_e}}",
   "FIVEELEMENTS-WOOD_CREATION.title": "Wood Creation",
+  "FIVEELEMENTS-WOOD_CHOP.description": "Deal {Damage:diff()} damage.\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Draw {Cards:diff()} {Cards:plural:card|cards} and gain {SurgePower:diff()} [gold]Surge[/gold].|{off_s}Wood : Draw {Cards:diff()} {Cards:plural:card|cards} and gain {SurgePower:diff()} Surge.{off_e}}",
+  "FIVEELEMENTS-WOOD_CHOP.title": "Wood Chop",
   "FIVEELEMENTS-WOOD_BARK.description": "Gain {CalculatedBlock:diff()} [gold]Block[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : [gold]Block[/gold] of this card also scale with [gold]Strength[/gold].|{off_s}Wood : Block of this card also scale with Strength.{off_e}}",
   "FIVEELEMENTS-WOOD_BARK.title": "Wood Bark",
   "FIVEELEMENTS-WOOD_FANGS.description": "Deal {CalculatedDamage:diff()} damage twice.\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Double damage if the enemy has [gold]Block[/gold].|{off_s}Wood : Double damage if the enemy has Block.{off_e}}",
@@ -131,8 +135,10 @@
   
   
   
-  "FIVEELEMENTS-FIRE_CREATION.description": "Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Gain 1 [gold]Fire Essence[/gold].|{off_s}Fire : Gain 1 Fire Essence.{off_e}}",
+  "FIVEELEMENTS-FIRE_CREATION.description": "Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Gain [gold]Fire Essence[/gold], or if you have it double this card effect and [gold]Exhaust[/gold] it.|{off_s}Fire : Gain Fire Essence, or if you have it double this card effect and Exhaust it.{off_e}}",
   "FIVEELEMENTS-FIRE_CREATION.title": "Fire Creation",
+  "FIVEELEMENTS-FIRE_PROTECTION.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]{IfUpgraded:show:Fire Plume|Fire Plume}[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} {IfUpgraded:show:Fire Plume|Fire Plume} into your Hand.{off_e}}",
+  "FIVEELEMENTS-FIRE_PROTECTION.title": "Fire Protection",
   "FIVEELEMENTS-FIRE_NOVA.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|{off_s}Fire : Apply {BurnPower:diff()} Burn to all enemies.{off_e}}",
   "FIVEELEMENTS-FIRE_NOVA.title": "Fire Nova",
   "FIVEELEMENTS-FIRE_TOUCH.description": "[gold]Exhaust[/gold] a card.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]{IfUpgraded:show:Fire Plume|Fire Plume}[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} {IfUpgraded:show:Fire Plume|Fire Plume} into your Hand.{off_e}}",
@@ -160,8 +166,11 @@
   
   
   
-  "FIVEELEMENTS-EARTH_CREATION.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain 1 [gold]Earth Essence[/gold].|{off_s}Earth : Gain 1 Earth Essence.{off_e}}",
+  "FIVEELEMENTS-EARTH_CREATION.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain [gold]Earth Essence[/gold], or if you have it double this card effect and [gold]Exhaust[/gold] it.|{off_s}Earth : Gain Earth Essence, or if you have it double this card effect and Exhaust it.{off_e}}",
   "FIVEELEMENTS-EARTH_CREATION.title": "Earth Creation",
+  "FIVEELEMENTS-EARTH_FOUNDATION.selectionScreenPrompt": "Choose a card to [gold]Retain[/gold] this turn.",
+  "FIVEELEMENTS-EARTH_FOUNDATION.description": "Deal {Damage:diff()} damage.\nChoose a card in [gold]Hand[/gold] to [gold]Retain[/gold] this turn.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}",
+  "FIVEELEMENTS-EARTH_FOUNDATION.title": "Earth Foundation",
   "FIVEELEMENTS-EARTH_WARD.description": "When [gold]Retained[/gold], reduce its cost by {Energy:energyIcons()} and its [gold]Block[/gold] by {ReductionOnRetain} until played.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {Block:diff()} [gold]Block[/gold].|{off_s}Earth : Gain {Block:diff()} Block.{off_e}}",
   "FIVEELEMENTS-EARTH_WARD.title": "Earth Ward",
   "FIVEELEMENTS-EARTH_CROWN.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {CalculatedBlock:diff()} [gold]Block[/gold] next turn, gains {CalculationExtra:diff()} additional [gold]Block[/gold] for each {earth_s}Earth{earth_e} card played this turn.|{off_s}Earth : Gain {CalculatedBlock:diff()} Block next turn, gains {CalculationExtra:diff()} additional Block for each Earth card played this turn.{off_e}}",
@@ -192,8 +201,10 @@
   "FIVEELEMENTS-EARTH_SHIELD.title": "Earth Shield",
   
   
-  "FIVEELEMENTS-METAL_CREATION.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold].\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain 1 [gold]Metal Essence[/gold].|{off_s}Metal : Gain 1 Metal Essence.{off_e}}",
+  "FIVEELEMENTS-METAL_CREATION.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold].\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain [gold]Metal Essence[/gold], or if you have it double this card effect and [gold]Exhaust[/gold] it.|{off_s}Metal : Gain Metal Essence, or if you have it double this card effect and [gold]Exhaust[/gold] it.{off_e}}",
   "FIVEELEMENTS-METAL_CREATION.title": "Metal Creation",
+  "FIVEELEMENTS-METAL_MUSCLE.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain {VigorPower:diff()} [gold]Vigor[/gold].|{off_s}Metal : Gain {VigorPower:diff()} Vigor.{off_e}}",
+  "FIVEELEMENTS-METAL_MUSCLE.title": "Metal Muscle",
   "FIVEELEMENTS-METAL_BLADE.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Gain [gold]Vigor[/gold] equal to half of damage dealt.|{off_s}Metal : Gain Vigor equal to half of damage dealt.{off_e}}",
   "FIVEELEMENTS-METAL_BLADE.title": "Metal Blade",  
   "FIVEELEMENTS-METAL_MARK.selectionScreenPrompt": "Choose a card to put on top of your Draw Pile.",

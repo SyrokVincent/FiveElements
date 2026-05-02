@@ -16,8 +16,9 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
     
     public override Material? CreateCustomFrameMaterial => FireShader;
     
-    protected FireCard(int cost, CardType type, CardRarity rarity, TargetType target) 
-        : base(cost, type, rarity, target)
+    protected FireCard(int cost, CardType type, CardRarity rarity, TargetType target,
+        bool showInCardLibrary = true, bool autoAdd = true) 
+        : base(cost, type, rarity, target, showInCardLibrary, autoAdd)
     {
         CanonicalElementTags = [CardElementTag.Fire];
     }   

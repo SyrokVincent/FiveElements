@@ -5,12 +5,12 @@
   "FIVEELEMENTS-RELIC1.title": "Apprentice Tome",
 
 
-  "FIVEELEMENTS-RELIC2.description": "At the start of each combat, add [gold]Creation+[/gold] into your hand.\nTrigger the corresponding effect on the card [gold]Activation[/gold] when you gain an [gold]Essence[/gold].",
+  "FIVEELEMENTS-RELIC2.description": "At the start of each combat, add 2 [gold]Creation+[/gold] into your hand.\nTrigger the corresponding effect on the card [gold]Activation[/gold] when you gain an [gold]Essence[/gold].",
   "FIVEELEMENTS-RELIC2.flavor": "",
   "FIVEELEMENTS-RELIC2.title": "Master Tome",
 
   "FIVEELEMENTS-RELIC3.selectionScreenPrompt": "Select the [gold]Element[/gold] you want the relic to be.",
-  "FIVEELEMENTS-RELIC3.description": "{Element:cond:=0?Upon pickup, choose a card from your deck to choose the [gold]Element[/gold] of this relic.\n|}At the start of each combat and every {Turns} turns, gain {Essence} {Element:cond:=1?[gold]Water[/gold] |=2?[gold]Wood[/gold] |=3?[gold]Fire[/gold] |=4?[gold]Earth[/gold] |=5?[gold]Metal[/gold] |}[gold]Essence[/gold]{Element:cond:=0? of the selected [gold]Element[/gold]|}.",
+  "FIVEELEMENTS-RELIC3.description": "{Element:cond:=0?Upon pickup, choose a card from your deck to choose the [gold]Element[/gold] of this relic.\n|}At the start of each combat gain {Element:cond:=1?[gold]Water[/gold] |=2?[gold]Wood[/gold] |=3?[gold]Fire[/gold] |=4?[gold]Earth[/gold] |=5?[gold]Metal[/gold] |the }[gold]Essence[/gold]{Element:cond:=0? of the selected [gold]Element[/gold]|}.",
   "FIVEELEMENTS-RELIC3.flavor": "",
   "FIVEELEMENTS-RELIC3.title": "Soul",
   "ELEMENT-WATER": "Water {Title}",

@@ -21,6 +21,7 @@ namespace FiveElements.FiveElementsCode.Relics;
 public sealed class Relic2() : StarterRelicLogic
 {
     // add 1 creation+ in hand at combat start, gain corresponding activation effect when gaining essence
+    // increased to 2 creation+
     public override RelicRarity Rarity => RelicRarity.Starter;
     
     //First turn add Creation+ in hand. Trigger corresponding effect on activation when you gain essence
@@ -56,7 +57,7 @@ public sealed class Relic2() : StarterRelicLogic
         if (player == Owner && player.Creature.CombatState is { RoundNumber: 1 })
         {
             //ajout de la carte
-            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1,true, combatState);
+            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 2,true, combatState);
             await Task.CompletedTask;
         }
     }

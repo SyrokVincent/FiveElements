@@ -10,8 +10,9 @@ public abstract class WaterCard : FiveElementsCard, IOnWaterStateChanged
 {
     public override Material? CreateCustomFrameMaterial => WaterShader;
     
-    protected WaterCard(int cost, CardType type, CardRarity rarity, TargetType target) 
-        : base(cost, type, rarity, target)
+    protected WaterCard(int cost, CardType type, CardRarity rarity, TargetType target,
+        bool showInCardLibrary = true, bool autoAdd = true)
+        : base(cost, type, rarity, target, showInCardLibrary, autoAdd)
     {
         CanonicalElementTags = [CardElementTag.Water];
     }

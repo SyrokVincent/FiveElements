@@ -13,6 +13,7 @@ public sealed class Absorption() : NeutralCard(0,
 {
     
     //Exhaust, consume all "Essence", gain 1 energy for each
+    // no longer consume essence
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new EnergyVar(1),
         new CalculationBaseVar(0),
@@ -43,7 +44,7 @@ public sealed class Absorption() : NeutralCard(0,
         {
             var essencesCount = CombatState.GetElementalStatus().GetTotalEssenceCount();
             await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue * essencesCount, Owner);
-            CombatState.GetElementalStatus().ResetAllEssences();
+            //CombatState.GetElementalStatus().ResetAllEssences();
         }
     }
 

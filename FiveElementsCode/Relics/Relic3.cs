@@ -22,7 +22,8 @@ namespace FiveElements.FiveElementsCode.Relics;
 [Pool(typeof(FiveElementsRelicPool))]
 public sealed class Relic3() : FiveElementsRelic
 {
-    // select an element from a card in deck, the relic will give it's essence on combat start and every 5 turn
+    // select an element from a card in deck, the relic will give it's essence on combat start
+    // removed every 5 turn
     public override RelicRarity Rarity => RelicRarity.Common;
     
     public override bool HasUponPickupEffect => true;
@@ -88,7 +89,7 @@ public sealed class Relic3() : FiveElementsRelic
         }
     }
     
-    
+    /* // I'm just hiding the counter for if I ever need it back
     // Affiche le compteur seulement si un combat est en cours
     public override bool ShowCounter => CombatManager.Instance.IsInProgress;
     
@@ -96,7 +97,7 @@ public sealed class Relic3() : FiveElementsRelic
     public override int DisplayAmount => _isActivating 
         ? DynamicVars["Turns"].IntValue 
         : Counter;
-    
+    */
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DynamicVar("Essence",1), 
@@ -117,7 +118,8 @@ public sealed class Relic3() : FiveElementsRelic
     public override Task BeforeCombatStart()
     {
         // On commence à turn - 1 pour que le tour 1 soit le premier incrément
-        Counter = DynamicVars["Turns"].IntValue-1;
+        //Counter = DynamicVars["Turns"].IntValue-1;
+        Counter = -1;
         DynamicVars["Element"].BaseValue = (int)MyElementTag;
         Status = RelicStatus.Normal;
         return Task.CompletedTask;
@@ -130,10 +132,11 @@ public sealed class Relic3() : FiveElementsRelic
         
         if (MyElementTag == CardElementTag.Neutral) return;
 
+        // just in case I need it back the counter
         int maxTurns = DynamicVars["Turns"].IntValue;
-        
         // Incrémentation et modulo
-        Counter = (Counter + 1) % maxTurns;
+        //Counter = (Counter + 1) % maxTurns;
+        Counter = (Counter + 1);
 
         // Si on est au tour précédant le bonus, on fait briller la relique
         Status = (Counter == maxTurns - 1) ? RelicStatus.Active : RelicStatus.Normal;

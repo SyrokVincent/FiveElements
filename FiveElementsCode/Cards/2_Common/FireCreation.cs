@@ -12,7 +12,7 @@ namespace FiveElements.FiveElementsCode.Cards._2_Common;
   
 public sealed class FireCreation() : FireCard(1,
     CardType.Skill, CardRarity.Common,
-    TargetType.AllEnemies)
+    TargetType.AllEnemies,false,false) //removed
 {
     protected override bool ShouldGlowGoldInternal => CardElementTag.Fire.IsActive(CombatState);
     
@@ -37,20 +37,36 @@ public sealed class FireCreation() : FireCard(1,
     {
         if (CombatState == null) return;
         
-        
-        var targets = CombatState.HittableEnemies;
-        await PowerCmd.Apply<BurnPower>(choiceContext, targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
-    
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Fire) > 0)
         {
-           CombatState.GetElementalStatus().AddEssence(CardElementTag.Fire, 1,choiceContext);
+            var targets = CombatState.HittableEnemies;
+            await PowerCmd.Apply<BurnPower>(choiceContext, targets, this.DynamicVars["BurnPower"].BaseValue*2, this.Owner.Creature, this);
         }
+        else
+        {
+            var targets = CombatState.HittableEnemies;
+            await PowerCmd.Apply<BurnPower>(choiceContext, targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
+    
+            if (CardElementTag.Fire.IsActive(CombatState))
+            {
+                CombatState.GetElementalStatus().AddEssence(CardElementTag.Fire, 1,choiceContext);
+            }
+        }
+        
 
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars["BurnPower"].UpgradeValueBy(2);
+    }
+    
+    //this shit is called before onplay
+    //change the pile to exhaust if you have the corresponding essence
+    protected override PileType GetResultPileType()
+    {
+        PileType resultPileType = base.GetResultPileType();
+        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Fire) > 0) ? PileType.Exhaust : resultPileType;
     }
     
 }

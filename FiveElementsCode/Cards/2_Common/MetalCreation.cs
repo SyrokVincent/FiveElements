@@ -12,7 +12,7 @@ namespace FiveElements.FiveElementsCode.Cards._2_Common;
   
 public sealed class MetalCreation() : MetalCard(1,
     CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+    TargetType.Self,false,false) //removed
 {
     protected override bool ShouldGlowGoldInternal => CardElementTag.Metal.IsActive(CombatState);
     
@@ -38,10 +38,17 @@ public sealed class MetalCreation() : MetalCard(1,
     {
         if (CombatState == null) return;
         
-        await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue);
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Metal) > 0)
         {
-            CombatState.GetElementalStatus().AddEssence(CardElementTag.Metal, 1,choiceContext);
+            await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue*2);
+        }
+        else
+        {
+            await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue);
+            if (CardElementTag.Metal.IsActive(CombatState))
+            {
+                CombatState.GetElementalStatus().AddEssence(CardElementTag.Metal, 1,choiceContext);
+            }
         }
 
     }
@@ -49,6 +56,14 @@ public sealed class MetalCreation() : MetalCard(1,
     protected override void OnUpgrade()
     {
         DynamicVars["VigorPower"].UpgradeValueBy(2);
+    }
+    
+    //this shit is called before onplay
+    //change the pile to exhaust if you have the corresponding essence
+    protected override PileType GetResultPileType()
+    {
+        PileType resultPileType = base.GetResultPileType();
+        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0) ? PileType.Exhaust : resultPileType;
     }
     /*
     public override async Task OnElementStateChanged(CardElementTag element, bool isActive)

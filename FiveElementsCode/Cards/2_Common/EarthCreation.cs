@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -11,7 +12,7 @@ namespace FiveElements.FiveElementsCode.Cards._2_Common;
   
 public sealed class EarthCreation() : EarthCard(1,
     CardType.Skill, CardRarity.Common,
-    TargetType.Self)
+    TargetType.Self,false,false) //removed
 {
     
     //I think it's needed for enchantment?
@@ -36,10 +37,17 @@ public sealed class EarthCreation() : EarthCard(1,
     {
         if (CombatState == null) return;
         
-        await CommonActions.CardBlock(this, play);
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0)
         {
-            CombatState.GetElementalStatus().AddEssence(CardElementTag.Earth, 1,choiceContext);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue*2, DynamicVars.Block.Props, play);
+        }
+        else
+        {
+            await CommonActions.CardBlock(this, play);
+            if (CardElementTag.Earth.IsActive(CombatState))
+            {
+                CombatState.GetElementalStatus().AddEssence(CardElementTag.Earth, 1,choiceContext);
+            }
         }
 
     }
@@ -47,5 +55,13 @@ public sealed class EarthCreation() : EarthCard(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(3);
+    }
+    
+    //this shit is called before onplay
+    //change the pile to exhaust if you have the corresponding essence
+    protected override PileType GetResultPileType()
+    {
+        PileType resultPileType = base.GetResultPileType();
+        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0) ? PileType.Exhaust : resultPileType;
     }
 }
