@@ -39,10 +39,9 @@ public sealed class FireStorm() : FireCard(2,
         CardPlay play)
     {
         if (CombatState == null) return;
-        foreach (var hittableEnemy in CombatState.HittableEnemies)
-        {
-            await DealHeatDamage(choiceContext, hittableEnemy, DynamicVars.Damage);
-        }
+        
+        await DealHeatDamageAoe(choiceContext, DynamicVars.Damage);
+        
         if (CardElementTag.Fire.IsActive(CombatState))
         {
             //await CardCmd.Exhaust(choiceContext, this);

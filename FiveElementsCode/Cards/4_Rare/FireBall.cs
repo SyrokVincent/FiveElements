@@ -57,10 +57,9 @@ public sealed class FireBall() : FireCard(10,
         CardPlay play)
     {
         if (CombatState == null) return;
-        foreach (var hittableEnemy in CombatState.HittableEnemies)
-        {
-            await DealHeatDamage(choiceContext, hittableEnemy, DynamicVars.CalculatedDamage);
-        }
+       
+        await DealHeatDamageAoe(choiceContext, DynamicVars.CalculatedDamage);
+        
     }
 
     protected override void OnUpgrade()

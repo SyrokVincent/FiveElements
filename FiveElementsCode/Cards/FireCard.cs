@@ -43,7 +43,7 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
     ]);
     
     
-    protected async Task<int> DealHeatDamage(PlayerChoiceContext choiceContext, Creature? target, CalculatedDamageVar damage)
+    protected async Task DealHeatDamage(PlayerChoiceContext choiceContext, Creature? target, CalculatedDamageVar damage)
     {
         ArgumentNullException.ThrowIfNull(target);
 
@@ -53,19 +53,19 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
             .Targeting(target)
             .Execute(choiceContext);
 
-        // Calcul des dégâts non bloqués
-        int unblockedDamage = attackResult.Results.Sum(r => r.UnblockedDamage);
-
-        // Application du Burn si dégâts > 0
-        if (unblockedDamage > 0)
+         
+        // On boucle sur les résultats pour appliquer le Burn individuellement
+        foreach (var result in attackResult.Results)
         {
-            await CommonActions.Apply<BurnPower>(target, this, unblockedDamage);
+            if (result.UnblockedDamage > 0)
+            {
+                // result.Target est la créature qui a reçu les dégâts
+                await CommonActions.Apply<BurnPower>(choiceContext, result.Receiver, this, result.UnblockedDamage);
+            }
         }
-
-        return unblockedDamage; // On retourne la valeur au cas où la carte en ait besoin pour autre chose
     }
     
-    protected async Task<int> DealHeatDamage(PlayerChoiceContext choiceContext, Creature? target, DamageVar damageVar)
+    protected async Task DealHeatDamage(PlayerChoiceContext choiceContext, Creature? target, DamageVar damageVar)
     {
         // Sécurité : Vérifie que la cible existe
         ArgumentNullException.ThrowIfNull(target);
@@ -76,15 +76,65 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
             .Targeting(target)
             .Execute(choiceContext);
 
-        // Calcul des dégâts non bloqués
-        int unblockedDamage = attackResult.Results.Sum(r => r.UnblockedDamage);
-
-        // Application du Burn si dégâts > 0
-        if (unblockedDamage > 0)
+        
+        // On boucle sur les résultats pour appliquer le Burn individuellement
+        foreach (var result in attackResult.Results)
         {
-            await CommonActions.Apply<BurnPower>(target, this, unblockedDamage);
+            if (result.UnblockedDamage > 0)
+            {
+                // result.Target est la créature qui a reçu les dégâts
+                await CommonActions.Apply<BurnPower>(choiceContext, result.Receiver, this, result.UnblockedDamage);
+            }
         }
-
-        return unblockedDamage; // On retourne la valeur au cas où la carte en ait besoin pour autre chose
     }
+    
+    
+    protected async Task DealHeatDamageAoe(PlayerChoiceContext choiceContext, CalculatedDamageVar damage)
+    {
+        // Exécution de l'attaque
+        if (CombatState != null)
+        {
+            var attackResult = await DamageCmd.Attack(damage)
+                .FromCard(this)
+                .TargetingAllOpponents(CombatState)
+                .Execute(choiceContext);
+
+         
+            // On boucle sur les résultats pour appliquer le Burn individuellement
+            foreach (var result in attackResult.Results)
+            {
+                if (result.UnblockedDamage > 0)
+                {
+                    // result.Target est la créature qui a reçu les dégâts
+                    await CommonActions.Apply<BurnPower>(choiceContext, result.Receiver, this, result.UnblockedDamage);
+                }
+            }
+        }
+    }
+    
+    
+    protected async Task DealHeatDamageAoe(PlayerChoiceContext choiceContext, DamageVar damageVar)
+    {
+
+        // Exécution de l'attaque via le DamageCmd
+        if (CombatState != null)
+        {
+            var attackResult = await DamageCmd.Attack(damageVar.BaseValue)
+                .FromCard(this)
+                .TargetingAllOpponents(CombatState)
+                .Execute(choiceContext);
+
+        
+            // On boucle sur les résultats pour appliquer le Burn individuellement
+            foreach (var result in attackResult.Results)
+            {
+                if (result.UnblockedDamage > 0)
+                {
+                    // result.Target est la créature qui a reçu les dégâts
+                    await CommonActions.Apply<BurnPower>(choiceContext, result.Receiver, this, result.UnblockedDamage);
+                }
+            }
+        }
+    }
+    
 }
