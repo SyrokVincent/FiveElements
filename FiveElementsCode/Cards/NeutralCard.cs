@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 using MegaCrit.Sts2.Core.Rooms;
@@ -86,7 +87,26 @@ public abstract class NeutralCard : FiveElementsCard
 
         return Task.CompletedTask;
     }
-    
+
+    //just after echo reset we update for retained card
+    public override Task AfterTurnEndLate(PlayerChoiceContext choiceContext, CombatSide side)
+    {
+        if (side == CombatSide.Player)
+        {
+            UpdateAttuneAndShift();
+        }
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    {
+        if (card == this && card.Owner == Owner)
+        {
+            UpdateAttuneAndShift();
+        }
+        return Task.CompletedTask;
+    }
+
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         if (player == Owner)
