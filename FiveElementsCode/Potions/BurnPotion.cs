@@ -21,7 +21,6 @@ public sealed class BurnPotion :FiveElementsPotion
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.AllEnemies;
     
-    // Définition des variables dynamiques (Dégâts affichés dans la description)
     protected override IEnumerable<DynamicVar> CanonicalVars
     {
         get
@@ -30,7 +29,6 @@ public sealed class BurnPotion :FiveElementsPotion
         }
     }
     
-    // Ajoute l'infobulle du Poison automatiquement
     public override IEnumerable<IHoverTip> ExtraHoverTips
     {
         get
@@ -62,28 +60,9 @@ public sealed class BurnPotion :FiveElementsPotion
             // --- PHASE 3 : Application des dégâts ---
             // On inflige les dégâts à tous les ennemis
            
-            await PowerCmd.Apply<BurnPower>(choiceContext,targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
+            await PowerCmd.Apply<BurnPower>(choiceContext, targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
             //await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
             
-        }
-    }
-    
-    
-    public override string CustomPackedImagePath
-    {
-        get
-        {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
-            return ResourceLoader.Exists(path) ? path : "power.png".PowerImagePath();
-        }
-    }
-    
-    public override string CustomPackedOutlinePath
-    {
-        get
-        {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
-            return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
         }
     }
 }

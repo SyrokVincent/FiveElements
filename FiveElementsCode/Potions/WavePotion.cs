@@ -38,26 +38,9 @@ public sealed class WavePotion :FiveElementsPotion
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {
         //todo some animation stolen from other potion    
-        if (target != null) await CommonActions.Apply<WavePower>(target, null, DynamicVars["WavePower"].BaseValue);
+        if (target != null) await CommonActions.Apply<WavePower>(choiceContext, target, null, DynamicVars["WavePower"].BaseValue);
     }
     
     
-    public override string CustomPackedImagePath
-    {
-        get
-        {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
-            return ResourceLoader.Exists(path) ? path : "power.png".PowerImagePath();
-        }
-    }
-    
-    public override string CustomPackedOutlinePath
-    {
-        get
-        {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
-            return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
-        }
-    }
 }
 

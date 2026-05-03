@@ -42,23 +42,5 @@ public sealed class CreationPotion :FiveElementsPotion
             await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1, false, Owner.Creature.CombatState);
     }
     
-    
-    public override string CustomPackedImagePath
-    {
-        get
-        {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
-            return ResourceLoader.Exists(path) ? path : "power.png".PowerImagePath();
-        }
-    }
-    
-    public override string CustomPackedOutlinePath
-    {
-        get
-        {
-            var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
-            return ResourceLoader.Exists(path) ? path : "power.png".BigPowerImagePath();
-        }
-    }
 }
 
