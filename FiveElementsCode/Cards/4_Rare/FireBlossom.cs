@@ -44,9 +44,9 @@ public sealed class FireBlossom() : FireCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Fire),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromPower<BurnPower>(),
     ];
 

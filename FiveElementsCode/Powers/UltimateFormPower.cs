@@ -20,8 +20,8 @@ public sealed class UltimateFormPower : FiveElementsPower
 
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromCard<Activation>(),
     ];
     

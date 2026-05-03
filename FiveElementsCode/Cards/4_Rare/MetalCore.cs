@@ -51,9 +51,9 @@ public sealed class MetalCore() : MetalCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromPower<VigorPower>(),
     ];
 

@@ -63,9 +63,9 @@ public sealed class Less() : NeutralCard(1,
     ]);
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
     ]);
 
     protected override async Task OnPlay(

@@ -28,8 +28,8 @@ public sealed class Fulu() : NeutralCard(0,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
     ]); 
 
 

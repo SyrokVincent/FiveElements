@@ -31,9 +31,9 @@ public sealed class Decimation() : NeutralCard(5,
 
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(CardKeyword.Retain),
     ]);
 

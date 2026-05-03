@@ -56,8 +56,8 @@ public sealed class Domination() : NeutralCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Dominate),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         //HoverTipFactory.FromPower<WavePower>(),
     ]);
     

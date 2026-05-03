@@ -30,8 +30,8 @@ public sealed class WoodFulu() : WoodCard(0,
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromPower<SurgePower>(),
     ];
     

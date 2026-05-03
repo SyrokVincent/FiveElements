@@ -22,8 +22,8 @@ public sealed class EchoFormation() : NeutralCard(2,
     ]);
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(CardKeyword.Retain),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
+        HoverTipFactory.FromKeyword(CardKeyword.Retain),
     ]);
 
     protected override async Task OnPlay(

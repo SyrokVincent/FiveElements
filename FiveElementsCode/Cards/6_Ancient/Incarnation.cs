@@ -65,10 +65,9 @@ public sealed class Incarnation() : NeutralCard(0,
             };
             if (IsInCombat)
             {
-
-                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo));
                 tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Element));
                 tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate));
+                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo));
             }
             if (IsUpgraded)
             {

@@ -31,8 +31,8 @@ public abstract class EarthCard : FiveElementsCard, IOnEarthStateChanged
     
     //need to overide for card that don't have Element:
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Earth),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
     ]);
     
 }

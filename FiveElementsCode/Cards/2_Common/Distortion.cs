@@ -42,8 +42,8 @@ public sealed class Distortion() : NeutralCard(1,
         {
             // 1. On commence par le mot-clé Echo qui est toujours présent
             yield return HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift); //just to put it in front
-            yield return HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo);
             yield return HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate);
+            yield return HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo);
 
             // 2. Si on est en combat, on adapte l'aperçu de la carte
             if (CombatState != null)

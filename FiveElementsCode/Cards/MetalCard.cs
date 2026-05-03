@@ -33,8 +33,8 @@ public abstract class MetalCard : FiveElementsCard, IOnMetalStateChanged
     
     //need to overide for card that don't have Element:
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Metal),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
     ]);
     
 }

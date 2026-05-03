@@ -34,8 +34,8 @@ public sealed class EarthFulu() : EarthCard(0,
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Shift),
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
     ];
     
     //change element when a card is played

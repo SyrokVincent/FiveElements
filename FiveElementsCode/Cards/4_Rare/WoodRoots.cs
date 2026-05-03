@@ -60,9 +60,9 @@ public sealed class WoodRoots() : WoodCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Water),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Wood),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
         HoverTipFactory.FromPower<WavePower>(),
         HoverTipFactory.FromPower<SurgePower>(),
         HoverTipFactory.FromPower<StrengthPower>(),
