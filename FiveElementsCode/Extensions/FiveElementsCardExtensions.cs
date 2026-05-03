@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Hooks;
 using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -280,6 +281,20 @@ public static class FiveElementsCardExtensions
             CardElementTag.Water => "水", //
             _ => "" 
         };
+    }
+    
+    public static Color GetTrailColor(this CardModel card, Creature owner)
+    {
+        // On vérifie les éléments dans l'ordre de tes priorités
+        if (card.CountAsElement(CardElementTag.Water, owner)) return new Color(FiveElementsColor.WaterColor);
+        if (card.CountAsElement(CardElementTag.Wood, owner)) return new Color(FiveElementsColor.WoodColor);
+        if (card.CountAsElement(CardElementTag.Fire, owner)) return new Color(FiveElementsColor.FireColor);
+        if (card.CountAsElement(CardElementTag.Earth, owner)) return new Color(FiveElementsColor.EarthColor);
+        if (card.CountAsElement(CardElementTag.Metal, owner)) return new Color(FiveElementsColor.MetalColor);
+
+        // Couleur par défaut (Neutre / Jeu de base sans buff)
+        // On utilise un gris moyen/clair pour que ce soit visible malgré le mode additif
+        return new Color(0.3f, 0.3f, 0.3f); 
     }
     
 

@@ -105,6 +105,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="scenes\combat\card_trail\card_trail_sage.tscn" />
       <Content Include="scenes\combat\energy_counters\elements_counter.tscn" />
       <Content Include="scenes\combat\energy_counters\essence_counter.tscn" />
       <Content Include="scenes\combat\energy_counters\sage_energy_counter.gdshader" />

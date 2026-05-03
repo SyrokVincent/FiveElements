@@ -21,7 +21,7 @@ public class FiveElements : PlaceholderCharacterModel
 {
     public override string CustomTrailPath
     {
-        get => SceneHelper.GetScenePath("vfx/card_trail_" + this.PlaceholderID);
+        get => SceneHelper.GetScenePath("combat/card_trail/card_trail_sage");
     }
     
     

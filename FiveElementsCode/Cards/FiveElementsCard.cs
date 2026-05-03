@@ -37,7 +37,6 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         new StringVar("off_e", "[/color]" ),
     ];
     
-    
     /*
     protected FiveElementsCard(int cost, CardType type, CardRarity rarity, TargetType target, CardElementTag elem):
         base(cost, type, rarity, target)
