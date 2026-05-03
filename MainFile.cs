@@ -25,8 +25,5 @@ public class MainFile
         harmony.Unpatch(targetMethod, HarmonyPatchType.Prefix, "BaseLib");
         
         harmony.PatchAll();
-        
-        // AJOUTE CETTE LIGNE ICI :
-        FiveElements.FiveElementsCode.Patches.ShuffleVisualManager.ApplyManualPatches(harmony);
     }
 }

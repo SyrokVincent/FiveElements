@@ -294,7 +294,7 @@ public static class FiveElementsCardExtensions
 
         // Couleur par défaut (Neutre / Jeu de base sans buff)
         // On utilise un gris moyen/clair pour que ce soit visible malgré le mode additif
-        return new Color(0.3f, 0.3f, 0.3f); 
+        return new Color(0.05f, 0f, 0.1f);
     }
     
 

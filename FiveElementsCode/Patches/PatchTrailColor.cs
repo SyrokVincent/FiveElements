@@ -1,98 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Linq;
-using System.Reflection;
+using System.Runtime.CompilerServices;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Commands;
 using FiveElements.FiveElementsCode.Extensions;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 
 namespace FiveElements.FiveElementsCode.Patches;
 
 public static class ShuffleVisualManager
 {
-    public static readonly Queue<Color> PendingColors = new();
+    // La réserve qui garantit le bon nombre de couleurs
+    public static readonly List<Color> ColorPool = new();
     public static readonly ConditionalWeakTable<NCardFlyShuffleVfx, object> AssignedColors = new();
-
-    public static void ApplyManualPatches(Harmony harmony)
-    {
-        // On cible la méthode Add qui prend CardModel et CardPile (celle du code source Shuffle)
-        var method1 = AccessTools.Method(typeof(CardPileCmd), "Add", new Type[] { typeof(CardModel), typeof(CardPile) });
-        
-        // On cible AUSSI la version qui prend PileType au cas où (plus sécurisé)
-        var method2 = AccessTools.Method(typeof(CardPileCmd), "Add", new Type[] { typeof(CardModel), typeof(PileType), typeof(CardPilePosition), typeof(AbstractModel), typeof(bool) });
-
-        var prefix = AccessTools.Method(typeof(TrailColorPatches), nameof(TrailColorPatches.PrefixCardPileCmdAddUniversal));
-        
-        if (method1 != null) harmony.Patch(method1, prefix: new HarmonyMethod(prefix));
-        if (method2 != null) harmony.Patch(method2, prefix: new HarmonyMethod(prefix));
-    }
 }
 
 [HarmonyPatch]
 public static class TrailColorPatches
 {
-    // Cette méthode va capturer la couleur peu importe la version de Add appelée
-    public static void PrefixCardPileCmdAddUniversal(CardModel card)
+    // 1. On intercepte le DEBUT du Shuffle pour remplir notre réserve
+    [HarmonyPatch(typeof(CardPileCmd), nameof(CardPileCmd.Shuffle))]
+    [HarmonyPrefix]
+    public static void PrefixCaptureDiscardPool(Player player)
     {
-        // On simplifie : si on ajoute une carte pendant que le jeu est en état de "Shuffle", on prend sa couleur
-        // On peut vérifier si le combat est en cours pour éviter les faux positifs hors combat
-        if (card != null)
+        if (player == null) return;
+
+        CardPile discard = PileType.Discard.GetPile(player);
+        
+        // On vide la réserve précédente
+        ShuffleVisualManager.ColorPool.Clear();
+
+        // On remplit avec EXACTEMENT ce qui est dans la défausse avant qu'elle ne soit vidée
+        foreach (var card in discard.Cards)
         {
-            var owner = card.Owner?.Creature;
-            Color color = card.GetTrailColor(owner);
-            ShuffleVisualManager.PendingColors.Enqueue(color);
+            ShuffleVisualManager.ColorPool.Add(card.GetTrailColor(card.Owner?.Creature));
         }
+
+        // On mélange notre liste de couleurs pour que l'effet visuel soit varié
+        ShuffleVisualManager.ColorPool.Shuffle();
     }
 
+    // 2. Chaque projectile créé par StS2 pioche dans cette réserve
     [HarmonyPatch(typeof(NCardFlyShuffleVfx), nameof(NCardFlyShuffleVfx.Create))]
     [HarmonyPostfix]
-    public static void PostfixShuffleVfxCreate(NCardFlyShuffleVfx __result)
+    public static void PostfixAssignFromPool(NCardFlyShuffleVfx __result)
     {
-        if (__result != null && ShuffleVisualManager.PendingColors.Count > 0)
+        if (__result != null && ShuffleVisualManager.ColorPool.Count > 0)
         {
-            Color color = ShuffleVisualManager.PendingColors.Dequeue();
-            ShuffleVisualManager.AssignedColors.Add(__result, color);
+            // On distribue une couleur de la réserve
+            Color c = ShuffleVisualManager.ColorPool[0];
+            ShuffleVisualManager.ColorPool.RemoveAt(0);
+            
+            ShuffleVisualManager.AssignedColors.Add(__result, c);
         }
     }
 
+    // 3. Application au Trail lors du Ready
     [HarmonyPatch(typeof(NCardTrailVfx), "_Ready")]
     [HarmonyPostfix]
     public static void PostfixTrailReady(NCardTrailVfx __instance)
     {
-        var field = typeof(NCardTrailVfx).GetField("_nodeToFollow", BindingFlags.NonPublic | BindingFlags.Instance);
+        var field = typeof(NCardTrailVfx).GetField("_nodeToFollow", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         var nodeToFollow = field?.GetValue(__instance);
 
-        // Si rien n'est trouvé, on reste sur le gris neutre
-        Color finalColor = new Color(0.3f, 0.3f, 0.3f);
+        // Couleur par défaut si la réserve est vide (ce qui ne devrait pas arriver)
+        Color finalColor = new Color(1, 1, 1); 
 
         if (nodeToFollow is NCard nCard && nCard.Model != null)
         {
+            // Pioche classique
             finalColor = nCard.Model.GetTrailColor(nCard.Model.Owner?.Creature);
         }
         else if (nodeToFollow is NCardFlyShuffleVfx shuffleVfx)
         {
+            // Shuffle
             if (ShuffleVisualManager.AssignedColors.TryGetValue(shuffleVfx, out var stored))
             {
                 finalColor = (Color)stored;
             }
-            else if (ShuffleVisualManager.PendingColors.Count > 0)
-            {
-                // Backup : si la ConditionalWeakTable a raté le lien, on pioche directement
-                finalColor = ShuffleVisualManager.PendingColors.Dequeue();
-            }
         }
 
-        // On force l'application
-        var sprites = __instance.GetNodeOrNull<Node2D>("Sprites");
-        if (sprites != null) sprites.Modulate = finalColor;
+        __instance.GetNodeOrNull<Node2D>("Sprites")?.SetIndexed("modulate", finalColor);
+        __instance.GetNodeOrNull<Node2D>("Trails")?.SetIndexed("modulate", finalColor);
+    }
+}
 
-        var trails = __instance.GetNodeOrNull<Node2D>("Trails");
-        if (trails != null) trails.Modulate = finalColor;
+// Extension pour mélanger la liste de couleurs
+public static class ColorExtensions {
+    private static readonly System.Random _rng = new();
+    public static void Shuffle<T>(this IList<T> list) {
+        int n = list.Count;
+        while (n > 1) {
+            n--;
+            int k = _rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
 }
