@@ -19,7 +19,7 @@ public sealed class WoodSeed() : WoodCard(0,
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
 
     //If this is the first time this card has been played this turn, draw 1 card.
-    //Wood:(Gain 2 Surge)
+    //Wood:(Gain 2(3) Surge)
     //swapped the thing and added limit per turn
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<SurgePower>(2),

@@ -136,17 +136,17 @@
   
   
   
-  "FIVEELEMENTS-FIRE_PROTECTION.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]{IfUpgraded:show:Fire Plume|Fire Plume}[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} {IfUpgraded:show:Fire Plume|Fire Plume} into your Hand.{off_e}}",
+  "FIVEELEMENTS-FIRE_PROTECTION.description": "Gain {Block:diff()} [gold]Block[/gold].\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]Fire Plume[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} Fire Plume into your Hand.{off_e}}",
   "FIVEELEMENTS-FIRE_PROTECTION.title": "Fire Protection",
   "FIVEELEMENTS-FIRE_NOVA.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.|{off_s}Fire : Apply {BurnPower:diff()} Burn to all enemies.{off_e}}",
   "FIVEELEMENTS-FIRE_NOVA.title": "Fire Nova",
-  "FIVEELEMENTS-FIRE_TOUCH.description": "[gold]Exhaust[/gold] a card.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]{IfUpgraded:show:Fire Plume|Fire Plume}[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} {IfUpgraded:show:Fire Plume|Fire Plume} into your Hand.{off_e}}",
+  "FIVEELEMENTS-FIRE_TOUCH.description": "[gold]Exhaust[/gold] a card.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Add {Cards:diff()} [gold]Fire Plume[/gold] into your [gold]Hand[/gold].|{off_s}Fire : Add {Cards:diff()} Fire Plume into your Hand.{off_e}}",
   "FIVEELEMENTS-FIRE_TOUCH.title": "Fire Touch",
   "FIVEELEMENTS-FIRE_SPIRIT.description": "Whenever you play a {fire_s}Fire{fire_e} card, apply {FireSpiritPower:diff()} [gold]Burn[/gold] to ALL enemies.",
   "FIVEELEMENTS-FIRE_SPIRIT.title": "Fire Spirit",
   "FIVEELEMENTS-FIRE_RISE.description": "Add {FireRisePower:plural:a [gold]Fire Plume[/gold]|[blue]{}[/blue] [gold]Fire Plumes[/gold]} into your [gold]Hand[/gold] every {Threshold:diff()} times you apply [gold]Burn[/gold], increased by 1 each time it create one.",
   "FIVEELEMENTS-FIRE_RISE.title": "Fire Rise",
-  "FIVEELEMENTS-FIRE_WEAVING.description": "[gold]Exhaust[/gold] 1 non-{fire_s}Fire{fire_e} card at random.\nDeal {Damage:diff()} [gold]Heat[/gold] damage.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Return this to your [gold]Hand[/gold].|{off_s}Fire : Return this to your Hand.{off_e}}",
+  "FIVEELEMENTS-FIRE_WEAVING.description": "[gold]Exhaust[/gold] 1 non-{fire_s}Fire{fire_e} card at random.\nDeal {Damage:diff()} [gold]Heat[/gold] damage.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : If this card costs Energy, return it to your [gold]Hand[/gold].|{off_s}Fire : If this card costs Energy, return it to your Hand.{off_e}}",
   "FIVEELEMENTS-FIRE_WEAVING.title": "Fire Weaving",
   "FIVEELEMENTS-FIRE_STORM.description": "Deal {Damage:diff()} [gold]Heat[/gold] damage to ALL enemies.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : [gold]Exhaust[/gold] this card.|{off_s}Fire : Exhaust this card.{off_e}}\nWhen you end a turn with {fire_s}Fire{fire_e} [gold]Echo[/gold], plays from the [gold]Exhaust Pile[/gold] at turn start.",
   "FIVEELEMENTS-FIRE_STORM.title": "Fire Storm",

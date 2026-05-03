@@ -17,7 +17,7 @@ public sealed class FireWeaving() : FireCard(1,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
 
-    //Ethereal, Exhaust 1 non-fire card at random. Deal 6 Heat damage, Fire:(return in hand)
+    //Ethereal, Exhaust 1 non-fire card at random. Deal 6 Heat damage, Fire:(If this card costs Energy, return it to your hand.)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new DamageVar(6,ValueProp.Move),
     ]);
@@ -57,12 +57,22 @@ public sealed class FireWeaving() : FireCard(1,
     }
     
     //this shit is called before onplay
-    //change the pile to hand if fire is active
+    //change the pile to hand if fire is active and if cost>0
     protected override PileType GetResultPileType()
     {
         PileType resultPileType = base.GetResultPileType();
-        return (resultPileType is PileType.Discard or PileType.Exhaust &&
-                CardElementTag.Fire.IsActive(CombatState)) ? PileType.Hand : resultPileType;
+
+        // Utilise GetResolved pour connaître le coût effectif payé/calculé
+        bool spentEnergy = EnergyCost.GetResolved() > 0;
+
+        if (resultPileType is PileType.Discard or PileType.Exhaust &&
+            CardElementTag.Fire.IsActive(CombatState) && 
+            spentEnergy)
+        {
+            return PileType.Hand;
+        }
+
+        return resultPileType;
     }
     
 }

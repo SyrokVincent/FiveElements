@@ -22,8 +22,9 @@ public sealed class WoodSurge() : WoodCard(1,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
 
-    //Draw 2(3) card and gain 3(5) surge,
+    //Draw 2(3) card and gain 3 surge,
     //Wood:(This card is Played the first time it is drawn this turn).
+    // upgrade no longer increase surge gained by 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new CardsVar(2),
         new PowerVar<SurgePower>(3),
@@ -53,7 +54,7 @@ public sealed class WoodSurge() : WoodCard(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(1);
-        DynamicVars["SurgePower"].UpgradeValueBy(2);
+        //DynamicVars["SurgePower"].UpgradeValueBy(2);
     }
 
     
