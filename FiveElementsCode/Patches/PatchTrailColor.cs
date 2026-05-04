@@ -43,7 +43,7 @@ public static class TrailColorPatches
         }
 
         // On mélange notre liste de couleurs pour que l'effet visuel soit varié
-        ShuffleVisualManager.ColorPool.Shuffle();
+        //ShuffleVisualManager.ColorPool.Shuffle();
     }
 
     // 2. Chaque projectile créé par StS2 pioche dans cette réserve
@@ -70,7 +70,7 @@ public static class TrailColorPatches
         var nodeToFollow = field?.GetValue(__instance);
 
         // Couleur par défaut si la réserve est vide (ce qui ne devrait pas arriver)
-        Color finalColor = new Color(1, 1, 1); 
+        Color finalColor = new Color(0.2f, 0.2f, 0.2f);
 
         if (nodeToFollow is NCard nCard && nCard.Model != null)
         {
@@ -90,7 +90,7 @@ public static class TrailColorPatches
         __instance.GetNodeOrNull<Node2D>("Trails")?.SetIndexed("modulate", finalColor);
     }
 }
-
+/*
 // Extension pour mélanger la liste de couleurs
 public static class ColorExtensions {
     private static readonly System.Random _rng = new();
@@ -104,4 +104,4 @@ public static class ColorExtensions {
             list[n] = value;
         }
     }
-}
+}*/

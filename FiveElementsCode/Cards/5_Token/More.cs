@@ -53,6 +53,7 @@ public sealed class More() : NeutralCard(1,
     ]);
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune),
         HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo)
     ]);
 

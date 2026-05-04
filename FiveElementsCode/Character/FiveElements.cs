@@ -120,7 +120,7 @@ public class FiveElements : PlaceholderCharacterModel
             //WATER
             //water feel really cool to play right now, might be a bit too strong ?
             
-            finalDeck.Add(ModelDb.Card<WaterCreation>());   //done
+            finalDeck.Add(ModelDb.Card<WaterCreation>());   //removed
             finalDeck.Add(ModelDb.Card<WaterSource>());     //done
             finalDeck.Add(ModelDb.Card<WaterBubble>());     //done too strong ?
             finalDeck.Add(ModelDb.Card<WaterMark>());       //done
