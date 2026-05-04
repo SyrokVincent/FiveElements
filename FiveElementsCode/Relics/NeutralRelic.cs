@@ -1,7 +1,9 @@
 ﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -59,35 +61,49 @@ public sealed class NeutralRelic() : FiveElementsRelic
         return Task.CompletedTask;
     }
 
+    
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        // On s'arrête si : déjà activé, pas notre carte, ou carte Neutre
         if (ActivationsThisTurn >= 1 || cardPlay.Card.Owner != Owner || !CombatManager.Instance.IsInProgress)
             return;
 
-        
-        if (cardPlay.Card.CountAsElement(CardElementTag.Water,Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Water);
+        // 1. On cherche d'abord si la carte a stocké ses tags au moment du OnPlay (avant le Shift/Attune)
+        if (cardPlay.Card is NeutralCard && NeutralCard.PlayedElementsCache.TryGetValue(cardPlay, out var capturedTags))
+        {
+            // On utilise notre extension TagsCountAsElement pour gérer SpiritsForm 
+            // sur les tags qui étaient présents à ce moment-là.
+            if (capturedTags.TagsCountAsElement(CardElementTag.Water, Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Water);
+            if (capturedTags.TagsCountAsElement(CardElementTag.Wood, Owner.Creature))  _elementsPlayedThisTurn.Add(CardElementTag.Wood);
+            if (capturedTags.TagsCountAsElement(CardElementTag.Fire, Owner.Creature))  _elementsPlayedThisTurn.Add(CardElementTag.Fire);
+            if (capturedTags.TagsCountAsElement(CardElementTag.Earth, Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Earth);
+            if (capturedTags.TagsCountAsElement(CardElementTag.Metal, Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Metal);
+        }
+        else 
+        {
+            // 2. Si ce n'est pas une NeutralCard, on utilise la détection classique
+            if (cardPlay.Card.CountAsElement(CardElementTag.Water, Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Water);
+            if (cardPlay.Card.CountAsElement(CardElementTag.Wood, Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Wood);
+            if (cardPlay.Card.CountAsElement(CardElementTag.Fire, Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Fire);
+            if (cardPlay.Card.CountAsElement(CardElementTag.Earth, Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Earth);
+            if (cardPlay.Card.CountAsElement(CardElementTag.Metal, Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Metal);
+        }
 
-        if (cardPlay.Card.CountAsElement(CardElementTag.Wood,Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Wood);
+        // --- DEBUG ---
+        //string currentElements = string.Join(", ", _elementsPlayedThisTurn);
+        //GD.Print($"[NeutralRelic] Capture pour : {cardPlay.Card.Id.Entry} | Stock : [{currentElements}]");
 
-        if (cardPlay.Card.CountAsElement(CardElementTag.Fire,Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Fire);
-
-        if (cardPlay.Card.CountAsElement(CardElementTag.Earth,Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Earth);
-
-        if (cardPlay.Card.CountAsElement(CardElementTag.Metal,Owner.Creature)) _elementsPlayedThisTurn.Add(CardElementTag.Metal);
-        
         if (_elementsPlayedThisTurn.Count >= 5)
         {
             this.Flash();
-
-            await PowerCmd.Apply<StrengthPower>(context,Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature,null);
-            await PowerCmd.Apply<DexterityPower>(context,Owner.Creature, DynamicVars["DexterityPower"].BaseValue, Owner.Creature, null);
-
+            await PowerCmd.Apply<StrengthPower>(context, Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature, null);
+            await PowerCmd.Apply<DexterityPower>(context, Owner.Creature, DynamicVars["DexterityPower"].BaseValue, Owner.Creature, null);
             ActivationsThisTurn++;
         }
-        
     }
-
+    
+    
+    
+    
     public override Task AfterCombatEnd(CombatRoom _)
     {
         _elementsPlayedThisTurn.Clear();
