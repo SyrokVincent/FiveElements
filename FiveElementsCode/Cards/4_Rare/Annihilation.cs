@@ -19,7 +19,7 @@ public sealed class Annihilation() : NeutralCard(3,
 {
 
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
+    //protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
 
     // Wood:(Deal 15), Fire:(Deal 15), Earth:(Deal 15), Metal:(Deal 15), Water:(Deal 15)
     //added shift on upgrade, buffed base dmg to 15

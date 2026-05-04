@@ -5,6 +5,8 @@ using MegaCrit.Sts2.Core.Nodes.Relics;
 using FiveElements.FiveElementsCode.Character;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
+using MegaCrit.Sts2.Core.Nodes.Events;
 using MegaCrit.Sts2.Core.Nodes.Screens.InspectScreens;
 
 [HarmonyPatch(typeof(NRelic), "Reload")]
@@ -86,6 +88,44 @@ public static class PatchInspectRelicCookie
                 if (_myCookieBig != null)
                 {
                     relicImage.Texture = _myCookieBig;
+                }
+            }
+        }
+    }
+}
+[HarmonyPatch(typeof(NEventOptionButton), "_Ready")]
+public static class PatchAncientEventCookieIcon
+{
+    private static Texture2D? _myCookieIcon;
+    private static Texture2D? _myCookieOutline;
+
+    public static void Postfix(NEventOptionButton __instance)
+    {
+        // 1. Vérifier si l'option contient notre relique
+        if (__instance.Option?.Relic is YummyCookie)
+        {
+            // 2. not Optionnel : Vérifier si c'est le personnage "FiveElements" 
+            if ( __instance.Option.Relic.Owner?.Character is FiveElements.FiveElementsCode.Character.FiveElements)
+            {
+                // 3. Charger les textures personnalisées
+                if (_myCookieIcon == null)
+                {
+                    _myCookieIcon = GD.Load<Texture2D>("res://FiveElements/images/relics/yummy_cookie_sage.png");
+                    _myCookieOutline = GD.Load<Texture2D>("res://FiveElements/images/relics/yummy_cookie_sage_outline.png");
+                }
+
+                // 4. Accéder aux nodes via les Unique Names (%) définis dans ton décompilage
+                var relicIcon = __instance.GetNodeOrNull<TextureRect>("%RelicIcon");
+                var relicOutline = __instance.GetNodeOrNull<TextureRect>("%Outline");
+
+                if (relicIcon != null && _myCookieIcon != null)
+                {
+                    relicIcon.Texture = _myCookieIcon;
+                }
+
+                if (relicOutline != null && _myCookieOutline != null)
+                {
+                    relicOutline.Texture = _myCookieOutline;
                 }
             }
         }
