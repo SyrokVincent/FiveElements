@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Cards._2_Common;
 using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Cards._4_Rare;
+using FiveElements.FiveElementsCode.Cards._5_Token;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Relics;

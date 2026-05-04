@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._5_Token;
@@ -21,10 +22,12 @@ public sealed class EarthWarrior() : EarthCard(1,
     
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
     
-    //Gain 4 block,+1 for each Earth guard in your deck, Earth:(Gain x for Earth Guard in your hand)
+    //Gain 3 block,+2 for each Earth guard in your deck, Earth:(Gain x for Earth Guard in your hand)
+    // increase to +2 from 1 and now gain thorn if other warrior are in hand
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        new PowerVar<ThornsPower>(1),
         new CalculationBaseVar(3), // Base block
-        new CalculationExtraVar(1),    // bonus block for each warrior
+        new CalculationExtraVar(2),    // bonus block for each warrior in deck
         new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
             if (card.Owner?.PlayerCombatState == null) return 0;
@@ -35,14 +38,14 @@ public sealed class EarthWarrior() : EarthCard(1,
         
             var bonusCount = totalWarriors;
 
-            // Si l'élément Terre est actif, on ajoute ceux en main
-            if (card.CombatState != null && CardElementTag.Earth.IsActive(card.CombatState))
+            // Si l'élément Terre est actif, on ajoute ceux en main //replaced with thorn
+         /*   if (card.CombatState != null && CardElementTag.Earth.IsActive(card.CombatState))
             {
                 var warriorsInHand = PileType.Hand.GetPile(card.Owner).Cards
                     .Count(c => c is EarthWarrior);
             
                 bonusCount += (warriorsInHand); //double the value if in hand ?
-            }
+            }*/
             
             // On renvoie le multiplicateur (nombre de fois qu'on ajoute ExtraDamageVar)
             return bonusCount;
@@ -55,6 +58,7 @@ public sealed class EarthWarrior() : EarthCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromPower<ThornsPower>(),
         HoverTipFactory.FromCard<EarthWarrior>(), //flavor \o/
     ]);
 
@@ -67,6 +71,15 @@ public sealed class EarthWarrior() : EarthCard(1,
         //await CommonActions.CardBlock(this, DynamicVars.CalculatedBlock, play);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.PreviewValue,
             ValueProp.Unpowered, play); //preview + unpowered to apply exactly waht's shown , might be wrong ??
+        
+       if (CardElementTag.Earth.IsActive(CombatState))
+       {
+           var warriorsInHand = PileType.Hand.GetPile(Owner).Cards
+               .Count(c => c is EarthWarrior);
+           
+           await CommonActions.ApplySelf<ThornsPower>(choiceContext,this, warriorsInHand*DynamicVars["ThornsPower"].BaseValue);
+
+       }
     }
 
     protected override void OnUpgrade()

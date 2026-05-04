@@ -9,10 +9,10 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards._2_Common;
+namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
 public sealed class EarthCrown() : EarthCard(1,
-    CardType.Skill, CardRarity.Common,
+    CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
 
@@ -24,11 +24,15 @@ public sealed class EarthCrown() : EarthCard(1,
     //
     // new// Gain 5 block, Earth:(Gain 2 block next turn, gains 2 additional block for every earth card played this turn)
     // moved to common from uncommon
+    // moved back to uncommon, now grant plating for each earth card played before
+    // new// Gain 8 block, Earth:(Gain 1 Plating for every earth card played this turn)
+
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(5,ValueProp.Move),
-        new CalculationBaseVar(2), // Base block
-        new CalculationExtraVar(2),    // bonus block for each earth card
-        new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, target) =>
+        new BlockVar(8,ValueProp.Move),
+        new PowerVar<PlatingPower>(1),
+        new CalculationBaseVar(0), // Base plating
+        new CalculationExtraVar(1),    // bonus plating for each earth card
+        new CalculatedVar("EarthCardPlayed").WithMultiplier((card, target) =>
         {
             if (card.CombatState == null) return 0;
 
@@ -53,6 +57,7 @@ public sealed class EarthCrown() : EarthCard(1,
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromPower<PlatingPower>(),
     ]);
 
     protected override async Task OnPlay(
@@ -65,16 +70,16 @@ public sealed class EarthCrown() : EarthCard(1,
         await CommonActions.CardBlock(this, play);
         if (CardElementTag.Earth.IsActive(CombatState))
         {   
-            await CommonActions.ApplySelf<BlockNextTurnPower>(choiceContext,this, DynamicVars.CalculatedBlock.PreviewValue);
+            await CommonActions.ApplySelf<PlatingPower>(choiceContext,this, DynamicVars["PlatingPower"].BaseValue * DynamicVars["EarthCardPlayed"].PreviewValue);
         }
 
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(1);
-        DynamicVars.CalculationBase.UpgradeValueBy(1);
-        DynamicVars.CalculationExtra.UpgradeValueBy(1);
+        DynamicVars.Block.UpgradeValueBy(3);
+        //DynamicVars.CalculationBase.UpgradeValueBy(1);
+        //DynamicVars.CalculationExtra.UpgradeValueBy(1);
         
     }
 }

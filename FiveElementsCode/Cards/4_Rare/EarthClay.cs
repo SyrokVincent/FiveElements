@@ -18,8 +18,19 @@ public sealed class EarthClay() : EarthCard(1,
 
     //public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    // Glow Rouge : S'active s'il n'y a aucune autre carte de Bloc en main
+    protected override bool ShouldGlowRedInternal => 
+        CombatState != null && 
+        !PileType.Hand.GetPile(Owner).Cards.Any(c => c.GainsBlock && c != this);
 
+
+    // on ne glow Gold que si l'élément est actif ET qu'il y a du bloc à copier
+    protected override bool ShouldGlowGoldInternal => 
+        CombatState != null && 
+        CardElementTag.Earth.IsActive(CombatState) && 
+        PileType.Hand.GetPile(Owner).Cards.Any(c => c.GainsBlock && c != this);
+    
+   
     //Choose a Block card to gain it's block, Earth:(transform it into Earth Warrior, it cost 1 more this turn)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
     ]);

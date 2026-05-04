@@ -11,10 +11,10 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
+namespace FiveElements.FiveElementsCode.Cards._2_Common;
 
 public sealed class EarthJewel() : EarthCard(0,
-    CardType.Skill, CardRarity.Uncommon,
+    CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
     
