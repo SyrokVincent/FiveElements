@@ -79,7 +79,7 @@ public sealed class EarthWard() : EarthCard(1,
     {
         if (card == this)
         {
-            this.EnergyCost.AddUntilPlayed(-DynamicVars.Energy.IntValue); //maybe should be just until played
+            this.EnergyCost.AddUntilPlayed(-DynamicVars.Energy.IntValue);
             var decreaseAmount = DynamicVars["ReductionOnRetain"].BaseValue;
             // On réduit, mais on s'assure de ne pas descendre en dessous de 0
             DynamicVars.Block.BaseValue = Math.Max(0, DynamicVars.Block.BaseValue - decreaseAmount);

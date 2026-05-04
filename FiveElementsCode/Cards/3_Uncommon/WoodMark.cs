@@ -41,7 +41,7 @@ public sealed class WoodMark() : WoodCard(0,
         if (CombatState == null) return;
 
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        VfxCmd.PlayOnCreatureCenter(Owner.Creature, "vfx/vfx_flying_slash");
+        //VfxCmd.PlayOnCreatureCenter(Owner.Creature, "vfx/vfx_flying_slash");
         if (play.Target != null)
         {
             // 1. Suppression totale du Block de l'ennemi
