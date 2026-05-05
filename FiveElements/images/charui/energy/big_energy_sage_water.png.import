@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q8wu3kteupca"
-path="res://.godot/imported/big_energy_five_elements_water.png-ae78c94c95d1a45fc247ebfd037072af.ctex"
+uid="uid://bgsbwy04bmyp7"
+path="res://.godot/imported/big_energy_sage_water.png-b253f3f641882b05b000d03c8952e918.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/charui/big_energy_five_elements_water.png"
-dest_files=["res://.godot/imported/big_energy_five_elements_water.png-ae78c94c95d1a45fc247ebfd037072af.ctex"]
+source_file="res://FiveElements/images/charui/energy/big_energy_sage_water.png"
+dest_files=["res://.godot/imported/big_energy_sage_water.png-b253f3f641882b05b000d03c8952e918.ctex"]
 
 [params]
 

@@ -23,9 +23,10 @@ public sealed class EarthJewel() : EarthCard(0,
     //delete if shouldn't glow or replace water
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
 
-    //If you took no damage last turn, put this into your hand, Earth:(Gain 3 block)
+    //If you took no damage last turn, put this into your hand, Earth:(Gain 4 block)
+    // buffed to 4+2 from 3+1
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new BlockVar(3,ValueProp.Move)
+        new BlockVar(4,ValueProp.Move)
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -72,7 +73,7 @@ public sealed class EarthJewel() : EarthCard(0,
     
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(1);
+        DynamicVars.Block.UpgradeValueBy(2);
     }
     
     

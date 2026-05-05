@@ -8,6 +8,6 @@ public class FiveElementsRelicPool : CustomRelicPoolModel
 {
     public override Color LabOutlineColor => FiveElements.Color;
 
-    public override string BigEnergyIconPath => "charui/big_energy_five_elements.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/text_energy_five_elements.png".ImagePath();
+    public override string BigEnergyIconPath => "charui/energy/big_energy_five_elements.png".ImagePath();
+    public override string TextEnergyIconPath => "charui/energy/text_energy_five_elements.png".ImagePath();
 }

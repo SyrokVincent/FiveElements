@@ -8,7 +8,7 @@ namespace FiveElements.FiveElementsCode.Character;
 public class FiveElementsCardPool : CustomCardPoolModel
 {
     
-    private string _currentTextEnergy = "charui/text_energy_five_elements.png";
+    private string _currentTextEnergy = "charui/energy/text_energy_five_elements.png";
     private Color _currentDeckColor = new("ffffff");
 
     public override string Title => FiveElements.CharacterId;//This is not a display name.
@@ -22,15 +22,15 @@ public class FiveElementsCardPool : CustomCardPoolModel
     {
         if (echo.Contains(CardElementTag.Neutral))
         {
-            if (echo.Count < 6) return "charui/big_energy_five_elements.png";
-            return "charui/big_energy_five_elements_all.png";
+            if (echo.Count < 6) return "charui/energy/big_energy_sage_neutral.png";
+            return "charui/energy/big_energy_five_elements_all.png";
         }
-        if (echo.Contains(CardElementTag.Water)) return "charui/big_energy_five_elements_water.png";
-        if (echo.Contains(CardElementTag.Wood)) return "charui/big_energy_five_elements_wood.png";
-        if (echo.Contains(CardElementTag.Fire)) return "charui/big_energy_five_elements_fire.png";
-        if (echo.Contains(CardElementTag.Earth)) return "charui/big_energy_five_elements_earth.png";
-        if (echo.Contains(CardElementTag.Metal)) return "charui/big_energy_five_elements_metal.png";
-        return "charui/big_energy_five_elements.png";
+        if (echo.Contains(CardElementTag.Water)) return "charui/energy/big_energy_sage_water.png";
+        if (echo.Contains(CardElementTag.Wood)) return "charui/energy/big_energy_sage_wood.png";
+        if (echo.Contains(CardElementTag.Fire)) return "charui/energy/big_energy_sage_fire.png";
+        if (echo.Contains(CardElementTag.Earth)) return "charui/energy/big_energy_sage_earth.png";
+        if (echo.Contains(CardElementTag.Metal)) return "charui/energy/big_energy_sage_metal.png";
+        return "charui/energy/big_energy_sage_neutral.png";
     }
     
     

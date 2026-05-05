@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duqnccdis3sm0"
-path="res://.godot/imported/big_energy_five_elements_wood.png-b449c8fa11388f15160a0d358f89de8b.ctex"
+uid="uid://c1m30sug0u5cp"
+path="res://.godot/imported/big_energy_five_elements_all.png-2453eced290ed59606c87df9c117c0c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/charui/big_energy_five_elements_wood.png"
-dest_files=["res://.godot/imported/big_energy_five_elements_wood.png-b449c8fa11388f15160a0d358f89de8b.ctex"]
+source_file="res://FiveElements/images/charui/energy/big_energy_five_elements_all.png"
+dest_files=["res://.godot/imported/big_energy_five_elements_all.png-2453eced290ed59606c87df9c117c0c2.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyrgpmtv8o2ri"
-path="res://.godot/imported/big_energy.png-5ecef783b20c3c562d9338bd53f36636.ctex"
+uid="uid://dvb26433q2toi"
+path="res://.godot/imported/big_energy_sage_neutral.png-abfa1b95f7f4da5ab10a891643c0f4c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/charui/big_energy.png"
-dest_files=["res://.godot/imported/big_energy.png-5ecef783b20c3c562d9338bd53f36636.ctex"]
+source_file="res://FiveElements/images/charui/energy/big_energy_sage_neutral.png"
+dest_files=["res://.godot/imported/big_energy_sage_neutral.png-abfa1b95f7f4da5ab10a891643c0f4c3.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsh2o2tdtc1ns"
-path="res://.godot/imported/big_energy_five_elements_origine.png-a02c2bcdc26a08b00dbad722c5f676c7.ctex"
+uid="uid://sk07x5a2cavd"
+path="res://.godot/imported/big_energy_sage_metal.png-6f2af3fbc132be64fc96355259307451.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/charui/big_energy_five_elements_origine.png"
-dest_files=["res://.godot/imported/big_energy_five_elements_origine.png-a02c2bcdc26a08b00dbad722c5f676c7.ctex"]
+source_file="res://FiveElements/images/charui/energy/big_energy_sage_metal.png"
+dest_files=["res://.godot/imported/big_energy_sage_metal.png-6f2af3fbc132be64fc96355259307451.ctex"]
 
 [params]
 
