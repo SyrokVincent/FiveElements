@@ -8,17 +8,18 @@ namespace FiveElements.FiveElementsCode.Character;
 public class FiveElementsCardPool : CustomCardPoolModel
 {
     
+    private string _currentEnergy = "charui/energy/big_energy_sage_neutral.png";
     private string _currentTextEnergy = "charui/energy/text_energy_five_elements.png";
     private Color _currentDeckColor = new("ffffff");
 
     public override string Title => FiveElements.CharacterId;//This is not a display name.
 
-    // Utilisation de l'expression-bodied member pour lire la variable
-    public override string BigEnergyIconPath => GetEnergyPath(Character.FiveElements.Echo).ImagePath();
+    // default path for hovertip and such
+    public override string BigEnergyIconPath => _currentEnergy.ImagePath();
     public override string TextEnergyIconPath => _currentTextEnergy.ImagePath();
     
-    // Logique de sélection de l'image
-    private string GetEnergyPath(HashSet<CardElementTag> echo)
+    // Logique de sélection de l'image pour l'icone des carte
+    public string GetEnergyPathForCard(HashSet<CardElementTag> echo)
     {
         if (echo.Contains(CardElementTag.Neutral))
         {

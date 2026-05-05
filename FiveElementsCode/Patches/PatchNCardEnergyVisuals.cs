@@ -1,4 +1,5 @@
 ﻿using FiveElements.FiveElementsCode.Character;
+using FiveElements.FiveElementsCode.Extensions;
 
 namespace FiveElements.FiveElementsCode.Patches;
 
@@ -21,7 +22,7 @@ public class PatchNCardEnergyVisuals
             if (energyIconNode != null)
             {
                 // On force la texture
-                var newTexture = ResourceLoader.Load<Texture2D>(elementPool.BigEnergyIconPath);
+                var newTexture = ResourceLoader.Load<Texture2D>(elementPool.GetEnergyPathForCard(Character.FiveElements.Echo).ImagePath());
                 energyIconNode.Texture = newTexture;
                 
                 // Debug optionnel pour confirmer dans la console
