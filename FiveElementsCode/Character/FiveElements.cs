@@ -166,10 +166,10 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<FireTouch>());       //done
             finalDeck.Add(ModelDb.Card<FireSpirit>());      //done
             finalDeck.Add(ModelDb.Card<FireRise>());        //done
-            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done excellent in niche case
+            finalDeck.Add(ModelDb.Card<FireWeaving>());     //done excellent in niche case (remove ethereal?)
             finalDeck.Add(ModelDb.Card<FireStorm>());       //done
             finalDeck.Add(ModelDb.Card<FireForce>());       //done
-            finalDeck.Add(ModelDb.Card<FireEater>());       //done need to do smthing when exhaust nothing ?
+            finalDeck.Add(ModelDb.Card<FireEater>());       //done need to do smthing when exhaust nothing ?(remove ethereal?)
             finalDeck.Add(ModelDb.Card<FireWings>());       //done
             finalDeck.Add(ModelDb.Card<FireBall>());        //done
             finalDeck.Add(ModelDb.Card<FireDance>());       //done is it good enough to be rare?
@@ -183,15 +183,15 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<EarthCreation>());   //removed
             finalDeck.Add(ModelDb.Card<EarthFoundation>()); //done
             finalDeck.Add(ModelDb.Card<EarthWard>());       //done
-            finalDeck.Add(ModelDb.Card<EarthSpirit>());     //done
-            finalDeck.Add(ModelDb.Card<EarthBlast>());      //done
-            finalDeck.Add(ModelDb.Card<EarthQuake>());      //done (maybe remove the block gain on replayed card)
             finalDeck.Add(ModelDb.Card<EarthJewel>());      //done
+            finalDeck.Add(ModelDb.Card<EarthSpirit>());     //done
+            finalDeck.Add(ModelDb.Card<EarthGuardian>());   //done
+            finalDeck.Add(ModelDb.Card<EarthBlast>());      //done
             finalDeck.Add(ModelDb.Card<EarthWall>());       //done
             finalDeck.Add(ModelDb.Card<EarthCrown>());      //done 
             finalDeck.Add(ModelDb.Card<EarthPlate>());      //done
             finalDeck.Add(ModelDb.Card<EarthBorn>());       //done
-            finalDeck.Add(ModelDb.Card<EarthGuardian>());   //done
+            finalDeck.Add(ModelDb.Card<EarthQuake>());      //done (maybe remove the block gain on replayed card)
             finalDeck.Add(ModelDb.Card<EarthClay>());       //done
             finalDeck.Add(ModelDb.Card<EarthMagma>());      //done
             

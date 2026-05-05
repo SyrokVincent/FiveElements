@@ -14,13 +14,12 @@ public sealed class WaterLord() : WaterCard(1,
     TargetType.Self)
 {
 
-    //delete if shouldn't glow
     protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
 
-    //Gain 5 wave, Water:(This turn for each water card played gain 1 Wave)
+    //Gain 4 wave, Water:(This turn for each water card played gain 2 Wave)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WavePower>(5),
-        new PowerVar<WaterLordPower>(1),
+        new PowerVar<WavePower>(4),
+        new PowerVar<WaterLordPower>(2),
     ]);
     
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
@@ -46,6 +45,7 @@ public sealed class WaterLord() : WaterCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WavePower"].UpgradeValueBy(2);
+        DynamicVars["WavePower"].UpgradeValueBy(1);
+        DynamicVars["WaterLordPower"].UpgradeValueBy(1);
     }
 }

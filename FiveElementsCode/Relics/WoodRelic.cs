@@ -1,4 +1,5 @@
 ﻿using BaseLib.Utils;
+using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
@@ -41,7 +42,19 @@ public sealed class WoodRelic() : FiveElementsRelic
     public override Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
         // On vérifie si la carte jouée possède l'élément Wood
-        if (cardPlay.Card.CountAsElement(CardElementTag.Wood, Owner.Creature))
+
+        if (cardPlay.Card is NeutralCard && NeutralCard.PlayedElementsCache.TryGetValue(cardPlay, out var capturedTags))
+        {
+            if (capturedTags.TagsCountAsElement(CardElementTag.Wood, Owner.Creature))
+            {
+                if (WoodPlayedThisTurn == 0)
+                {
+                    WoodPlayedThisTurn = 1;
+                    Status = RelicStatus.Active;
+                    this.Flash();
+                }
+            }
+        }else if (cardPlay.Card.CountAsElement(CardElementTag.Wood, Owner.Creature))
         {
             if (WoodPlayedThisTurn == 0)
             {

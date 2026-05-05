@@ -68,6 +68,7 @@ public sealed class NeutralRelic() : FiveElementsRelic
             return;
 
         // 1. On cherche d'abord si la carte a stocké ses tags au moment du OnPlay (avant le Shift/Attune)
+        //je comprend pas trop pourquoi les carte avec shift change d'element la... (c'est car la relic est apres la starter relic qui gere echo? et les pouvoir marche sans ça car il trigger avant les relic ?)
         if (cardPlay.Card is NeutralCard && NeutralCard.PlayedElementsCache.TryGetValue(cardPlay, out var capturedTags))
         {
             // On utilise notre extension TagsCountAsElement pour gérer SpiritsForm 

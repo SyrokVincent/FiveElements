@@ -12,7 +12,8 @@ public sealed class SpiritsForm() : NeutralCard(2,
     CardType.Power, CardRarity.Ancient,
     TargetType.Self)
 {
-    //All card with no element are now considered to be of ALL of them when PLAYED!!!!
+    //All card with no element are now considered to be of ALL of them!!!!
+    //Innate on upgrade like other spirit cards
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
     ]);
 
@@ -37,5 +38,6 @@ public sealed class SpiritsForm() : NeutralCard(2,
     protected override void OnUpgrade()
     {
         this.EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Innate);
     }
 }
