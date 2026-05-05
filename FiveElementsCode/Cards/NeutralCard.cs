@@ -32,7 +32,7 @@ public abstract class NeutralCard : FiveElementsCard
                 {
                     if (Keywords.Contains(FiveElementsKeywords.Attune))
                     {
-                        return Character.FiveElements.Echo;
+                        return CalculateAttune(Character.FiveElements.Echo);
                     }
 
                     if (Keywords.Contains(FiveElementsKeywords.Shift))
@@ -47,9 +47,12 @@ public abstract class NeutralCard : FiveElementsCard
         }
     }
     
+    private HashSet<CardElementTag> CalculateAttune(HashSet<CardElementTag> echo) 
+        => [CardElementTag.Neutral, ..echo];
+    
     private HashSet<CardElementTag> CalculateShift(HashSet<CardElementTag> echo)
     {
-        HashSet<CardElementTag> newEcho = new(){ CardElementTag.Neutral };
+        HashSet<CardElementTag> newEcho = [CardElementTag.Neutral];
         if (echo.Contains(CardElementTag.Water)) newEcho.Add(CardElementTag.Wood);
         if (echo.Contains(CardElementTag.Wood))  newEcho.Add(CardElementTag.Fire);
         if (echo.Contains(CardElementTag.Fire))  newEcho.Add(CardElementTag.Earth);

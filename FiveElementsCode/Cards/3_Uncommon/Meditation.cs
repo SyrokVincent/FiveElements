@@ -21,10 +21,10 @@ public sealed class Meditation() : NeutralCard(1,
     //(old)Select 1 element card, gain it's essence and draw 3+1
     //
     //(new) Draw 1, Select 1 element card, trigger the corresponding effect on the card Activation, 
-    //
+    // attune by default, select 2 when upgraded, (also increase this card cost by 1 this turn) to block easy infinite
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        //need that if i ever want it to draw 2 lol
-        //new CardsVar("Draw",1),
+        //need that if i ever want it to select 2 lol
+        new DynamicVar("Select",1),
         
         //water
         ActivationVars.Energy,
@@ -41,10 +41,12 @@ public sealed class Meditation() : NeutralCard(1,
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
+        FiveElementsKeywords.Attune,
     ]);
 
     //gain echo and elem: description, remove concat if I don't want them
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune),
         HoverTipFactory.FromCard<Activation>(),
     ]);
     
@@ -61,53 +63,69 @@ public sealed class Meditation() : NeutralCard(1,
         await CardPileCmd.Draw(choiceContext, 1, Owner);
         
         // 1. Préparer les préférences
-        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
+        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, DynamicVars["Select"].IntValue);
 
         // 2. Lancer la commande de sélection
         var selection = await CardSelectCmd.FromHand(
             choiceContext, 
             Owner, 
             prefs, 
-            c => c is FiveElementsCard f && f.ElementTags.Any(t => t != CardElementTag.Neutral), 
+            // On vérifie si la carte compte comme l'un des 5 éléments majeurs
+            c => c.CountAsElement(CardElementTag.Water, Owner.Creature) ||
+                 c.CountAsElement(CardElementTag.Wood, Owner.Creature)  ||
+                 c.CountAsElement(CardElementTag.Fire, Owner.Creature)  ||
+                 c.CountAsElement(CardElementTag.Earth, Owner.Creature) ||
+                 c.CountAsElement(CardElementTag.Metal, Owner.Creature), 
             this
         );
 
-        // 3. Vérifier si une carte a bien été choisie
-        var selectedModel = selection?.FirstOrDefault();
-    
-        if (selectedModel == null ) return;
+        if (selection == null) return;
 
-        // 1. Déclenchement des effets selon l'élément
-        if (selectedModel.CountAsElement(CardElementTag.Water,Owner.Creature))
+        // 3. BOUCLE : On traite TOUTES les cartes sélectionnées
+        foreach (var selectedModel in selection)
         {
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
-            await PowerCmd.Apply<WavePower>(choiceContext,Owner.Creature, DynamicVars["WavePower"].BaseValue, Owner.Creature, null);
-        }
-        if (selectedModel.CountAsElement(CardElementTag.Wood, Owner.Creature))
-        {
-            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-            await PowerCmd.Apply<SurgePower>(choiceContext,Owner.Creature, DynamicVars["SurgePower"].BaseValue, Owner.Creature, null);
-        }
-        if (selectedModel.CountAsElement(CardElementTag.Fire, Owner.Creature))
-        {
-            var targets = CombatState.HittableEnemies;
-            await PowerCmd.Apply<BurnPower>(choiceContext,targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, null);
-        }
-        if (selectedModel.CountAsElement(CardElementTag.Earth, Owner.Creature))
-        {
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue, DynamicVars.Block.Props, null);
 
+            // 1. Déclenchement des effets selon l'élément
+            if (selectedModel.CountAsElement(CardElementTag.Water, Owner.Creature))
+            {
+                await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
+                await PowerCmd.Apply<WavePower>(choiceContext, Owner.Creature, DynamicVars["WavePower"].BaseValue,
+                    Owner.Creature, null);
+            }
+
+            if (selectedModel.CountAsElement(CardElementTag.Wood, Owner.Creature))
+            {
+                await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+                await PowerCmd.Apply<SurgePower>(choiceContext, Owner.Creature, DynamicVars["SurgePower"].BaseValue,
+                    Owner.Creature, null);
+            }
+
+            if (selectedModel.CountAsElement(CardElementTag.Fire, Owner.Creature))
+            {
+                var targets = CombatState.HittableEnemies;
+                await PowerCmd.Apply<BurnPower>(choiceContext, targets, this.DynamicVars["BurnPower"].BaseValue,
+                    this.Owner.Creature, null);
+            }
+
+            if (selectedModel.CountAsElement(CardElementTag.Earth, Owner.Creature))
+            {
+                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue, DynamicVars.Block.Props, null);
+
+            }
+
+            if (selectedModel.CountAsElement(CardElementTag.Metal, Owner.Creature))
+            {
+                await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars["VigorPower"].BaseValue,
+                    Owner.Creature, null);
+            }
         }
-        if (selectedModel.CountAsElement(CardElementTag.Metal, Owner.Creature))
-        {
-            await PowerCmd.Apply<VigorPower>(choiceContext,Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, null);
-        }
-        
+        // 4. Anti-Infinite : Augmente le coût de CETTE carte de 1 pour ce tour
+        this.EnergyCost.AddThisTurn(1);
     }
 
     protected override void OnUpgrade()
     {
-        AddKeyword(FiveElementsKeywords.Attune);
+        DynamicVars["Select"].UpgradeValueBy(1);
     }
     
     
