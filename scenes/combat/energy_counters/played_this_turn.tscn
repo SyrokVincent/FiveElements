@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3esp3upmajcm"]
+
+[ext_resource type="Texture2D" uid="uid://btsjodx3p8kmk" path="res://FiveElements/images/charui/energy_counter/essence_counter.png" id="1_rnhgw"]
+
+[node name="PlayedThisTurn" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Element" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -72.0
+offset_right = 32.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("1_rnhgw")
+expand_mode = 1
+stretch_mode = 5

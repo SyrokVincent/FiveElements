@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://4xjqwh64pacg"]
+[gd_scene load_steps=5 format=3 uid="uid://4xjqwh64pacg"]
 
 [ext_resource type="Texture2D" uid="uid://bw33fgxmmn37w" path="res://FiveElements/images/charui/energy_counter/essence_counter_arrows.png" id="1_gqwc5"]
 [ext_resource type="Script" uid="uid://blv2rcate7ge5" path="res://scenes/combat/energy_counters/EssenceCounter.cs" id="2_6cwgd"]
+[ext_resource type="PackedScene" uid="uid://d3esp3upmajcm" path="res://scenes/combat/energy_counters/played_this_turn.tscn" id="4_ti2c8"]
 [ext_resource type="PackedScene" uid="uid://bxfu5lledhrro" path="res://scenes/combat/energy_counters/essence_counter.tscn" id="7_jnpui"]
 
 [node name="ElementsCounter" type="Control"]
@@ -66,6 +67,11 @@ offset_right = 32.0
 offset_bottom = -45.0
 script = ExtResource("2_6cwgd")
 
+[node name="PlayedThisTurn" parent="WoodLayer" instance=ExtResource("4_ti2c8")]
+layout_mode = 1
+offset_top = -64.0
+offset_bottom = -64.0
+
 [node name="FireLayer" type="Control" parent="."]
 modulate = Color(1, 0.27058825, 0, 1)
 layout_mode = 1
@@ -92,6 +98,11 @@ offset_right = 32.0
 offset_bottom = -45.0
 rotation = -1.2566371
 script = ExtResource("2_6cwgd")
+
+[node name="PlayedThisTurn" parent="FireLayer" instance=ExtResource("4_ti2c8")]
+layout_mode = 1
+offset_top = -64.0
+offset_bottom = -64.0
 
 [node name="EarthLayer" type="Control" parent="."]
 modulate = Color(0.54509807, 0.27058825, 0.07450981, 1)
@@ -120,6 +131,11 @@ offset_bottom = -45.0
 rotation = -2.5132742
 script = ExtResource("2_6cwgd")
 
+[node name="PlayedThisTurn" parent="EarthLayer" instance=ExtResource("4_ti2c8")]
+layout_mode = 1
+offset_top = -64.0
+offset_bottom = -64.0
+
 [node name="MetalLayer" type="Control" parent="."]
 modulate = Color(0.7529412, 0.7529412, 0.7529412, 1)
 layout_mode = 1
@@ -147,6 +163,11 @@ offset_bottom = -45.0
 rotation = -3.7699113
 script = ExtResource("2_6cwgd")
 
+[node name="PlayedThisTurn" parent="MetalLayer" instance=ExtResource("4_ti2c8")]
+layout_mode = 1
+offset_top = -64.0
+offset_bottom = -64.0
+
 [node name="WaterLayer" type="Control" parent="."]
 modulate = Color(0.11764706, 0.5647059, 1, 1)
 layout_mode = 1
@@ -173,3 +194,8 @@ offset_right = 32.0
 offset_bottom = -45.0
 rotation = -5.0265484
 script = ExtResource("2_6cwgd")
+
+[node name="PlayedThisTurn" parent="WaterLayer" instance=ExtResource("4_ti2c8")]
+layout_mode = 1
+offset_top = -64.0
+offset_bottom = -64.0

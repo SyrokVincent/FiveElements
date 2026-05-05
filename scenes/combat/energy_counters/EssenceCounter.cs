@@ -1,4 +1,5 @@
 using System.Reflection;
+using BaseLib.Extensions;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using Godot;
@@ -8,6 +9,9 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using BaseLib.Utils;
 using FiveElements.FiveElementsCode;
+using FiveElements.FiveElementsCode.Cards;
+using FiveElements.FiveElementsCode.Powers;
+using FiveElements.FiveElementsCode.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
@@ -41,7 +45,8 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	private TextureRect _essence;
 	private TextureRect _echo;
 	private GpuParticles2D _essenceParticles;
-	private Control _layersRef;
+	private Control? _layersRef;
+	private Control _playedIndicator; // indique que l'element a ete jouer ce tour
 	
 	private Color _neutralColor = new Color(0.05f, 0.05f, 0.08f, 0.7f);
 	
@@ -64,6 +69,13 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		_echo = GetNodeOrNull<TextureRect>("%Echo") ?? GetNodeOrNull<TextureRect>("Echo");
 		_essenceParticles = GetNodeOrNull<GpuParticles2D>("EssenceParticles");
 		
+		
+		// On récupère le frère direct nommé "PlayedThisTurn"
+		_playedIndicator = GetParent().GetNodeOrNull<Control>("PlayedThisTurn");
+		_playedIndicator.Visible = false;
+		
+		
+		//on boucle jusque get le parent tout en haut
 		Node current = GetParent();
 		while (current != null && current.Name != "FiveelementsEnergyCounter") // The root
 		{
@@ -273,6 +285,29 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 					TriggerWave(_neutralColor);
 				}
 			}
+			
+			
+			var hasBeenPlayed = false;
+			if (_player != null && _player.Creature != null)
+			{
+				// 1. VÉRIFICATION DES CONDITIONS (Power ou Relic) 
+				//si d'autre truc utilise les element jouer ce tour c'est a ajouter ici
+				bool hasRequiredSource = _player.HasPower<AllOrOnePower>() || _player.Relics.Any(r => r is NeutralRelic);
+				if (hasRequiredSource)
+				{
+					hasBeenPlayed = CombatManager.Instance.History.CardPlaysFinished.Any(e => 
+					{
+						if (!e.HappenedThisTurn(_player.Creature.CombatState) || e.CardPlay.Card.Owner != _player)
+							return false;
+            
+						if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
+							return frozenTags.TagsCountAsElement(_myElement, _player.Creature);
+
+						return e.CardPlay.Card.CountAsElement(_myElement, _player.Creature);
+					});
+				}
+			}
+			ShowPlayedIndicator(hasBeenPlayed);
 		}
 		
 		// On met à jour la mémoire pour le prochain rafraîchissement
@@ -463,9 +498,33 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		await Task.CompletedTask;
 	}*/
 
-
 ////////
 
+
+	private void ShowPlayedIndicator(bool hasBeenPlayed)
+	{
+		// 2. Gestion de l'indicateur PlayedThisTurn
+		if (_playedIndicator != null)
+		{
+			// Si on vient de le jouer (il était caché et devient visible)
+			if (hasBeenPlayed && !_playedIndicator.Visible)
+			{
+				_playedIndicator.Visible = true;
+				_playedIndicator.Scale = new Vector2(0.5f, 0.5f);
+				_playedIndicator.Modulate = new Color(1, 1, 1, 0); // Transparent
+
+				var tween = CreateTween().SetParallel(true);
+				tween.TweenProperty(_playedIndicator, "scale", Vector2.One, 0.3f)
+					.SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+				tween.TweenProperty(_playedIndicator, "modulate:a", 1.0f, 0.2f);
+			}
+			// Si le tour a reset (il était visible et doit disparaître)
+			else if (!hasBeenPlayed && _playedIndicator.Visible)
+			{
+				_playedIndicator.Visible = false;
+			}
+		}
+	}
 	
 	private void TriggerWave(Color targetColor, float duration = 0.8f, float feather = 0.3f)
 	{
