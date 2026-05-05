@@ -60,7 +60,8 @@ public sealed class MetalRush() : MetalCard(0,
         // On regarde l'historique des cartes terminées ce tour-ci
         // On ignore les cartes qui ont été jouées via un effet AutoPlay
         return !CombatManager.Instance.History.CardPlaysFinished.Any(e => 
-                e.HappenedThisTurn(CombatState) && 
+                e.HappenedThisTurn(CombatState) &&
+                e.CardPlay.Card.Owner == Owner && 
                 !e.CardPlay.IsAutoPlay // <-- On ignore les Wood Surge et autres triggers
         );
     }

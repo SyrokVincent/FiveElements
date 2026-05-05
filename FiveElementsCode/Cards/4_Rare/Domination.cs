@@ -82,7 +82,7 @@ public sealed class Domination() : NeutralCard(1,
         
         //Trouver la dernière carte jouée ce tour (en ignorant Domination elle-même)
         var lastPlayedCard = CombatManager.Instance.History.CardPlaysStarted
-            .Where(e => e.HappenedThisTurn(CombatState) && e.CardPlay.Card != this)
+            .Where(e => e.HappenedThisTurn(CombatState) && e.CardPlay.Card.Owner == Owner && e.CardPlay.Card != this)
             .Select(e => e.CardPlay.Card)
             .LastOrDefault(); // On prend la plus récente
         

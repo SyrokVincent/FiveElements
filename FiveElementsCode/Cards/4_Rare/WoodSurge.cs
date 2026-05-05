@@ -132,6 +132,7 @@ public sealed class WoodSurge() : WoodCard(1,
             // On fouille dans l'historique des cartes terminées pour voir si CETTE instance existe déjà
             return CombatManager.Instance.History.CardPlaysFinished.Any(e => 
                 e.CardPlay.Card == this && 
+                e.CardPlay.Card.Owner == Owner && 
                 e.HappenedThisTurn(CombatState)
             );
         }
