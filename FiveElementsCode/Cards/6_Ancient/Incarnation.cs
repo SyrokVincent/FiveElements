@@ -5,6 +5,7 @@ using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -20,7 +21,7 @@ public sealed class Incarnation() : NeutralCard(0,
 
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && FiveElementsCardExtensions.IsAnyElementActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && Owner.Creature.IsAnyElementActive();
 
     //Water:(1 energy, 5 wave),
     //Wood:(Draw 1, 3 surge),
@@ -74,30 +75,30 @@ public sealed class Incarnation() : NeutralCard(0,
                 tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));
             }
 
-            if (CardElementTag.Water.IsActive(CombatState) || !IsInCombat)
+            if (CardElementTag.Water.IsActive(Owner.Creature) || !IsInCombat)
             {
                 tips.Add(HoverTipFactory.FromPower<WavePower>());
             }
 
-            if (CardElementTag.Wood.IsActive(CombatState) || !IsInCombat)
+            if (CardElementTag.Wood.IsActive(Owner.Creature) || !IsInCombat)
             {
                 tips.Add(HoverTipFactory.FromPower<SurgePower>());
             }
 
-            if (CardElementTag.Fire.IsActive(CombatState) || !IsInCombat)
+            if (CardElementTag.Fire.IsActive(Owner.Creature) || !IsInCombat)
             {
                 tips.Add(HoverTipFactory.FromPower<BurnPower>());
             }
             
             //just to place it before vigor
-            if (CardElementTag.Earth.IsActive(CombatState) || !IsInCombat)
+            if (CardElementTag.Earth.IsActive(Owner.Creature) || !IsInCombat)
             {
                 tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
             }
             // Pour Earth, vu que GainsBlock est à true, le tooltip "Block" 
             // s'ajoute automatiquement via la classe de base, un patch en plus gere si on doit l'enlever ou pas
 
-            if (CardElementTag.Metal.IsActive(CombatState) || !IsInCombat)
+            if (CardElementTag.Metal.IsActive(Owner.Creature) || !IsInCombat)
             {
                 tips.Add(HoverTipFactory.FromPower<VigorPower>());
             }
@@ -114,26 +115,26 @@ public sealed class Incarnation() : NeutralCard(0,
         
         await base.OnPlay(choiceContext, play);
         if (CombatState == null) return;
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
             await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
         }
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             await CommonActions.Draw(this, choiceContext);
             await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
         }   
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
             var targets = CombatState.HittableEnemies;
             await PowerCmd.Apply<BurnPower>(choiceContext,targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);
         }
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             await CommonActions.CardBlock(this, play);
         }
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue);
         }
@@ -149,7 +150,7 @@ public sealed class Incarnation() : NeutralCard(0,
     {
         get
         {
-            if (CardElementTag.Fire.IsActive(CombatState))
+            if (CardElementTag.Fire.IsActive(Owner.Creature))
             {
                 return TargetType.AllEnemies;
             }
@@ -157,8 +158,10 @@ public sealed class Incarnation() : NeutralCard(0,
         }
     } 
     
-    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive, Creature creature)
     {
+        if (Owner.Creature != creature) return;
+        
         string? varName = element switch
         {
             CardElementTag.Water => "isWaterOn",

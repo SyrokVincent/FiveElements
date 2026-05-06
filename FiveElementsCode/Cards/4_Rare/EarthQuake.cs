@@ -17,7 +17,7 @@ public sealed class EarthQuake() : EarthCard(2,
 
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     //Gain 14 block, Remove half your block to deal that much damage to all enemies,
     //Earth:(Replay this card if it kill an enemy.)
@@ -74,7 +74,7 @@ public sealed class EarthQuake() : EarthCard(2,
             await attackAction.Execute(choiceContext);
 
             // --- EFFET EARTH (FATAL: REPLAY) ---
-            if (CardElementTag.Earth.IsActive(CombatState))
+            if (CardElementTag.Earth.IsActive(Owner.Creature))
             {
                 // On vérifie si l'attaque a tué au moins une cible
                 if (attackAction.Results.Any(r => r.WasTargetKilled))

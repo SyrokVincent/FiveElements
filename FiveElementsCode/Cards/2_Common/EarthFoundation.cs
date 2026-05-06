@@ -20,7 +20,7 @@ public class EarthFoundation() : EarthCard(1,
     public override bool GainsBlock => true;
 
     //delete if shouldn't glow or replace water
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     //Deal 4(6) Gain 4(6) Block, Earth: (Choose a card in Hand to retain this turn) 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -47,7 +47,7 @@ public class EarthFoundation() : EarthCard(1,
         await CommonActions.CardAttack(this,play.Target).Execute(choiceContext);
         await CommonActions.CardBlock(this, play);
        
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             // select a card to give it singleturnretain
             // 1. Préparer les préférences

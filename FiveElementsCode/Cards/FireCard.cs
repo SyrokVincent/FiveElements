@@ -23,8 +23,9 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
         CanonicalElementTags = [CardElementTag.Fire];
     }   
     
-    public async Task OnFireStateChanged(bool isActive)
+    public async Task OnFireStateChanged(bool isActive, Creature creature)
     {
+        if (Owner.Creature != creature) return;
         DynamicVars["isFireOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
     }

@@ -21,11 +21,11 @@ public abstract class StarterRelicLogic : FiveElementsRelic
         if (player == Owner && player.Creature.CombatState is { RoundNumber: 1 })
         {
             //reset de echo et des essences au cas ou on save and exit???
-            Character.FiveElements.ResetEcho();
-            combatState.GetElementalStatus().ResetAllEssences();
+            Owner.Creature.GetElementalStatus().ResetEcho();
+            Owner.Creature.GetElementalStatus().ResetAllEssences();
             foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
             {
-                _ = FiveElementsCardExtensions.CheckAndNotify(combatState, elem);
+                _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature, elem);
             }
             
             await Task.CompletedTask;
@@ -37,7 +37,7 @@ public abstract class StarterRelicLogic : FiveElementsRelic
     {
         if (card is FiveElementsCard feCard)
         {
-            await FiveElementsCardExtensions.SyncElementalState(feCard, this.Owner.Creature.CombatState);
+            await FiveElementsCardExtensions.SyncElementalState(feCard, this.Owner.Creature);
         }
         await base.AfterCardGeneratedForCombat(card, creator);
     }
@@ -74,14 +74,14 @@ public abstract class StarterRelicLogic : FiveElementsRelic
         
         // On vérifie si la carte possède un composant d'élément
         if (cardPlay.Card is FiveElementsCard elementCard) {
-            if (!Character.FiveElements.Echo.SetEquals(cardWas)) {
-                if (elementCard.IsNeutral() && Owner.Creature.HasPower<SpiritsFormPower>() && cardPlay.Card is not SpiritsForm)
+            if (!Owner.Creature.GetElementalStatus().Echo.SetEquals(cardWas)) {
+                if (elementCard.IsElement(CardElementTag.Neutral) && Owner.Creature.HasPower<SpiritsFormPower>() && cardPlay.Card is not SpiritsForm)
                 {
-                    Character.FiveElements.SetEchoToAllElements();
+                    Owner.Creature.GetElementalStatus().SetEchoToAllElements();
                 }
                 else
                 {
-                    Character.FiveElements.Echo = cardWas.ToHashSet();
+                    Owner.Creature.GetElementalStatus().SetEcho(cardWas);
                 }
                 
                 
@@ -102,7 +102,7 @@ public abstract class StarterRelicLogic : FiveElementsRelic
                 //debug
                 // Affiche l'état global avant de notifier les cartes
                 //string echoContent = string.Join(", ", Character.FiveElements.Echo);
-                //var status = cardPlay.Card.CombatState.GetElementalStatus();
+                //var status = cardPlay.Card.Owner.Creature.GetElementalStatus();
                 // GD.Print($"DEBUG: after FEcard Echo=[{echoContent}], " +
                 //          $"WaterEssence={status.GetEssence(CardElementTag.Water)}, " +
                 //          $"wood={status.GetEssence(CardElementTag.Wood)}, " +
@@ -115,22 +115,22 @@ public abstract class StarterRelicLogic : FiveElementsRelic
                 
                 foreach (CardElementTag elem in Enum.GetValues<CardElementTag>())
                 {
-                    _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
+                    _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature, elem);
                 }
             }
         } else {  //on est entrain de jouer une carte de base
             if(Owner.Creature.HasPower<SpiritsFormPower>())
             {
-                Character.FiveElements.SetEchoToAllElements();
+                Owner.Creature.GetElementalStatus().SetEchoToAllElements();
             }
             else
             {
-                Character.FiveElements.ResetEcho();
+                Owner.Creature.GetElementalStatus().ResetEcho();
             }
             
             foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
             {
-                _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
+                _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature, elem);
             }
         }
 
@@ -143,11 +143,11 @@ public abstract class StarterRelicLogic : FiveElementsRelic
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != CombatSide.Player) return;
-        Character.FiveElements.ResetEcho();
+        Owner.Creature.GetElementalStatus().ResetEcho();
         //debug
         // Affiche l'état global avant de notifier les cartes
         //string echoContent = string.Join(", ", Character.FiveElements.Echo);
-        //var status = Owner.Creature.CombatState.GetElementalStatus();
+        //var status = Owner.Creature.Owner.Creature.GetElementalStatus();
         // GD.Print($"DEBUG: turnend Echo=[{echoContent}], " +
         //          $"WaterEssence={status.GetEssence(CardElementTag.Water)}, " +
         //          $"wood={status.GetEssence(CardElementTag.Wood)}, " +
@@ -158,7 +158,7 @@ public abstract class StarterRelicLogic : FiveElementsRelic
         
         foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
         {
-            _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature.CombatState, elem);
+            _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature, elem);
         }
         //base.BeforeTurnEnd(choiceContext, side);
         //return Task.CompletedTask;
@@ -168,11 +168,11 @@ public abstract class StarterRelicLogic : FiveElementsRelic
     //todo need to do that at a better place, does'nt work when you give up and restart for example
     public override async Task AfterCombatEnd(CombatRoom room)
     {
-        Character.FiveElements.ResetEcho();
-        room.CombatState.GetElementalStatus().ResetAllEssences();
+        Owner.Creature.GetElementalStatus().ResetEcho();
+        Owner.Creature.GetElementalStatus().ResetAllEssences();
         foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
         {
-            _ = FiveElementsCardExtensions.CheckAndNotify(room.CombatState, elem);
+            _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature, elem);
         }
         await Task.CompletedTask;
         // async or that idk what I need to do

@@ -47,7 +47,7 @@ public sealed class EchoFormationPower : FiveElementsPower
             if (c.ShouldRetainThisTurn) return false;
 
             // 2. On récupère l'élément actuel de l'Echo
-            var currentEcho = Character.FiveElements.Echo;
+            var currentEcho = Owner.GetElementalStatus().Echo;
 
             // 3. On vérifie si la carte "compte comme" l'élément de l'Echo
             // Cela gère les FiveElementsCards, mais aussi les cartes de base transformées

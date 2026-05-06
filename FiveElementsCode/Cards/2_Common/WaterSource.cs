@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -15,7 +16,7 @@ public class WaterSource() : WaterCard(2,
     TargetType.Self)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
 
     //Gain 7(9) wave, Water: (cost 1 less) 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -47,9 +48,9 @@ public class WaterSource() : WaterCard(2,
     
     private bool _isWaterDiscountActive = false;
 
-    public override async Task OnWaterStateChanged(bool isActive)
+    public override async Task OnWaterStateChanged(bool isActive, Creature creature)
     {
-        await base.OnWaterStateChanged( isActive);
+        await base.OnWaterStateChanged(isActive, creature);
         // Si l'eau s'active ET que la réduction n'est pas encore appliquée
         if (isActive && !_isWaterDiscountActive)
         {

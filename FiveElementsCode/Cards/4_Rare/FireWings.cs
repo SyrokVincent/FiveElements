@@ -40,7 +40,7 @@ public sealed class FireWings() : FireCard(1,
 
         if (IsUpgraded)
         {
-            if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, 1, false, CombatState);
+            if (CombatState != null) await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, 1, false, Owner.Creature);
         }
         
     }

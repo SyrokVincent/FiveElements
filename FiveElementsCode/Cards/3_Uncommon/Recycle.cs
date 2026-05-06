@@ -101,7 +101,7 @@ public sealed class Recycle() : NeutralCard(0,
 
             if (selectedChoice != null)
             {
-                await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, false,CombatState);
+                await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, false,Owner.Creature);
                 selectedChoice.EnergyCost.AddThisTurnOrUntilPlayed(-1);
             }
         }
@@ -112,7 +112,7 @@ public sealed class Recycle() : NeutralCard(0,
         
             if (selectedChoice != null)
             {
-                await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, false,CombatState);
+                await FiveElementsCardExtensions.TransformInHand(targetCard, selectedChoice, false,Owner.Creature);
                 selectedChoice.EnergyCost.AddThisTurnOrUntilPlayed(-1);
             }
         }

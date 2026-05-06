@@ -15,7 +15,7 @@ public sealed class FireWeaving() : FireCard(1,
     TargetType.AnyEnemy)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Ethereal, Exhaust 1 non-fire card at random. Deal 6 Heat damage, Fire:(If this card costs Energy, return it to your hand.)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -66,7 +66,7 @@ public sealed class FireWeaving() : FireCard(1,
         bool spentEnergy = EnergyCost.GetResolved() > 0;
 
         if (resultPileType is PileType.Discard or PileType.Exhaust &&
-            CardElementTag.Fire.IsActive(CombatState) && 
+            CardElementTag.Fire.IsActive(Owner.Creature) && 
             spentEnergy)
         {
             return PileType.Hand;
@@ -89,7 +89,7 @@ public sealed class FireWeaving() : FireCard(1,
     TargetType.AnyEnemy)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Exhaust a non-fire card or itself if you can't. Deal 6 Heat damage, Fire:(return in hand if you exhausted a card)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -151,7 +151,7 @@ public sealed class FireWeaving() : FireCard(1,
     {
         PileType resultPileType = base.GetResultPileType();
         return (resultPileType is PileType.Discard or PileType.Exhaust &&
-                CardElementTag.Fire.IsActive(CombatState)) ? PileType.Hand : resultPileType;
+                CardElementTag.Fire.IsActive(Owner.Creature)) ? PileType.Hand : resultPileType;
     }
     
 }

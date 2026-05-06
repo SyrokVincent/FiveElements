@@ -18,7 +18,7 @@ public sealed class EarthWall() : EarthCard(2,
     
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     //Gain 14 Block, Earth:(Blocked attack damage is reflected to your attacker this turn) ( add Retain?), 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -42,7 +42,7 @@ public sealed class EarthWall() : EarthCard(2,
         if (CombatState == null) return;
 
         await CommonActions.CardBlock(this, play);
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await CommonActions.ApplySelf<EarthWallPower>(choiceContext,this, DynamicVars["EarthWallPower"].BaseValue);

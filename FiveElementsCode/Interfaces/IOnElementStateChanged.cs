@@ -1,63 +1,75 @@
 ﻿using FiveElements.FiveElementsCode.Enums;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Models;
 
 namespace FiveElements.FiveElementsCode.Interfaces;
-/*
-public interface IOnElementStateChanged
-{
-    // On passe le tag pour savoir quel élément a bougé
-    // On passe le booléen pour savoir s'il est devenu actif ou inactif
-    Task OnWaterStateChanged(bool isActive) => Task.CompletedTask;
-    Task OnWoodStateChanged(bool isActive) => Task.CompletedTask;
-    Task OnFireStateChanged(bool isActive) => Task.CompletedTask;
-    Task OnEarthStateChanged(bool isActive) => Task.CompletedTask;
-    Task OnMetalStateChanged(bool isActive) => Task.CompletedTask;
-    //Task OnElementStateChanged(CardElementTag element, bool isActive);
-}
-*/
 
 public interface IOnElementStateChanged 
 {
-    Task OnElementStateChanged(CardElementTag element, bool isActive);
-}
+    Task OnElementStateChanged(CardElementTag element, bool isActive, Creature creature);
 
+    // Méthode utilitaire partagée
+    protected bool IsMyOwner(Creature eventSource)
+    {
+        Creature? listenerOwner = this switch
+        {
+            CardModel card => card.Owner?.Creature,
+            PowerModel power => power.Owner,
+            RelicModel relic => relic.Owner?.Creature,
+            _ => null
+        };
+        // Si pas de proprio, on accepte par défaut, sinon on compare
+        return listenerOwner == null || listenerOwner == eventSource;
+    }
+}
 
 
 public interface IOnWaterStateChanged : IOnElementStateChanged 
 {
-    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive) 
-        => element == CardElementTag.Water ? OnWaterStateChanged(isActive) : Task.CompletedTask;
+    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive, Creature creature) 
+        => (element == CardElementTag.Water && IsMyOwner(creature)) 
+            ? OnWaterStateChanged(isActive, creature) 
+            : Task.CompletedTask;
 
-    Task OnWaterStateChanged(bool isActive);
+    Task OnWaterStateChanged(bool isActive, Creature creature);
 }
+
 public interface IOnWoodStateChanged : IOnElementStateChanged 
 {
-    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive) 
-        => element == CardElementTag.Wood ? OnWoodStateChanged(isActive) : Task.CompletedTask;
+    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive, Creature creature) 
+        => (element == CardElementTag.Wood && IsMyOwner(creature)) 
+            ? OnWoodStateChanged(isActive, creature) 
+            : Task.CompletedTask;
 
-    Task OnWoodStateChanged(bool isActive);
+    Task OnWoodStateChanged(bool isActive, Creature creature);
 }
+
 public interface IOnFireStateChanged : IOnElementStateChanged 
 {
-    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive) 
-        => element == CardElementTag.Fire ? OnFireStateChanged(isActive) : Task.CompletedTask;
+    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive, Creature creature) 
+        => (element == CardElementTag.Fire && IsMyOwner(creature)) 
+            ? OnFireStateChanged(isActive, creature) 
+            : Task.CompletedTask;
 
-    Task OnFireStateChanged(bool isActive);
+    Task OnFireStateChanged(bool isActive, Creature creature);
 }
 
 public interface IOnEarthStateChanged : IOnElementStateChanged 
 {
-    // On implémente OnElementChanged par défaut pour rediriger vers la méthode spécifique
-    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive) 
-        => element == CardElementTag.Earth ? OnEarthStateChanged(isActive) : Task.CompletedTask;
+    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive, Creature creature) 
+        => (element == CardElementTag.Earth && IsMyOwner(creature)) 
+            ? OnEarthStateChanged(isActive, creature) 
+            : Task.CompletedTask;
 
-    Task OnEarthStateChanged(bool isActive);
+    Task OnEarthStateChanged(bool isActive, Creature creature);
 }
 
 public interface IOnMetalStateChanged : IOnElementStateChanged 
 {
-    // On implémente OnElementChanged par défaut pour rediriger vers la méthode spécifique
-    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive) 
-        => element == CardElementTag.Metal ? OnMetalStateChanged(isActive) : Task.CompletedTask;
+    Task IOnElementStateChanged.OnElementStateChanged(CardElementTag element, bool isActive, Creature creature) 
+        => (element == CardElementTag.Metal && IsMyOwner(creature)) 
+            ? OnMetalStateChanged(isActive, creature) 
+            : Task.CompletedTask;
 
-    Task OnMetalStateChanged(bool isActive);
+    Task OnMetalStateChanged(bool isActive, Creature creature);
 }

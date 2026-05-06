@@ -21,7 +21,7 @@ public static class PatchHoverTips
             if (__instance.CombatState == null) return;
 
             // Si on est en combat mais que la Terre est OFF, on dégage le bloc de FORCE
-            if (!CardElementTag.Earth.IsActive(__instance.CombatState))
+            if (!CardElementTag.Earth.IsActive(__instance.Owner.Creature))
             {
                 string blockId = HoverTipFactory.Static(StaticHoverTip.Block).Id;
                 __result = __result.Where(tip => tip.Id != blockId);

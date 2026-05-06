@@ -26,45 +26,10 @@ public class FiveElements : PlaceholderCharacterModel
         get => SceneHelper.GetScenePath("combat/card_trail/card_trail_sage");
     }
     
-    
-    
     public override Color EnergyLabelOutlineColor => new Color("0000007F");
     public override string CustomEnergyCounterPath
     {
         get => SceneHelper.GetScenePath($"combat/energy_counters/sage_energy_counter");
-    }
-    
-    
-    // Utilisation d'un HashSet pour éviter les doublons d'éléments
-    public static HashSet<CardElementTag> Echo = new() { CardElementTag.Neutral };
-
-    public static int GetEchoStateForDescription()
-    {
-        if (Echo.Count == 6) return 6; //echo has all element
-        return (int) Echo.LastOrDefault(); //echo has only one element
-    }
-    
-    // Méthode utilitaire pour changer l'écho facilement
-    public static void SetEcho(params CardElementTag[] elements)
-    {
-        Echo.Clear();
-        foreach (var e in elements) Echo.Add(e);
-    }
-    
-    public static void ResetEcho()
-    {
-        Echo.Clear();
-        Echo.Add(CardElementTag.Neutral);
-    }
-    
-    // Méthode utilitaire pour changer l'écho facilement
-    public static void SetEchoToAllElements()
-    {
-        Echo.Clear();
-        foreach (var element in Enum.GetValues<CardElementTag>())
-        {
-            Echo.Add(element);
-        }
     }
     
     // this change the placeholder stuff
@@ -116,6 +81,10 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<WaterLord>());
+            finalDeck.Add(ModelDb.Card<WaterLord>());
+            finalDeck.Add(ModelDb.Card<WaterLord>());
+            finalDeck.Add(ModelDb.Card<WaterTsunami>());
             
             
             /*

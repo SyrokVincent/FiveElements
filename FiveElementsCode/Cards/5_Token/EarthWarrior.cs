@@ -20,7 +20,7 @@ public sealed class EarthWarrior() : EarthCard(1,
     
     public override bool GainsBlock => true;
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
     
     //Gain 3 block,+2 for each Earth guard in your deck, Earth:(Gain x for Earth Guard in your hand)
     // increase to +2 from 1 and now gain thorn if other warrior are in hand
@@ -72,7 +72,7 @@ public sealed class EarthWarrior() : EarthCard(1,
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.PreviewValue,
             ValueProp.Unpowered, play); //preview + unpowered to apply exactly waht's shown , might be wrong ??
         
-       if (CardElementTag.Earth.IsActive(CombatState))
+       if (CardElementTag.Earth.IsActive(Owner.Creature))
        {
            var warriorsInHand = PileType.Hand.GetPile(Owner).Cards
                .Count(c => c is EarthWarrior);

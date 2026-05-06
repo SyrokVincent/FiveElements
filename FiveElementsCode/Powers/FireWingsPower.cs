@@ -27,7 +27,7 @@ public sealed class FireWingsPower : FiveElementsPower
     {
         if (player != Owner.Player) return;
         Flash();
-        await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner.Player, Amount,false, combatState);
+        await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner.Player, Amount,false, Owner);
     }
     
 }

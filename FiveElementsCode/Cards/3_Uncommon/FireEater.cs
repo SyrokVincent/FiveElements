@@ -15,7 +15,7 @@ public sealed class FireEater() : FireCard(1,
     TargetType.Self)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Ethereal, Exhaust 2(3) Fire card, Fire:(for each card exhausted apply 8 burn to all enemies)
     // buffed from 4 burn to 8
@@ -55,7 +55,7 @@ public sealed class FireEater() : FireCard(1,
         }
         
         // 3. Si l'élément FEU est actif, on applique Burn par carte épuisée
-        if (CardElementTag.Fire.IsActive(CombatState) && cardModels.Any())
+        if (CardElementTag.Fire.IsActive(Owner.Creature) && cardModels.Any())
         {
             // On répète l'action pour chaque carte épuisée
             for (var i = 0; i < cardModels.Count; i++)

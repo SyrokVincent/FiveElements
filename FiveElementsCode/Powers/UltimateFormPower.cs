@@ -50,7 +50,7 @@ public sealed class UltimateFormPower : FiveElementsPower
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
         // 1. Snapshot de l'Echo global
-        _currentEchoSnapshot = Character.FiveElements.Echo.ToList();
+        _currentEchoSnapshot = Owner.GetElementalStatus().Echo.ToList();
 
         // 2. Snapshot des éléments de la carte AVANT qu'elle ne change
         _cardElementsBeforePlay.Clear();

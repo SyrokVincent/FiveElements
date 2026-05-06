@@ -15,7 +15,7 @@ public sealed class WaterCall() : WaterCard(1,
     TargetType.AnyEnemy)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
 
     //Deal 5 damage, Gain 3 Wave, Water: (trigger wave) 
 
@@ -38,7 +38,7 @@ public sealed class WaterCall() : WaterCard(1,
     {
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
         await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             // trigger wave
             // On récupère l'instance du pouvoir sur le joueur

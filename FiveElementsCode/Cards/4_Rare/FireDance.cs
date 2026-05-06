@@ -15,7 +15,7 @@ public sealed class FireDance() : FireCard(1,
     TargetType.AnyEnemy)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Ethereal, Deal 7 Heat damage, Fire:(add a copy on top of the draw pile)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -38,7 +38,7 @@ public sealed class FireDance() : FireCard(1,
 
         await DealHeatDamage(choiceContext, play.Target, DynamicVars.Damage);
         
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
           
             var clone = CreateClone();

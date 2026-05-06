@@ -15,7 +15,7 @@ public sealed class FireNova() : FireCard(1,
     TargetType.AllEnemies)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Deal 3 Heat damage to all enemies, Fire:(apply 3 burn to all enemies)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -39,7 +39,7 @@ public sealed class FireNova() : FireCard(1,
         if (CombatState == null) return;
         
         await DealHeatDamageAoe(choiceContext, DynamicVars.Damage);
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
             var targets = CombatState.HittableEnemies;
             await PowerCmd.Apply<BurnPower>(choiceContext, targets, this.DynamicVars["BurnPower"].BaseValue, this.Owner.Creature, this);

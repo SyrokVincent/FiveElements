@@ -15,7 +15,7 @@ public sealed class WoodFury() : WoodCard(0,
 {
     protected override bool HasEnergyCostX => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //Deal 3 damage to a random enemies X times, X is doubled.
     //Wood:(X is instead tripled.)
@@ -40,7 +40,7 @@ public sealed class WoodFury() : WoodCard(0,
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         var xValue = ResolveEnergyXValue() * 2;
         
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             xValue = ResolveEnergyXValue() * 3;
         }

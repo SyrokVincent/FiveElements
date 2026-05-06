@@ -15,7 +15,7 @@ public sealed class WoodMark() : WoodCard(0,
     TargetType.AnyEnemy)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //Exhaust, remove all thorns and block from the enemy,
     //Wood:(Draw 1)
@@ -56,7 +56,7 @@ public sealed class WoodMark() : WoodCard(0,
             }
         }
         
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             await CommonActions.Draw(this, choiceContext);
         }

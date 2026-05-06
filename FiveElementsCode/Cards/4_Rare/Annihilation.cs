@@ -66,14 +66,14 @@ public sealed class Annihilation() : NeutralCard(3,
             // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
             foreach (var tag in card.ElementTags.Where(tag => tag != CardElementTag.Neutral))
             {
-                if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1,choiceContext);
+                if (CombatState != null) Owner.Creature.GetElementalStatus().AddEssence(tag, 1,choiceContext);
                 GD.Print($"Essence ajoutée ! Élément : {tag}");
             }
         }
         
         if (CombatState != null)
         {
-            var essences = CombatState.GetElementalStatus();
+            var essences = Owner.Creature.GetElementalStatus();
             var count = 0;
             if (essences.GetEssence(CardElementTag.Water)>0)
             {

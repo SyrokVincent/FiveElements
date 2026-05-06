@@ -128,7 +128,7 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     protected override async void AfterDowngraded()
     {
         base.AfterDowngraded();
-        await FiveElementsCardExtensions.SyncElementalState(this, CombatState);
+        await FiveElementsCardExtensions.SyncElementalState(this, Owner.Creature);
     }
     
     
@@ -180,7 +180,7 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         get
         {
             var combatState = this.CombatState;
-            if (combatState != null) return combatState.GetElementalStatus().ElementOfEcho;
+            if (combatState != null) return Owner.Creature.GetElementalStatus().ElementOfEcho;
             return CardElementTag.Neutral;
         }
     }

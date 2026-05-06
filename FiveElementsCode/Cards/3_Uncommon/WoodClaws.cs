@@ -16,7 +16,7 @@ public sealed class WoodClaws() : WoodCard(1,
     TargetType.AnyEnemy)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //Deal 7 damage,
     //Wood:(replay for each other wood card played this turn) 
@@ -66,7 +66,7 @@ public sealed class WoodClaws() : WoodCard(1,
     {
         if (cardPlay.Card != this) return;
     
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             // 1. Initialisation si c'est le début d'une chaîne (peu importe qui l'a lancée)
             if (_remainingReplays == -1) 

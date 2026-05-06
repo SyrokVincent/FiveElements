@@ -14,7 +14,7 @@ public sealed class MetalCreation() : MetalCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self,false,false) //removed
 {
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Metal.IsActive(Owner.Creature);
     
     
     // Gain 3 vigor
@@ -38,16 +38,16 @@ public sealed class MetalCreation() : MetalCard(1,
     {
         if (CombatState == null) return;
         
-        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Metal) > 0)
+        if (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Metal) > 0)
         {
             await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue*2);
         }
         else
         {
             await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue);
-            if (CardElementTag.Metal.IsActive(CombatState))
+            if (CardElementTag.Metal.IsActive(Owner.Creature))
             {
-                CombatState.GetElementalStatus().AddEssence(CardElementTag.Metal, 1,choiceContext);
+                Owner.Creature.GetElementalStatus().AddEssence(CardElementTag.Metal, 1,choiceContext);
             }
         }
 
@@ -63,7 +63,7 @@ public sealed class MetalCreation() : MetalCard(1,
     protected override PileType GetResultPileType()
     {
         PileType resultPileType = base.GetResultPileType();
-        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0) ? PileType.Exhaust : resultPileType;
+        return CombatState != null && (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0) ? PileType.Exhaust : resultPileType;
     }
     /*
     public override async Task OnElementStateChanged(CardElementTag element, bool isActive)

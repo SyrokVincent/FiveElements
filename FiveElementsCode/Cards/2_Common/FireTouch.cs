@@ -17,7 +17,7 @@ public sealed class FireTouch() : FireCard(0,
 {
 
     //delete if shouldn't glow or replace water
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Exhaust, Exhaust a (non-Fire?) card, Fire:(add 1 Fire plume in hand)
     // on upgrade 2 plume instead of plume+
@@ -69,9 +69,9 @@ public sealed class FireTouch() : FireCard(0,
             await CardCmd.Exhaust(choiceContext, selectedCard);
         }
         
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
-            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,false, CombatState);
+            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,false, Owner.Creature);
         }
     }
 

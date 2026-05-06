@@ -17,7 +17,7 @@ public class FireProtection() : FireCard(1,
 {
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Gain 6(9) block, Fire: (add 1 Fire plume in hand)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -41,9 +41,9 @@ public class FireProtection() : FireCard(1,
         if (CombatState == null) return;
         
         await CommonActions.CardBlock(this, play);
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
-            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,false, CombatState);
+            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,false, Owner.Creature);
         }
 
     }

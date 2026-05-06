@@ -15,7 +15,7 @@ public sealed class MetalEdge() : MetalCard(1,
     TargetType.Self)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     //Damage of the next attack increase by 100%, Metal:(next attack this turn cost 1 less (2? free?))
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -38,7 +38,7 @@ public sealed class MetalEdge() : MetalCard(1,
 
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await CommonActions.ApplySelf<MetalEdgePower>(choiceContext,this, DynamicVars["MetalEdgePower"].BaseValue);
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             //next attack cost reduction
             //parcourir les carte de la main, reduire le cout des attack de 1 pour ce tour, lorsque une est joué enlever le buff des autre attack

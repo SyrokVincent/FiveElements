@@ -21,7 +21,7 @@ public sealed class Absorption() : NeutralCard(0,
         new CalculationExtraVar(1),
         new CalculatedVar("EnergyGained").WithMultiplier((card, target) =>
         {
-            if (card.CombatState != null) return card.CombatState.GetElementalStatus().GetTotalEssenceCount();
+            if (card.CombatState != null) return card.Owner.Creature.GetElementalStatus().GetTotalEssenceCount();
             return 0;
         }),
     ]);
@@ -43,7 +43,7 @@ public sealed class Absorption() : NeutralCard(0,
         await base.OnPlay(choiceContext, play);
         if (CombatState != null)
         {
-            var essences = CombatState.GetElementalStatus();
+            var essences = Owner.Creature.GetElementalStatus();
             var count = 0;
             if (essences.GetEssence(CardElementTag.Water)>0)
             {
@@ -68,7 +68,7 @@ public sealed class Absorption() : NeutralCard(0,
             if (count!=0)
             {
                 await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue * count, Owner);
-                //CombatState.GetElementalStatus().ResetAllEssences();
+                //Owner.Creature.GetElementalStatus().ResetAllEssences();
             }
             
             

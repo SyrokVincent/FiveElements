@@ -15,7 +15,7 @@ public sealed class FireBall() : FireCard(10,
     TargetType.AllEnemies)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Fireboost, Deal 15 Heat damage to all enemies, Fire:(2 more for each other fire card in hand) 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -23,7 +23,7 @@ public sealed class FireBall() : FireCard(10,
         new ExtraDamageVar(2),    // bonus damage for each fire card in hand
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
-            var fireIsActive = card.CombatState != null && CardElementTag.Fire.IsActive(card.CombatState);
+            var fireIsActive = card.CombatState != null && CardElementTag.Fire.IsActive(card.Owner.Creature);
 
             if (!fireIsActive) 
                 return 0;

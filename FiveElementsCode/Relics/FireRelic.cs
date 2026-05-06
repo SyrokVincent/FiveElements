@@ -36,7 +36,7 @@ public sealed class FireRelic() : FiveElementsRelic
         {
             Flash();
             //ajout des carte
-            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,false, combatState);
+            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,false, Owner.Creature);
             await Task.CompletedTask;
         }
     }

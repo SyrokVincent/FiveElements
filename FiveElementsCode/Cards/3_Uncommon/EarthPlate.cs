@@ -37,7 +37,7 @@ public sealed class EarthPlate() : EarthCard(1,
     
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     // old//Retain, Gain 5 block, for each turn in hand increase by 2, Earth:(Gain 1 Plating for each enemy that plan to attack)
     // no longer gain for combat, but faster scaling
@@ -83,7 +83,7 @@ public sealed class EarthPlate() : EarthCard(1,
             await CommonActions.ApplySelf<PlatingPower>(choiceContext,this, DynamicVars["PlatingPower"].BaseValue*enemyWithAttackIntent);
         }
         
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             
             
@@ -99,7 +99,7 @@ public sealed class EarthPlate() : EarthCard(1,
             return Task.CompletedTask;
         }
 
-        if (CombatState != null && CardElementTag.Earth.IsActive(CombatState))
+        if (CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature))
         {
             this.GiveSingleTurnRetain();
         }

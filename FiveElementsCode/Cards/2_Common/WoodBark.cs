@@ -17,7 +17,7 @@ public sealed class WoodBark() : WoodCard(1,
 
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //Gain 7(+3) block,
     //Wood:(block of this card also scale with strength)
@@ -26,7 +26,7 @@ public sealed class WoodBark() : WoodCard(1,
         new CalculationExtraVar(1),    // bonus block for each strength
         new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
-            var woodIsActive = card.CombatState != null && CardElementTag.Wood.IsActive(card.CombatState);
+            var woodIsActive = card.CombatState != null && CardElementTag.Wood.IsActive(card.Owner.Creature);
 
             if (!woodIsActive) 
                 return 0;

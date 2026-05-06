@@ -18,7 +18,7 @@ namespace FiveElements.FiveElementsCode.Extensions;
 public static class FiveElementsCardExtensions
 {
     
-    public static async Task SyncElementalState(CardModel potentialListener, ICombatState combatState)
+    public static async Task SyncElementalState(CardModel potentialListener, Creature creature)
     {
         // On vérifie si l'objet écoute les changements d'éléments
         if (potentialListener is IOnElementStateChanged elementalListener)
@@ -30,49 +30,55 @@ public static class FiveElementsCardExtensions
                 if (elem == CardElementTag.Neutral) continue;
 
                 // On récupère l'état actuel dans le combat
-                bool isActive = elem.IsActive(combatState);
+                bool isActive = elem.IsActive(creature);
 
                 // On déclenche la mise à jour (via l'interface maître qui redirige vers les filles)
-                await elementalListener.OnElementStateChanged(elem, isActive);
+                await elementalListener.OnElementStateChanged(elem, isActive, creature);
             }
         }
     }
 
-    public static async Task TransformInHand(CardModel card, CardModel intoCard, bool needUpgrade, ICombatState combatState) 
+    public static async Task TransformInHand(CardModel card, CardModel intoCard, bool needUpgrade, Creature creature) 
     {
-            await SyncElementalState(intoCard, combatState);
+            await SyncElementalState(intoCard, creature);
             if (needUpgrade) CardCmd.Upgrade(intoCard);
             await CardCmd.Transform(card, intoCard);
     }
     
-    public static async Task TransformInHand<T>(Player owner, IEnumerable<CardModel> cards, bool needUpgrade, ICombatState combatState) 
+    public static async Task TransformInHand<T>(Player owner, IEnumerable<CardModel> cards, bool needUpgrade, Creature creature) 
         where T : CardModel // On précise que T doit être un modèle de carte
     {
         foreach (var card in cards )
         {
-            var replacementCard = combatState.CreateCard<T>(owner);
+            if (creature.CombatState != null)
+            {
+                var replacementCard = creature.CombatState.CreateCard<T>(owner);
             
-            await SyncElementalState(replacementCard, combatState);
+                await SyncElementalState(replacementCard, creature);
 
-            if (needUpgrade) CardCmd.Upgrade(replacementCard);
-            await CardCmd.Transform(card, replacementCard);
+                if (needUpgrade) CardCmd.Upgrade(replacementCard);
+                await CardCmd.Transform(card, replacementCard);
+            }
         }
     }
     
-    public static async Task CreateInHand<T>(Player owner, int count, bool needUpgrade, ICombatState combatState) 
+    public static async Task CreateInHand<T>(Player owner, int count, bool needUpgrade, Creature creature) 
         where T : CardModel // On précise que T doit être un modèle de carte
     {
         var cards = new List<CardModel>();
 
         for (var i = 0; i < count; i++) 
         {
-            var card = combatState.CreateCard<T>(owner);
+            if (creature.CombatState != null)
+            {
+                var card = creature.CombatState.CreateCard<T>(owner);
             
-            await SyncElementalState(card, combatState);
+                await SyncElementalState(card, creature);
 
-            if (needUpgrade) CardCmd.Upgrade(card);
+                if (needUpgrade) CardCmd.Upgrade(card);
             
-            cards.Add(card);
+                cards.Add(card);
+            }
         }
 
         await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, owner);
@@ -89,7 +95,7 @@ public static class FiveElementsCardExtensions
         // Empêcher la transformation si la carte n'est plus "jouable" (Exil)
         if (cardToTransform.Pile?.Type == PileType.Exhaust) return;
 
-        var currentEcho = Character.FiveElements.Echo;
+        var currentEcho = owner.Creature.GetElementalStatus().Echo;
         CardModel? replacement = null;
 
      
@@ -140,30 +146,6 @@ public static class FiveElementsCardExtensions
     {
         return card.ElementTags.Contains(tag);
     }
-    public static bool IsNeutral(this FiveElementsCard card)
-    {
-        return card.IsElement(CardElementTag.Neutral);
-    }
-    public static bool IsWater(this FiveElementsCard card)
-    {
-        return card.IsElement(CardElementTag.Water);
-    }
-    public static bool IsWood(this FiveElementsCard card)
-    {
-        return card.IsElement(CardElementTag.Wood);
-    }
-    public static bool IsFire(this FiveElementsCard card)
-    {
-        return card.IsElement(CardElementTag.Fire);
-    }
-    public static bool IsEarth(this FiveElementsCard card)
-    {
-        return card.IsElement(CardElementTag.Earth);
-    }
-    public static bool IsMetal(this FiveElementsCard card)
-    {
-        return card.IsElement(CardElementTag.Metal);
-    }
     
     
     public static bool CountAsElement(this CardModel card, HashSet<CardElementTag> tags, Creature owner)
@@ -177,7 +159,7 @@ public static class FiveElementsCardExtensions
             return false;
 
         // 3. Si le pouvoir est présent, il convertit uniquement ce qui n'a pas d'élément.
-        if (card is FiveElementsCard feCardNeutral && feCardNeutral.IsNeutral())
+        if (card is FiveElementsCard feCardNeutral && feCardNeutral.IsElement(CardElementTag.Neutral))
             return true;
 
         if (card is not FiveElementsCard)
@@ -197,7 +179,7 @@ public static class FiveElementsCardExtensions
             return false;
 
         // 3. Si le pouvoir est présent, il convertit uniquement ce qui n'a pas d'élément.
-        if (card is FiveElementsCard feCardNeutral && feCardNeutral.IsNeutral())
+        if (card is FiveElementsCard feCardNeutral && feCardNeutral.IsElement(CardElementTag.Neutral))
             return true;
 
         if (card is not FiveElementsCard)
@@ -248,13 +230,13 @@ public static class FiveElementsCardExtensions
         };
     }
     
-    public static bool IsActive(this CardElementTag elem, ICombatState? combatState)
+    public static bool IsActive(this CardElementTag elem, Creature creature)
     {
-        if (combatState == null) return false;
+        if (creature == null) return false;
 
-        var status = combatState.GetElementalStatus();
+        var status = creature.GetElementalStatus();
         // ON LIT L'ECHO ICI MAINTENANT :
-        HashSet<CardElementTag> currentEcho = Character.FiveElements.Echo; //status.ElementOfEcho;
+        HashSet<CardElementTag> currentEcho = status.Echo; //status.ElementOfEcho;
         return elem switch
         {
             CardElementTag.Water => currentEcho.Contains(CardElementTag.Water) || currentEcho.Contains(CardElementTag.Metal) || status.GetEssence(CardElementTag.Water) > 0,
@@ -298,18 +280,8 @@ public static class FiveElementsCardExtensions
         return new Color(0.2f, 0.2f, 0.2f);
     }
     
-
-    public static bool IsAnyElementActive(ICombatState combatState)
-    {
-        return CardElementTag.Water.IsActive(combatState) ||
-               CardElementTag.Wood.IsActive(combatState)  ||
-               CardElementTag.Fire.IsActive(combatState)  ||
-               CardElementTag.Earth.IsActive(combatState) ||
-               CardElementTag.Metal.IsActive(combatState);
-    }
     
-    
-    
+    /*
     // Un dictionnaire pour mémoriser l'état de chaque élément (Eau, Bois, etc.)
     private static readonly Dictionary<CardElementTag, bool> _lastStates = new();
 
@@ -317,7 +289,7 @@ public static class FiveElementsCardExtensions
     {
         //GD.Print("CheckAndNotify TRIGGERED");
         // 1. On calcule l'état actuel (Essence + Echo) pour cet élément précis
-        bool currentState = elem.IsActive(combatState); 
+        bool currentState = elem.IsActive(Owner.Creature); 
 
         // 2. On récupère l'ancien état (false par défaut si c'est la première fois)
         _lastStates.TryGetValue(elem, out bool lastState);
@@ -335,6 +307,35 @@ public static class FiveElementsCardExtensions
                 elem, 
                 currentState
             );
+        }
+    }
+    */
+
+    public static async Task CheckAndNotify(Creature owner, CardElementTag elem)
+    {
+        var combatState = owner.CombatState;
+        var status = owner.GetElementalStatus();
+
+        // 2. Calculer l'état actuel (Essence + Echo) via votre méthode IsActive
+        bool currentState = elem.IsActive(owner); 
+
+        // 3. Récupérer l'ancien état mémorisé dans l'objet Element pour CE joueur
+        bool lastState = status.GetLastState(elem);
+
+        if (currentState != lastState)
+        {
+            // Mettre à jour la mémoire interne de l'objet Element du joueur
+            status.SetLastState(elem, currentState);
+
+            // 5. Déclencher le hook
+            if (combatState != null)
+                await MyModHooks.TriggerElementStateChanged(
+                    combatState.RunState,
+                    combatState,
+                    elem,
+                    currentState,
+                    owner
+                );
         }
     }
 }

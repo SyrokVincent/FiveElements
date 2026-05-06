@@ -18,7 +18,6 @@ public class PatchFromKeyword
     private const string EarthColor = "[color=#8B4513]";
     private const string MetalColor = "[color=#C0C0C0]";
     
-    public static int ElementOfEcho => Character.FiveElements.GetEchoStateForDescription();
     
     protected static IEnumerable<DynamicVar> CanonicalVars => [
         new StringVar("water_s",WaterColor),
@@ -56,13 +55,14 @@ public class PatchFromKeyword
                 title.Add(var);
                 description.Add(var);
             }
-            
+            //todo find a way to get echo here so I can show dinamicaly the echo n description ?
+            /*
             if (keyword == FiveElementsKeywords.Echo)
             {
                 var elemEcho = new IntVar("ElemEcho", ElementOfEcho);
                 title.Add(elemEcho);
                 description.Add(elemEcho);
-            }
+            }*/
             
             __result = new HoverTip(title, description);
             

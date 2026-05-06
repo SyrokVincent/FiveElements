@@ -53,7 +53,7 @@ public sealed class Creation() : NeutralCard(0,
             // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
             foreach (var tag in card.ElementTags.Where(tag => tag != CardElementTag.Neutral))
             {
-                if (CombatState != null) CombatState.GetElementalStatus().AddEssence(tag, 1,choiceContext);
+                if (CombatState != null) Owner.Creature.GetElementalStatus().AddEssence(tag, 1,choiceContext);
                 GD.Print($"Essence ajoutée ! Élément : {tag}");
             }
         }

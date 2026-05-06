@@ -18,7 +18,7 @@ public sealed class EarthCrown() : EarthCard(1,
 
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     // old// Gain 4*2 block, Earth:(This turn for each Earth card played gain 1 temp dex)
     //
@@ -68,7 +68,7 @@ public sealed class EarthCrown() : EarthCard(1,
         if (CombatState == null) return;
 
         await CommonActions.CardBlock(this, play);
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {   
             await CommonActions.ApplySelf<PlatingPower>(choiceContext,this, DynamicVars["PlatingPower"].BaseValue * DynamicVars["EarthCardPlayed"].PreviewValue);
         }

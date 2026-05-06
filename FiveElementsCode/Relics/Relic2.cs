@@ -57,7 +57,7 @@ public sealed class Relic2() : StarterRelicLogic
         if (player == Owner && player.Creature.CombatState is { RoundNumber: 1 })
         {
             //ajout de la carte
-            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 2,true, combatState);
+            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 2,true, Owner.Creature);
             await Task.CompletedTask;
         }
     }
@@ -67,7 +67,7 @@ public sealed class Relic2() : StarterRelicLogic
     {
         await base.BeforeCombatStart();
         if (Owner.Creature.CombatState != null)
-            Owner.Creature.CombatState.GetElementalStatus().EssenceChanged += OnEssenceGainedTrigger;
+            Owner.Creature.GetElementalStatus().EssenceChanged += OnEssenceGainedTrigger;
         await Task.CompletedTask;
     }
 
@@ -75,7 +75,7 @@ public sealed class Relic2() : StarterRelicLogic
     {
         await base.AfterCombatEnd(room);
         if (Owner.Creature.CombatState != null)
-            Owner.Creature.CombatState.GetElementalStatus().EssenceChanged -= OnEssenceGainedTrigger;
+            Owner.Creature.GetElementalStatus().EssenceChanged -= OnEssenceGainedTrigger;
         await Task.CompletedTask;
     }
 

@@ -16,7 +16,7 @@ public sealed class WaterVeil() : WaterCard(1,
     TargetType.Self)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
 
     //Reduce damage taken by 25% for 1 turn, Water: (Transform all Status card in your hand into Water Drop)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -40,12 +40,12 @@ public sealed class WaterVeil() : WaterCard(1,
        
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await CommonActions.ApplySelf<WaterVeilPower>(choiceContext,this, DynamicVars["WaterVeilPower"].BaseValue);
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             var cardsToTransform = PileType.Hand.GetPile(Owner).Cards
                 .Where(c => c.IsTransformable && c.Type == CardType.Status)
                 .ToList();
-            await FiveElementsCardExtensions.TransformInHand<WaterDrop>(Owner,cardsToTransform,false,CombatState);
+            await FiveElementsCardExtensions.TransformInHand<WaterDrop>(Owner,cardsToTransform,false,Owner.Creature);
         }
     }
 
@@ -67,7 +67,7 @@ public sealed class WaterVeil() : WaterCard(1,
             // On vérifie manuellement chaque élément pour la nouvelle carte
             foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
             {
-                bool isActive = elem.IsActive(combatState);
+                bool isActive = elem.IsActive(Owner.Creature);
                 // On appelle la fonction de mise à jour visuelle/logique de la carte
                 if (replacementCard is FiveElementsCard elementalCard) 
                 {

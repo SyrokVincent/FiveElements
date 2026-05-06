@@ -6,6 +6,7 @@ using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -21,7 +22,7 @@ public sealed class WoodRoots() : WoodCard(1,
 
     protected override bool ShouldGlowGoldInternal => 
         CombatState != null && 
-        (CardElementTag.Water.IsActive(CombatState) || CardElementTag.Wood.IsActive(CombatState));
+        (CardElementTag.Water.IsActive(Owner.Creature) || CardElementTag.Wood.IsActive(Owner.Creature));
 
     //Water:(for each energy gained this turn and for every 5 wave, gain 1 surge),
     //Wood:(for every 3 strength gain 1 strength)
@@ -74,7 +75,7 @@ public sealed class WoodRoots() : WoodCard(1,
     {
         
         if (CombatState == null) return;
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             
             // 1. On récupère le montant actuel de Wave et d'energy gagner
@@ -84,7 +85,7 @@ public sealed class WoodRoots() : WoodCard(1,
             
             
         }
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             // 1. On récupère le montant actuel de strength
             var currentStrength = play.Card.Owner.Creature.GetPowerAmount<StrengthPower>();
@@ -101,15 +102,18 @@ public sealed class WoodRoots() : WoodCard(1,
         //DynamicVars["StrengthDivider"].UpgradeValueBy(-1);
     }
 
-    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public async Task OnWaterStateChanged(bool isActive, Creature creature)
     {
-        if (element == CardElementTag.Water) await OnWaterStateChanged(isActive);
-        if (element == CardElementTag.Wood) await OnWoodStateChanged(isActive);
-    }
-
-    public async Task OnWaterStateChanged(bool isActive)
-    {
+        if (Owner.Creature != creature) return;
         DynamicVars["isWaterOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
     }
+    
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive, Creature creature)
+    {
+        if (Owner.Creature != creature) return;
+        if (element == CardElementTag.Water) await OnWaterStateChanged(isActive, creature);
+        if (element == CardElementTag.Wood) await OnWoodStateChanged(isActive, creature);
+    }
+
 }

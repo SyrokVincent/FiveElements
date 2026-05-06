@@ -35,7 +35,7 @@ public sealed class Circulation() : NeutralCard(1,
     {
         // Ici, définis ta logique de filtrage. 
         // Par exemple, si tes cartes Echo/Generate héritent de FiveElementsCard :
-        var currentEcho = Character.FiveElements.Echo;
+        var currentEcho = Owner.Creature.GetElementalStatus().Echo;
         
         if (currentEcho.Contains(CardElementTag.Water) && card.CountAsElement(CardElementTag.Wood,Owner.Creature)) return true;
         if (currentEcho.Contains(CardElementTag.Wood) && card.CountAsElement(CardElementTag.Fire,Owner.Creature)) return true;

@@ -25,7 +25,7 @@ public sealed class WaterDropNextTurnPower : FiveElementsPower
     {
         if (player != Owner.Player) return;
         Flash();
-        await FiveElementsCardExtensions.CreateInHand<WaterDrop>(Owner.Player, 1,false, combatState);
+        await FiveElementsCardExtensions.CreateInHand<WaterDrop>(Owner.Player, 1,false, Owner);
         await PowerCmd.Decrement(this);
     }
     

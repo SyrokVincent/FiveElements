@@ -30,10 +30,10 @@ public sealed class Domination() : NeutralCard(1,
         return hand.Any(c => c != this && IsValidDominationTarget(c));
     }
 
-    //todo ?? can curently copy neutral card when you have spirits form
+    
     private bool IsValidDominationTarget(CardModel card)
     {
-        var currentEcho = Character.FiveElements.Echo;
+        var currentEcho = Owner.Creature.GetElementalStatus().Echo;
         
         if (currentEcho.Contains(CardElementTag.Water) && card.CountAsElement(CardElementTag.Fire,Owner.Creature)) return true;
         if (currentEcho.Contains(CardElementTag.Wood) && card.CountAsElement(CardElementTag.Earth,Owner.Creature)) return true;
@@ -91,7 +91,7 @@ public sealed class Domination() : NeutralCard(1,
         if (lastPlayedCard != null && cardsToTransform != null && CombatState != null)
         {
             var clonedCard = lastPlayedCard.CreateClone();
-            await FiveElementsCardExtensions.TransformInHand(cardsToTransform, clonedCard, false,CombatState);
+            await FiveElementsCardExtensions.TransformInHand(cardsToTransform, clonedCard, false,Owner.Creature);
             _cardToPlay = clonedCard;
         }
         //la jouer gratos plus tard

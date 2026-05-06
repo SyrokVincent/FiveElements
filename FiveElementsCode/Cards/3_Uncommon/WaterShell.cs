@@ -21,7 +21,7 @@ public sealed class WaterShell() : WaterCard(2,
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
 
     //Gain 13 block, Water:(Exhaust 1 random status from draw pile and 1 from discard pile)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -44,7 +44,7 @@ public sealed class WaterShell() : WaterCard(2,
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await CommonActions.CardBlock(this, play);
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             var status1 = GetStatuses(play.Card.Owner,PileType.Draw).TakeRandom(1,Rng.Chaotic).FirstOrDefault();
             var status2 = GetStatuses(play.Card.Owner,PileType.Discard).TakeRandom(1,Rng.Chaotic).FirstOrDefault();

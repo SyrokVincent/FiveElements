@@ -20,7 +20,7 @@ public sealed class WoodSurge() : WoodCard(1,
     TargetType.Self)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //Draw 2(3) card and gain 3 surge,
     //Wood:(This card is Played the first time it is drawn this turn).
@@ -68,7 +68,7 @@ public sealed class WoodSurge() : WoodCard(1,
 
         // On vérifie toutes les conditions
         if (_justEnteredHand && 
-            CardElementTag.Wood.IsActive(CombatState) && 
+            CardElementTag.Wood.IsActive(Owner.Creature) && 
             !HasBeenPlayedThisTurn)
         {
             // IMPORTANT : On consomme le flag AVANT l'autoplay

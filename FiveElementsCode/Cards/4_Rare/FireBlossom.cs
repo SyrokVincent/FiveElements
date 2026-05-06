@@ -29,7 +29,7 @@ public sealed class FireBlossom() : FireCard(1,
     //delete if shouldn't glow or replace water
     protected override bool ShouldGlowGoldInternal => 
         CombatState != null && 
-        (CardElementTag.Wood.IsActive(CombatState) || CardElementTag.Fire.IsActive(CombatState));
+        (CardElementTag.Wood.IsActive(Owner.Creature) || CardElementTag.Fire.IsActive(Owner.Creature));
 
     //Wood:(For every strength, apply 3 burn to a random enemy),
     //Fire:(Burn not removed 1 time)
@@ -56,7 +56,7 @@ public sealed class FireBlossom() : FireCard(1,
     {
         if (CombatState == null) return;
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             Vector2 lastPos = Vector2.Zero;
             // 1. On récupère le montant actuel de strength
@@ -101,7 +101,7 @@ public sealed class FireBlossom() : FireCard(1,
                 }
             }
         }
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
             var targets = CombatState.HittableEnemies;
             await PowerCmd.Apply<FireBlossomPower>(choiceContext,targets, this.DynamicVars["FireBlossomPower"].BaseValue, this.Owner.Creature, this);
@@ -114,15 +114,17 @@ public sealed class FireBlossom() : FireCard(1,
     }
     
 
-    public async Task OnWoodStateChanged(bool isActive)
+    public async Task OnWoodStateChanged(bool isActive, Creature creature)
     {
+        if (Owner.Creature != creature) return;
         DynamicVars["isWoodOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
     }
 
-    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive, Creature creature)
     {
-        if (element == CardElementTag.Fire) await OnFireStateChanged(isActive);
-        if (element == CardElementTag.Wood) await OnWoodStateChanged(isActive);
+        if (Owner.Creature != creature) return;
+        if (element == CardElementTag.Fire) await OnFireStateChanged(isActive,creature);
+        if (element == CardElementTag.Wood) await OnWoodStateChanged(isActive,creature);
     }
 }

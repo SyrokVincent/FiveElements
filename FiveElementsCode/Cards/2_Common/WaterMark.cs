@@ -14,7 +14,7 @@ namespace FiveElements.FiveElementsCode.Cards._2_Common;
   
 public sealed class WaterMark() : WaterCard(1, CardType.Skill, CardRarity.Common, TargetType.AllEnemies)
 {
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
     
     //Apply 1 weak to all enemies, Water:(next turn add water drop in hand)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -38,7 +38,7 @@ public sealed class WaterMark() : WaterCard(1, CardType.Skill, CardRarity.Common
         {
             await CommonActions.Apply<WeakPower>(choiceContext,target, this, DynamicVars["WeakPower"].BaseValue);
         }
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             await CommonActions.ApplySelf<WaterDropNextTurnPower>(choiceContext,this, DynamicVars["WaterDropNextTurnPower"].BaseValue);
         }

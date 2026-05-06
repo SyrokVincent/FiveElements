@@ -17,7 +17,7 @@ public sealed class WaterFlow() : WaterCard(3,
 {
     
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
     
     //Gain 3 energy, gain 2 wave, Water:(next 1(2) turn add water drop in hand)
     // removed draw 1, added 2 wave
@@ -43,7 +43,7 @@ public sealed class WaterFlow() : WaterCard(3,
         await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
         //await CommonActions.Draw(this, choiceContext);
         await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             await CommonActions.ApplySelf<WaterDropNextTurnPower>(choiceContext,this, DynamicVars["WaterDropNextTurnPower"].BaseValue);
         }

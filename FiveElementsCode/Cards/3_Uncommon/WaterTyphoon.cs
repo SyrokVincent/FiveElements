@@ -16,7 +16,7 @@ public sealed class WaterTyphoon() : WaterCard(0,
 {
     protected override bool HasEnergyCostX => true;
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
 
     //Gain 3*X wave, Water: (draw X) , X+1 on upgrade
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -44,7 +44,7 @@ public sealed class WaterTyphoon() : WaterCard(0,
         {
             
             await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
-            if (CardElementTag.Water.IsActive(CombatState))
+            if (CardElementTag.Water.IsActive(Owner.Creature))
             {
                 await CommonActions.Draw(this, choiceContext);
             }

@@ -15,7 +15,7 @@ public sealed class WaterDrop() : WaterCard(0,
     CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
 
     // Exhaust, Gain 1 wave? Water: (Gain 1 energy)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -39,7 +39,7 @@ public sealed class WaterDrop() : WaterCard(0,
     {
         if (CombatState == null) return;
         //await CommonActions.ApplySelf<WavePower>(this, DynamicVars["WavePower"].BaseValue);
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
         }

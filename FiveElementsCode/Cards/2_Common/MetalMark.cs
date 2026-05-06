@@ -18,7 +18,7 @@ public sealed class MetalMark() : MetalCard(1,
     TargetType.AnyEnemy)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     
     
@@ -44,7 +44,7 @@ public sealed class MetalMark() : MetalCard(1,
         if (play.Target != null)
         {
             await CommonActions.Apply<VulnerablePower>(choiceContext, play.Target, this, DynamicVars["VulnerablePower"].BaseValue);
-            if (CombatState != null && CardElementTag.Metal.IsActive(CombatState))
+            if (CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature))
             {
                 // Sélection d'une carte dans la défausse
                 CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);

@@ -18,7 +18,7 @@ public sealed class WoodSurgeOldVersion() : WoodCard(2,
     TargetType.RandomEnemy,false,false)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //gain 1 strength, 1 for every 3 energy gained this turn ,
     //Wood:(Deal 1 to a random enemies for each strength)
@@ -73,7 +73,7 @@ public sealed class WoodSurgeOldVersion() : WoodCard(2,
             await CommonActions.ApplySelf<StrengthPower>(choiceContext,this, strengthToGain);
         }
         
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
 
             var currentStrength = Owner.Creature.GetPowerAmount<StrengthPower>();
@@ -99,7 +99,7 @@ public sealed class WoodSurgeOldVersion() : WoodCard(2,
     {
         get
         {
-            if (CardElementTag.Wood.IsActive(CombatState))
+            if (CardElementTag.Wood.IsActive(Owner.Creature))
             {
                 return TargetType.RandomEnemy;
             }

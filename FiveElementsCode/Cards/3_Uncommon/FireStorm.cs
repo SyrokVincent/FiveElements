@@ -16,7 +16,7 @@ public sealed class FireStorm() : FireCard(2,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AllEnemies)
 {
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Deal 5 Heat damage to ALL enemies. At turn start play from the exhaust pile when you end a turn with Fire Echo, Fire:(Exhaust itself)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -42,7 +42,7 @@ public sealed class FireStorm() : FireCard(2,
         
         await DealHeatDamageAoe(choiceContext, DynamicVars.Damage);
         
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
             //await CardCmd.Exhaust(choiceContext, this);
             //use of getpile instead, for fireball to count correctly
@@ -59,7 +59,7 @@ public sealed class FireStorm() : FireCard(2,
     protected override PileType GetResultPileType()
     {
         PileType resultPileType = base.GetResultPileType();
-        return (CardElementTag.Fire.IsActive(CombatState)) ? PileType.Exhaust : resultPileType;
+        return (CardElementTag.Fire.IsActive(Owner.Creature)) ? PileType.Exhaust : resultPileType;
     }
 
     /*

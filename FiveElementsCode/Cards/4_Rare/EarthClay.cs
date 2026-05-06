@@ -27,7 +27,7 @@ public sealed class EarthClay() : EarthCard(1,
     // on ne glow Gold que si l'élément est actif ET qu'il y a du bloc à copier
     protected override bool ShouldGlowGoldInternal => 
         CombatState != null && 
-        CardElementTag.Earth.IsActive(CombatState) && 
+        CardElementTag.Earth.IsActive(Owner.Creature) && 
         PileType.Hand.GetPile(Owner).Cards.Any(c => c.GainsBlock && c != this);
     
    
@@ -87,7 +87,7 @@ public sealed class EarthClay() : EarthCard(1,
         }
         
         
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             if (CombatState != null)
             {
@@ -98,7 +98,7 @@ public sealed class EarthClay() : EarthCard(1,
                 if (selectedCard.IsUpgraded) 
                     CardCmd.Upgrade(warrior);
                 warrior.EnergyCost.AddThisTurnOrUntilPlayed(1);
-                await FiveElementsCardExtensions.TransformInHand(selectedCard, warrior, false,CombatState);
+                await FiveElementsCardExtensions.TransformInHand(selectedCard, warrior, false,Owner.Creature);
             }
         }
     }

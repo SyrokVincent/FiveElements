@@ -15,7 +15,7 @@ public sealed class MetalRushOldVersion() : MetalCard(0,
     TargetType.Self,false,false)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     // old // Return in hand and increase it's cost and it's vigor by 1 this turn, Metal:(Gain 1 vigor)
     //
@@ -43,7 +43,7 @@ public sealed class MetalRushOldVersion() : MetalCard(0,
         CardPlay play)
     {
         if (CombatState == null) return;
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             await PowerCmd.Apply<VigorPower>(choiceContext,this.Owner.Creature, DynamicVars["VigorThisTurn"].PreviewValue, Owner.Creature, this,false);
         }

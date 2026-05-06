@@ -5,6 +5,7 @@ using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -20,7 +21,7 @@ public sealed class EarthMagma() : EarthCard(1,
 
     protected override bool ShouldGlowGoldInternal => 
         CombatState != null && 
-        (CardElementTag.Earth.IsActive(CombatState) || CardElementTag.Fire.IsActive(CombatState));
+        (CardElementTag.Earth.IsActive(Owner.Creature) || CardElementTag.Fire.IsActive(Owner.Creature));
 
     //Fire:(Gain Block equals to Burn on the enemy),
     //Earth:(Gain 4+1 plating (or thorn?this turn?)
@@ -45,7 +46,7 @@ public sealed class EarthMagma() : EarthCard(1,
         CardPlay play)
     {
         if (CombatState == null) return;
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
             if (play.Target != null)
             {
@@ -56,7 +57,7 @@ public sealed class EarthMagma() : EarthCard(1,
                 }
             }
         }
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             await CommonActions.ApplySelf<PlatingPower>(choiceContext,this, DynamicVars["PlatingPower"].BaseValue);
         }
@@ -73,7 +74,7 @@ public sealed class EarthMagma() : EarthCard(1,
     {
         get
         {
-            if (CardElementTag.Fire.IsActive(CombatState))
+            if (CardElementTag.Fire.IsActive(Owner.Creature))
             {
                 return TargetType.AnyEnemy;
             }
@@ -82,15 +83,17 @@ public sealed class EarthMagma() : EarthCard(1,
     } 
     
     
-    public async Task OnFireStateChanged(bool isActive)
+    public async Task OnFireStateChanged(bool isActive, Creature creature)
     {
+        if (Owner.Creature != creature) return;
         DynamicVars["isFireOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
     }
 
-    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive, Creature creature)
     {
-        if (element == CardElementTag.Fire) await OnFireStateChanged(isActive);
-        if (element == CardElementTag.Earth) await OnEarthStateChanged(isActive);
+        if (Owner.Creature != creature) return;
+        if (element == CardElementTag.Fire) await OnFireStateChanged(isActive,creature);
+        if (element == CardElementTag.Earth) await OnEarthStateChanged(isActive,creature);
     }
 }

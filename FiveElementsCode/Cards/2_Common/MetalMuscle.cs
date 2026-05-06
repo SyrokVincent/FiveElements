@@ -18,7 +18,7 @@ public class MetalMuscle() : MetalCard(1,
 {
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     //Gain 6(9) block, Metal: (gain 3 Vigor)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -42,7 +42,7 @@ public class MetalMuscle() : MetalCard(1,
         if (CombatState == null) return;
         
         await CommonActions.CardBlock(this, play);
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             await CommonActions.ApplySelf<VigorPower>(choiceContext,this, DynamicVars["VigorPower"].BaseValue);
         }

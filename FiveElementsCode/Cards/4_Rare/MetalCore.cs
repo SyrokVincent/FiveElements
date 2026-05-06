@@ -5,6 +5,7 @@ using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -22,8 +23,8 @@ public sealed class MetalCore() : MetalCard(1,
     //delete if shouldn't glow or replace water
     protected override bool ShouldGlowGoldInternal => 
         CombatState != null && 
-        (CardElementTag.Earth.IsActive(CombatState) || 
-         CardElementTag.Metal.IsActive(CombatState));
+        (CardElementTag.Earth.IsActive(Owner.Creature) || 
+         CardElementTag.Metal.IsActive(Owner.Creature));
 
     //Earth:(gain 1 vigor for every 3(2) block),(Remove block?), 
     //Metal:(Next turn first attack deal double damage)
@@ -64,11 +65,11 @@ public sealed class MetalCore() : MetalCard(1,
         
         if (CombatState == null) return;
 
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             await PowerCmd.Apply<VigorPower>(choiceContext,this.Owner.Creature, DynamicVars["VigorGained"].PreviewValue, Owner.Creature, this,false);
         }
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await CommonActions.ApplySelf<MetalCorePower>(choiceContext,this, DynamicVars["MetalCorePower"].BaseValue);
@@ -83,15 +84,17 @@ public sealed class MetalCore() : MetalCard(1,
     
     
       
-    public async Task OnEarthStateChanged(bool isActive)
+    public async Task OnEarthStateChanged(bool isActive, Creature creature)
     {
+        if (Owner.Creature != creature) return;
         DynamicVars["isEarthOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
     }
 
-    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive, Creature creature)
     {
-        if (element == CardElementTag.Earth) await OnEarthStateChanged(isActive);
-        if (element == CardElementTag.Metal) await OnMetalStateChanged(isActive);
+        if (Owner.Creature != creature) return;
+        if (element == CardElementTag.Earth) await OnEarthStateChanged(isActive, creature);
+        if (element == CardElementTag.Metal) await OnMetalStateChanged(isActive, creature);
     }
 }

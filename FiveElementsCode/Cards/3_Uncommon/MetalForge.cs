@@ -17,7 +17,7 @@ public sealed class MetalForge() : MetalCard(1,
     TargetType.AnyEnemy)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     //todo mettre ça en calculatedvar
     //Deal 9 damage, Metal:(Upgrade a random card in the discard pile for each metal card played this turn)
@@ -61,7 +61,7 @@ public sealed class MetalForge() : MetalCard(1,
 
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
         
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             var amountOfMetalCardPlayedThisTurn = DynamicVars["AmountOfMetalCardPlayedThisTurn"].PreviewValue;
             

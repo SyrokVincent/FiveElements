@@ -15,7 +15,7 @@ public sealed class WoodCreation() : WoodCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self,false,false) //removed
 {
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Wood.IsActive(Owner.Creature);
     
     // Draw 1 and gain 1 surge
     // Wood:(Gain 1 "Wood essence")
@@ -41,7 +41,7 @@ public sealed class WoodCreation() : WoodCard(1,
     {
         if (CombatState == null) return;
         
-        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Wood) > 0)
+        if (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Wood) > 0)
         {
             await CardPileCmd.Draw(choiceContext, this.DynamicVars.Cards.BaseValue*2, this.Owner);
             await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue*2);
@@ -50,9 +50,9 @@ public sealed class WoodCreation() : WoodCard(1,
         {
             await CommonActions.Draw(this, choiceContext);
             await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
-            if (CardElementTag.Wood.IsActive(this.CombatState))
+            if (CardElementTag.Wood.IsActive(Owner.Creature))
             {
-                CombatState.GetElementalStatus().AddEssence(CardElementTag.Wood, 1,choiceContext);
+                Owner.Creature.GetElementalStatus().AddEssence(CardElementTag.Wood, 1,choiceContext);
             }
         }
         
@@ -68,6 +68,6 @@ public sealed class WoodCreation() : WoodCard(1,
     protected override PileType GetResultPileType()
     {
         PileType resultPileType = base.GetResultPileType();
-        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Wood) > 0) ? PileType.Exhaust : resultPileType;
+        return CombatState != null && (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Wood) > 0) ? PileType.Exhaust : resultPileType;
     }
 }

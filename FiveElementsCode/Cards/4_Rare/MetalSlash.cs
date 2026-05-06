@@ -20,7 +20,7 @@ public sealed class MetalSlash() : MetalCard(1,
 
     //card with fatal permanent upgrade can't be generated in combat
     public override bool CanBeGeneratedInCombat => false;
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     //Exhaust, Deal 10 damage, Metal:(fatal permanently upgrade a random card)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -55,7 +55,7 @@ public sealed class MetalSlash() : MetalCard(1,
             .Execute(choiceContext);
     
 
-        if (canTriggerFatal && attack.Results.Any(r => r.WasTargetKilled) && CardElementTag.Metal.IsActive(CombatState))
+        if (canTriggerFatal && attack.Results.Any(r => r.WasTargetKilled) && CardElementTag.Metal.IsActive(Owner.Creature))
         {
             // On cherche les cartes améliorables dans la version "Run" du deck
             var upgradableInDeck = Owner.Deck.Cards.Where(c => c.IsUpgradable).ToList();
@@ -93,7 +93,7 @@ public sealed class MetalSlash() : MetalCard(1,
         if (CombatState == null || play.Target == null) return;
     
         bool canTriggerFatal = play.Target.Powers.All(p => p.ShouldOwnerDeathTriggerFatal());
-        bool metalIsActive = CardElementTag.Metal.IsActive(CombatState);
+        bool metalIsActive = CardElementTag.Metal.IsActive(Owner.Creature);
     
         // On utilise l'attaque standard
         var attack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)

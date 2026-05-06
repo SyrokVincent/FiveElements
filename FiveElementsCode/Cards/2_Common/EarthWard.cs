@@ -30,7 +30,7 @@ public sealed class EarthWard() : EarthCard(1,
     }
     public override bool GainsBlock => true;
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     // old// Gain 7 block, Earth:(gain 2 temp Dex)
     //
@@ -56,7 +56,7 @@ public sealed class EarthWard() : EarthCard(1,
         CardPlay play)
     {
         if (CombatState == null) return;
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             await CommonActions.CardBlock(this, play);
         }

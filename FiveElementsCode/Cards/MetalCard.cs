@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Interfaces;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
@@ -18,8 +19,9 @@ public abstract class MetalCard : FiveElementsCard, IOnMetalStateChanged
         CanonicalElementTags = [CardElementTag.Metal];
     }
     
-    public async Task OnMetalStateChanged(bool isActive)
+    public async Task OnMetalStateChanged(bool isActive, Creature creature)
     {
+        if (Owner.Creature != creature) return;
         DynamicVars["isMetalOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
     }

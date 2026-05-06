@@ -36,7 +36,7 @@ public sealed class Relic1() : StarterRelicLogic
         {
             Flash();
             //ajout de la carte
-            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1,false, combatState);
+            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1,false, Owner.Creature);
             await Task.CompletedTask;
         }
     }

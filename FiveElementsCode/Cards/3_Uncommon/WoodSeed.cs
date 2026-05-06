@@ -16,7 +16,7 @@ public sealed class WoodSeed() : WoodCard(0,
     TargetType.Self)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //If this is the first time this card has been played this turn, draw 1 card.
     //Wood:(Gain 2(3) Surge)
@@ -48,7 +48,7 @@ public sealed class WoodSeed() : WoodCard(0,
             await CommonActions.Draw(this, choiceContext);
         }
         
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);
         }

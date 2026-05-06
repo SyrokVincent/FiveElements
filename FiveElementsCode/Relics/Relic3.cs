@@ -145,7 +145,7 @@ public sealed class Relic3() : FiveElementsRelic
         if (Counter == 0)
         {
             _ = DoActivateVisuals();
-            combatState.GetElementalStatus().AddEssence(MyElementTag, DynamicVars["Essence"].IntValue, choiceContext);
+            Owner.Creature.GetElementalStatus().AddEssence(MyElementTag, DynamicVars["Essence"].IntValue, choiceContext);
         }
         
     }

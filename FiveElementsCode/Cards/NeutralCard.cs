@@ -1,4 +1,5 @@
 ﻿using FiveElements.FiveElementsCode.Enums;
+using FiveElements.FiveElementsCode.Extensions;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -32,12 +33,12 @@ public abstract class NeutralCard : FiveElementsCard
                 {
                     if (Keywords.Contains(FiveElementsKeywords.Attune))
                     {
-                        return CalculateAttune(Character.FiveElements.Echo);
+                        return CalculateAttune(Owner.Creature.GetElementalStatus().Echo);
                     }
 
                     if (Keywords.Contains(FiveElementsKeywords.Shift))
                     {
-                        return CalculateShift(Character.FiveElements.Echo);
+                        return CalculateShift(Owner.Creature.GetElementalStatus().Echo);
                     }
                 }
             }
@@ -134,14 +135,14 @@ public abstract class NeutralCard : FiveElementsCard
         // 1. Vérifie si la carte a le Keyword Attune
         if (Keywords.Contains(FiveElementsKeywords.Attune))
         {
-            this.ElementTags = Character.FiveElements.Echo;
+            this.ElementTags = Owner.Creature.GetElementalStatus().Echo;
             UpdateVisualMaterial();
         }
         // 1. Vérifie si la carte a le Keyword Shift
         if (Keywords.Contains(FiveElementsKeywords.Shift))
         {
             // return what echo generate
-            this.ElementTags = CalculateShift(Character.FiveElements.Echo);
+            this.ElementTags = CalculateShift(Owner.Creature.GetElementalStatus().Echo);
             UpdateVisualMaterial();
         }
     }

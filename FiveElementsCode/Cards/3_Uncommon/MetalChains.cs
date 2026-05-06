@@ -16,7 +16,7 @@ public sealed class MetalChains() : MetalCard(2,
     TargetType.AnyEnemy)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     //Deal 14 damage, Metal(Enemy loses 7 strength this turn)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -37,7 +37,7 @@ public sealed class MetalChains() : MetalCard(2,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             if (play.Target != null)
                 await CommonActions.Apply<MetalChainsPower>(play.Target, this, DynamicVars["StrengthLoss"].BaseValue);

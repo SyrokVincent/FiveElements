@@ -17,7 +17,7 @@ public sealed class EarthCreation() : EarthCard(1,
     
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Earth.IsActive(Owner.Creature);
 
     //gain 5 Block,
     //Earth: (Gain 1 "earth element")
@@ -37,16 +37,16 @@ public sealed class EarthCreation() : EarthCard(1,
     {
         if (CombatState == null) return;
         
-        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0)
+        if (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0)
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue*2, DynamicVars.Block.Props, play);
         }
         else
         {
             await CommonActions.CardBlock(this, play);
-            if (CardElementTag.Earth.IsActive(CombatState))
+            if (CardElementTag.Earth.IsActive(Owner.Creature))
             {
-                CombatState.GetElementalStatus().AddEssence(CardElementTag.Earth, 1,choiceContext);
+                Owner.Creature.GetElementalStatus().AddEssence(CardElementTag.Earth, 1,choiceContext);
             }
         }
 
@@ -62,6 +62,6 @@ public sealed class EarthCreation() : EarthCard(1,
     protected override PileType GetResultPileType()
     {
         PileType resultPileType = base.GetResultPileType();
-        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0) ? PileType.Exhaust : resultPileType;
+        return CombatState != null && (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Earth) > 0) ? PileType.Exhaust : resultPileType;
     }
 }

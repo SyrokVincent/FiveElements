@@ -3,6 +3,7 @@ using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -17,7 +18,7 @@ public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Comm
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
     
     //Gain 4 block, 2 wave, Water: (cost is 0)
     // block from 5 to 4
@@ -49,9 +50,9 @@ public sealed class WaterBubble() : WaterCard(1, CardType.Skill, CardRarity.Comm
     
     private bool _isWaterDiscountActive = false;
 
-    public override async Task OnWaterStateChanged(bool isActive)
+    public override async Task OnWaterStateChanged(bool isActive, Creature creature)
     {
-        await base.OnWaterStateChanged( isActive);
+        await base.OnWaterStateChanged(isActive, creature);
         // Si l'eau s'active ET que la réduction n'est pas encore appliquée
         if (isActive && !_isWaterDiscountActive)
         {

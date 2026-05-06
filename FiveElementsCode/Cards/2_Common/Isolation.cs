@@ -84,24 +84,24 @@ public sealed class Isolation() : NeutralCard(1,
             // Si l'Echo a les 5 éléments -> on a tout les element grace au pouvoir spirit form on renvoie un fulu neutre
             if (Owner.Creature.HasPower<SpiritsFormPower>())
             {
-                await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, Owner.Creature);
             }
             // Cycle : Eau -> Bois -> Feu -> Terre -> Métal -> Eau
             else if (this.CountAsElement(CardElementTag.Water, Owner.Creature))
-                await FiveElementsCardExtensions.CreateInHand<WoodFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<WoodFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, Owner.Creature);
         
             else if (this.CountAsElement(CardElementTag.Wood, Owner.Creature))
-                await FiveElementsCardExtensions.CreateInHand<FireFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<FireFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, Owner.Creature);
         
             else if (this.CountAsElement(CardElementTag.Fire, Owner.Creature))
-                await FiveElementsCardExtensions.CreateInHand<EarthFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<EarthFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, Owner.Creature);
         
             else if (this.CountAsElement(CardElementTag.Earth, Owner.Creature))
-                await FiveElementsCardExtensions.CreateInHand<MetalFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<MetalFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, Owner.Creature);
         
             else if (this.CountAsElement(CardElementTag.Metal, Owner.Creature))
-                await FiveElementsCardExtensions.CreateInHand<WaterFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
-            else await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, CombatState);
+                await FiveElementsCardExtensions.CreateInHand<WaterFulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, Owner.Creature);
+            else await FiveElementsCardExtensions.CreateInHand<Fulu>(Owner, DynamicVars.Cards.IntValue, IsUpgraded, Owner.Creature);
             
         }
     }

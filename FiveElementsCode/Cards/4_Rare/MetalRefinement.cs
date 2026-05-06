@@ -42,7 +42,7 @@ public sealed class MetalRefinement() : MetalCard(0,
         }
     }
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     //Exhaust, Gain 1 vigor, Metal:(permanentaly increase this card vigor by 1)
     // from 1 cost to 0
@@ -67,7 +67,7 @@ public sealed class MetalRefinement() : MetalCard(0,
         // On gagne le vigor actuel
         await CommonActions.ApplySelf<VigorPower>(choiceContext,this, CurrentVigor);
         
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             // On récupère la valeur d'augmentation
             int extra = DynamicVars[IncreaseKey].IntValue;

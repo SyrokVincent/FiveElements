@@ -2,6 +2,7 @@
 using FiveElements.FiveElementsCode.Interfaces;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
@@ -17,8 +18,9 @@ public abstract class WaterCard : FiveElementsCard, IOnWaterStateChanged
         CanonicalElementTags = [CardElementTag.Water];
     }
     
-    public virtual async Task OnWaterStateChanged(bool isActive)
+    public virtual async Task OnWaterStateChanged(bool isActive, Creature creature)
     {
+        if (Owner.Creature != creature) return;
         DynamicVars["isWaterOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
     }

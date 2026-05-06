@@ -39,7 +39,7 @@ public sealed class CreationPotion :FiveElementsPotion
         //todo some animation stolen from other potion    
         //ajout de la carte
         if (Owner.Creature.CombatState != null)
-            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1, false, Owner.Creature.CombatState);
+            await FiveElementsCardExtensions.CreateInHand<Creation>(Owner, 1, false, Owner.Creature);
     }
     
 }

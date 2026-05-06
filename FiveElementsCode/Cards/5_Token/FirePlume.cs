@@ -19,7 +19,7 @@ public sealed class FirePlume() : FireCard(0,
     TargetType.AnyEnemy)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Retain, Exhaust, At turn start while in hand apply 1 burn to all enemies, (keyword Incandescence 1)
     //Fire:(Deal 1 Heat damage, increased by 1 for each fire card played this turn)
@@ -68,7 +68,7 @@ public sealed class FirePlume() : FireCard(0,
     {
         if (CombatState == null) return;
         
-        if (CardElementTag.Fire.IsActive(CombatState))
+        if (CardElementTag.Fire.IsActive(Owner.Creature))
         {
             await DealHeatDamage(choiceContext, play.Target, DynamicVars.CalculatedDamage);
         }

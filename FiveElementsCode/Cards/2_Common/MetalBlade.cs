@@ -16,7 +16,7 @@ public sealed class MetalBlade() : MetalCard(1,
     TargetType.AnyEnemy)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     //Deal 8 damage, Metal:(For each 2 damage dealt gain vigor)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -42,7 +42,7 @@ public sealed class MetalBlade() : MetalCard(1,
             .Targeting(play.Target)
             .Execute(choiceContext);
         
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             // Calcul des dégâts total diviser par deux
             var vigorToApply = attackResult.Results.Sum(r => r.TotalDamage) / 2;

@@ -15,7 +15,7 @@ public sealed class WoodLash() : WoodCard(1,
 {
 
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //Deal 2 damage to a random enemy 4 time,
     //Wood:(Increase hit count by 1 this combat)
@@ -46,7 +46,7 @@ public sealed class WoodLash() : WoodCard(1,
             .WithHitFx("vfx/vfx_attack_slash")         // Effet visuel par coup
             .Execute(choiceContext);
         
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             // 2. Augmenter le nombre de hit de cette instance précise pour le reste du combat
             DynamicVars.Repeat.BaseValue += 1;

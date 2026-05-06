@@ -15,7 +15,7 @@ public sealed class WoodFangs() : WoodCard(1,
     TargetType.AnyEnemy)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //Deal 4x2 damage,
     //Wood:(double damage if enemy as block)
@@ -25,7 +25,7 @@ public sealed class WoodFangs() : WoodCard(1,
         new ExtraDamageVar(1),    // bonus damage
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
-            var woodIsActive = card.CombatState != null && CardElementTag.Wood.IsActive(card.CombatState);
+            var woodIsActive = card.CombatState != null && CardElementTag.Wood.IsActive(card.Owner.Creature);
 
             if (!woodIsActive) 
                 return 0;

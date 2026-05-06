@@ -1,40 +1,83 @@
 ﻿using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace FiveElements.FiveElementsCode.Models;
 
 public class Element
 {
-    public ICombatState CombatState { get; }
+    // On lie l'élément à la Créature (le joueur)
+    public Creature Owner { get; }
+    public Element(Creature owner) 
+    {
+        Owner = owner;
+    }
     
     // Un dictionnaire pour stocker tous les éléments : Clé = Tag, Valeur = Essence
     private readonly Dictionary<CardElementTag, int> _essences = new();
-
-    public Element(ICombatState combatState) => CombatState = combatState;
+    
+    //garde en memoire l'etat des element si ils sont actif ou pas
+    private readonly Dictionary<CardElementTag, bool> _lastStatesMemory = new();
+    
+    // L'ECHO EST MAINTENANT ICI : Unique par instance d'Element (donc par joueur)
+    public HashSet<CardElementTag> Echo { get; } = new() { CardElementTag.Neutral };
     
     // --- LE NOUVEL EVENEMENT ---
     // Cet événement transmet l'élément concerné et la nouvelle valeur
     public event Action<CardElementTag, int, PlayerChoiceContext?>? EssenceChanged;
 
+    // Méthodes pour manipuler l'Echo au niveau de l'instance
+    public void SetEcho(IEnumerable<CardElementTag> elements)
+    {
+        Echo.Clear();
+        foreach (var e in elements) Echo.Add(e);
+    }
+
+    public void ResetEcho()
+    {
+        Echo.Clear();
+        Echo.Add(CardElementTag.Neutral);
+    }
+    
+    public int GetEchoStateForDescription()
+    {
+        if (Echo.Count == 6) return 6; //echo has all element
+        return (int) Echo.LastOrDefault(); //echo has only one element
+    }
+    
+    // Méthode utilitaire pour changer l'écho facilement
+    public void SetEchoToAllElements()
+    {
+        Echo.Clear();
+        foreach (var element in Enum.GetValues<CardElementTag>())
+        {
+            Echo.Add(element);
+        }
+    }
+    
+    
+    
+    
     // Une méthode générique pour modifier n'importe quel élément
     public void AddEssence(CardElementTag elem, int amount, PlayerChoiceContext? context = null)
     {
         int current = GetEssence(elem);
-        int next = Math.Max(0, current + amount); // On évite les essences négatives
+        int next = Math.Max(0, current + amount);
 
         if (current != next)
         {
             _essences[elem] = next;
             EssenceChanged?.Invoke(elem, next, context);
             
-            // On notifie les cartes du changement pour cet élément spécifique
-            _ = FiveElementsCardExtensions.CheckAndNotify(CombatState, elem);
+            // On notifie les cartes via le CombatState spécifique de cette créature
+            if (Owner.CombatState != null)
+            {
+                _ = FiveElementsCardExtensions.CheckAndNotify(Owner, elem);
+            }
         }
-    } 
-    
-    
+    }
     
     
     /*
@@ -72,7 +115,7 @@ public class Element
         EssenceChanged?.Invoke(elem, 0,null);
 
         // TRES IMPORTANT : On notifie les cartes que l'élément a disparu
-        _ = FiveElementsCardExtensions.CheckAndNotify(CombatState, elem);
+        _ = FiveElementsCardExtensions.CheckAndNotify(Owner, elem);
     }
 
 // Bonus : Une méthode pour TOUT reset d'un coup (fin de combat par ex)
@@ -103,4 +146,12 @@ public class Element
         return _essences.Where(kvp => kvp.Value > 0)
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
+    
+    
+
+    public bool GetLastState(CardElementTag elem) => 
+        _lastStatesMemory.TryGetValue(elem, out bool val) && val;
+
+    public void SetLastState(CardElementTag elem, bool state) => 
+        _lastStatesMemory[elem] = state;
 }

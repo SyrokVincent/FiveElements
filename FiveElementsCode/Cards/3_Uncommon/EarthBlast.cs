@@ -16,7 +16,7 @@ public sealed class EarthBlast() : EarthCard(2,
     TargetType.AnyEnemy)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     //Deal 10 Damage,
     //Earth:(Deal 1 more for every 10 block gained this fight) (damage blocked ?)
@@ -28,7 +28,7 @@ public sealed class EarthBlast() : EarthCard(2,
         {
             var divider = card.DynamicVars["Divider"].BaseValue;
         
-            var earthIsActive = card.CombatState != null && CardElementTag.Earth.IsActive(card.CombatState);
+            var earthIsActive = card.CombatState != null && CardElementTag.Earth.IsActive(card.Owner.Creature);
 
             if (!earthIsActive || divider <= 0) 
                 return 0;

@@ -28,7 +28,7 @@ public sealed class MetalPounce() : MetalCard(2,
             _extraDamageFromVigor = value;
         }
     }
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Metal.IsActive(Owner.Creature);
 
     // old // Deal 16 damage, Metal:(vigor apply twice to this attack)
     //
@@ -38,7 +38,7 @@ public sealed class MetalPounce() : MetalCard(2,
         new ExtraDamageVar(1),    // Dégâts bonus par vigor
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
-            var metalIsActive = card.CombatState != null && CardElementTag.Metal.IsActive(card.CombatState);
+            var metalIsActive = card.CombatState != null && CardElementTag.Metal.IsActive(card.Owner.Creature);
             if (!metalIsActive) return 0;
             return card.Owner.Creature.GetPowerAmount<VigorPower>();
         }),
@@ -61,7 +61,7 @@ public sealed class MetalPounce() : MetalCard(2,
 
         var vigorAmount = 0;
         // 2. Si l'élément Métal est actif, on augmente les dégâts permanents
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             vigorAmount = Owner.Creature.GetPowerAmount<VigorPower>();
         }
@@ -70,7 +70,7 @@ public sealed class MetalPounce() : MetalCard(2,
         await CommonActions.CardAttack(this, play.Target,DynamicVars.CalculatedDamage).Execute(choiceContext);
         
         //on augmente ensuite pour les prochaine fois
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             if (vigorAmount > 0)
             {

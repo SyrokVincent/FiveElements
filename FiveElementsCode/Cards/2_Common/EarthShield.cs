@@ -18,7 +18,7 @@ public sealed class EarthShield() : EarthCard(1,
     //I think it's needed for enchantment?
     public override bool GainsBlock => true;
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     //Gain 4 block for each enemy, Earth:(Next turn gain 4 block)
     
@@ -45,7 +45,7 @@ public sealed class EarthShield() : EarthCard(1,
         {
             amount = await CommonActions.CardBlock(this, play);
         }
-        if (CardElementTag.Earth.IsActive(CombatState) && amount>0)
+        if (CardElementTag.Earth.IsActive(Owner.Creature) && amount>0)
         {
             await CommonActions.ApplySelf<BlockNextTurnPower>(choiceContext,this, amount);
         }

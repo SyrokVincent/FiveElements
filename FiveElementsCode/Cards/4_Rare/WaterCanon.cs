@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Interfaces;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -19,7 +20,7 @@ public sealed class WaterCanon() : WaterCard(2,
     //delete if shouldn't glow or replace water
     protected override bool ShouldGlowGoldInternal => 
         CombatState != null && 
-        (CardElementTag.Water.IsActive(CombatState) || CardElementTag.Metal.IsActive(CombatState));
+        (CardElementTag.Water.IsActive(Owner.Creature) || CardElementTag.Metal.IsActive(Owner.Creature));
 
     //Metal:(Deal 5 damage, gain wave equal to damage dealt),
     //Water:(Double wave until next turn start)
@@ -44,7 +45,7 @@ public sealed class WaterCanon() : WaterCard(2,
         CardPlay play)
     {
         if (CombatState == null) return;
-        if (CardElementTag.Metal.IsActive(CombatState))
+        if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             //ArgumentNullException.ThrowIfNull(play.Target, nameof(play.Target));
 
@@ -55,7 +56,7 @@ public sealed class WaterCanon() : WaterCard(2,
             // Gain wave based on damge dealt
             await CommonActions.ApplySelf<WavePower>(choiceContext,this, totalDamage);
         }
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             // 1. On récupère le montant actuel de Wave
             var currentWave = play.Card.Owner.Creature.GetPowerAmount<WavePower>();
@@ -83,7 +84,7 @@ public sealed class WaterCanon() : WaterCard(2,
     {
         get
         {
-            if (CardElementTag.Metal.IsActive(CombatState))
+            if (CardElementTag.Metal.IsActive(Owner.Creature))
             {
                 return TargetType.AnyEnemy;
             }
@@ -92,15 +93,17 @@ public sealed class WaterCanon() : WaterCard(2,
     } 
     
     
-    public async Task OnMetalStateChanged(bool isActive)
+    public async Task OnMetalStateChanged(bool isActive, Creature creature)
     {
+        if (Owner.Creature != creature) return;
         DynamicVars["isMetalOn"].BaseValue = isActive ? 1 : 0;
         await Task.CompletedTask;
     }
 
-    public async Task OnElementStateChanged(CardElementTag element, bool isActive)
+    public async Task OnElementStateChanged(CardElementTag element, bool isActive, Creature creature)
     {
-        if (element == CardElementTag.Water) await OnWaterStateChanged(isActive);
-        if (element == CardElementTag.Metal) await OnMetalStateChanged(isActive);
+        if (Owner.Creature != creature) return;
+        if (element == CardElementTag.Water) await OnWaterStateChanged(isActive, creature);
+        if (element == CardElementTag.Metal) await OnMetalStateChanged(isActive, creature);
     }
 }

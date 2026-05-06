@@ -181,7 +181,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		// Désabonnement sécurisé
 		if (_player?.Creature?.CombatState != null)
 		{
-			var elementalStatus = _player.Creature.CombatState.GetElementalStatus();
+			var elementalStatus = _player.Creature.GetElementalStatus();
 			if (elementalStatus != null)
 				elementalStatus.EssenceChanged -= OnEssenceChanged;
 		}
@@ -213,7 +213,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	
 		GD.Print("[FiveElements] Player trouvé et initialisé ");
 		// On s'abonne MAINTENANT que le player est trouvé
-		var elementalStatus = _player.Creature.CombatState?.GetElementalStatus();
+		var elementalStatus = _player.Creature.GetElementalStatus();
 		if (elementalStatus != null)
 		{
 			elementalStatus.EssenceChanged += OnEssenceChanged;
@@ -225,7 +225,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	private void RefreshLabel()
 	{
 		if (_label == null || _player?.Creature?.CombatState == null) return;
-		var status = _player.Creature.CombatState.GetElementalStatus();
+		var status = _player.Creature.GetElementalStatus();
 		if (status == null) return;
 
 		int count = status.GetEssence(_myElement);
@@ -242,8 +242,8 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		
 	
 		// On met à jour l'objet HoverTip en mémoire sans l'afficher
-		bool isActive = _myElement.IsActive(_player.Creature.CombatState);
-		bool isEcho = FiveElements.FiveElementsCode.Character.FiveElements.Echo.Contains(_myElement);
+		bool isActive = _myElement.IsActive(_player.Creature);
+		bool isEcho = status.Echo.Contains(_myElement);
 		UpdateHoverTip(isActive, isEcho, count);
 	}
 	
@@ -252,12 +252,12 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	{
 
 		// On calcule les états : si le player est null, tout sera à false/0 par défaut
-		bool isActive = _player != null && _player.Creature.CombatState != null && _myElement.IsActive(_player.Creature.CombatState);
-		var status = _player?.Creature?.CombatState?.GetElementalStatus();
+		bool isActive = _player != null && _player.Creature.CombatState != null && _myElement.IsActive(_player.Creature);
+		var status = _player?.Creature.GetElementalStatus();
 		int count = status?.GetEssence(_myElement) ?? 0;
 		bool hasEssence = count > 0;
 	
-		bool isEcho = _player != null && FiveElements.FiveElementsCode.Character.FiveElements.Echo.Contains(_myElement);
+		bool isEcho = status != null && status.Echo.Contains(_myElement);
 
 		// 1. Gestion Echo (toujours accessible)
 		if (_echo != null) _echo.Visible = isEcho;
@@ -274,15 +274,18 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			// Seul l'élément Fire s'en occupe pour ne pas lancer 5 ondes
 			if (_myElement == CardElementTag.Fire)
 			{
-				var globalEcho = FiveElements.FiveElementsCode.Character.FiveElements.Echo;
-				bool isGloballyNeutral = globalEcho.Count == 0 || (globalEcho.Count == 1 && globalEcho.Contains(CardElementTag.Neutral));
-
-				// On regarde si le shader a encore une couleur (Alpha > 0)
-				Color currentTarget = (Color)mat.GetShaderParameter("target_color");
-
-				if (isGloballyNeutral && currentTarget.A > 0.01f)
+				if (status != null)
 				{
-					TriggerWave(_neutralColor);
+					var globalEcho = status.Echo;
+					bool isGloballyNeutral = globalEcho.Count == 0 || (globalEcho.Count == 1 && globalEcho.Contains(CardElementTag.Neutral));
+
+					// On regarde si le shader a encore une couleur (Alpha > 0)
+					Color currentTarget = (Color)mat.GetShaderParameter("target_color");
+
+					if (isGloballyNeutral && currentTarget.A > 0.01f)
+					{
+						TriggerWave(_neutralColor);
+					}
 				}
 			}
 			

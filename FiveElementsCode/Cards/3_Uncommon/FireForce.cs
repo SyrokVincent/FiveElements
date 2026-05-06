@@ -14,7 +14,7 @@ public sealed class FireForce() : FireCard(1,
     TargetType.AnyEnemy)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature);
 
     //Deal 5 Heat damage, Fire:(deal 1 more for every 3 burn on the enemy)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -26,7 +26,7 @@ public sealed class FireForce() : FireCard(1,
             // On récupère la valeur actuelle du diviseur (2 ou 3)
             var divider = card.DynamicVars["BurnDivider"].BaseValue;
         
-            var fireIsActive = card.CombatState != null && CardElementTag.Fire.IsActive(card.CombatState);
+            var fireIsActive = card.CombatState != null && CardElementTag.Fire.IsActive(card.Owner.Creature);
 
             if (!fireIsActive || target == null || divider <= 0) 
                 return 0;

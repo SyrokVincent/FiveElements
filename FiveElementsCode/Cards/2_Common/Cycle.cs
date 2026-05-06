@@ -50,7 +50,7 @@ public sealed class Cycle() : NeutralCard(1,
         var drawnCards = await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
 
         // Filtrage : On garde les cartes Echo, on défausse le reste
-        var cardsToDiscard = drawnCards.Where(card => !card.CountAsElement(Character.FiveElements.Echo,Owner.Creature));
+        var cardsToDiscard = drawnCards.Where(card => !card.CountAsElement(Owner.Creature.GetElementalStatus().Echo,Owner.Creature));
         
         
         await CardCmd.Discard(choiceContext, cardsToDiscard);

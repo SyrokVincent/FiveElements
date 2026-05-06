@@ -17,7 +17,7 @@ public sealed class WoodLeaf() : WoodCard(0,
     TargetType.AnyEnemy)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //First time a turn you have no wood card, put this into your hand, Wood:(Deal 3)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -36,7 +36,7 @@ public sealed class WoodLeaf() : WoodCard(0,
         CardPlay play)
     {
         if (CombatState == null) return;
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             await CommonActions.CardAttack(this,play.Target).Execute(choiceContext);;
         }
@@ -51,7 +51,7 @@ public sealed class WoodLeaf() : WoodCard(0,
     {
         get
         {
-            if (CardElementTag.Wood.IsActive(CombatState))
+            if (CardElementTag.Wood.IsActive(Owner.Creature))
             {
                 return TargetType.AnyEnemy;
             }

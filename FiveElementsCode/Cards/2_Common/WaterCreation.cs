@@ -16,7 +16,7 @@ public sealed class WaterCreation() : WaterCard(1,
     TargetType.Self,false,false) //removed
 {
     
-    protected override bool ShouldGlowGoldInternal => CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CardElementTag.Water.IsActive(Owner.Creature);
     
     // Gain 1 energy and 2 wave
     // Water: (Gain 1 water essence)
@@ -41,7 +41,7 @@ public sealed class WaterCreation() : WaterCard(1,
     {
         if (CombatState == null) return;
 
-        if (CombatState.GetElementalStatus().GetEssence(CardElementTag.Water) > 0)
+        if (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Water) > 0)
         {
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue*2, Owner);
             await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue*2);
@@ -50,9 +50,9 @@ public sealed class WaterCreation() : WaterCard(1,
         {
             await PlayerCmd.GainEnergy( DynamicVars.Energy.BaseValue, Owner);
             await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
-            if (CardElementTag.Water.IsActive(CombatState))
+            if (CardElementTag.Water.IsActive(Owner.Creature))
             {
-                CombatState.GetElementalStatus().AddEssence(CardElementTag.Water, 1,choiceContext);
+                Owner.Creature.GetElementalStatus().AddEssence(CardElementTag.Water, 1,choiceContext);
             }
         }
     }
@@ -67,7 +67,7 @@ public sealed class WaterCreation() : WaterCard(1,
     protected override PileType GetResultPileType()
     {
         PileType resultPileType = base.GetResultPileType();
-        return CombatState != null && (CombatState.GetElementalStatus().GetEssence(CardElementTag.Water) > 0) ? PileType.Exhaust : resultPileType;
+        return CombatState != null && (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Water) > 0) ? PileType.Exhaust : resultPileType;
     }
     
 }

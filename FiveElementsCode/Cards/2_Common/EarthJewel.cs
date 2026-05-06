@@ -21,7 +21,7 @@ public sealed class EarthJewel() : EarthCard(0,
     public override bool GainsBlock => true;
     
     //delete if shouldn't glow or replace water
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Earth.IsActive(Owner.Creature);
 
     //If you took no damage last turn, put this into your hand, Earth:(Gain 4 block)
     // buffed to 4+2 from 3+1
@@ -41,7 +41,7 @@ public sealed class EarthJewel() : EarthCard(0,
         CardPlay play)
     {
         if (CombatState == null) return;
-        if (CardElementTag.Earth.IsActive(CombatState))
+        if (CardElementTag.Earth.IsActive(Owner.Creature))
         {
             await CommonActions.CardBlock(this, play);
         }

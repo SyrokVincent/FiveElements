@@ -16,7 +16,7 @@ public class WoodChop() : WoodCard(1,
     TargetType.AnyEnemy)
 {
     
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Wood.IsActive(Owner.Creature);
 
     //Deal 9 damage, Wood:(Draw 1 gain 1 surge)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -41,7 +41,7 @@ public class WoodChop() : WoodCard(1,
         if (CombatState == null) return;
 
         await CommonActions.CardAttack(this,play.Target).Execute(choiceContext);
-        if (CardElementTag.Wood.IsActive(CombatState))
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
         {
             await CommonActions.Draw(this, choiceContext);
             await CommonActions.ApplySelf<SurgePower>(choiceContext,this, DynamicVars["SurgePower"].BaseValue);

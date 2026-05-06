@@ -14,7 +14,7 @@ public sealed class WaterLord() : WaterCard(1,
     TargetType.Self)
 {
 
-    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(CombatState);
+    protected override bool ShouldGlowGoldInternal => CombatState != null && CardElementTag.Water.IsActive(Owner.Creature);
 
     //Gain 4 wave, Water:(This turn for each water card played gain 2 Wave)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -37,7 +37,7 @@ public sealed class WaterLord() : WaterCard(1,
         if (CombatState == null) return;
         
         await CommonActions.ApplySelf<WavePower>(choiceContext,this, DynamicVars["WavePower"].BaseValue);
-        if (CardElementTag.Water.IsActive(CombatState))
+        if (CardElementTag.Water.IsActive(Owner.Creature))
         {
             await CommonActions.ApplySelf<WaterLordPower>(choiceContext,this, DynamicVars["WaterLordPower"].BaseValue);
         }
