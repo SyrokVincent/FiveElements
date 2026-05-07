@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace FiveElements.FiveElementsCode.Powers;
 
   
-public sealed class WaveTargetPower : FiveElementsPower
+public sealed class WaveEndTargetPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -22,7 +22,7 @@ public sealed class WaveTargetPower : FiveElementsPower
             amount: Amount,
             color: new Color("#1E90FF"),
             direction: HealthBarForecastDirection.FromLeft,
-            order: 0 //I think there is a bug with this, whatever the number it always superpose with doom
+            order: 1 //I think there is a bug with this, whatever the number it always superpose with doom
         );
     }
     

@@ -30,23 +30,7 @@ public sealed class FirePlume() : FireCard(0,
         new CalculationBaseVar(2),
         new ExtraDamageVar(1),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => 
-        {
-            if (card.CombatState == null) return 0;
-            
-            return CombatManager.Instance.History.CardPlaysFinished.Count(e => 
-            {
-                if (!e.HappenedThisTurn(card.CombatState) || e.CardPlay.Card.Owner != card.Owner)
-                    return false;
-                
-                // On récupère les tags figés au moment du jeu
-                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
-                {
-                    return frozenTags.TagsCountAsElement(CardElementTag.Fire, card.Owner.Creature);
-                }
-                //si pas dans le cache, on utilise la méthode sur la carte
-                return (e.CardPlay.Card.CountAsElement(CardElementTag.Fire, card.Owner.Creature));
-            });
-        }),
+            ElementHistoryUtils.CountPlayedCardsOfElement(card.CombatState, card.Owner, CardElementTag.Fire))
     ]);
     
     
@@ -81,14 +65,15 @@ public sealed class FirePlume() : FireCard(0,
     }
     
     
-    // when fire rise tirgger with that it go to the right of card draw and don't trigger incandescence
+    // when fire rise trigger with that it go to the right of card draw and don't trigger incandescence
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != Owner) return;
         //it's Incandescence triggering
         if (CombatState != null && PileType.Hand.GetPile(Owner).Cards.Contains(this))
             foreach (var hittableEnemy in CombatState.HittableEnemies)
             {
-                await CommonActions.Apply<BurnPower>(hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
+                await CommonActions.Apply<BurnPower>(choiceContext, hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
             }
     }
     

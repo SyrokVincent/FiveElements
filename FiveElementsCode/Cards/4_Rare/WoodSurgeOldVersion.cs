@@ -99,6 +99,11 @@ public sealed class WoodSurgeOldVersion() : WoodCard(2,
     {
         get
         {
+            // 1. Protection indispensable pour la bibliothèque
+            if (IsCanonical || Owner?.Creature == null)
+            {
+                return TargetType.Self;
+            }
             if (CardElementTag.Wood.IsActive(Owner.Creature))
             {
                 return TargetType.RandomEnemy;

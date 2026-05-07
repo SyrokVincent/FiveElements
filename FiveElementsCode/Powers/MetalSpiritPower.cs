@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+﻿using BaseLib.Extensions;
+using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,26 +22,44 @@ public sealed class MetalSpiritPower : FiveElementsPower
     ];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        MetalSpiritVars.MetalSpirit, //need to be the same number as on metalspiritPower
     ]);
-    
     
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        
-        //Only trigger if the owner of this power play a card
-        if (Owner != cardPlay.Card.Owner.Creature) 
-            return;
+        // 1. Déterminer si la carte doit déclencher l'effet
+        bool shouldTrigger = false;
 
-        // Check if the played card is a metal element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (cardPlay.Card.CountAsElement(CardElementTag.Metal,Owner))
+        // CAS A : C'est notre propre carte
+        if (cardPlay.Card.Owner.Creature == Owner)
         {
-            Flash();
-            if (cardPlay.Card is MetalSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
+            // On vérifie si elle compte comme Métal (inclut Attune/Shift/Spirits Form)
+            if (cardPlay.Card.CountAsElement(CardElementTag.Metal, Owner))
+                shouldTrigger = true;
+        }
+        // CAS B : C'est une carte alliée sous BodyAttunement
+        else if (cardPlay.Card.Owner.HasPower<MindAndBodyAttunementBodyPower>() && Owner.HasPower<MindAndBodyAttunementMindPower>())
+        {
+            // On vérifie si NOTRE Echo actuel est Métal
+            if (Owner.GetElementalStatus().Echo.Contains(CardElementTag.Metal))
+                shouldTrigger = true;
+        }
+
+        // 2. Exécution de l'effet
+        if (shouldTrigger)
+        {
+            // Calcul du montant de Vigor
+            decimal vigorAmount = Amount;
+
+            // On ne réduit le montant que si c'est NOUS qui jouons la carte MetalSpirit
+            if (cardPlay.Card is MetalSpirit && cardPlay.Card.Owner.Creature == Owner)
+                vigorAmount -= DynamicVars["MetalSpiritPower"].BaseValue;
+
+            if (vigorAmount > 0)
             {
-                await PowerCmd.Apply<VigorPower>(context, Owner, Amount-2, Owner,null); //need to be the same number as on metalspirit
-            }else 
-                await PowerCmd.Apply<VigorPower>(context, Owner, Amount, Owner,null);
+                Flash();
+                await PowerCmd.Apply<VigorPower>(context, Owner, vigorAmount, Owner, null);
+            }
         }
     }
-
 }

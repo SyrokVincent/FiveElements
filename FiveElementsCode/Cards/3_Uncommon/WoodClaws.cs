@@ -25,22 +25,7 @@ public sealed class WoodClaws() : WoodCard(1,
         new CalculationBaseVar(0),
         new CalculationExtraVar(1),
         new CalculatedVar("ReplayCount").WithMultiplier((card, target) =>
-        {
-            if (card.CombatState == null) return 0;
-            
-            return CombatManager.Instance.History.CardPlaysFinished.Count(e => 
-            {
-                if (!e.HappenedThisTurn(card.CombatState) || e.CardPlay.Card.Owner != card.Owner)
-                    return false;
-                // On récupère les tags figés au moment du jeu
-                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
-                {
-                    return frozenTags.TagsCountAsElement(CardElementTag.Wood, card.Owner.Creature);
-                }
-                //si pas dans le cache, on utilise la méthode sur la carte
-                return (e.CardPlay.Card.CountAsElement(CardElementTag.Wood, card.Owner.Creature));
-            });
-        })
+            ElementHistoryUtils.CountPlayedCardsOfElement(card.CombatState, card.Owner, CardElementTag.Wood))
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

@@ -8,7 +8,10 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
-
+public static class WaterLordVars
+{
+    public static PowerVar<WaterLordPower> WaterLord => new PowerVar<WaterLordPower>(2);
+}
 public sealed class WaterLord() : WaterCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
@@ -19,7 +22,7 @@ public sealed class WaterLord() : WaterCard(1,
     //Gain 4 wave, Water:(This turn for each water card played gain 2 Wave)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new PowerVar<WavePower>(4),
-        new PowerVar<WaterLordPower>(2),
+        WaterLordVars.WaterLord,
     ]);
     
     public override IEnumerable<CardKeyword> CanonicalKeywords =>

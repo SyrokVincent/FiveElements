@@ -51,6 +51,11 @@ public sealed class WoodLeaf() : WoodCard(0,
     {
         get
         {
+            // 1. Protection indispensable pour la bibliothèque
+            if (IsCanonical || Owner?.Creature == null)
+            {
+                return TargetType.Self;
+            }
             if (CardElementTag.Wood.IsActive(Owner.Creature))
             {
                 return TargetType.AnyEnemy;
@@ -65,8 +70,10 @@ public sealed class WoodLeaf() : WoodCard(0,
     private bool _canComebackToHand = false;
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != Owner) return;
         _canComebackToHand = true;
         await CheckAndReturnToHand(choiceContext);
+        
     }
 
     public override async Task AfterCardPlayedLate(PlayerChoiceContext context, CardPlay cardPlay)

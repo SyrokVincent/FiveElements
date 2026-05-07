@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+﻿using BaseLib.Extensions;
+using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -22,6 +23,7 @@ public sealed class WoodSpiritPower : FiveElementsPower
     ];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        WoodSpiritVars.WoodSpirit, //this number need to be the same as the one on woodspiritpower
         new IntVar("DisplayAmount",0), //could not find how to access DisplayAmount in localization otherwise
     ]);
     
@@ -33,31 +35,43 @@ public sealed class WoodSpiritPower : FiveElementsPower
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
         var data = GetInternalData<Data>();
-        
-        //Only trigger if the owner of this power play a card
-        if (Owner != cardPlay.Card.Owner.Creature) 
-            return;
-        
-        // Check if the played card is a Wood element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (cardPlay.Card.CountAsElement(CardElementTag.Wood,Owner))
+
+        // 1. Déterminer si la carte doit déclencher l'effet
+        bool shouldTrigger = false;
+
+        // CAS A : C'est notre propre carte
+        if (cardPlay.Card.Owner.Creature == Owner)
         {
-            if (cardPlay.Card is WoodSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
+            // On vérifie si elle compte comme Bois (inclut Attune/Shift/Spirits Form)
+            if (cardPlay.Card.CountAsElement(CardElementTag.Wood, Owner))
+                shouldTrigger = true;
+        }
+        // CAS B : C'est une carte alliée sous BodyAttunement
+        else if (cardPlay.Card.Owner.HasPower<MindAndBodyAttunementBodyPower>() && Owner.HasPower<MindAndBodyAttunementMindPower>())
+        {
+            // On vérifie NOTRE Echo actuel
+            if (Owner.GetElementalStatus().Echo.Contains(CardElementTag.Wood))
+                shouldTrigger = true;
+        }
+
+        // 2. Exécution si validé
+        if (shouldTrigger)
+        {
+            // Calcul du montant de Surge
+            int surgeAmount = Amount;
+
+            // On ne réduit le montant que si c'est NOUS qui jouons la carte WoodSpirit
+            if (cardPlay.Card is WoodSpirit && cardPlay.Card.Owner.Creature == Owner)
+                surgeAmount -= DynamicVars["WoodSpiritPower"].IntValue;
+
+            if (surgeAmount > 0)
             {
                 Flash();
-                data.TempStrengthCount += Amount - 2; //this number need to be the same as the one on woodspirit
+                data.TempStrengthCount += surgeAmount;
                 DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<SurgePower>(context, Owner, Amount - 2, Owner,null);
+                await PowerCmd.Apply<SurgePower>(context, Owner, surgeAmount, Owner, null);
                 InvokeDisplayAmountChanged();
             }
-            else
-            {
-                Flash();
-                data.TempStrengthCount += Amount;
-                DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<SurgePower>(context, Owner, Amount, Owner,null);
-                InvokeDisplayAmountChanged();
-            }
-            
         }
     }
     

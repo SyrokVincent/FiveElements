@@ -18,6 +18,7 @@ public sealed class WaterCanonPower : FiveElementsPower
     //late to trigger after wave trigger
     public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != Owner.Player) return;
         Flash();
         await PowerCmd.Apply<WavePower>(choiceContext, Owner, -Amount, Owner, null);
         await PowerCmd.Remove(this);

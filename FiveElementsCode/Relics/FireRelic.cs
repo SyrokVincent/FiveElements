@@ -14,11 +14,11 @@ namespace FiveElements.FiveElementsCode.Relics;
 [Pool(typeof(FiveElementsRelicPool))]
 public sealed class FireRelic() : FiveElementsRelic
 {
-    //At start of combat add 2 fire plume in hand
+    //At start of combat add 3 fire plume in hand
     public override RelicRarity Rarity => RelicRarity.Rare;
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new CardsVar(2),
+        new CardsVar(3),
     ]);
 
  

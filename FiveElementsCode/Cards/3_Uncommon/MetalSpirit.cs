@@ -8,7 +8,10 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
-
+public static class MetalSpiritVars
+{
+    public static PowerVar<MetalSpiritPower> MetalSpirit => new PowerVar<MetalSpiritPower>(2);
+}
 public sealed class MetalSpirit() : MetalCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
@@ -17,7 +20,7 @@ public sealed class MetalSpirit() : MetalCard(1,
     // Gain 2 vigor when you play a metal card
     // buffed to 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<MetalSpiritPower>(2), //need to be the same number as on metalspiritPower
+        MetalSpiritVars.MetalSpirit, //need to be the same number as on metalspiritPower
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

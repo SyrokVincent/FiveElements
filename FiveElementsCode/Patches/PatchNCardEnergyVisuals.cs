@@ -1,32 +1,46 @@
-﻿using FiveElements.FiveElementsCode.Character;
+﻿using HarmonyLib;
+using MegaCrit.Sts2.Core.Nodes.Cards;
+using Godot;
+using FiveElements.FiveElementsCode.Character;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 
 namespace FiveElements.FiveElementsCode.Patches;
-
-using HarmonyLib;
-using MegaCrit.Sts2.Core.Nodes.Cards;
-using Godot;
 
 [HarmonyPatch(typeof(NCard), "UpdateEnergyCostVisuals")]
 public class PatchNCardEnergyVisuals
 {
     public static void Postfix(NCard __instance)
     {
+        if (__instance == null || __instance.Model == null) return;
+
         var cardModel = __instance.Model;
 
-        if (cardModel != null && cardModel.Pool is FiveElementsCardPool elementPool)
+        if (cardModel.Pool is FiveElementsCardPool elementPool)
         {
-            
             var energyIconNode = __instance.GetNodeOrNull<TextureRect>("CardContainer/EnergyIcon");
-            
-            if (energyIconNode != null)
+            if (energyIconNode == null) return;
+
+            HashSet<CardElementTag> currentEcho = [CardElementTag.Neutral];
+
+            if (cardModel.IsCanonical)
             {
-                // On force la texture
-                var newTexture = ResourceLoader.Load<Texture2D>(elementPool.GetEnergyPathForCard(cardModel.Owner.Creature.GetElementalStatus().Echo).ImagePath());
-                energyIconNode.Texture = newTexture;
-                
-                // Debug optionnel pour confirmer dans la console
-                //GD.Print($"Icon updated for {cardModel.Id.Entry} to {elementPool.BigEnergyIconPath}");
+                currentEcho = [CardElementTag.Neutral];
+            } 
+            else if (cardModel.Owner?.Creature != null)
+            {
+                currentEcho = cardModel.Owner.Creature.GetElementalStatus().Echo;
+            }
+            
+            // Chargement de la texture
+            string path = elementPool.GetEnergyPathForCard(currentEcho).ImagePath();
+            if (!string.IsNullOrEmpty(path))
+            {
+                var newTexture = ResourceLoader.Load<Texture2D>(path);
+                if (newTexture != null)
+                {
+                    energyIconNode.Texture = newTexture;
+                }
             }
         }
     }

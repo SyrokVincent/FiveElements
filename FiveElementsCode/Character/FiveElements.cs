@@ -81,10 +81,21 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<WaterSpirit>());
+            finalDeck.Add(ModelDb.Card<WaterSpirit>());
+            finalDeck.Add(ModelDb.Card<WaterSpirit>());
+            finalDeck.Add(ModelDb.Card<WaterSpirit>());
             finalDeck.Add(ModelDb.Card<WaterLord>());
             finalDeck.Add(ModelDb.Card<WaterLord>());
             finalDeck.Add(ModelDb.Card<WaterLord>());
-            finalDeck.Add(ModelDb.Card<WaterTsunami>());
+            finalDeck.Add(ModelDb.Card<WaterLord>());
+            finalDeck.Add(ModelDb.Card<WaterLord>());
+            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
+            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
+            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
+            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
+            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
+            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
             
             
             /*

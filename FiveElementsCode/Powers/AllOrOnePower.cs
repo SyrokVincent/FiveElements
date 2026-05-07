@@ -56,7 +56,7 @@ public sealed class AllOrOnePower : FiveElementsPower
     
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        
+        if (player != Owner.Player) return;
         this.Flash();
         await CardPileCmd.Draw(choiceContext, (int)Amount, player);
         

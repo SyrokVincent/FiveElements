@@ -74,6 +74,11 @@ public sealed class EarthMagma() : EarthCard(1,
     {
         get
         {
+            // 1. Protection indispensable pour la bibliothèque
+            if (IsCanonical || Owner?.Creature == null)
+            {
+                return TargetType.Self;
+            }
             if (CardElementTag.Fire.IsActive(Owner.Creature))
             {
                 return TargetType.AnyEnemy;

@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -32,24 +33,8 @@ public sealed class EarthCrown() : EarthCard(1,
         new PowerVar<PlatingPower>(1),
         new CalculationBaseVar(0), // Base plating
         new CalculationExtraVar(1),    // bonus plating for each earth card
-        new CalculatedVar("EarthCardPlayed").WithMultiplier((card, target) =>
-        {
-            if (card.CombatState == null) return 0;
-
-            return CombatManager.Instance.History.CardPlaysFinished.Count(e => 
-            {
-                if (!e.HappenedThisTurn(card.CombatState) || e.CardPlay.Card.Owner != card.Owner)
-                    return false;
-                
-                // On récupère les tags figés au moment du jeu
-                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
-                {
-                    return frozenTags.TagsCountAsElement(CardElementTag.Earth, card.Owner.Creature);
-                }
-                //si pas dans le cache, on utilise la méthode sur la carte
-                return (e.CardPlay.Card.CountAsElement(CardElementTag.Earth, card.Owner.Creature));
-            });
-        })
+        new CalculatedVar("EarthCardPlayed").WithMultiplier((card, target) => 
+            ElementHistoryUtils.CountPlayedCardsOfElement(card.CombatState, card.Owner, CardElementTag.Earth))
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

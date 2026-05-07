@@ -1,4 +1,6 @@
-﻿using FiveElements.FiveElementsCode.Enums;
+﻿using BaseLib.Extensions;
+using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -15,58 +17,55 @@ public sealed class WaterLordPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-
-
+    
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromPower<WavePower>(),
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        WaterLordVars.WaterLord,
     ]);
-
-
-
-    public override Task BeforeCardPlayed(CardPlay cardPlay)
-    {
-        // On vérifie le propriétaire
-        if (this.Applier?.Player == null || 
-            cardPlay.Card.Owner != this.Applier.Player)
-        {
-            return Task.CompletedTask;
-        }
-
-        // On stocke le montant au moment où la carte est jouée
-        this.GetInternalData<Data>().AmountsForPlayedCards[cardPlay.Card] = this.Amount;
-        return Task.CompletedTask;
-    }
-
+    
     
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        var data = GetInternalData<Data>();
-    
-        // 1. On récupère la valeur stockée dans BeforeCardPlayed
-        if (!data.AmountsForPlayedCards.Remove(cardPlay.Card, out var amount))
-            return;
+        bool shouldTrigger = false;
 
-        if (cardPlay.Card.CountAsElement(CardElementTag.Water, Owner))
+        // CAS A : Ma propre carte
+        if (cardPlay.Card.Owner.Creature == Owner)
         {
-            this.Flash();
-            await PowerCmd.Apply<WavePower>(context, Owner, amount, Applier, null);
+            if (cardPlay.Card.CountAsElement(CardElementTag.Water, Owner))
+                shouldTrigger = true;
+        }
+        // CAS B : Carte alliée via le lien (BodyAttunement)
+        else if (cardPlay.Card.Owner.HasPower<MindAndBodyAttunementBodyPower>() && Owner.HasPower<MindAndBodyAttunementMindPower>())
+        {
+            // On vérifie NOTRE Echo
+            if (Owner.GetElementalStatus().Echo.Contains(CardElementTag.Water))
+                shouldTrigger = true;
+        }
+        
+        // 2. Exécution de l'effet
+        if (shouldTrigger)
+        {
+            // Calcul du montant de wave
+            decimal waveAmount = Amount;
+
+            // On ne réduit le montant que si c'est NOUS qui jouons la carte waterlord pour ne pas la compter
+            if (cardPlay.Card is WaterLord && cardPlay.Card.Owner.Creature == Owner)
+                waveAmount -= DynamicVars["WaterLordPower"].BaseValue;
+
+            if (waveAmount > 0)
+            {
+                Flash();
+                await PowerCmd.Apply<WavePower>(context, Owner, waveAmount, Owner, null);
+            }
         }
     }
     
-
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
-        if (side != CombatSide.Player)
-            return;
+        if (side != CombatSide.Player) return;
         await PowerCmd.Remove(this);
-    }
-
-    protected override object InitInternalData() => new Data();
-    private class Data
-    {
-        public readonly Dictionary<CardModel, int> AmountsForPlayedCards = new();
     }
 }

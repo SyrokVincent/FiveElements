@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+﻿using BaseLib.Extensions;
+using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -26,29 +27,40 @@ public sealed class FireSpiritPower : FiveElementsPower
     
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        
-        //Only trigger if the owner of this power play a card
-        if (Owner != cardPlay.Card.Owner.Creature) 
-            return;
-        
-        // Check if the played card is a fire element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (cardPlay.Card.CountAsElement(CardElementTag.Fire,Owner))
+        // 1. Déterminer si la carte doit déclencher l'effet
+        bool shouldTrigger = false;
+
+        // CAS A : C'est notre propre carte
+        if (cardPlay.Card.Owner.Creature == Owner)
         {
-            if (cardPlay.Card is FireSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas grace au -DynamicVars["FireSpiritPower"].BaseValue)
+            // On vérifie si elle compte comme Feu (inclut Attune/Shift/Spirits Form)
+            if (cardPlay.Card.CountAsElement(CardElementTag.Fire, Owner))
+                shouldTrigger = true;
+        }
+        // CAS B : C'est une carte alliée sous BodyAttunement
+        else if (cardPlay.Card.Owner.HasPower<MindAndBodyAttunementBodyPower>() && Owner.HasPower<MindAndBodyAttunementMindPower>())
+        {
+            // On vérifie si NOTRE Echo actuel est Feu
+            if (Owner.GetElementalStatus().Echo.Contains(CardElementTag.Fire))
+                shouldTrigger = true;
+        }
+
+        // 2. Exécution de l'effet
+        if (shouldTrigger)
+        {
+            // Calcul du montant de Burn
+            decimal burnAmount = Amount;
+
+            // On ne réduit le montant que si c'est NOUS qui jouons la carte FireSpirit
+            if (cardPlay.Card is FireSpirit && cardPlay.Card.Owner.Creature == Owner)
+                burnAmount -= DynamicVars["FireSpiritPower"].BaseValue;
+
+            if (burnAmount > 0)
             {
-                
                 Flash();
                 var targets = CombatState.HittableEnemies;
-                await PowerCmd.Apply<BurnPower>(context, targets, Amount - DynamicVars["FireSpiritPower"].BaseValue, this.Owner, null);
+                await PowerCmd.Apply<BurnPower>(context, targets, burnAmount, this.Owner, null);
             }
-            else
-            {
-                Flash();
-                var targets = CombatState.HittableEnemies;
-                await PowerCmd.Apply<BurnPower>(context, targets, Amount, this.Owner, null);
-            }
-            
         }
     }
-
 }

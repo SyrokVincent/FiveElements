@@ -74,59 +74,49 @@ public sealed class Activation() : NeutralCard(1,
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [
     ];
-
-    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    
+  
+    protected override IEnumerable<IHoverTip> ExtraHoverTips 
     {
         get
         {
-            var tips = new List<IHoverTip>
+            var tips = new List<IHoverTip>();
+
+            // 1. GESTION DU MODE CANONIQUE (Bibliothèque / Hors Combat)
+            if (IsCanonical || Owner?.Creature == null)
             {
-            };
-            //todo could also make the starter relic be a tuto explaining which elements trigger their effect
-            if (IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Element));
-                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate));
-                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo));
+                if (IsUpgraded) tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));
+
+                tips.Add(HoverTipFactory.FromPower<WavePower>());
+                tips.Add(HoverTipFactory.FromPower<SurgePower>());
+                tips.Add(HoverTipFactory.FromPower<BurnPower>());
+                tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
+                tips.Add(HoverTipFactory.FromPower<VigorPower>());
+
+                return tips; 
             }
+            
+            // 2. LOGIQUE DE COMBAT (Si on arrive ici, on est sûr d'avoir un Owner)
             if (IsUpgraded)
             {
                 tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));
             }
-
-            if (CardElementTag.Water.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromPower<WavePower>());
-            }
-
-            if (CardElementTag.Wood.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromPower<SurgePower>());
-            }
-
-            if (CardElementTag.Fire.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromPower<BurnPower>());
-            }
+            tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Element));
+            tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate));
+            tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo));
             
-            //just to place it before vigor
-            if (CardElementTag.Earth.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
-            }
+            if (CardElementTag.Water.IsActive(Owner.Creature)) tips.Add(HoverTipFactory.FromPower<WavePower>());
+            if (CardElementTag.Wood.IsActive(Owner.Creature))  tips.Add(HoverTipFactory.FromPower<SurgePower>());
+            if (CardElementTag.Fire.IsActive(Owner.Creature))  tips.Add(HoverTipFactory.FromPower<BurnPower>());
             // Pour Earth, vu que GainsBlock est à true, le tooltip "Block" 
-            // s'ajoute automatiquement via la classe de base, un patch en plus gere si on doit l'enlever ou pas
+            // s'ajoute automatiquement via la classe de base, c'est just to place it before vigor un patch en plus gere si on doit l'enlever ou pas
+            if (CardElementTag.Earth.IsActive(Owner.Creature)) tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
+            if (CardElementTag.Metal.IsActive(Owner.Creature)) tips.Add(HoverTipFactory.FromPower<VigorPower>());
 
-            if (CardElementTag.Metal.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromPower<VigorPower>());
-            }
-
-        
             return tips;
         }
     }
-  
+    
     
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -167,6 +157,11 @@ public sealed class Activation() : NeutralCard(1,
     {
         get
         {
+            // 1. Protection indispensable pour la bibliothèque
+            if (IsCanonical || Owner?.Creature == null)
+            {
+                return TargetType.Self;
+            }
             if (CombatState != null && CardElementTag.Fire.IsActive(Owner.Creature))
             {
                 return TargetType.AllEnemies;

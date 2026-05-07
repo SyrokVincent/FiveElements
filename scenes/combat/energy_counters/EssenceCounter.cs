@@ -298,16 +298,12 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 				bool hasRequiredSource = _player.HasPower<AllOrOnePower>() || _player.Relics.Any(r => r is NeutralRelic);
 				if (hasRequiredSource)
 				{
-					hasBeenPlayed = CombatManager.Instance.History.CardPlaysFinished.Any(e => 
-					{
-						if (!e.HappenedThisTurn(_player.Creature.CombatState) || e.CardPlay.Card.Owner != _player)
-							return false;
-            
-						if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
-							return frozenTags.TagsCountAsElement(_myElement, _player.Creature);
-
-						return e.CardPlay.Card.CountAsElement(_myElement, _player.Creature);
-					});
+					// On vérifie si le compte est > 0 pour allumer l'indicateur
+					hasBeenPlayed = ElementHistoryUtils.CountPlayedCardsOfElement(
+						_player.Creature.CombatState, 
+						_player, 
+						_myElement
+					) > 0;
 				}
 			}
 			ShowPlayedIndicator(hasBeenPlayed);

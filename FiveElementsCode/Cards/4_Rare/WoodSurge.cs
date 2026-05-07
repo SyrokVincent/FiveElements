@@ -118,6 +118,7 @@ public sealed class WoodSurge() : WoodCard(1,
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != Owner) return Task.CompletedTask;
         // On s'assure que si elle était dans la main de départ, 
         // elle ne se considère pas comme "venant d'être piochée" pour le reste du tour
         _justEnteredHand = false;

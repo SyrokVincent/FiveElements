@@ -14,11 +14,11 @@ namespace FiveElements.FiveElementsCode.Relics;
 [Pool(typeof(FiveElementsRelicPool))]
 public sealed class MetalRelic() : FiveElementsRelic
 {
-    //At start of each turn gain 2 vigor
+    //At start of each turn gain 4 vigor
     public override RelicRarity Rarity => RelicRarity.Uncommon;
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<VigorPower>(2), 
+        new PowerVar<VigorPower>(4), 
     ]);
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([

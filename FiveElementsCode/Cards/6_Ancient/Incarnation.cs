@@ -53,57 +53,43 @@ public sealed class Incarnation() : NeutralCard(0,
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
     ]);
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    protected override IEnumerable<IHoverTip> ExtraHoverTips 
     {
         get
         {
-            var tips = new List<IHoverTip>
+            var tips = new List<IHoverTip>();
+
+            // 1. GESTION DU MODE CANONIQUE (Bibliothèque / Hors Combat)
+            if (IsCanonical || Owner?.Creature == null)
             {
-                //todo removed for now, hopefully someone getting the crad understand how that work
-                //HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo),
-                //HoverTipFactory.FromKeyword(FiveElementsKeywords.Element),
-                //HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate)
-            };
-            if (IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Element));
-                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate));
-                tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo));
+                if (IsUpgraded) tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));
+
+                tips.Add(HoverTipFactory.FromPower<WavePower>());
+                tips.Add(HoverTipFactory.FromPower<SurgePower>());
+                tips.Add(HoverTipFactory.FromPower<BurnPower>());
+                tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
+                tips.Add(HoverTipFactory.FromPower<VigorPower>());
+
+                return tips; 
             }
+            
+            // 2. LOGIQUE DE COMBAT (Si on arrive ici, on est sûr d'avoir un Owner)
             if (IsUpgraded)
             {
                 tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Attune));
             }
-
-            if (CardElementTag.Water.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromPower<WavePower>());
-            }
-
-            if (CardElementTag.Wood.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromPower<SurgePower>());
-            }
-
-            if (CardElementTag.Fire.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromPower<BurnPower>());
-            }
+            tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Element));
+            tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Generate));
+            tips.Add(HoverTipFactory.FromKeyword(FiveElementsKeywords.Echo));
             
-            //just to place it before vigor
-            if (CardElementTag.Earth.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
-            }
+            if (CardElementTag.Water.IsActive(Owner.Creature)) tips.Add(HoverTipFactory.FromPower<WavePower>());
+            if (CardElementTag.Wood.IsActive(Owner.Creature))  tips.Add(HoverTipFactory.FromPower<SurgePower>());
+            if (CardElementTag.Fire.IsActive(Owner.Creature))  tips.Add(HoverTipFactory.FromPower<BurnPower>());
             // Pour Earth, vu que GainsBlock est à true, le tooltip "Block" 
-            // s'ajoute automatiquement via la classe de base, un patch en plus gere si on doit l'enlever ou pas
+            // s'ajoute automatiquement via la classe de base, c'est just to place it before vigor un patch en plus gere si on doit l'enlever ou pas
+            if (CardElementTag.Earth.IsActive(Owner.Creature)) tips.Add(HoverTipFactory.Static(StaticHoverTip.Block));
+            if (CardElementTag.Metal.IsActive(Owner.Creature)) tips.Add(HoverTipFactory.FromPower<VigorPower>());
 
-            if (CardElementTag.Metal.IsActive(Owner.Creature) || !IsInCombat)
-            {
-                tips.Add(HoverTipFactory.FromPower<VigorPower>());
-            }
-
-        
             return tips;
         }
     }
@@ -150,6 +136,11 @@ public sealed class Incarnation() : NeutralCard(0,
     {
         get
         {
+            // 1. Protection indispensable pour la bibliothèque
+            if (IsCanonical || Owner?.Creature == null)
+            {
+                return TargetType.Self;
+            }
             if (CardElementTag.Fire.IsActive(Owner.Creature))
             {
                 return TargetType.AllEnemies;

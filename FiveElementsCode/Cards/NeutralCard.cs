@@ -113,12 +113,11 @@ public abstract class NeutralCard : FiveElementsCard
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player == Owner)
-        {
-            UpdateAttuneAndShift();
-            //PileType.Draw.GetPile(Owner).InvokeContentsChanged();
-            //PileType.Discard.GetPile(Owner).InvokeContentsChanged();
-        }
+      
+        if (player != Owner) return Task.CompletedTask;
+        UpdateAttuneAndShift();
+        //PileType.Draw.GetPile(Owner).InvokeContentsChanged();
+        //PileType.Discard.GetPile(Owner).InvokeContentsChanged();
         return Task.CompletedTask;
     }
 

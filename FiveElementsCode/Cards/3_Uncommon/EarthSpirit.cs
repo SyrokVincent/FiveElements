@@ -9,6 +9,10 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
 
+public static class EarthSpiritVars
+{
+    public static PowerVar<EarthSpiritPower> EarthSpirit => new PowerVar<EarthSpiritPower>(2);
+}
 public sealed class EarthSpirit() : EarthCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
@@ -17,7 +21,7 @@ public sealed class EarthSpirit() : EarthCard(1,
 
     //gain 2 temp thorns when you play an earth card (temp dex?)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<EarthSpiritPower>(2), //this number need to be the same as the one on woodspiritpower
+        EarthSpiritVars.EarthSpirit, //this number need to be the same as the one on woodspiritpower
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

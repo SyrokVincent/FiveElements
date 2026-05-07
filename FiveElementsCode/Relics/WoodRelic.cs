@@ -88,6 +88,7 @@ public sealed class WoodRelic() : FiveElementsRelic
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != Owner) return Task.CompletedTask;
         // Sécurité : on reset au début du tour au cas où
         WoodPlayedThisTurn = 0;
         Status = RelicStatus.Normal;

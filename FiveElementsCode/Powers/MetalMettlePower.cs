@@ -33,6 +33,7 @@ public sealed class MetalMettlePower : FiveElementsPower
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != Owner.Player) return Task.CompletedTask;
         _timeTriggeredThisTurn = 0;
         DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
         InvokeDisplayAmountChanged();

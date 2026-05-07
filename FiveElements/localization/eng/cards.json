@@ -68,6 +68,10 @@
   "FIVEELEMENTS-DOMINATION.selectionScreenPrompt": "Choose a card to Dominate.",
   "FIVEELEMENTS-DOMINATION.description": "Choose a card in your [gold]Hand[/gold] that [gold]Echo[/gold] [gold]Dominate[/gold].\n[gold]Transform[/gold] it into the last card played and play it for free.",
   "FIVEELEMENTS-DOMINATION.title": "Domination",
+  "FIVEELEMENTS-MIND_AND_BODY_ATTUNEMENT.description": "This turn, gain [gold]Mind attuned[/gold] and give an ally [gold]Body attuned[/gold].",
+  "FIVEELEMENTS-MIND_AND_BODY_ATTUNEMENT.title": "Mind and Body",
+  "FIVEELEMENTS-MULTI_ACTIVATION.description": "Trigger ALL the effects on the card [gold]Activation[/gold] on ALL players.",
+  "FIVEELEMENTS-MULTI_ACTIVATION.title": "Multi Activation",
 
 
 

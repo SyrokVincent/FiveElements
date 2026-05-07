@@ -4,8 +4,11 @@ using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Character;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
+using FiveElements.FiveElementsCode.Powers;
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace FiveElements.FiveElementsCode.Cards;
@@ -153,6 +156,46 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     */
 }  
     
+public static class ElementHistoryUtils
+{
+    public static int CountPlayedCardsOfElement(ICombatState? combatState, Player? owner, CardElementTag element)
+    {
+        if (combatState == null || owner == null) return 0;
+
+        // Récupération du pouvoir de lien une seule fois pour la performance
+        var power = owner.Creature.GetPower<MindAndBodyAttunementMindPower>();
+        var capturedData = power?.GetData()?.CapturedElements;
+
+        return CombatManager.Instance.History.CardPlaysFinished.Count(e => 
+        {
+            if (!e.HappenedThisTurn(combatState)) return false;
+
+            var playedCard = e.CardPlay.Card;
+            // 2. CAS : Carte jouée par MOI
+            if (playedCard.Owner == owner)
+            {
+                // Si elle est dans le cache (Attune/Shift), on utilise les tags figés
+                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
+                {
+                    return frozenTags.TagsCountAsElement(element, owner.Creature);
+                }
+                // Sinon (carte Terre standard), on utilise la méthode normale
+                return playedCard.CountAsElement(element, owner.Creature);
+            }
+
+            // CAS 2 : Carte d'un allié via le lien
+            // On regarde si notre pouvoir a capturé des éléments pour cette carte
+            if (capturedData != null && capturedData.TryGetValue(e.CardPlay, out var elements))
+            {
+                // Si l'Echo qu'on avait au moment où l'allié a joué contient Terre
+                return elements.Contains(element);
+            }
+
+            return false;
+        });
+    }
+}
+
     /*
     public CardElementTag ElementOfLastCardPlayed
     {

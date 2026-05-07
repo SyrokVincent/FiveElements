@@ -84,6 +84,11 @@ public sealed class WaterCanon() : WaterCard(2,
     {
         get
         {
+            // 1. Protection indispensable pour la bibliothèque
+            if (IsCanonical || Owner?.Creature == null)
+            {
+                return TargetType.Self;
+            }
             if (CardElementTag.Metal.IsActive(Owner.Creature))
             {
                 return TargetType.AnyEnemy;

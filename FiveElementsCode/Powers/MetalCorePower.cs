@@ -47,8 +47,7 @@ public sealed class MetalCorePower : FiveElementsPower
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         // On ne déclenche l'effet que si c'est le tour du Joueur
-        if (player != Owner.Player)
-            return;
+        if (player != Owner.Player) return;
         
         // Calcul de la puissance : 2^Amount
         // Amount 1 = 2

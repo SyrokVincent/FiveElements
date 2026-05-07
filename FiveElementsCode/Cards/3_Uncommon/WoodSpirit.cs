@@ -8,7 +8,10 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace FiveElements.FiveElementsCode.Cards._3_Uncommon;
-
+public static class WoodSpiritVars
+{
+    public static PowerVar<WoodSpiritPower> WoodSpirit => new PowerVar<WoodSpiritPower>(2);
+}
 public sealed class WoodSpirit() : WoodCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
@@ -17,7 +20,7 @@ public sealed class WoodSpirit() : WoodCard(1,
     //Gain 2 surge when you play a wood card
     // buffed from 1 to 2
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<WoodSpiritPower>(2), //this number need to be the same as the one on woodspiritpower
+        WoodSpiritVars.WoodSpirit, //this number need to be the same as the one on woodspiritpower
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([

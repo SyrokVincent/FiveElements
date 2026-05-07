@@ -17,10 +17,11 @@ public static class PatchHoverTips
         // On cible Activation et Incarnation
         if (__instance is Activation || __instance is Incarnation)
         {
-            // Si on n'est pas en combat, on laisse tout (pour la bibliothèque)
-            if (__instance.CombatState == null) return;
-
-            // Si on est en combat mais que la Terre est OFF, on dégage le bloc de FORCE
+            // 2. Sécurité absolue : si c'est un modèle canonique (Bibliothèque/Compendium),
+            // on ne touche à rien et on ne regarde surtout pas l'Owner.
+            if (__instance.IsCanonical) return;
+            
+            // Si la Terre est OFF, on dégage le bloc de FORCE
             if (!CardElementTag.Earth.IsActive(__instance.Owner.Creature))
             {
                 string blockId = HoverTipFactory.Static(StaticHoverTip.Block).Id;

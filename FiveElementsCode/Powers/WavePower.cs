@@ -25,11 +25,8 @@ public sealed class WavePower : FiveElementsPower
         new IntVar("HasWaterRelic", (Owner != null && HasWaterRelic) ? 1M : 0M),
     ]);
     
-    //todo this need to change for multi player, it break if multiple source of wave..
     
-    //added decrement ???
-    
-    // owner =! null needed do not remove
+    // owner =! null needed, do not remove
     private bool HasWaterTsunami => 
         this.IsMutable && 
         Owner != null && 
@@ -44,12 +41,12 @@ public sealed class WavePower : FiveElementsPower
     
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != Owner.Player) return;
         if (!HasWaterRelic)
         {
             await TriggerWave(CombatState,choiceContext);
         }
     }
-    
     
 
     public override async Task BeforeTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side)
@@ -71,7 +68,6 @@ public sealed class WavePower : FiveElementsPower
         if (power is WavePower || power is WaterTsunamiPower)
         {
             await SyncWaveTarget(choiceContext);
-            
         }
     }
 
@@ -118,80 +114,87 @@ public sealed class WavePower : FiveElementsPower
         }
     }
     
-    
     private async Task SyncWaveTarget(PlayerChoiceContext context)
     {
-        
-        // --- MISE À JOUR DE LA LOCALISATION ---
+        // Mise à jour de la localisation (inchangé)
         DynamicVars["HasWaterTsunami"].BaseValue = HasWaterTsunami ? 1M : 0M;
         DynamicVars["HasWaterRelic"].BaseValue = HasWaterRelic ? 1M : 0M;
-        
+    
         if (Amount <= 0) return;
-        if (HasWaterTsunami)
+        ulong myNetId = Owner.Player.NetId;
+
+        // Déterminer quel type de pouvoir synchroniser
+        // On utilise WaveEndTargetPower si on a la relique, sinon WaveTargetPower
+        bool useEndPower = HasWaterRelic;
+
+        foreach (var enemy in CombatState.HittableEnemies)
         {
-            // --- MODE TSUNAMI : Tout le monde doit avoir la marque ---
-            foreach (var enemy in CombatState.HittableEnemies)
+            bool isTarget = (HasWaterTsunami || enemy == GetPriorityTarget());
+            decimal targetAmount = isTarget ? Amount : 0;
+
+            if (useEndPower)
             {
-                // On vérifie le montant actuel sur l'ennemi
-                var p = enemy.GetPower<WaveTargetPower>();
-                if (p == null || p.Amount != Amount)
-                {
-                    // On applique/met à jour pour que l'ennemi ait exactement le montant du joueur
-                    // PowerCmd.Apply avec un montant spécifique recalcule le total
-                    decimal diff = Amount - (p?.Amount ?? 0);
-                    if (diff != 0)
-                    {
-                        await PowerCmd.Apply<WaveTargetPower>(context,enemy, diff, Owner, null, true);
-                    }
-                }
+                await UpdateShare<WaveEndTargetPower>(context, enemy, targetAmount, myNetId);
+                // Sécurité : Si on vient de ramasser la relique, il faut nettoyer l'autre marque
+                await UpdateShare<WaveTargetPower>(context, enemy, 0, myNetId);
+            }
+            else
+            {
+                await UpdateShare<WaveTargetPower>(context, enemy, targetAmount, myNetId);
+                // Sécurité : Si on a perdu la relique, on nettoie la marque de fin de tour
+                await UpdateShare<WaveEndTargetPower>(context, enemy, 0, myNetId);
             }
         }
-        else
-        {
-            // --- MODE NORMAL (avec gestion Surrounded) ---
-            Creature? priorityTarget = null;
-            var surrounded = Owner.GetPower<SurroundedPower>();
+    }
+    
+    private async Task UpdateShare<T>(PlayerChoiceContext context, Creature target, decimal targetAmount, ulong myNetId) where T : PowerModel
+    {
+        // On récupère le pouvoir existant
+        var p = target.GetPower<T>();
+    
+        // On récupère la part actuelle (nécessite un cast car GetData n'est pas dans PowerModel)
+        decimal currentShare = 0;
+        if (p is WaveTargetPower wt) currentShare = wt.GetData().PlayerMarks.GetValueOrDefault(myNetId, 0M);
+        if (p is WaveEndTargetPower wet) currentShare = wet.GetData().PlayerMarks.GetValueOrDefault(myNetId, 0M);
 
-            if (surrounded != null)
+        decimal diff = targetAmount - currentShare;
+        if (diff != 0)
+        {
+            await PowerCmd.Apply<T>(context, target, diff, Owner, null, true);
+        
+            var updated = target.GetPower<T>();
+            if (updated != null)
             {
-                if (surrounded.Facing == SurroundedPower.Direction.Left)
-                {
-                    // On prend le dernier (le plus proche de nous à gauche)
-                    priorityTarget = CombatState.HittableEnemies
-                        .LastOrDefault(e => e.HasPower<BackAttackLeftPower>());
-                }
-                else
-                {
-                    // On prend le premier (le plus proche de nous à droite)
-                    priorityTarget = CombatState.HittableEnemies
-                        .FirstOrDefault(e => e.HasPower<BackAttackRightPower>());
-                }
+                if (updated is WaveTargetPower uwt) uwt.SetPlayerShare(myNetId, targetAmount);
+                if (updated is WaveEndTargetPower uwet) uwet.SetPlayerShare(myNetId, targetAmount);
+
+                if (updated.Amount <= 0) await PowerCmd.Remove(updated);
             }
+        }
+    }
+    
+    private Creature? GetPriorityTarget()
+    {
+        var surrounded = Owner.GetPower<SurroundedPower>();
+
+        if (surrounded != null)
+        {
+            if (surrounded.Facing == SurroundedPower.Direction.Left)
+            {
+                // On prend le dernier (le plus proche de nous à gauche)
+                return CombatState.HittableEnemies
+                    .LastOrDefault(e => e.HasPower<BackAttackLeftPower>());
+            }
+            else
+            {
+                // On prend le premier (le plus proche de nous à droite)
+                return CombatState.HittableEnemies
+                    .FirstOrDefault(e => e.HasPower<BackAttackRightPower>());
+            }
+        }
             
-            // Si pas de Surrounded ou cible non trouvée, premier par défaut
-            priorityTarget ??= CombatState.HittableEnemies.FirstOrDefault();
-
-            if (priorityTarget == null) return;
-
-            // On nettoie les marques sur les autres et on met à jour la cible prioritaire
-            foreach (var enemy in CombatState.HittableEnemies)
-            {
-                if (enemy == priorityTarget)
-                {
-                    var p = enemy.GetPower<WaveTargetPower>();
-                    if (p == null || p.Amount != Amount)
-                    {
-                        decimal diff = Amount - (p?.Amount ?? 0);
-                        await PowerCmd.Apply<WaveTargetPower>(context, enemy, diff, Owner, null, true);
-                    }
-                }
-                else if (enemy.HasPower<WaveTargetPower>())
-                {
-                    // Enlève la marque si l'ennemi n'est plus "devant" le joueur
-                    await PowerCmd.Remove<WaveTargetPower>(enemy);
-                }
-            }
-        }
+        // Si pas de Surrounded ou cible non trouvée, premier par défaut
+        return CombatState.HittableEnemies.FirstOrDefault();
     }
     
     /*
@@ -208,61 +211,72 @@ public sealed class WavePower : FiveElementsPower
         await base.BeforeTurnEndVeryEarly(choiceContext, side);
     }
     */
+   
+    /*
+    public async Task TriggerWave(ICombatState combatState, PlayerChoiceContext choiceContext, Creature? target = null)
+    {
+        if (target == null && !HasWaterTsunami) target = GetPriorityTarget();
+    
+        Flash();
+        if (Owner.Player != null)
+        {
+            ulong myNetId = Owner.Player.NetId;
+
+            if (HasWaterTsunami)
+            {
+                foreach (Creature t in combatState.HittableEnemies)
+                {
+                    await CreatureCmd.Damage(choiceContext, t, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
+                    // On réduit notre part de 1 sur chaque ennemi
+                    // Choisir le pouvoir à réduire
+                    if (HasWaterRelic) 
+                        await UpdateShare<WaveEndTargetPower>(choiceContext, t, Math.Max(0, Amount - 1), myNetId);
+                    else 
+                        await UpdateShare<WaveTargetPower>(choiceContext, t, Math.Max(0, Amount - 1), myNetId);
+                }
+            }
+            else 
+            {
+                if (target == null) target = CombatState.HittableEnemies.FirstOrDefault();
+                if (target != null)
+                {
+                    await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
+                    
+                    if (HasWaterRelic) 
+                        await UpdateShare<WaveEndTargetPower>(choiceContext, target, Math.Max(0, Amount - 1), myNetId);
+                    else 
+                        await UpdateShare<WaveTargetPower>(choiceContext, target, Math.Max(0, Amount - 1), myNetId);
+                }
+            }
+        }
+
+        await PowerCmd.Decrement(this);
+        await SyncWaveTarget(choiceContext);
+    }
+    */
     
     public async Task TriggerWave(ICombatState combatState, PlayerChoiceContext choiceContext, Creature? target = null)
-     {
-     
-         // 1. Détermination de la cible "devant" le joueur
-         if (target == null && !HasWaterTsunami)
-         {
-             // On récupère le pouvoir Surrounded s'il existe
-             var surrounded = Owner.GetPower<SurroundedPower>();
-             
-             if (surrounded != null)
-             {
-                 if (surrounded.Facing == SurroundedPower.Direction.Left)
-                 {
-                     // À gauche, l'ennemi "devant" toi est le dernier de la file
-                     target = combatState.HittableEnemies
-                         .LastOrDefault(e => e.HasPower<BackAttackLeftPower>());
-                 }
-                 else
-                 {
-                     // À droite, l'ennemi "devant" toi est le premier de la file
-                     target = combatState.HittableEnemies
-                         .FirstOrDefault(e => e.HasPower<BackAttackRightPower>());
-                 }
-             }
-             
-             
-             // Si pas de Surrounded ou si la cible n'a pas été trouvée, on prend le premier par défaut
-             target ??= combatState.HittableEnemies.FirstOrDefault();
-         }
-         
-         
-         Flash();
-         if (HasWaterTsunami)
-         {
-             foreach (Creature t in combatState.HittableEnemies)
-             {
-                 await CreatureCmd.Damage(choiceContext, t, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
-                 await PowerCmd.Apply<WaveTargetPower>(choiceContext, t, -1, Owner, null, true);
-             }
-         }
-         else
-         {
-             if (target == null) target = CombatState.HittableEnemies.FirstOrDefault();
-             
-             if (target != null)
-             {
-                 await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Move | ValueProp.Unpowered, null,
-                     null);
-                 await PowerCmd.Apply<WaveTargetPower>(choiceContext, target, -1, Owner, null, true);
-             }
-         }
-         
-         await PowerCmd.Decrement(this);
-     }
-     
+    {
+        // 1. Déterminer la cible
+        if (target == null && !HasWaterTsunami) target = GetPriorityTarget();
+
+        Flash();
     
+        // 2. Infliger les dégâts
+        if (HasWaterTsunami)
+        {
+            foreach (Creature t in combatState.HittableEnemies)
+            {
+                await CreatureCmd.Damage(choiceContext, t, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
+            }
+        }
+        else if (target != null)
+        {
+            await CreatureCmd.Damage(choiceContext, target, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
+        }
+
+        // 3. Réduire le buff du joueur et Synchroniser ses wave (Nettoie les morts, transfère les marques, ajuste les montants)
+        await PowerCmd.Decrement(this);
+        await SyncWaveTarget(choiceContext);
+    }
 }

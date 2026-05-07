@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Cards._3_Uncommon;
+﻿using BaseLib.Extensions;
+using FiveElements.FiveElementsCode.Cards._3_Uncommon;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -22,6 +23,7 @@ public sealed class EarthSpiritPower : FiveElementsPower
     ];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
+        EarthSpiritVars.EarthSpirit, //this number need to be the same as the one on firespirit
         new IntVar("DisplayAmount",0), //could not find how to access DisplayAmount in localization otherwise
     ]);
     
@@ -29,38 +31,48 @@ public sealed class EarthSpiritPower : FiveElementsPower
     public override int DisplayAmount => this.GetInternalData<Data>().TempThornsCount;
     
     protected override object InitInternalData() => new Data();
-    
+ 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
         var data = GetInternalData<Data>();
         
-        //Only trigger if the owner of this power play a card
-        if (Owner != cardPlay.Card.Owner.Creature) 
-            return;
-        
+        var shouldTrigger = false;
 
-        // Check if the played card is a Earth element card, or if it's a neutral card with spirits form, or if it's an other mod card with spirits form
-        if (cardPlay.Card.CountAsElement(CardElementTag.Earth,Owner))
+        // CAS A : C'est notre propre carte
+        if (cardPlay.Card.Owner.Creature == Owner)
         {
-            if (cardPlay.Card is EarthSpirit) //si c'est la carte qui donne le pouvoir on ne la compte pas
+            if (cardPlay.Card.CountAsElement(CardElementTag.Earth, Owner)) 
+                shouldTrigger = true;
+        }
+        // CAS B : C'est une carte alliée sous BodyAttunement
+        else if (cardPlay.Card.Owner.HasPower<MindAndBodyAttunementBodyPower>() && Owner.HasPower<MindAndBodyAttunementMindPower>())
+        {
+            // On vérifie si NOTRE Echo actuel est Terre
+            // Car si on a BodyAttunementOwner, c'est notre Echo qui "teinte" les cartes de l'allié
+            if (Owner.GetElementalStatus().Echo.Contains(CardElementTag.Earth)) 
+                shouldTrigger = true;
+        }
+
+        // 2. Exécution de l'effet
+        if (shouldTrigger)
+        {
+        
+            // Calcul du bonus (Gestion spécifique pour la carte EarthSpirit)
+            var bonus = Amount;
+            if (cardPlay.Card is EarthSpirit && cardPlay.Card.Owner.Creature == Owner) 
+                bonus -= DynamicVars["FireSpiritPower"].IntValue; 
+
+            if (bonus > 0)
             {
                 Flash();
-                data.TempThornsCount += Amount - 2; //this number need to be the same as the one on earthspirit
-                DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<ThornsPower>(context,Owner, Amount - 2, Owner,null);
+                data.TempThornsCount += bonus;
+                DynamicVars["DisplayAmount"].BaseValue = data.TempThornsCount;
+                await PowerCmd.Apply<ThornsPower>(context, Owner, bonus, Owner, null);
                 InvokeDisplayAmountChanged();
             }
-            else
-            {
-                Flash();
-                data.TempThornsCount += Amount;
-                DynamicVars["DisplayAmount"].BaseValue = DisplayAmount;
-                await PowerCmd.Apply<ThornsPower>(context,Owner, Amount, Owner,null);
-                InvokeDisplayAmountChanged();
-            }
-            
         }
     }
+    
     
     //we remove temp thorn at next turn start
     public override async Task AfterPlayerTurnStartEarly(PlayerChoiceContext choiceContext, Player player)
