@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Nodes.Events;
 using MegaCrit.Sts2.Core.Nodes.Screens.InspectScreens;
-
+/*
 [HarmonyPatch(typeof(NRelic), "Reload")]
 public static class PatchYummyCookieVisual
 {
@@ -52,6 +52,69 @@ public static class PatchYummyCookieVisual
         }
     }
 }
+*/
+
+[HarmonyPatch(typeof(NRelic), "Reload")]
+public static class PatchYummyCookieVisual
+{
+    private static Texture2D _myCookieIcon;
+    private static Texture2D _myCookieOutline;
+    private static Texture2D _myCookieBig;
+
+    public static void Postfix(NRelic __instance)
+    {
+        // 1. Accès sécurisé au modèle (déjà bien fait avec ta réflexion)
+        var modelField = typeof(NRelic).GetField("_model", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        var modelValue = modelField?.GetValue(__instance) as RelicModel;
+
+        if (modelValue == null) return;
+
+        // --- LA FIX EST ICI ---
+        // On vérifie si c'est la bonne relique
+        if (modelValue is YummyCookie)
+        {
+            // IMPORTANT: Si la relique est "Canonical" (dans la collection/bibliothèque), 
+            // elle n'a PAS de Owner. On doit quand même changer le visuel.
+            bool isOurCharacter = modelValue.IsCanonical || 
+                                 (modelValue.Owner != null && modelValue.Owner.Character is FiveElements.FiveElementsCode.Character.FiveElements);
+
+            if (isOurCharacter)
+            {
+                ApplyTextures(__instance);
+            }
+        }
+    }
+
+    private static void ApplyTextures(NRelic __instance)
+    {
+        if (_myCookieIcon == null)
+        {
+            _myCookieIcon = GD.Load<Texture2D>("res://FiveElements/images/relics/yummy_cookie_sage.png");
+            _myCookieOutline = GD.Load<Texture2D>("res://FiveElements/images/relics/yummy_cookie_sage_outline.png");
+            _myCookieBig = GD.Load<Texture2D>("res://FiveElements/images/relics/big/yummy_cookie_sage.png");
+        }
+
+        var iconSizeField = typeof(NRelic).GetField("_iconSize", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        var currentSize = (NRelic.IconSize)iconSizeField.GetValue(__instance);
+
+        if (currentSize == NRelic.IconSize.Small)
+        {
+            if (__instance.Icon != null) __instance.Icon.Texture = _myCookieIcon;
+            if (__instance.Outline != null)
+            {
+                __instance.Outline.Visible = true;
+                __instance.Outline.Texture = _myCookieOutline;
+            }
+        }
+        else if (currentSize == NRelic.IconSize.Large)
+        {
+            if (__instance.Icon != null) __instance.Icon.Texture = _myCookieBig;
+            if (__instance.Outline != null) __instance.Outline.Visible = false;
+        }
+    }
+}
+
+
 
 [HarmonyPatch(typeof(NInspectRelicScreen), "UpdateRelicDisplay")]
 public static class PatchInspectRelicCookie
