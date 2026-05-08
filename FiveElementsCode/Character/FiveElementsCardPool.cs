@@ -19,7 +19,7 @@ public class FiveElementsCardPool : CustomCardPoolModel
     public override string TextEnergyIconPath => _currentTextEnergy.ImagePath();
     
     // Logique de sélection de l'image pour l'icone des carte
-    public string GetEnergyPathForCard(HashSet<CardElementTag> echo)
+    public string GetEnergyPathForCard(SortedSet<CardElementTag> echo)
     {
         if (echo.Contains(CardElementTag.Neutral))
         {

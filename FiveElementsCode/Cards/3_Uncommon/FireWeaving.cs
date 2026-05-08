@@ -58,9 +58,9 @@ public sealed class FireWeaving() : FireCard(1,
     
     //this shit is called before onplay
     //change the pile to hand if fire is active and if cost>0
-    protected override PileType GetResultPileType()
+    protected override PileType GetResultPileTypeForCardPlay()
     {
-        PileType resultPileType = base.GetResultPileType();
+        PileType resultPileType = base.GetResultPileTypeForCardPlay();
 
         // Utilise GetResolved pour connaître le coût effectif payé/calculé
         bool spentEnergy = EnergyCost.GetResolved() > 0;

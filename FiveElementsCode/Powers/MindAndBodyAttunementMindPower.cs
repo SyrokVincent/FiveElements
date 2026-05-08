@@ -48,6 +48,6 @@ public sealed class MindAndBodyAttunementMindPower : FiveElementsPower
     public class MindAndBodyAttunementMindData
     {
         // On associe l'ID de la carte jouée par l'allié aux éléments qu'elle a capturés chez toi
-        public Dictionary<CardPlay, HashSet<CardElementTag>> CapturedElements = new();
+        public Dictionary<CardPlay, SortedSet<CardElementTag>> CapturedElements = new();
     }
 }

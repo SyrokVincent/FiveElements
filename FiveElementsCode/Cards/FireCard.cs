@@ -56,7 +56,7 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
 
          
         // On boucle sur les résultats pour appliquer le Burn individuellement
-        foreach (var result in attackResult.Results)
+        foreach (var result in attackResult.Results.SelectMany(r => r))
         {
             if (result.UnblockedDamage > 0)
             {
@@ -79,7 +79,7 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
 
         
         // On boucle sur les résultats pour appliquer le Burn individuellement
-        foreach (var result in attackResult.Results)
+        foreach (var result in attackResult.Results.SelectMany(r => r))
         {
             if (result.UnblockedDamage > 0)
             {
@@ -102,7 +102,7 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
 
          
             // On boucle sur les résultats pour appliquer le Burn individuellement
-            foreach (var result in attackResult.Results)
+            foreach (var result in attackResult.Results.SelectMany(r => r))
             {
                 if (result.UnblockedDamage > 0)
                 {
@@ -127,7 +127,7 @@ public abstract class FireCard : FiveElementsCard, IOnFireStateChanged
 
         
             // On boucle sur les résultats pour appliquer le Burn individuellement
-            foreach (var result in attackResult.Results)
+            foreach (var result in attackResult.Results.SelectMany(r => r))
             {
                 if (result.UnblockedDamage > 0)
                 {

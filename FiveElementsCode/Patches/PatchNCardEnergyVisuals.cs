@@ -21,7 +21,7 @@ public class PatchNCardEnergyVisuals
             var energyIconNode = __instance.GetNodeOrNull<TextureRect>("CardContainer/EnergyIcon");
             if (energyIconNode == null) return;
 
-            HashSet<CardElementTag> currentEcho = [CardElementTag.Neutral];
+            SortedSet<CardElementTag> currentEcho = [CardElementTag.Neutral];
 
             if (cardModel.IsCanonical)
             {

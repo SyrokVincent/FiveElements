@@ -43,7 +43,7 @@ public abstract class StarterRelicLogic : FiveElementsRelic
     }
 
     // On stocke les éléments que la carte "avait" au moment du clic
-    private HashSet<CardElementTag> _cardElementsBeforePlay = new();
+    private SortedSet<CardElementTag> _cardElementsBeforePlay = new();
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
@@ -63,7 +63,6 @@ public abstract class StarterRelicLogic : FiveElementsRelic
         return Task.CompletedTask;
     }
     
-    //todo find a better way to track echo, couldnot manage to make it a CombatState "attribute" everywhere
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
         //do not work to change card description color
@@ -165,7 +164,6 @@ public abstract class StarterRelicLogic : FiveElementsRelic
     }
    
 
-    //todo need to do that at a better place, does'nt work when you give up and restart for example
     public override async Task AfterCombatEnd(CombatRoom room)
     {
         Owner.Creature.GetElementalStatus().ResetEcho();
@@ -175,8 +173,5 @@ public abstract class StarterRelicLogic : FiveElementsRelic
             _ = FiveElementsCardExtensions.CheckAndNotify(Owner.Creature, elem);
         }
         await Task.CompletedTask;
-        // async or that idk what I need to do
-        //base.AfterCombatEnd(room);
-        //return Task.CompletedTask;
     }
 }

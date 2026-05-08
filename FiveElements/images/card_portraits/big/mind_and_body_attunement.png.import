@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqrvkdve4nq3r"
-path="res://.godot/imported/_water_flow_2.png-0c697f2c5e20688f0d96522b3b9b7e4b.ctex"
+uid="uid://cxy7w5nxke1iw"
+path="res://.godot/imported/mind_and_body_attunement.png-a02558f30029c33f31d399d0f240bdac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/big/_water_flow_2.png"
-dest_files=["res://.godot/imported/_water_flow_2.png-0c697f2c5e20688f0d96522b3b9b7e4b.ctex"]
+source_file="res://FiveElements/images/card_portraits/big/mind_and_body_attunement.png"
+dest_files=["res://.godot/imported/mind_and_body_attunement.png-a02558f30029c33f31d399d0f240bdac.ctex"]
 
 [params]
 

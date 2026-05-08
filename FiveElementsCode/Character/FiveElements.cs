@@ -70,7 +70,6 @@ public class FiveElements : PlaceholderCharacterModel
             // todo? find better rng here
             // Si tu ne l'as pas sous la main, Rng.Chaotic est l'alternative
             int offset = Rng.Chaotic.NextInt(0, 5);
-            
             // 3. Faire tourner les groupes (Rotation circulaire)
             // On prend à partir de l'offset, puis on ajoute ce qu'on a sauté
             var rotatedStrike = strikeGroup.Skip(offset).Concat(strikeGroup.Take(offset));
@@ -81,21 +80,6 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<WaterSpirit>());
-            finalDeck.Add(ModelDb.Card<WaterSpirit>());
-            finalDeck.Add(ModelDb.Card<WaterSpirit>());
-            finalDeck.Add(ModelDb.Card<WaterSpirit>());
-            finalDeck.Add(ModelDb.Card<WaterLord>());
-            finalDeck.Add(ModelDb.Card<WaterLord>());
-            finalDeck.Add(ModelDb.Card<WaterLord>());
-            finalDeck.Add(ModelDb.Card<WaterLord>());
-            finalDeck.Add(ModelDb.Card<WaterLord>());
-            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
-            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
-            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
-            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
-            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
-            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());
             
             
             /*
@@ -128,12 +112,12 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<WoodFangs>());       //done way of doubling damage to block might be wrong
             finalDeck.Add(ModelDb.Card<WoodSpirit>());      //done
             finalDeck.Add(ModelDb.Card<WoodLash>());        //done
-            finalDeck.Add(ModelDb.Card<WoodClaws>());       //done works but need to see what happen if it gains replay
+            finalDeck.Add(ModelDb.Card<WoodClaws>());       //done
             finalDeck.Add(ModelDb.Card<WoodSeed>());        //done
             finalDeck.Add(ModelDb.Card<WoodLeaf>());        //done
             finalDeck.Add(ModelDb.Card<WoodMark>());        //done draw on this too strong ?
             finalDeck.Add(ModelDb.Card<WoodQueen>());       //done
-            finalDeck.Add(ModelDb.Card<WoodFury>());        //done maybe upgrade should give +hit instead
+            finalDeck.Add(ModelDb.Card<WoodFury>());        //done
             finalDeck.Add(ModelDb.Card<WoodSurge>());       //done might be too strong
             finalDeck.Add(ModelDb.Card<WoodRoots>());       //done
             */
@@ -187,7 +171,7 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<MetalSpirit>());     //done
             finalDeck.Add(ModelDb.Card<MetalPounce>());     //done
             finalDeck.Add(ModelDb.Card<MetalChains>());     //done
-            finalDeck.Add(ModelDb.Card<MetalRush>());       //done
+            finalDeck.Add(ModelDb.Card<MetalRush>());       //done don't like it too much need better and less forced metal essence payof
             finalDeck.Add(ModelDb.Card<MetalForge>());      //done
             finalDeck.Add(ModelDb.Card<MetalEdge>());       //done
             finalDeck.Add(ModelDb.Card<MetalMettle>());     //done
@@ -204,12 +188,12 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<MoreOrLess>());      //done maybe don't count card from exhaust pile
             finalDeck.Add(ModelDb.Card<Absorption>());      //done
             finalDeck.Add(ModelDb.Card<Incantation>());     //done
-            finalDeck.Add(ModelDb.Card<Decimation>());      //done //could have shift by default and reduce cost every time it change element //maybe need to add reduce cost for each essence too
+            finalDeck.Add(ModelDb.Card<Decimation>());      //done
             finalDeck.Add(ModelDb.Card<Meditation>());      //done 
             finalDeck.Add(ModelDb.Card<Circulation>());     //done can't select power? maybe make it cost 0(or refund itself) if it can't select anything
             finalDeck.Add(ModelDb.Card<Recycle>());         //done maybe remove retain and add shift?
             finalDeck.Add(ModelDb.Card<UltimateForm>());    //done
-            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done make it choose between the 2 effects ?
+            finalDeck.Add(ModelDb.Card<AllOrOne>());        //done
             finalDeck.Add(ModelDb.Card<EchoFormation>());   //done maybe make it stackable ??
             finalDeck.Add(ModelDb.Card<Annihilation>());    //done
             finalDeck.Add(ModelDb.Card<Domination>());      //done can't select power? add back exhaust ? and maybe make it cost 0(or refun itself) if it can't select anything
@@ -221,11 +205,11 @@ public class FiveElements : PlaceholderCharacterModel
             //water fulu 1or2 wave, wood fulu 1 temp str(or 2dmg?), fire fulu apply 2-3 burn, earth fulu 3 block, metal fulu 1 vigor
             
             //multi
-            finalDeck.Add(ModelDb.Card<>()); 
-            finalDeck.Add(ModelDb.Card<>()); 
+            finalDeck.Add(ModelDb.Card<MindAndBodyAttunement>());   //done no idea how balance it is
+            finalDeck.Add(ModelDb.Card<MultiActivation>());         //done no idea how balance it is
             //ancient
             finalDeck.Add(ModelDb.Card<Incarnation>());     //done
-            finalDeck.Add(ModelDb.Card<SpiritsForm>());     //done but maybe not yet working for all stuff that say foreach fire/etc card played this turn
+            finalDeck.Add(ModelDb.Card<SpiritsForm>());     //done
             
             */
             return finalDeck;

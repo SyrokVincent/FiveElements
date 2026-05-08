@@ -68,12 +68,13 @@ public sealed class AllOrOnePower : FiveElementsPower
         
         if (lastTurnEntries.Count == 0) return;
 
-        var uniqueElements = new HashSet<CardElementTag>();
+        var uniqueElements = new SortedSet<CardElementTag>();
 
         foreach (var entry in lastTurnEntries)
         {
+            var elementStatus = Owner.GetElementalStatus();
             // PRIORITÉ : Le cache figé (contient l'état exact au moment du clic)
-            if (NeutralCard.PlayedElementsCache.TryGetValue(entry.CardPlay, out var frozenTags))
+            if (elementStatus.PlayedElementsCache.TryGetValue(entry.CardPlay, out var frozenTags))
             {
                 // On utilise notre extension TagsCountAsElement pour gérer SpiritsForm 
                 // sur les tags qui étaient présents à ce moment-là.

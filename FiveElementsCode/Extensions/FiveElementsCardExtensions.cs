@@ -138,7 +138,7 @@ public static class FiveElementsCardExtensions
     
  
 
-    public static bool IsElement(this FiveElementsCard card, HashSet<CardElementTag> tags)
+    public static bool IsElement(this FiveElementsCard card, SortedSet<CardElementTag> tags)
     {
         return tags.Any(tag => tag != CardElementTag.Neutral && card.ElementTags.Contains(tag));
     }
@@ -148,7 +148,7 @@ public static class FiveElementsCardExtensions
     }
     
     
-    public static bool CountAsElement(this CardModel card, HashSet<CardElementTag> tags, Creature owner)
+    public static bool CountAsElement(this CardModel card, SortedSet<CardElementTag> tags, Creature owner)
     {
         // 1. Si la carte est déjà de cet élément, c'est bon.
         if (card is FiveElementsCard feCard && feCard.IsElement(tags)) 
@@ -188,13 +188,11 @@ public static class FiveElementsCardExtensions
         return false;
     }
     
-    public static bool TagsCountAsElement(this IEnumerable<CardElementTag> tags, CardElementTag targetTag, Creature owner)
+    public static bool TagsCountAsElement(this SortedSet<CardElementTag> tags, CardElementTag targetTag, Creature owner)
     {
-        // On transforme en HashSet pour la performance si c'est une grosse liste
-        var tagSet = tags as HashSet<CardElementTag> ?? tags.ToHashSet();
-
+        
         // 1. Si les tags contiennent déjà l'élément cible
-        if (tagSet.Contains(targetTag)) 
+        if (tags.Contains(targetTag)) 
             return true;
 
         // 2. Si le pouvoir SpiritsForm est absent, on s'arrête là
@@ -203,14 +201,14 @@ public static class FiveElementsCardExtensions
 
         // 3. Si SpiritsForm est présent : 
         // Il convertit les tags s'ils ne contiennent que "Neutral" ou sont vides
-        bool isNeutral = tagSet.Count == 0 || (tagSet.Count == 1 && tagSet.Contains(CardElementTag.Neutral));
+        bool isNeutral = tags.Count == 0 || (tags.Count == 1 && tags.Contains(CardElementTag.Neutral));
     
         return isNeutral;
     }
     
     
     
-    public static bool IsGenerating(this IEnumerable<CardElementTag> currentEcho, CardElementTag targetElement)
+    public static bool IsGenerating(this SortedSet<CardElementTag> currentEcho, CardElementTag targetElement)
     {
         // Si l'écho contient l'élément qui génère la cible
         // (ex: si Echo contient Wood, il génère Fire)
@@ -230,13 +228,13 @@ public static class FiveElementsCardExtensions
         };
     }
     
-    public static bool IsActive(this CardElementTag elem, Creature creature)
+    public static bool IsActive(this CardElementTag elem, Creature? creature)
     {
         if (creature == null) return false;
 
         var status = creature.GetElementalStatus();
         // ON LIT L'ECHO ICI MAINTENANT :
-        HashSet<CardElementTag> currentEcho = status.Echo; //status.ElementOfEcho;
+        SortedSet<CardElementTag> currentEcho = status.Echo; //status.ElementOfEcho;
         return elem switch
         {
             CardElementTag.Water => currentEcho.Contains(CardElementTag.Water) || currentEcho.Contains(CardElementTag.Metal) || status.GetEssence(CardElementTag.Water) > 0,

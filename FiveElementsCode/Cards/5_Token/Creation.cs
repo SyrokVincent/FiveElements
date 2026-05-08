@@ -48,13 +48,12 @@ public sealed class Creation() : NeutralCard(0,
     
         if (selectedModel is FiveElementsCard card)
         {
-            //todo will cause chaos when some card will have multiple element
             // On boucle sur tous les tags de la carte choisie
             // On ignore le Neutre, et on ajoute 1 essence pour chaque autre tag trouvé
             foreach (var tag in card.ElementTags.Where(tag => tag != CardElementTag.Neutral))
             {
                 if (CombatState != null) Owner.Creature.GetElementalStatus().AddEssence(tag, 1,choiceContext);
-                GD.Print($"Essence ajoutée ! Élément : {tag}");
+                //GD.Print($"Essence ajoutée ! Élément : {tag}");
             }
         }
     }

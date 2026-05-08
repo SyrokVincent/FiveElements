@@ -64,9 +64,9 @@ public sealed class WaterCreation() : WaterCard(1,
     
     //this shit is called before onplay
     //change the pile to exhaust if you have the corresponding essence
-    protected override PileType GetResultPileType()
+    protected override PileType GetResultPileTypeForCardPlay()
     {
-        PileType resultPileType = base.GetResultPileType();
+        PileType resultPileType = base.GetResultPileTypeForCardPlay();
         return CombatState != null && (Owner.Creature.GetElementalStatus().GetEssence(CardElementTag.Water) > 0) ? PileType.Exhaust : resultPileType;
     }
     

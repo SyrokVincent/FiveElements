@@ -158,6 +158,9 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	
 	private void RefreshAll()
 	{
+		// PROTECTION CRITIQUE : Si l'objet est supprimé par Godot (fin de combat, etc.)
+		// mais que l'événement C# tire encore, on arrête tout.
+		if (!GodotObject.IsInstanceValid(this)) return;
 		RefreshLabel();   // Texte + Data
 		RefreshVisuals(); // Tweens + Particules
 	}
@@ -173,19 +176,22 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			CombatManager.Instance.StateTracker.CombatStateChanged += OnCombatStateChanged;
 		}
 	}
+	
 	public override void _ExitTree()
 	{
-		base._ExitTree();
-		CombatManager.Instance.StateTracker.CombatStateChanged -= OnCombatStateChanged;
-	
-		// Désabonnement sécurisé
+		if (CombatManager.Instance?.StateTracker != null)
+			CombatManager.Instance.StateTracker.CombatStateChanged -= OnCombatStateChanged;
+
 		if (_player?.Creature?.CombatState != null)
 		{
 			var elementalStatus = _player.Creature.GetElementalStatus();
 			if (elementalStatus != null)
 				elementalStatus.EssenceChanged -= OnEssenceChanged;
 		}
+		base._ExitTree();
 	}
+	
+	
 	public override void _Process(double delta)
 	{
 		if (_player != null) return;
@@ -224,7 +230,9 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	
 	private void RefreshLabel()
 	{
-		if (_label == null || _player?.Creature?.CombatState == null) return;
+		// Sécurité supplémentaire sur les nœuds enfants
+		if (!GodotObject.IsInstanceValid(this) || _label == null || !GodotObject.IsInstanceValid(_label)) return;
+		if (_player?.Creature?.CombatState == null) return;
 		var status = _player.Creature.GetElementalStatus();
 		if (status == null) return;
 
@@ -250,7 +258,8 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 	
 	private void RefreshVisuals()
 	{
-
+		if (!GodotObject.IsInstanceValid(this)) return;
+		
 		// On calcule les états : si le player est null, tout sera à false/0 par défaut
 		bool isActive = _player != null && _player.Creature.CombatState != null && _myElement.IsActive(_player.Creature);
 		var status = _player?.Creature.GetElementalStatus();
@@ -323,7 +332,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		
 	
 		// 2. Visuel de l'icône Essence
-		if (_essence != null)
+		if (_essence != null && GodotObject.IsInstanceValid(_essence))
 		{
 			var tween = CreateTween();
 			
@@ -338,7 +347,7 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		}
 		
 		
-		if (_essenceParticles != null)
+		if (_essenceParticles != null && GodotObject.IsInstanceValid(_essenceParticles))
 		{
 			var tween = CreateTween().SetParallel(true);
 			var material = (ParticleProcessMaterial)_essenceParticles.ProcessMaterial;
@@ -380,8 +389,6 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 			tween.TweenProperty(material, "scale_max", targetScale + 0.1f, 0.5f);
 			tween.TweenProperty(material, "gravity", new Vector3(0, targetGravity, 0), 0.5f);
 		}
-		
-		
 	}
 	private void UpdateHoverTip(bool active, bool echo, int essenceCount)
 	{
@@ -483,8 +490,16 @@ public partial class EssenceCounter : Control//, IOnElementStateChanged
 		NHoverTipSet.Remove(this);
 	}
 	
-	private void OnEssenceChanged(CardElementTag cardElementTag, int newValue, PlayerChoiceContext? context) => RefreshAll(); 
-	private void OnCombatStateChanged(CombatState combatState) => RefreshAll();
+	private void OnEssenceChanged(CardElementTag cardElementTag, int newValue, PlayerChoiceContext? context) 
+	{
+		if (GodotObject.IsInstanceValid(this)) RefreshAll();
+	}
+
+	private void OnCombatStateChanged(CombatState combatState) 
+	{
+		if (GodotObject.IsInstanceValid(this)) RefreshAll();
+	}
+	
 /*  // combatstateChnaged already do this
 	public async Task OnElementStateChanged(CardElementTag element, bool isActive)
 	{

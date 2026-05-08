@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfh7kudhjus4"
-path="res://.godot/imported/wood_formation.png-19ec5edc9185d084d9a791ecde474e0f.ctex"
+uid="uid://dsatp8l7br0ju"
+path="res://.godot/imported/multi_activation.png-458ec20462b7d649e703eb216e3e7619.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/big/wood_formation.png"
-dest_files=["res://.godot/imported/wood_formation.png-19ec5edc9185d084d9a791ecde474e0f.ctex"]
+source_file="res://FiveElements/images/card_portraits/multi_activation.png"
+dest_files=["res://.godot/imported/multi_activation.png-458ec20462b7d649e703eb216e3e7619.ctex"]
 
 [params]
 

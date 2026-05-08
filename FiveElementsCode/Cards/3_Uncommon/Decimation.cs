@@ -70,14 +70,14 @@ public sealed class Decimation() : NeutralCard(5,
     }
 */
 
-    private HashSet<CardElementTag>? _tagsBeforePlay;
+    private SortedSet<CardElementTag>? _tagsBeforePlay;
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
         // On ne capture l'état que si la carte est actuellement en MAIN
         if (this.Pile?.Type == PileType.Hand && Owner == cardPlay.Card.Owner && cardPlay.Card != this)
         {
-            _tagsBeforePlay = new HashSet<CardElementTag>(this.ElementTags);
+            _tagsBeforePlay = new SortedSet<CardElementTag>(this.ElementTags);
         }
         return Task.CompletedTask;
     }
@@ -117,7 +117,7 @@ public sealed class Decimation() : NeutralCard(5,
 
         if (entries.Count == 0) return 0;
 
-        var foundTags = new HashSet<CardElementTag>();
+        var foundTags = new SortedSet<CardElementTag>();
         var targetTags = new[] { 
             CardElementTag.Water, CardElementTag.Wood, CardElementTag.Fire, 
             CardElementTag.Earth, CardElementTag.Metal 
@@ -125,8 +125,9 @@ public sealed class Decimation() : NeutralCard(5,
 
         foreach (var entry in entries)
         {
+            var elementStatus = Owner.Creature.GetElementalStatus();
             // On récupère les tags figés du cache
-            if (NeutralCard.PlayedElementsCache.TryGetValue(entry.CardPlay, out var frozenTags))
+            if (elementStatus.PlayedElementsCache.TryGetValue(entry.CardPlay, out var frozenTags))
             {
                 foreach (var t in targetTags)
                 {

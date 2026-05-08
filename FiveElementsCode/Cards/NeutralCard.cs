@@ -20,7 +20,7 @@ public abstract class NeutralCard : FiveElementsCard
     }
     
     
-    public override HashSet<CardElementTag> ElementTags 
+    public override SortedSet<CardElementTag> ElementTags 
     {
         get 
         {
@@ -48,12 +48,12 @@ public abstract class NeutralCard : FiveElementsCard
         }
     }
     
-    private HashSet<CardElementTag> CalculateAttune(HashSet<CardElementTag> echo) 
+    private SortedSet<CardElementTag> CalculateAttune(SortedSet<CardElementTag> echo) 
         => [CardElementTag.Neutral, ..echo];
     
-    private HashSet<CardElementTag> CalculateShift(HashSet<CardElementTag> echo)
+    private SortedSet<CardElementTag> CalculateShift(SortedSet<CardElementTag> echo)
     {
-        HashSet<CardElementTag> newEcho = [CardElementTag.Neutral];
+        SortedSet<CardElementTag> newEcho = [CardElementTag.Neutral];
         if (echo.Contains(CardElementTag.Water)) newEcho.Add(CardElementTag.Wood);
         if (echo.Contains(CardElementTag.Wood))  newEcho.Add(CardElementTag.Fire);
         if (echo.Contains(CardElementTag.Fire))  newEcho.Add(CardElementTag.Earth);
@@ -134,14 +134,14 @@ public abstract class NeutralCard : FiveElementsCard
         // 1. Vérifie si la carte a le Keyword Attune
         if (Keywords.Contains(FiveElementsKeywords.Attune))
         {
-            this.ElementTags = Owner.Creature.GetElementalStatus().Echo;
+            //this.ElementTags = Owner.Creature.GetElementalStatus().Echo;
             UpdateVisualMaterial();
         }
         // 1. Vérifie si la carte a le Keyword Shift
         if (Keywords.Contains(FiveElementsKeywords.Shift))
         {
             // return what echo generate
-            this.ElementTags = CalculateShift(Owner.Creature.GetElementalStatus().Echo);
+            //this.ElementTags = CalculateShift(Owner.Creature.GetElementalStatus().Echo);
             UpdateVisualMaterial();
         }
     }
@@ -165,13 +165,15 @@ public abstract class NeutralCard : FiveElementsCard
     }
     
     
-    // Stockage statique : ID de l'entrée d'historique -> Tags au moment du jeu
-    public static readonly Dictionary<CardPlay, HashSet<CardElementTag>> PlayedElementsCache = new();
+    
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        // On capture l'état ACTUEL (avant que l'Echo ne change peut-être à la fin du tour)
-        PlayedElementsCache[play] = new HashSet<CardElementTag>(this.ElementTags);
+        // On récupère l'instance Element du propriétaire de la carte
+        var elementStatus = Owner.Creature.GetElementalStatus();
+    
+        // On stocke les tags actuels dans son cache personnel
+        elementStatus.PlayedElementsCache[play] = new SortedSet<CardElementTag>(this.ElementTags);
         return Task.CompletedTask;
     }
 
@@ -179,7 +181,8 @@ public abstract class NeutralCard : FiveElementsCard
     {
         // On vide le dictionnaire pour libérer les références CardPlay et HashSet
         // Cela garantit que le combat suivant repart sur une base propre
-        PlayedElementsCache.Clear();
+        var elementStatus = Owner.Creature.GetElementalStatus();
+        elementStatus.PlayedElementsCache.Clear();
 
         return Task.CompletedTask;
     }

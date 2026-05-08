@@ -43,14 +43,14 @@ public sealed class UltimateFormPower : FiveElementsPower
     ]);
 
     
-    private List<CardElementTag> _currentEchoSnapshot = new();
+    private SortedSet<CardElementTag> _currentEchoSnapshot = new();
     // On stocke les éléments que la carte "avait" au moment du clic
-    private HashSet<CardElementTag> _cardElementsBeforePlay = new();
+    private SortedSet<CardElementTag> _cardElementsBeforePlay = new();
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
         // 1. Snapshot de l'Echo global
-        _currentEchoSnapshot = Owner.GetElementalStatus().Echo.ToList();
+        _currentEchoSnapshot = Owner.GetElementalStatus().Echo;
 
         // 2. Snapshot des éléments de la carte AVANT qu'elle ne change
         _cardElementsBeforePlay.Clear();

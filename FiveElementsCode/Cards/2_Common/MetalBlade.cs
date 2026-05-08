@@ -45,7 +45,7 @@ public sealed class MetalBlade() : MetalCard(1,
         if (CardElementTag.Metal.IsActive(Owner.Creature))
         {
             // Calcul des dégâts total diviser par deux
-            var vigorToApply = attackResult.Results.Sum(r => r.TotalDamage) / 2;
+            var vigorToApply = attackResult.Results.SelectMany(r => r).Sum(r => r.TotalDamage) / 2;
 
             // Application du vigor si dégâts > 0
             if (vigorToApply > 0)

@@ -1,6 +1,7 @@
 ﻿using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
@@ -22,8 +23,14 @@ public class Element
     private readonly Dictionary<CardElementTag, bool> _lastStatesMemory = new();
     
     // L'ECHO EST MAINTENANT ICI : Unique par instance d'Element (donc par joueur)
-    public HashSet<CardElementTag> Echo { get; } = new() { CardElementTag.Neutral };
+    public SortedSet<CardElementTag> Echo { get; } = new() { CardElementTag.Neutral };
     
+    // Stockage  : ID de l'entrée d'historique -> Tags au moment du jeu
+    public Dictionary<CardPlay, SortedSet<CardElementTag>> PlayedElementsCache { get; } = new();
+    public void ClearPlayCache()
+    {
+        PlayedElementsCache.Clear();
+    }
     // --- LE NOUVEL EVENEMENT ---
     // Cet événement transmet l'élément concerné et la nouvelle valeur
     public event Action<CardElementTag, int, PlayerChoiceContext?>? EssenceChanged;

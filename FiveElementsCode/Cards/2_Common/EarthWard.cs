@@ -4,6 +4,7 @@ using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -73,20 +74,21 @@ public sealed class EarthWard() : EarthCard(1,
         DynamicVars.Block.UpgradeValueBy(3);
         DynamicVars["ReductionOnRetain"].UpgradeValueBy(1);
     }
-    
-    
-    public override async Task AfterCardRetained(CardModel card)
+
+    public override async Task AfterFlush(PlayerChoiceContext choiceContext, Player player, IReadOnlyCollection<CardModel> flushedCards,
+        IReadOnlyCollection<CardModel> retainedCards)
     {
-        if (card == this)
+        await base.AfterFlush(choiceContext, player, flushedCards, retainedCards);
+        
+        if (retainedCards.Contains(this))
         {
-            this.EnergyCost.AddUntilPlayed(-DynamicVars.Energy.IntValue);
+            this.EnergyCost.AddUntilPlayed(-1);
             var decreaseAmount = DynamicVars["ReductionOnRetain"].BaseValue;
-            // On réduit, mais on s'assure de ne pas descendre en dessous de 0
-            DynamicVars.Block.BaseValue = Math.Max(0, DynamicVars.Block.BaseValue - decreaseAmount);
+            DynamicVars.Block.BaseValue = Math.Max(0, (int)DynamicVars.Block.BaseValue - (int)decreaseAmount);
             ExtraBlockFromRetains -= decreaseAmount;
         }
-        await Task.CompletedTask;
     }
+    
     
     protected override void AfterDowngraded()
     {

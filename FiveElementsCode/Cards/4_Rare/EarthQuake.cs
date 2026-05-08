@@ -77,7 +77,7 @@ public sealed class EarthQuake() : EarthCard(2,
             if (CardElementTag.Earth.IsActive(Owner.Creature))
             {
                 // On vérifie si l'attaque a tué au moins une cible
-                if (attackAction.Results.Any(r => r.WasTargetKilled))
+                if (attackAction.Results.SelectMany(r => r).Any(r => r.WasTargetKilled))
                 {
                     // On utilise CardCmd.autoPlay pour rejouer la carte gratuitement
                     await CardCmd.AutoPlay(choiceContext, play.Card, null);

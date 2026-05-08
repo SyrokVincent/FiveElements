@@ -21,6 +21,13 @@ public static class PatchHoverTips
             // on ne touche à rien et on ne regarde surtout pas l'Owner.
             if (__instance.IsCanonical) return;
             
+            // 3. Sécurité CRITIQUE pour Orobas/ArchaicTooth : 
+            // On vérifie que la carte appartient bien à quelqu'un AVANT de checker l'élément
+            if (__instance.Owner?.Creature == null) 
+            {
+                // Si pas de propriétaire, on ne filtre rien pour éviter le crash
+                return; 
+            }
             // Si la Terre est OFF, on dégage le bloc de FORCE
             if (!CardElementTag.Earth.IsActive(__instance.Owner.Creature))
             {

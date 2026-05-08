@@ -90,13 +90,13 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     
     
     // stuff I added
-    private HashSet<CardElementTag> _canonicalElementTags = [CardElementTag.Neutral];
+    private SortedSet<CardElementTag> _canonicalElementTags = [CardElementTag.Neutral];
 
-    private HashSet<CardElementTag>? _liveElementTags;
+    private SortedSet<CardElementTag>? _liveElementTags;
 
-    public virtual HashSet<CardElementTag> ElementTags
+    public virtual SortedSet<CardElementTag> ElementTags
     {
-        get => _liveElementTags ??= new HashSet<CardElementTag>(_canonicalElementTags);
+        get => _liveElementTags ??= new SortedSet<CardElementTag>(_canonicalElementTags);
         set 
         {
             // On met à jour uniquement la version "en jeu"
@@ -108,7 +108,7 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
         }
     }
     
-    public virtual HashSet<CardElementTag> CanonicalElementTags
+    public virtual SortedSet<CardElementTag> CanonicalElementTags
     {
         get => _canonicalElementTags;
         set 
@@ -123,8 +123,8 @@ public abstract class FiveElementsCard(int cost, CardType type, CardRarity rarit
     protected override void DeepCloneFields()
     {
         base.DeepCloneFields();
-        // On crée une nouvelle instance de HashSet pour le clone
-        this._liveElementTags = new HashSet<CardElementTag>(this.ElementTags);
+        // On crée une nouvelle instance de SortedSet pour le clone
+        this._liveElementTags = new SortedSet<CardElementTag>(this.ElementTags);
     }
     
     //should make description of downgraded card still work
@@ -174,8 +174,9 @@ public static class ElementHistoryUtils
             // 2. CAS : Carte jouée par MOI
             if (playedCard.Owner == owner)
             {
+                var elementStatus = owner.Creature.GetElementalStatus();
                 // Si elle est dans le cache (Attune/Shift), on utilise les tags figés
-                if (NeutralCard.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
+                if (elementStatus.PlayedElementsCache.TryGetValue(e.CardPlay, out var frozenTags))
                 {
                     return frozenTags.TagsCountAsElement(element, owner.Creature);
                 }

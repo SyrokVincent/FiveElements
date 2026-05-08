@@ -96,8 +96,9 @@ public sealed class FireBall() : FireCard(10,
         // On vérifie si la carte jouée était du Feu au moment de son exécution
         bool wasFire = false;
     
+        var elementStatus = Owner.Creature.GetElementalStatus();
         // On regarde dans le cache qu'on a mis en place pour le Shift/Attune
-        if (NeutralCard.PlayedElementsCache.TryGetValue(cardPlay, out var frozenTags))
+        if (elementStatus.PlayedElementsCache.TryGetValue(cardPlay, out var frozenTags))
         {
             // On utilise l'extension de tags pour inclure SpiritsForm
             wasFire = frozenTags.TagsCountAsElement(CardElementTag.Fire, Owner.Creature);

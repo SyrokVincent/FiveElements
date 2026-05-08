@@ -24,7 +24,7 @@ public sealed class NeutralRelic() : FiveElementsRelic
     
     
     // On stocke les éléments déjà joués ce tour pour éviter les doublons
-    private readonly HashSet<CardElementTag> _elementsPlayedThisTurn = new();
+    private readonly SortedSet<CardElementTag> _elementsPlayedThisTurn = new();
     private int _activationsThisTurn;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
@@ -67,9 +67,10 @@ public sealed class NeutralRelic() : FiveElementsRelic
         if (ActivationsThisTurn >= 1 || cardPlay.Card.Owner != Owner || !CombatManager.Instance.IsInProgress)
             return;
 
+        var elementStatus = Owner.Creature.GetElementalStatus();
         // 1. On cherche d'abord si la carte a stocké ses tags au moment du OnPlay (avant le Shift/Attune)
         //je comprend pas trop pourquoi les carte avec shift change d'element la... (c'est car la relic est apres la starter relic qui gere echo? et les pouvoir marche sans ça car il trigger avant les relic ?)
-        if (cardPlay.Card is NeutralCard && NeutralCard.PlayedElementsCache.TryGetValue(cardPlay, out var capturedTags))
+        if (cardPlay.Card is NeutralCard && elementStatus.PlayedElementsCache.TryGetValue(cardPlay, out var capturedTags))
         {
             // On utilise notre extension TagsCountAsElement pour gérer SpiritsForm 
             // sur les tags qui étaient présents à ce moment-là.

@@ -43,7 +43,8 @@ public sealed class WoodRelic() : FiveElementsRelic
     {
         // On vérifie si la carte jouée possède l'élément Wood
 
-        if (cardPlay.Card is NeutralCard && NeutralCard.PlayedElementsCache.TryGetValue(cardPlay, out var capturedTags))
+        var elementStatus = Owner.Creature.GetElementalStatus();
+        if (cardPlay.Card is NeutralCard && elementStatus.PlayedElementsCache.TryGetValue(cardPlay, out var capturedTags))
         {
             if (capturedTags.TagsCountAsElement(CardElementTag.Wood, Owner.Creature))
             {

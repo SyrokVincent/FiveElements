@@ -51,7 +51,7 @@ public sealed class WaterCanon() : WaterCard(2,
 
             // Exécute l'attaque et récupère les dégâts totaux (blocked + unblocked)
             var attackResult = await CommonActions.CardAttack(this, play.Target).Execute(choiceContext);
-            decimal totalDamage = attackResult.Results.Sum(r => r.TotalDamage);
+            decimal totalDamage = attackResult.Results.SelectMany(r => r).Sum(r => r.TotalDamage);
 
             // Gain wave based on damge dealt
             await CommonActions.ApplySelf<WavePower>(choiceContext,this, totalDamage);

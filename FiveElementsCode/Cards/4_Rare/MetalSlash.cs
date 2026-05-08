@@ -102,7 +102,7 @@ public sealed class MetalSlash() : MetalCard(1,
             .Execute(choiceContext);
 
         // Si Fatal + Métal Actif
-        if (canTriggerFatal && metalIsActive && attack.Results.Any(r => r.WasTargetKilled))
+        if (canTriggerFatal && metalIsActive && attack.Results.SelectMany(r => r).Any(r => r.WasTargetKilled))
         {
             // On récupère les cartes du Deck (PileType.Deck)
             var upgradableCards = Owner.Deck.Cards.Where(c => c.IsUpgradable).ToList();

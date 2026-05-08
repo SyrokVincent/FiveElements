@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clg8yi18sp3c1"
-path="res://.godot/imported/water_formation.png-aaa16dfbd9188e8ab6b168e003a1f868.ctex"
+uid="uid://201mt7xsj016"
+path="res://.godot/imported/mind_and_body_attunement.png-4c5043638391b02289788c470a398adf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FiveElements/images/card_portraits/big/water_formation.png"
-dest_files=["res://.godot/imported/water_formation.png-aaa16dfbd9188e8ab6b168e003a1f868.ctex"]
+source_file="res://FiveElements/images/card_portraits/mind_and_body_attunement.png"
+dest_files=["res://.godot/imported/mind_and_body_attunement.png-4c5043638391b02289788c470a398adf.ctex"]
 
 [params]
 

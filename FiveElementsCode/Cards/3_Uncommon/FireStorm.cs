@@ -56,9 +56,9 @@ public sealed class FireStorm() : FireCard(2,
 
     //this shit is called before onplay
     //change the pile to exhaust if fire is active
-    protected override PileType GetResultPileType()
+    protected override PileType GetResultPileTypeForCardPlay()
     {
-        PileType resultPileType = base.GetResultPileType();
+        PileType resultPileType = base.GetResultPileTypeForCardPlay();
         return (CardElementTag.Fire.IsActive(Owner.Creature)) ? PileType.Exhaust : resultPileType;
     }
 
@@ -142,8 +142,9 @@ public sealed class FireStorm() : FireCard(2,
         // 3. Vérification de l'élément FEU via le cache
         bool wasFire = false;
     
+        var elementStatus = Owner.Creature.GetElementalStatus();
         // On vérifie d'abord dans le cache des tags figés
-        if (NeutralCard.PlayedElementsCache.TryGetValue(lastEntry.CardPlay, out var frozenTags))
+        if (elementStatus.PlayedElementsCache.TryGetValue(lastEntry.CardPlay, out var frozenTags))
         {
             wasFire = frozenTags.TagsCountAsElement(CardElementTag.Fire, Owner.Creature);
         }

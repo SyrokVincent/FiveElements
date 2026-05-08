@@ -120,17 +120,18 @@ public sealed class EarthPlate() : EarthCard(1,
         DynamicVars["BlockIncrease"].UpgradeValueBy(1);
     }
     
-    public override async Task AfterCardRetained(CardModel card)
+    public override async Task AfterFlush(PlayerChoiceContext choiceContext, Player player, IReadOnlyCollection<CardModel> flushedCards,
+        IReadOnlyCollection<CardModel> retainedCards)
     {
-        if (card == this)
+        await base.AfterFlush(choiceContext, player, flushedCards, retainedCards);
+        
+        if (retainedCards.Contains(this))
         {
             var increaseAmount = DynamicVars["BlockIncrease"].BaseValue;
 
             DynamicVars.Block.BaseValue += increaseAmount;
             ExtraBlockFromRetains += increaseAmount;
         }
-
-        await Task.CompletedTask;
     }
 
     protected override void AfterDowngraded()
