@@ -131,6 +131,8 @@
             <BaseLibFiles Include="$(NuGetPackageRoot)/alchyr.sts2.baselib/**/lib/**/BaseLib.dll;$(NuGetPackageRoot)/alchyr.sts2.baselib/**/Content/BaseLib.pck;$(NuGetPackageRoot)/alchyr.sts2.baselib/**/Content/BaseLib.json;"/>
         </ItemGroup>
         <Copy SourceFiles="@(BaseLibFiles)" DestinationFolder="$(ModsPath)BaseLib/"/>
+        <!-- I added this for trying to adding debuger -->
+        <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
     </Target>
 
     <Target Name="GodotPublish" AfterTargets="Publish" Condition="'$(GodotPath)' != '' and Exists('$(GodotPath)') and '$(IsInnerGodotExport)' != 'true'">

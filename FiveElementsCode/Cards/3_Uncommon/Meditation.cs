@@ -16,8 +16,8 @@ public sealed class Meditation() : NeutralCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-
-
+    public override bool GainsBlock => false;
+    
     //(old)Select 1 element card, gain it's essence and draw 3+1
     //
     //(new) Draw 1, Select 1 element card, trigger the corresponding effect on the card Activation, 
