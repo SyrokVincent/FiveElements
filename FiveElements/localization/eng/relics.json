@@ -29,7 +29,7 @@
   "FIVEELEMENTS-WOOD_RELIC.flavor": "",
   "FIVEELEMENTS-WOOD_RELIC.title": "Wood Relic",
 
-  "FIVEELEMENTS-FIRE_RELIC.description": "At the start of each combat, add [blue]{Cards}[/blue] [gold]Fire Plume[/gold] into your hand.",
+  "FIVEELEMENTS-FIRE_RELIC.description": "At the start of each combat, add [blue]{Cards}[/blue] [gold]Fire Plume[/gold] into your hand.\nIncrease [gold]Incandescence[/gold] by 1.",
   "FIVEELEMENTS-FIRE_RELIC.flavor": "",
   "FIVEELEMENTS-FIRE_RELIC.title": "Fire Relic",
 

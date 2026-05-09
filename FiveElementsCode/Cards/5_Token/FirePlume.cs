@@ -1,17 +1,22 @@
-﻿using BaseLib.Utils;
+﻿using BaseLib.Cards.Variables;
+using BaseLib.Utils;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
+using FiveElements.FiveElementsCode.Relics;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Cards._5_Token;
+
 
 [Pool(typeof(TokenCardPool))]
 public sealed class FirePlume() : FireCard(0,
@@ -26,7 +31,13 @@ public sealed class FirePlume() : FireCard(0,
     // now deal 2 heat damage
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new PowerVar<BurnPower>(1),
+        new DynamicVar("IncandescenceBase",1),
+        new DynamicVar("IncandescenceExtra",1),
+        new CustomCalculatedVar("Incandescence").WithMultiplier((CardModel card, Creature? _) => 
+             card.Owner?.Relics != null && card.Owner.Relics.Any(r => r is FireRelic)?1:0),
+
+        //new PowerVar<BurnPower>((Owner?.Relics != null && Owner.Relics.Any(r => r is FireRelic))?2:1),
+        
         new CalculationBaseVar(2),
         new ExtraDamageVar(1),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => 
@@ -60,8 +71,8 @@ public sealed class FirePlume() : FireCard(0,
 
     protected override void OnUpgrade()
     {
+        DynamicVars["IncandescenceBase"].UpgradeValueBy(1);
         DynamicVars.CalculationBase.UpgradeValueBy(1);
-        DynamicVars["BurnPower"].UpgradeValueBy(1);
     }
     
     
@@ -73,7 +84,7 @@ public sealed class FirePlume() : FireCard(0,
         if (CombatState != null && PileType.Hand.GetPile(Owner).Cards.Contains(this))
             foreach (var hittableEnemy in CombatState.HittableEnemies)
             {
-                await CommonActions.Apply<BurnPower>(choiceContext, hittableEnemy, this, DynamicVars["BurnPower"].BaseValue);
+                await CommonActions.Apply<BurnPower>(choiceContext, hittableEnemy, this, DynamicVars["Incandescence"].PreviewValue);
             }
     }
     

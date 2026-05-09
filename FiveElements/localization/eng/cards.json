@@ -257,7 +257,7 @@
   "FIVEELEMENTS-WATER_DROP.description": "{isWaterOn:cond:>0?{water_s}Water{water_e} : Gain {Energy:energyIcons()}.|{off_s}Water : Gain {Energy:energyIcons()}.{off_e}}",
   "FIVEELEMENTS-WATER_DROP.title": "Water Drop",
   
-  "FIVEELEMENTS-FIRE_PLUME.description": "[gold]Incandescence[/gold] {BurnPower:diff()}.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deal {CalculatedDamage:diff()} [gold]Heat[/gold] damage. Deals {ExtraDamage:diff()} additional damage for each {fire_s}Fire{fire_e} card played this turn.|{off_s}Fire : Deal {CalculatedDamage:diff()} Heat damage. Deals {ExtraDamage:diff()} additional damage for each Fire card played this turn.{off_e}}",
+  "FIVEELEMENTS-FIRE_PLUME.description": "[gold]Incandescence[/gold] {Incandescence:diff()}.\n{isFireOn:cond:>0?{fire_s}Fire{fire_e} : Deal {CalculatedDamage:diff()} [gold]Heat[/gold] damage. Deals {ExtraDamage:diff()} additional damage for each {fire_s}Fire{fire_e} card played this turn.|{off_s}Fire : Deal {CalculatedDamage:diff()} Heat damage. Deals {ExtraDamage:diff()} additional damage for each Fire card played this turn.{off_e}}",
   "FIVEELEMENTS-FIRE_PLUME.title": "Fire Plume",
   
   "FIVEELEMENTS-EARTH_WARRIOR.description": "Gain {CalculatedBlock:diff()} [gold]Block[/gold].\nGains {CalculationExtra:diff()} additional [gold]Block[/gold] for each [gold]Earth Warrior[/gold] in your deck.\n{isEarthOn:cond:>0?{earth_s}Earth{earth_e} : Gain {ThornsPower:diff()} [gold]Thorns[/gold] for each [gold]Earth Warrior[/gold] in your [gold]Hand[/gold].|{off_s}Earth : Gain {ThornsPower:diff()} Thorns for each Earth Warrior in your Hand.{off_e}}",

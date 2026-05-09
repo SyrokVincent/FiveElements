@@ -14,16 +14,18 @@ namespace FiveElements.FiveElementsCode.Relics;
 [Pool(typeof(FiveElementsRelicPool))]
 public sealed class FireRelic() : FiveElementsRelic
 {
-    //At start of combat add 3 fire plume in hand
+    //At start of combat add 2 fire plume in hand
+    // added increase Fire Plume Incandescence by 1, and give fireplume+
     public override RelicRarity Rarity => RelicRarity.Rare;
     
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        new CardsVar(3),
+        new CardsVar(2),
     ]);
 
  
     protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Concat([
-        HoverTipFactory.FromCard<FirePlume>(),
+        HoverTipFactory.FromCard<FirePlume>(true),
+        HoverTipFactory.FromKeyword(FiveElementsKeywords.Incandescence),
     ]); 
     
 
@@ -36,7 +38,7 @@ public sealed class FireRelic() : FiveElementsRelic
         {
             Flash();
             //ajout des carte
-            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,false, Owner.Creature);
+            await FiveElementsCardExtensions.CreateInHand<FirePlume>(Owner, DynamicVars.Cards.IntValue,true, Owner.Creature);
             await Task.CompletedTask;
         }
     }
