@@ -11,13 +11,15 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace FiveElements.FiveElementsCode.Powers;
 
   
-public sealed class WaveEndTargetPower : WaveTargetPower
+public sealed class WaveStartTargetPower : WaveTargetPower
 {
+
     public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side != CombatSide.Player) return;
         await ProcessWaveEffect(combatState);
     }
+    
     
     public override IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(HealthBarForecastContext context)
     {
@@ -27,7 +29,8 @@ public sealed class WaveEndTargetPower : WaveTargetPower
             amount: Amount,
             color: new Color("#1E90FF"),
             direction: HealthBarForecastDirection.FromLeft,
-            order: 1 //I think there is a bug with this, whatever the number it always superpose with doom
+            order: 0 //I think there is a bug with this, whatever the number it always superpose with doom
         );
     }
+    
 }

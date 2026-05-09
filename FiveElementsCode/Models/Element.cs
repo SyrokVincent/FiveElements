@@ -65,9 +65,6 @@ public class Element
     }
     
     
-    
-    
-    // Une méthode générique pour modifier n'importe quel élément
     public void AddEssence(CardElementTag elem, int amount, PlayerChoiceContext? context = null)
     {
         int current = GetEssence(elem);
@@ -85,30 +82,6 @@ public class Element
             }
         }
     }
-    
-    
-    /*
-    private static CardElementTag _elementOfEcho = CardElementTag.Neutral;
-
-    public CardElementTag ElementOfEcho
-    {
-        get => _elementOfEcho;
-        set
-        {
-            if (_elementOfEcho == value) return;
-            _elementOfEcho = value;
-
-            // Dès que l'Echo change, on prévient TOUS les éléments 
-            // car l'Echo d'un élément peut activer le suivant (ex: Métal active Eau)
-            // On fait une petite boucle pour notifier chaque élément potentiellement impacté
-            foreach (CardElementTag elem in Enum.GetValues(typeof(CardElementTag)))
-            {
-                _ = FiveElementsCardExtensions.CheckAndNotify(CombatState, elem);
-            }
-        }
-    }
-    */
-    
     
     public void ResetEssence(CardElementTag elem)
     {
@@ -154,8 +127,6 @@ public class Element
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
     
-    
-
     public bool GetLastState(CardElementTag elem) => 
         _lastStatesMemory.TryGetValue(elem, out bool val) && val;
 

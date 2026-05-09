@@ -1,18 +1,54 @@
 ﻿using BaseLib.Hooks;
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace FiveElements.FiveElementsCode.Powers;
 
   
-public sealed class WaveTargetPower : FiveElementsPower
+public abstract class WaveTargetPower : FiveElementsPower
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
     
     protected override bool IsVisibleInternal => true;
+
+    protected async Task ProcessWaveEffect(ICombatState combatState)
+    {
+        var amountToDecrease = 0;
+        var data = GetData();
+        var playersToProcess = data.PlayerMarks.ToList();
+
+        foreach (var entry in playersToProcess)
+        {
+            ulong playerNetId = entry.Key;
+            decimal markAmount = entry.Value;
+
+            if (markAmount <= 0) continue;
+
+            var playerEntity = combatState.Players.FirstOrDefault(p => p.NetId == playerNetId);
+            var wavePower = playerEntity?.Creature.GetPower<WavePower>();
+
+            if (wavePower != null)
+            {
+                // Synchronisation des réductions
+                await PowerCmd.Decrement(wavePower);
+                amountToDecrease++;
+                
+                decimal newShare = markAmount - 1;
+                SetPlayerShare(playerNetId, newShare);
+            }
+        }
+        
+        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, Amount, ValueProp.Move | ValueProp.Unpowered, null, null);
+        await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), this, - amountToDecrease,  null,  null);
+    }
+    
     
     public override IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(HealthBarForecastContext context)
     {
@@ -50,10 +86,14 @@ public sealed class WaveTargetPower : FiveElementsPower
     // Cette méthode permet de contourner le "protected" de PowerModel
     public WaveData GetData() => GetInternalData<WaveData>();
 
-    // Optionnel : Une méthode helper pour simplifier la vie de WavePower
+    
     public void SetPlayerShare(ulong netId, decimal amount)
     {
         var data = GetData();
-        data.PlayerMarks[netId] = amount;
+        if (amount <= 0) 
+            data.PlayerMarks.Remove(netId);
+        else 
+            data.PlayerMarks[netId] = amount;
     }
+    
 }

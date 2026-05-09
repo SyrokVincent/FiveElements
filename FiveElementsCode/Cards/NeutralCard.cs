@@ -182,7 +182,7 @@ public abstract class NeutralCard : FiveElementsCard
         // On vide le dictionnaire pour libérer les références CardPlay et HashSet
         // Cela garantit que le combat suivant repart sur une base propre
         var elementStatus = Owner.Creature.GetElementalStatus();
-        elementStatus.PlayedElementsCache.Clear();
+        elementStatus.ClearPlayCache();
 
         return Task.CompletedTask;
     }
