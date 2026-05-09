@@ -110,7 +110,7 @@
   "FIVEELEMENTS-WOOD_CHOP.title": "Wood Chop",
   "FIVEELEMENTS-WOOD_BARK.description": "Gain {CalculatedBlock:diff()} [gold]Block[/gold].\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : [gold]Block[/gold] of this card also scale with [gold]Strength[/gold].|{off_s}Wood : Block of this card also scale with Strength.{off_e}}",
   "FIVEELEMENTS-WOOD_BARK.title": "Wood Bark",
-  "FIVEELEMENTS-WOOD_FANGS.description": "Deal {CalculatedDamage:diff()} damage twice.\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Double damage if the enemy has [gold]Block[/gold].|{off_s}Wood : Double damage if the enemy has Block.{off_e}}",
+  "FIVEELEMENTS-WOOD_FANGS.description": "Deal {Damage:diff()} damage twice.\n{isWoodOn:cond:>0?{wood_s}Wood{wood_e} : Hit one more time.|{off_s}Wood : Hit one more time.{off_e}}",
   "FIVEELEMENTS-WOOD_FANGS.title": "Wood Fangs",
   "FIVEELEMENTS-WOOD_SPIRIT.description": "Whenever you play a {wood_s}Wood{wood_e} card, gain {WoodSpiritPower:diff()} [gold]Surge[/gold].",
   "FIVEELEMENTS-WOOD_SPIRIT.title": "Wood Spirit",

@@ -19,8 +19,11 @@ public sealed class WoodFangs() : WoodCard(1,
 
     //Deal 4x2 damage,
     //Wood:(double damage if enemy as block)
+    // rework Wood:(Hit one more time)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
         new RepeatVar(2),
+        new DamageVar(4,ValueProp.Move),
+        /*
         new CalculationBaseVar(4), // Base damage
         new ExtraDamageVar(1),    // bonus damage
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
@@ -35,7 +38,7 @@ public sealed class WoodFangs() : WoodCard(1,
             var str = card.Owner.Creature.GetPowerAmount<StrengthPower>();
             // si block on renvoie le les degat de base + la strength (doublebling damage of the card) (c'est le nombre de fois qu'on ajoute ExtraDamageVar) 
             return block > 0 ? card.DynamicVars.CalculationBase.BaseValue + str : 0;
-        })
+        })*/
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -50,18 +53,23 @@ public sealed class WoodFangs() : WoodCard(1,
         CardPlay play)
     {
         if (CombatState == null || play.Target == null) return;
-        
+        var hitCount = DynamicVars.Repeat.IntValue;
+        if (CardElementTag.Wood.IsActive(Owner.Creature))
+        {
+            hitCount += 1;
+        }
+
         // Utilisation du builder d'attaque pour gérer les rebonds
-        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
-            .WithHitCount(DynamicVars.Repeat.IntValue) // Nombre de répétitions
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(hitCount) // Nombre de répétitions
             .FromCard(this)
-            .Targeting(play.Target) // Cible des ennemis au hasard à chaque coup
+            .Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash") // Effet visuel par coup
             .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculationBase.UpgradeValueBy(2);
+        DynamicVars.CalculationBase.UpgradeValueBy(1);
     }
 }
