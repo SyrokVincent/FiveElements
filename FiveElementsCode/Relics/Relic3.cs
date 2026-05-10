@@ -180,7 +180,7 @@ public sealed class Relic3() : FiveElementsRelic
         var selectedCards = await CardSelectCmd.FromDeckGeneric(
             player,
             prefs,
-            filter: card => card is FiveElementsCard feCard && !feCard.IsElement(CardElementTag.Neutral)
+            filter: card => card.IsRemovable && card is FiveElementsCard feCard && !feCard.IsElement(CardElementTag.Neutral)
         );
 
         // 3. Récupérer la carte sélectionnée
@@ -191,7 +191,10 @@ public sealed class Relic3() : FiveElementsRelic
             this.Flash();
             MyElementTag = f.ElementTags.FirstOrDefault(); 
             DynamicVars["Element"].BaseValue = (int)MyElementTag;
-            GD.Print($"[Relic] Élément de relic3 choisi : {MyElementTag}");
+            //GD.Print($"[Relic] Élément de relic3 choisi : {MyElementTag}");
+            
+            //remove the card from the deck
+            await CardPileCmd.RemoveFromDeck(f);
         }
     }
     

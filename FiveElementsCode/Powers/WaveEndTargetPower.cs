@@ -13,10 +13,10 @@ namespace FiveElements.FiveElementsCode.Powers;
   
 public sealed class WaveEndTargetPower : WaveTargetPower
 {
-    public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
+    public override async Task BeforeTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != CombatSide.Player) return;
-        await ProcessWaveEffect(combatState);
+        await ProcessWaveEffect(CombatState);
     }
     
     public override IEnumerable<HealthBarForecastSegment> GetHealthBarForecastSegments(HealthBarForecastContext context)

@@ -9,8 +9,8 @@
   "FIVEELEMENTS-RELIC2.flavor": "",
   "FIVEELEMENTS-RELIC2.title": "Master Tome",
 
-  "FIVEELEMENTS-RELIC3.selectionScreenPrompt": "Select the [gold]Element[/gold] you want the relic to be.",
-  "FIVEELEMENTS-RELIC3.description": "{Element:cond:=0?Upon pickup, choose a card from your deck to choose the [gold]Element[/gold] of this relic.\n|}At the start of each combat gain {Element:cond:=1?[gold]Water[/gold] |=2?[gold]Wood[/gold] |=3?[gold]Fire[/gold] |=4?[gold]Earth[/gold] |=5?[gold]Metal[/gold] |the }[gold]Essence[/gold]{Element:cond:=0? of the selected [gold]Element[/gold]|}.",
+  "FIVEELEMENTS-RELIC3.selectionScreenPrompt": "Select a card to remove, the relic will gain that [gold]Element[/gold].",
+  "FIVEELEMENTS-RELIC3.description": "{Element:cond:=0?Upon pickup, choose a card from your deck to remove, the relic will gain that [gold]Element[/gold].\n|}At the start of each combat gain {Element:cond:=1?[gold]Water[/gold] |=2?[gold]Wood[/gold] |=3?[gold]Fire[/gold] |=4?[gold]Earth[/gold] |=5?[gold]Metal[/gold] |the }[gold]Essence[/gold]{Element:cond:=0? of the selected [gold]Element[/gold]|}.",
   "FIVEELEMENTS-RELIC3.flavor": "",
   "FIVEELEMENTS-RELIC3.title": "Soul",
   "ELEMENT-WATER": "Water {Title}",
@@ -21,13 +21,13 @@
 
 
 
-  "FIVEELEMENTS-WATER_RELIC.description": "Now [gold]Wave[/gold] deal damage at the end of your turn.",
+  "FIVEELEMENTS-WATER_RELIC.description": "At the start of each combat, gain {WavePower:diff()} [gold]Wave[/gold].\nNow [gold]Wave[/gold] deal damage at the end of your turn.",
   "FIVEELEMENTS-WATER_RELIC.flavor": "",
   "FIVEELEMENTS-WATER_RELIC.title": "Water Relic",
   
   "FIVEELEMENTS-WOOD_RELIC.description": "At the end of your turn, deal [blue]{Damage:diff()}[/blue] damage to a random enemy if you played a [gold]Wood[/gold] card this turn.",
   "FIVEELEMENTS-WOOD_RELIC.flavor": "",
-  "FIVEELEMENTS-WOOD_RELIC.title": "Wood Relic",
+  "FIVEELEMENTS-WOOD_RELIC.title": "Angry Flower",
 
   "FIVEELEMENTS-FIRE_RELIC.description": "At the start of each combat, add [blue]{Cards}[/blue] [gold]Fire Plume[/gold] into your hand.\nIncrease [gold]Incandescence[/gold] by 1.",
   "FIVEELEMENTS-FIRE_RELIC.flavor": "",
