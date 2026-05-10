@@ -22,30 +22,26 @@ public sealed class MetalRush() : MetalCard(1,
     //
     // new // Gain 2(3) vigor, Metal:(gain 1 vigor. Return in hand if it is the first card you play this turn.)
     //
-    // new Deal 9(12) damage, Metal:(Increase this attack damage by 25% for each metal card played this turn)
+    // new Deal 10(12) damage, Metal:(Increase this attack damage by 25%(30) for each metal card played this turn)
     protected override IEnumerable<DynamicVar> CanonicalVars => base.CanonicalVars.Concat([
-        
-        
-        new CalculationBaseVar(9), 
+        new CalculationBaseVar(10), 
         new ExtraDamageVar(1), 
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
         {
             var strength = card.Owner.Creature.GetPowerAmount<StrengthPower>();
             var vigor = card.Owner.Creature.GetPowerAmount<VigorPower>();
             var baseDmg = card.DynamicVars.CalculationBase.BaseValue + strength + vigor;
+            var percentIncrease = card.DynamicVars["PercentDamageIncreaseExtra"].BaseValue/100;
             
             var metalCardPlayed = ElementHistoryUtils.CountPlayedCardsOfElement(card.CombatState, card.Owner, CardElementTag.Metal);
 
-            return baseDmg * 0.25m * metalCardPlayed;
+            return baseDmg * percentIncrease * metalCardPlayed;
         }),
-        
-        
         
         new DynamicVar("PercentDamageIncreaseBase",0),
         new DynamicVar("PercentDamageIncreaseExtra",25m),
         new CustomCalculatedVar("PercentDamageIncrease").WithMultiplier((card, target) =>
             ElementHistoryUtils.CountPlayedCardsOfElement(card.CombatState, card.Owner, CardElementTag.Metal)),
-        
     ]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => base.CanonicalKeywords.Concat([
@@ -81,6 +77,7 @@ public sealed class MetalRush() : MetalCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculationBase.UpgradeValueBy(3);
+        DynamicVars.CalculationBase.UpgradeValueBy(2);
+        DynamicVars["PercentDamageIncreaseExtra"].UpgradeValueBy(5);
     }
 }

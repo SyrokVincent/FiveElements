@@ -220,7 +220,7 @@
   "FIVEELEMENTS-METAL_POUNCE.title": "Metal Pounce",
   "FIVEELEMENTS-METAL_CHAINS.description": "Deal {Damage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Enemy lose {StrengthLoss:diff()} [gold]Strength[/gold] this turn.|{off_s}Metal : Enemy lose {StrengthLoss:diff()} Strength this turn.{off_e}}",
   "FIVEELEMENTS-METAL_CHAINS.title": "Metal Chain", 
-  "FIVEELEMENTS-METAL_RUSH.description": "Deal {CalculatedDamage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Increase damage by [blue]25%[/blue] for each {metal_s}Metal{metal_e} card played this turn{InCombat: ({PercentDamageIncrease:diff()}%)|}.|{off_s}Metal : Increase damage by 25% for each Metal card played this turn.{off_e}}",
+  "FIVEELEMENTS-METAL_RUSH.description": "Deal {CalculatedDamage:diff()} damage.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : Increase damage by [blue]{PercentDamageIncreaseExtra:diff()}%[/blue] for each {metal_s}Metal{metal_e} card played this turn{InCombat: ({PercentDamageIncrease:diff()}%)|}.|{off_s}Metal : Increase damage by {PercentDamageIncreaseExtra:diff()}% for each Metal card played this turn.{off_e}}",
   "FIVEELEMENTS-METAL_RUSH.title": "Metal Rush",
   "FIVEELEMENTS-METAL_FORGE.description": "Gain {VigorPower:diff()} [gold]Vigor[/gold].\nReturn in hand and increase it's cost by 1 this turn.\n{isMetalOn:cond:>0?{metal_s}Metal{metal_e} : [gold]Upgrade[/gold] {UpgradeAmount:diff()} random {UpgradeAmount:plural:card|cards} in your [gold]Discard Pile[/gold].|{off_s}Metal : Upgrade {UpgradeAmount:diff()} random {UpgradeAmount:plural:card|cards} in your Discard Pile.{off_e}}",
   "FIVEELEMENTS-METAL_FORGE.title": "Metal Forge",
