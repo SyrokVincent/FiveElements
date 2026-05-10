@@ -47,6 +47,7 @@ public abstract class StarterRelicLogic : FiveElementsRelic
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
         
+        if (this.Owner != cardPlay.Card.Owner) return Task.CompletedTask;
         // 2. Snapshot des éléments de la carte AVANT qu'elle ne change
         _cardElementsBeforePlay.Clear();
         var card = cardPlay.Card;

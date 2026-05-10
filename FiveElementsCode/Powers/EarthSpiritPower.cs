@@ -60,7 +60,7 @@ public sealed class EarthSpiritPower : FiveElementsPower
             // Calcul du bonus (Gestion spécifique pour la carte EarthSpirit)
             var bonus = Amount;
             if (cardPlay.Card is EarthSpirit && cardPlay.Card.Owner.Creature == Owner) 
-                bonus -= DynamicVars["FireSpiritPower"].IntValue; 
+                bonus -= DynamicVars["EarthSpiritPower"].IntValue; 
 
             if (bonus > 0)
             {

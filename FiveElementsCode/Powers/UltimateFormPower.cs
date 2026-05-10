@@ -49,8 +49,12 @@ public sealed class UltimateFormPower : FiveElementsPower
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
+        
+        if (Owner != cardPlay.Card.Owner.Creature || Owner.Player == null) return Task.CompletedTask;
+        
         // 1. Snapshot de l'Echo global
-        _currentEchoSnapshot = Owner.GetElementalStatus().Echo;
+        // On crée une NOUVELLE instance à partir des données actuelles
+        _currentEchoSnapshot = new SortedSet<CardElementTag>(Owner.GetElementalStatus().Echo);
 
         // 2. Snapshot des éléments de la carte AVANT qu'elle ne change
         _cardElementsBeforePlay.Clear();
@@ -71,8 +75,7 @@ public sealed class UltimateFormPower : FiveElementsPower
     public override async Task AfterCardPlayedLate(PlayerChoiceContext context, CardPlay cardPlay)
     {
         // Sécurité de base
-        if (Owner != cardPlay.Card.Owner.Creature || Owner.Player == null) 
-            return;
+        if (Owner != cardPlay.Card.Owner.Creature || Owner.Player == null) return;
 
         
         // On utilise nos snapshots capturés dans BeforeCardPlayed
@@ -92,7 +95,7 @@ public sealed class UltimateFormPower : FiveElementsPower
 
         string strcardWas = string.Join(", ", cardWas);
         string strsnapshotEcho = string.Join(", ", snapshotEcho);
-        GD.Print($"DEBUG: ultimateform elemOfCardPlay=[{elemOfCardPlay}] strcardWas={strcardWas}  strsnapshotEcho=[{strsnapshotEcho}");
+        GD.Print($"DEBUG: ultimateform elemOfCardPlay=[{elemOfCardPlay}] strcardWas={strcardWas}  strsnapshotEcho=[{strsnapshotEcho}]");
         
         var needUpgrade = false;
 

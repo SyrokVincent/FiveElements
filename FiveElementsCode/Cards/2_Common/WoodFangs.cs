@@ -69,6 +69,6 @@ public sealed class WoodFangs() : WoodCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculationBase.UpgradeValueBy(1);
+        DynamicVars.Damage.UpgradeValueBy(1);
     }
 }
