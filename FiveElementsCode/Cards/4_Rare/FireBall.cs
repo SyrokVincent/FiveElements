@@ -1,4 +1,5 @@
-﻿using FiveElements.FiveElementsCode.Enums;
+﻿using BaseLib.Extensions;
+using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Extensions;
 using FiveElements.FiveElementsCode.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -67,57 +68,45 @@ public sealed class FireBall() : FireCard(10,
         DynamicVars.CalculationBase.UpgradeValueBy(3);
         DynamicVars.ExtraDamage.UpgradeValueBy(1);
     }
-    /*
-    //fireboost logic 1
+
+    // --- Fireboost Logic 1 : Réduction par les cartes Feu jouées ---
+    private bool _shouldTrigger = false;
+    public override async Task BeforeCardPlayed(CardPlay cardPlay)
+    {
+        // CAS A : Ma propre carte
+        if (cardPlay.Card.Owner == Owner && cardPlay.Card != this)
+        {
+            // Si c'est du feu ET que la carte ne s'épuise pas
+            if (cardPlay.Card.CountAsElement(CardElementTag.Fire, Owner.Creature) && cardPlay.ResultPile != PileType.Exhaust)
+                _shouldTrigger = true;
+        }
+    }
+
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
+        // CAS A : Ma propre carte
+        if (cardPlay.Card.Owner == Owner && cardPlay.Card != this)
+        {
+           //nothing, it's done in beforeCardPlayed instead to count card with shift correctly
+           //but still needed for the elseif
+        }
+        // CAS B : Carte alliée via le lien (BodyAttunement)
+        else if (cardPlay.Card.Owner.HasPower<MindAndBodyAttunementBodyPower>() && Owner.HasPower<MindAndBodyAttunementMindPower>())
+        {
+            // On vérifie NOTRE Echo
+            if (Owner.Creature.GetElementalStatus().Echo.Contains(CardElementTag.Fire))
+                _shouldTrigger = true;
+        }
         
-        //Only trigger if the owner of this card play a card
-        if (Owner != cardPlay.Card.Owner) 
-            return;
-        
-        //count of all fire card that don't exhaust
-        // Check if the played card is a fire element card and if it's not going to exhaust
-        if (cardPlay.Card is FiveElementsCard elementCard && elementCard.IsFire() && cardPlay.ResultPile != PileType.Exhaust)
+        // 2. Exécution de l'effet
+        if (_shouldTrigger)
         {
             this.EnergyCost.AddUntilPlayed(-1);
         }
-        await Task.CompletedTask;
-    }*/
-    
-    
-    // Fireboost Logic 1 : Réduction par les cartes Feu jouées
-    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
-    {
-        // Sécurité : Uniquement si le propriétaire joue la carte et que ce n'est pas celle-ci
-        if (Owner != cardPlay.Card.Owner || cardPlay.Card == this) 
-            return;
-
-        // On vérifie si la carte jouée était du Feu au moment de son exécution
-        bool wasFire = false;
-    
-        var elementStatus = Owner.Creature.GetElementalStatus();
-        // On regarde dans le cache qu'on a mis en place pour le Shift/Attune
-        if (elementStatus.PlayedElementsCache.TryGetValue(cardPlay, out var frozenTags))
-        {
-            // On utilise l'extension de tags pour inclure SpiritsForm
-            wasFire = frozenTags.TagsCountAsElement(CardElementTag.Fire, Owner.Creature);
-        }
-        else
-        {
-            // Fallback pour les cartes classiques
-            wasFire = cardPlay.Card.CountAsElement(CardElementTag.Fire, Owner.Creature);
-        }
-
-        // Si c'était du feu ET que la carte ne s'épuise pas
-        if (wasFire && cardPlay.ResultPile != PileType.Exhaust)
-        {
-            this.EnergyCost.AddUntilPlayed(-1);
-        }
-        await Task.CompletedTask;
+        _shouldTrigger = false;
     }
     
-    
+    //todo should card exhausted by ally with body attuned count ???
     //fireboost logic 2
     public override async Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
     {
@@ -129,8 +118,4 @@ public sealed class FireBall() : FireCard(10,
         
         await Task.CompletedTask;
     }
-    
-    
-
-    
 }
