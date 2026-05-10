@@ -5,10 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using Godot;
-using BaseLib.Extensions;
 using BaseLib.Utils;
-using FiveElements.FiveElementsCode.Extensions;
 
 namespace FiveElements.FiveElementsCode.Potions;
 

@@ -1,11 +1,8 @@
 ﻿using HarmonyLib;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using FiveElements.FiveElementsCode.Cards._1_Basic;
 using FiveElements.FiveElementsCode.Cards._6_Ancient;
 using FiveElements.FiveElementsCode.Enums;
-using System.Collections.Generic;
-using System.Linq;
 using FiveElements.FiveElementsCode.Extensions;
 using MegaCrit.Sts2.Core.Models;
 

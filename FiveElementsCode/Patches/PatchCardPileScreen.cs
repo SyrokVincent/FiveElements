@@ -1,7 +1,6 @@
 ﻿using FiveElements.FiveElementsCode.Cards;
 using Godot;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 
 namespace FiveElements.FiveElementsCode.Patches;

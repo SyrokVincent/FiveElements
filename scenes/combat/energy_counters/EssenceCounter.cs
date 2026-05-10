@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using BaseLib.Utils;
 using FiveElements.FiveElementsCode;
 using FiveElements.FiveElementsCode.Cards;
 using FiveElements.FiveElementsCode.Powers;

@@ -9,9 +9,6 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
-using Godot;
-using BaseLib.Extensions;
-using FiveElements.FiveElementsCode.Extensions;
 
 namespace FiveElements.FiveElementsCode.Potions;
 

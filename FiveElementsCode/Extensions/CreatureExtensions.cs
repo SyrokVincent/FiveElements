@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using FiveElements.FiveElementsCode.Enums;
 using FiveElements.FiveElementsCode.Models;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 
 namespace FiveElements.FiveElementsCode.Extensions;
