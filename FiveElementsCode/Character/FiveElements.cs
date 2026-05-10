@@ -80,6 +80,10 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
+            finalDeck.Add(ModelDb.Card<MetalRush>());
+            finalDeck.Add(ModelDb.Card<MetalRush>());
+            finalDeck.Add(ModelDb.Card<MetalForge>());
+            finalDeck.Add(ModelDb.Card<MetalForge>());
             
             
             /*
@@ -171,8 +175,8 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.Add(ModelDb.Card<MetalSpirit>());     //done
             finalDeck.Add(ModelDb.Card<MetalPounce>());     //done
             finalDeck.Add(ModelDb.Card<MetalChains>());     //done
-            finalDeck.Add(ModelDb.Card<MetalRush>());       //done don't like it too much need better and less forced metal essence payof
-            finalDeck.Add(ModelDb.Card<MetalForge>());      //done
+            finalDeck.Add(ModelDb.Card<MetalRush>());       //done //value need testing
+            finalDeck.Add(ModelDb.Card<MetalForge>());      //done //could also increase other number, not just cost ?
             finalDeck.Add(ModelDb.Card<MetalEdge>());       //done
             finalDeck.Add(ModelDb.Card<MetalMettle>());     //done
             finalDeck.Add(ModelDb.Card<MetalSlash>());      //done
