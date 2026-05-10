@@ -75,10 +75,6 @@ public class FiveElements : PlaceholderCharacterModel
             finalDeck.AddRange(rotatedStrike);
             finalDeck.AddRange(rotatedDefend);
             finalDeck.Add(ModelDb.Card<Activation>());
-            finalDeck.Add(ModelDb.Card<MetalRush>());
-            finalDeck.Add(ModelDb.Card<MetalRush>());
-            finalDeck.Add(ModelDb.Card<MetalForge>());
-            finalDeck.Add(ModelDb.Card<MetalForge>());
             
             
             /*
